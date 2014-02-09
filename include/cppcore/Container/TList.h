@@ -293,7 +293,7 @@ T &TList<T>::front() const {
 template<class T>
 inline
 T &TList<T>::back() const {
-	ce_assert( NULL != m_pLast );
+	assert( nullptr != m_pLast );
 
 	return ( m_pLast->m_Item );
 }
