@@ -442,7 +442,7 @@ template<class T>
 inline
 void TArray<T>::clear() {
 	delete [] m_pData;
-	m_pData = NULL;
+	m_pData = nullptr;
 	m_Size = 0;
 	m_Capacity = 0;
 }
@@ -488,7 +488,7 @@ TArray<T> &TArray<T>::operator = ( const TArray<T> &rOther ) {
 
 	resize( rOther.size() );
 	if ( !rOther.isEmpty() ) {
-		ce_assert( NULL != rOther.m_pData );
+		assert( nullptr != rOther.m_pData );
 		if ( m_pData ) {
 			for ( ui32 i=0; i<rOther.size(); ++i ) {
 				m_pData[ i ] = rOther.m_pData[ i ];
