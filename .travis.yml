@@ -11,7 +11,7 @@ compiler:
   - gcc
   - clang
 
-script: cmake -G "Unix Makefiles" && make
+script: cd build && cmake -G "Unix Makefiles" && make
 
 
 
