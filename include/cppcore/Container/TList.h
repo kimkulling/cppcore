@@ -377,7 +377,7 @@ TList<T> &TList<T>::operator = ( const TList<T> &rhs ) {
 	}
 
 	clear();
-	for ( Iterator it = rOther.begin(); it != rOther.end(); ++it ) {
+	for ( Iterator it = rOther.begin(); it != rhs.end(); ++it ) {
 		addBack( *it );
 	}
 	
@@ -450,7 +450,7 @@ TList<T>::Iterator::Iterator( Node *pNode )
 template<class T>
 inline
 TList<T>::Iterator::Iterator( const Iterator &rhs )
-: m_pNode( rOther.m_pNode ) {
+: m_pNode( rhs.m_pNode ) {
 	// empty
 }
 
