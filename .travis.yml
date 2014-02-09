@@ -1,0 +1,17 @@
+before_install:
+  - sudo apt-get install cmake
+
+env:
+  - TRAVIS_NO_EXPORT=YES
+  - TRAVIS_NO_EXPORT=NO
+
+language: cpp
+
+compiler:
+  - gcc
+  - clang
+
+script: cmake -G "Unix Makefiles" && make
+
+
+
