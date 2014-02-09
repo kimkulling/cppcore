@@ -543,6 +543,7 @@ T *TList<T>::Iterator::operator->() const {
 }
 
 //-------------------------------------------------------------------------------------------------
+template<class T>
 inline
 T &TList<T>::Iterator::operator*() const {
 	assert( nullptr != m_pNode );
