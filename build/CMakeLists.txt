@@ -6,6 +6,10 @@ SET ( CPPCORE_VERSION_PATCH 0 )
 SET ( CPPCORE_VERSION ${CPPCORE_VERSION_MAJOR}.${CPPCORE_VERSION_MINOR}.${CPPCORE_VERSION_PATCH} )
 SET ( PROJECT_VERSION "${CPPCORE_VERSION}" )
 
+if( CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX )
+    option(gtest_disable_pthreads "Disable uses of pthreads in gtest." OFF)
+endif()
+
 add_definitions( -DCPPCORE_BUILD )
 add_definitions( -D_VARIADIC_MAX=10 )
 
