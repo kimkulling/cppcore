@@ -7,7 +7,7 @@ SET ( CPPCORE_VERSION ${CPPCORE_VERSION_MAJOR}.${CPPCORE_VERSION_MINOR}.${CPPCOR
 SET ( PROJECT_VERSION "${CPPCORE_VERSION}" )
 
 if( CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX )
-    option(gtest_disable_pthreads "Disable uses of pthreads in gtest." ON)
+    find_package(Threads)
 endif()
 
 add_definitions( -DCPPCORE_BUILD )
@@ -101,4 +101,4 @@ ADD_EXECUTABLE( cppcore_test
     ${cppcore_container_test_src}
 )
 
-target_link_libraries( cppcore_test cppcore )
+target_link_libraries( cppcore_test cppcore ${CMAKE_THREAD_LIBS_INIT} )
