@@ -39,6 +39,8 @@ namespace CPPCore {
 #  else
 #    define DLL_CPPCORE_EXPORT TAG_DLL_IMPORT
 #  endif
+#else
+#  define DLL_CPPCORE_EXPORT
 #endif
 }
 
