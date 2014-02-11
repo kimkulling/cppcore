@@ -11,10 +11,10 @@ Depending on your operation system CMake will generate a build environment for y
 
 Common stuff:
 -------------
-CString - Simple string implementation
-Variant - Implements a variant to deal with arbitrary data type.
+- CString  Simple string implementation
+- Variant  Implements a variant to deal with arbitrary data type.
 
 Container:
 ----------
-TArray  - a simple dynamic array.
-TList   - A double linked list.
+- TArray  A simple dynamic array.
+- TList   A double linked list.
