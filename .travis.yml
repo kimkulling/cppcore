@@ -9,7 +9,6 @@ language: cpp
 
 compiler:
   - gcc
-  - clang
 
 script: cd build && cmake -G "Unix Makefiles" && make
 
