@@ -18,3 +18,4 @@ Container:
 ----------
 - TArray  A simple dynamic array.
 - TList   A double linked list.
+- TQueue  A simple queue.
