@@ -1,3 +1,27 @@
+/*
+-------------------------------------------------------------------------------------------------
+The MIT License (MIT)
+
+Copyright (c) 2014 Kim Kulling
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-------------------------------------------------------------------------------------------------
+*/
 #pragma once
 #ifndef CPPCORE_COMMON_TSTRINGBASE_H_INC
 #define CPPCORE_COMMON_TSTRINGBASE_H_INC
@@ -8,18 +32,21 @@
 
 namespace CPPCore {
 
+//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 T *alloc( ui32 size ) {
     return new T[ size ];
 }
 
+//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 void dealloc( T *ptr ) {
     delete [] ptr;
 }
 
+//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 static ui32 countChars( T *ptr ) {
@@ -30,13 +57,28 @@ static ui32 countChars( T *ptr ) {
     }
 }
 
-
+//-------------------------------------------------------------------------------------------------
+///	@class		TStringBase
+///	@ingroup    CPPCore
+///
+///	@brief  This class is used to describe the inner data of a string.
+//-------------------------------------------------------------------------------------------------
 template<class T>
 class DLL_CPPCORE_EXPORT TStringBase {
 public:
+    /// @brief  The default class constructor.
     TStringBase();
+
+    /// @brief  The class constructor with a pointer showing to the data buffer.
+    /// @param  pPtr        [in] The data buffer.
     TStringBase( const T *pPtr );
+
+    /// @brief  The class destructor.
     ~TStringBase();
+
+    /// @brief  Helper method to copy data into the string.
+    /// @param  base        [inout] The string data to copy in.
+    /// @param  pPtr        [in] The data source.
     static void copyFrom( TStringBase<T> &base, const T *pPtr );
 
     T *m_pStringBuffer;
@@ -44,6 +86,7 @@ public:
     ui32 m_capacity;
 };
 
+//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 TStringBase<T>::TStringBase()
@@ -53,6 +96,7 @@ TStringBase<T>::TStringBase()
     // empty
 }
 
+//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 TStringBase<T>::TStringBase( const T *pPtr ) 
@@ -62,6 +106,7 @@ TStringBase<T>::TStringBase( const T *pPtr )
     copyFrom( *this, pPtr );
 }
 
+//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 TStringBase<T>::~TStringBase() {
@@ -71,6 +116,7 @@ TStringBase<T>::~TStringBase() {
     }
 }
 
+//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 void TStringBase<T>::copyFrom( TStringBase<T> &base, const T *pPtr ) {
@@ -85,6 +131,8 @@ void TStringBase<T>::copyFrom( TStringBase<T> &base, const T *pPtr ) {
     }
 }
 
-}
+//-------------------------------------------------------------------------------------------------
+
+} // Namespace CPPCore
 
 #endif // CPPCORE_COMMON_TSTRINGBASE_H_INC
