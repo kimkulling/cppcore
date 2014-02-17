@@ -77,6 +77,8 @@ private:
     TStringBase<c8> m_string;
 };
 
+//-------------------------------------------------------------------------------------------------
+
 } // Namespace CPPCore
 
 #endif // CPPCORE_STRING_H_INC
