@@ -64,7 +64,7 @@ static ui32 countChars( T *ptr ) {
 ///	@brief  This class is used to describe the inner data of a string.
 //-------------------------------------------------------------------------------------------------
 template<class T>
-class DLL_CPPCORE_EXPORT TStringBase {
+class TStringBase {
 public:
     /// @brief  The default class constructor.
     TStringBase();

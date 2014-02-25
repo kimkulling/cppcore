@@ -55,17 +55,20 @@ namespace CPPCore {
     ///	The data type double, 8 byte long.
     typedef double d32;
 
+
 #ifdef _WIN32
-#  define TAG_DLL_EXPORT __declspec(dllexport)
-#  define TAG_DLL_IMPORT __declspec(dllimport )
-#  ifdef CPPCORE_BUILD
-#    define DLL_CPPCORE_EXPORT TAG_DLL_EXPORT
-#  else
-#    define DLL_CPPCORE_EXPORT TAG_DLL_IMPORT
-#  endif
+#   define TAG_DLL_EXPORT __declspec(dllexport)
+#   define TAG_DLL_IMPORT __declspec(dllimport )
+#   ifdef CPPCORE_BUILD
+#       define DLL_CPPCORE_EXPORT TAG_DLL_EXPORT
+#   else
+#        define DLL_CPPCORE_EXPORT TAG_DLL_IMPORT
+#   endif
+#   pragma warning( disable : 4251 )
 #else
-#  define DLL_CPPCORE_EXPORT
+#   define DLL_CPPCORE_EXPORT
 #endif
-}
+
+} // Namespace CPPCore
 
 #endif // CPPCORE_COMMON_H_INC
