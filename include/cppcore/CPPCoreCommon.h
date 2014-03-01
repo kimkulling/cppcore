@@ -55,7 +55,6 @@ namespace CPPCore {
     ///	The data type double, 8 byte long.
     typedef double d32;
 
-
 #ifdef _WIN32
 #   define TAG_DLL_EXPORT __declspec(dllexport)
 #   define TAG_DLL_IMPORT __declspec(dllimport )

@@ -161,7 +161,7 @@ private:
 
 	Node *m_pFist;
 	Node *m_pLast;
-	ui32 m_Size;
+	ui32 m_size;
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -170,7 +170,7 @@ inline
 TList<T>::TList() 
 : m_pFist( nullptr )
 , m_pLast( nullptr )
-, m_Size( 0 ) {
+, m_size( 0 ) {
 	// empty
 }
 
@@ -180,7 +180,7 @@ inline
 TList<T>::TList( const TList<T> &rhs ) 
 : m_pFist( nullptr )
 , m_pLast( nullptr )
-, m_Size( 0 ) {
+, m_size( 0 ) {
 	copyFrom( rhs );
 }
 
@@ -216,7 +216,7 @@ void TList<T>::copyFrom( const TList<T> &rhs ) {
 		pCurrent = pCurrent->getNext();
 	}
 
-	m_Size = rhs.m_Size;
+	m_size = rhs.m_Size;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -232,7 +232,7 @@ typename TList<T>::Iterator TList<T>::addFront( const T &item ) {
 		m_pFist->setPrev( pNode );
 		m_pFist = pNode;
 	}
-	++m_Size;
+	++m_size;
 
 	return Iterator( pNode );
 }
@@ -250,7 +250,7 @@ typename TList<T>::Iterator TList<T>::addBack( const T &item ) {
 		m_pLast->setNext( pNode );
 		m_pLast = pNode;
 	}
-	++m_Size;
+	++m_size;
 
 	return Iterator( pNode );
 }
@@ -266,7 +266,7 @@ void TList<T>::removeFront() {
 
 	delete m_pFist;
 	m_pFist = pTmp;
-	--m_Size;
+	--m_size;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -277,7 +277,7 @@ void TList<T>::removeBack() {
 	pLast->setNext( nullptr );
 	delete m_pLast;
 	m_pLast = pLast;
-	--m_Size;
+	--m_size;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -302,14 +302,14 @@ T &TList<T>::back() const {
 template<class T>
 inline
 ui32 TList<T>::size() const {
-	return m_Size;
+	return m_size;
 }	
 
 //-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 bool TList<T>::isEmpty() const {
-	return ( 0 == m_Size );
+	return ( 0 == m_size );
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -329,7 +329,7 @@ void TList<T>::clear() {
 	delete m_pFist;
 	m_pFist = nullptr;
 	m_pLast = nullptr;
-	m_Size = 0;
+	m_size = 0;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -354,7 +354,7 @@ typename TList<T>::Iterator TList<T>::end() const {
 template<class T>
 inline
 bool TList<T>::operator == ( const TList<T> &rhs ) const {
-	if ( m_Size != rhs.m_Size ) {
+	if ( m_size != rhs.m_Size ) {
 		return false;
 	}
 
