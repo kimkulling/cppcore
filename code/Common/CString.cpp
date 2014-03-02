@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace CPPCore {
 
-c8 *getTrans( ui32 id ) {
+c8 *getTrans( ui32 /* id */ ) {
     return nullptr;
 }
 

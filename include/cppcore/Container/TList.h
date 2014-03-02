@@ -23,8 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------
 */
 #pragma once
-#ifndef CE_INFRASTRUCTURE_CORE_TLIST_H_INC
-#define CE_INFRASTRUCTURE_CORE_TLIST_H_INC
+#ifndef CE_CPPCORE_TLIST_H_INC
+#define CE_CPPCORE_TLIST_H_INC
 
 #include <cppcore/CPPCoreCommon.h>
 
@@ -216,7 +216,7 @@ void TList<T>::copyFrom( const TList<T> &rhs ) {
 		pCurrent = pCurrent->getNext();
 	}
 
-	m_size = rhs.m_Size;
+	m_size = rhs.m_size;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -354,7 +354,7 @@ typename TList<T>::Iterator TList<T>::end() const {
 template<class T>
 inline
 bool TList<T>::operator == ( const TList<T> &rhs ) const {
-	if ( m_size != rhs.m_Size ) {
+	if ( m_size != rhs.m_size ) {
 		return false;
 	}
 
@@ -387,11 +387,10 @@ TList<T> &TList<T>::operator = ( const TList<T> &rhs ) {
 //-------------------------------------------------------------------------------------------------
 template<class T>
 inline
-TList<T>::Node::Node( const T &rItem ) :
-	m_Item( rItem ),
-	m_pPrev( nullptr ),
-	m_pNext( nullptr )
-{
+TList<T>::Node::Node( const T &item ) 
+: m_Item( item )
+, m_pPrev( nullptr )
+, m_pNext( nullptr ) {
 	// empty
 }
 
@@ -555,4 +554,4 @@ T &TList<T>::Iterator::operator*() const {
 
 } // Namespace CPPCore
 
-#endif // CE_INFRASTRUCTURE_CORE_TLIST_H_INC
+#endif // CE_CPPCORE_TLIST_H_INC
