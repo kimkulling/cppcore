@@ -9,6 +9,8 @@ At first you have to install CMake on your loal machine. Aftr that start cmake i
 
 Depending on your operation system CMake will generate a build environment for your special platform.
 
+[![Build Status](https://travis-ci.org/kimkulling/cppcore.png)](https://travis-ci.org/kimkulling/cppcore)
+
 Common stuff:
 -------------
 - CString  Simple string implementation
