@@ -23,8 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------
 */
 #pragma once
-#ifndef CE_INFRASTRUCTURE_CORE_TARRAY_H_INC
-#define CE_INFRASTRUCTURE_CORE_TARRAY_H_INC
+#ifndef CE_CPPCORE_CONTAINER_TARRAY_H_INC
+#define CE_CPPCORE_CONTAINER_TARRAY_H_INC
 
 #include <cppcore/CPPCoreCommon.h>
 
@@ -534,4 +534,4 @@ ui32 TArray<T>::getGrowing( ui32 size ) {
 
 } // Namespace CPPCore
 
-#endif // CE_INFRASTRUCTURE_CORE_TARRAY_H_INC
+#endif // CE_CPPCORE_CONTAINER_TARRAY_H_INC
