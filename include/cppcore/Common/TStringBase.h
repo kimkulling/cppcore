@@ -35,7 +35,7 @@ namespace CPPCore {
 //-------------------------------------------------------------------------------------------------
 template<class T>
 inline
-T *alloc( ui32 size ) {
+T *alloc( unsigned int size ) {
     return new T[ size ];
 }
 
@@ -49,12 +49,12 @@ void dealloc( T *ptr ) {
 //-------------------------------------------------------------------------------------------------
 template<class T>
 inline
-static ui32 countChars( T *ptr ) {
+static unsigned int countChars( T *ptr ) {
     if ( !ptr ) {
         return 0;
-    } else {
-        return ( ::strlen( ptr ) );
     }
+        
+    return ( ::strlen( ptr ) );
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -82,8 +82,8 @@ public:
     static void copyFrom( TStringBase<T> &base, const T *pPtr );
 
     T *m_pStringBuffer;
-    ui32 m_size;
-    ui32 m_capacity;
+    size_t m_size;
+    size_t m_capacity;
 };
 
 //-------------------------------------------------------------------------------------------------

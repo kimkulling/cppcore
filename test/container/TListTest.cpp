@@ -17,11 +17,11 @@ using namespace CPPCore;
 class TListTest : public testing::Test {
 protected:
     //---------------------------------------------------------------------------------------------
-    void createList( ui32 numEntries, TList<f32> &rDataList, std::vector<f32> &rValues ) {
+    void createList( size_t numEntries, TList<float> &rDataList, std::vector<float> &rValues ) {
 		rValues.resize( 0 );
 		rDataList.clear();
-		for ( ui32 i=0; i<numEntries; ++i ) {
-			f32 value =  i*1.0f ;
+        for( size_t i = 0; i<numEntries; ++i ) {
+            float value = i*1.0f;
 			rDataList.addBack( value );
 			rValues.push_back( value );
 		}
@@ -30,14 +30,14 @@ protected:
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TListTest, constructTest) {
-	TList<f32> listTest;
+    TList<float> listTest;
 	EXPECT_TRUE( listTest.isEmpty() );
 	EXPECT_EQ( 0, listTest.size() );
 }
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TListTest, addBackTest) {
-	TList<f32> listTest;
+    TList<float> listTest;
 	listTest.addBack( 1.0f );
 	listTest.addBack( 2.0f );
 	listTest.addBack( 3.0f );
@@ -48,7 +48,7 @@ TEST_F( TListTest, addBackTest) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TListTest, addFrontTest) {
-	TList<f32> listTest;
+    TList<float> listTest;
 	listTest.addFront( 1.0f );
 	listTest.addFront( 2.0f );
 	listTest.addFront( 3.0f );
@@ -59,32 +59,32 @@ TEST_F( TListTest, addFrontTest) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TListTest, copyTest ) {
-	TList<f32> listTest;
-	TList<f32> copyTest1( listTest );
+    TList<float> listTest;
+    TList<float> copyTest1( listTest );
 	EXPECT_TRUE( copyTest1.isEmpty() );
 	EXPECT_EQ( 0, copyTest1.size() );
 
 	listTest.addBack( 1.0f );
 	listTest.addBack( 2.0f );
-	TList<f32> copyTest2( listTest );
+    TList<float> copyTest2( listTest );
 	EXPECT_TRUE( !copyTest2.isEmpty() );
 	EXPECT_EQ( 2, copyTest2.size() );
 }
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TListTest, accessTest ) {
-	const ui32 numEntries = 10;
-	TList<f32> listTest;
-	std::vector<f32> values;
+	const size_t numEntries = 10;
+    TList<float> listTest;
+    std::vector<float> values;
 	createList( numEntries, listTest, values );
 
 	EXPECT_EQ( numEntries, listTest.size() );
 	EXPECT_TRUE( !listTest.isEmpty() ); 
 
-	ui32 dataIdx = 0;
-	for ( TList<f32>::Iterator it = listTest.begin(); it != listTest.end(); ++it ) {
-		f32 listVal = *it;
-		f32 orig = values[ dataIdx ];
+	size_t dataIdx = 0;
+    for( TList<float>::Iterator it = listTest.begin( ); it != listTest.end( ); ++it ) {
+        float listVal = *it;
+        float orig = values[ dataIdx ];
 		EXPECT_EQ( listVal, orig );
 		++dataIdx;
 	}
@@ -92,9 +92,9 @@ TEST_F( TListTest, accessTest ) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TListTest, clearTest ) {
-	const ui32 numEntries = 10;
-	TList<f32> listTest;
-	std::vector<f32> values;
+	const size_t numEntries = 10;
+    TList<float> listTest;
+    std::vector<float> values;
 	createList( numEntries, listTest, values );
 
 	listTest.clear();
@@ -104,14 +104,14 @@ TEST_F( TListTest, clearTest ) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TListTest, removeTest )	{
-	const ui32 numEntries = 10;
-	TList<f32> listTest;
-	std::vector<f32> values;
+	const size_t numEntries = 10;
+    TList<float> listTest;
+    std::vector<float> values;
 
 	createList( numEntries, listTest, values );
 		
-	for ( ui32 i=0; i<numEntries; ++i ) {
-		const f32 value = listTest.front();
+	for ( size_t i=0; i<numEntries; ++i ) {
+        const float value = listTest.front( );
 		EXPECT_EQ( value, values[ i ] );
 		listTest.removeFront();
 	}
@@ -119,7 +119,7 @@ TEST_F( TListTest, removeTest )	{
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TListTest, isEmptyTest ) {
-	TList<f32> listTest;
+    TList<float> listTest;
 	EXPECT_TRUE( listTest.isEmpty() );
 	listTest.addBack( 1.0f );
 	listTest.addBack( 2.0f );
@@ -130,10 +130,10 @@ TEST_F( TListTest, isEmptyTest ) {
 	
 //---------------------------------------------------------------------------------------------
 TEST_F( TListTest, bug_IterateEmptyListTest ) {
-	TList<f32> listTest;
+    TList<float> listTest;
 	bool ok = true;
 	try {
-		for ( TList<f32>::Iterator it = listTest.begin(); it != listTest.end(); ++it );
+        for( TList<float>::Iterator it = listTest.begin( ); it != listTest.end( ); ++it );
 	} catch ( ... )	{
 		ok = false;
 	}

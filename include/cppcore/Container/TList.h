@@ -84,7 +84,7 @@ public:
 	
 	///	@brief	The number of stored items will be returned.
 	///	@return	The number of stored items.
-	ui32 size() const;
+    size_t size( ) const;
 
 	///	@brief	Returns true, if the list is empty.
 	///	@return	true, if no items are store, false if items are there.
@@ -128,11 +128,11 @@ public:
 		///	The not equal operator.
 		bool operator != ( const Iterator &rOther ) const;
 		///	The post increment operator.
-		const Iterator &operator++( i32 );
+		const Iterator &operator++( int );
 		///	The pre-increment operator.
 		Iterator &operator++();
 		///	The post decrement operator.
-		const Iterator &operator--( i32 );
+		const Iterator &operator--( int );
 		///	The pre-decrement operator.
 		Iterator &operator--();
 		///	The -> operator.
@@ -161,7 +161,7 @@ private:
 
 	Node *m_pFist;
 	Node *m_pLast;
-	ui32 m_size;
+	size_t m_size;
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -301,7 +301,7 @@ T &TList<T>::back() const {
 //-------------------------------------------------------------------------------------------------
 template<class T>
 inline
-ui32 TList<T>::size() const {
+size_t TList<T>::size( ) const {
 	return m_size;
 }	
 
@@ -490,7 +490,7 @@ bool TList<T>::Iterator::operator != ( const Iterator &rhs ) const {
 //-------------------------------------------------------------------------------------------------
 template<class T>
 inline
-const typename TList<T>::Iterator &TList<T>::Iterator::operator++( i32 ) {
+const typename TList<T>::Iterator &TList<T>::Iterator::operator++( int ) {
     assert( nullptr != m_pNode );
 
 	Iterator inst( m_pNode );
@@ -513,7 +513,7 @@ typename TList<T>::Iterator &TList<T>::Iterator::operator++() {
 //-------------------------------------------------------------------------------------------------
 template<class T>
 inline
-typename TList<T>::Iterator const &TList<T>::Iterator::operator--( i32 ) {
+typename TList<T>::Iterator const &TList<T>::Iterator::operator--( int ) {
     assert( nullptr != m_pNode );
 	Iterator inst( m_pNode );
 	m_pNode = m_pNode->getPrev();

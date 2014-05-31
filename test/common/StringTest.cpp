@@ -22,7 +22,7 @@ TEST_F( StringTest, PtrConstructor ) {
     CString str( buffer );
     EXPECT_EQ( 14, str.size() );
     EXPECT_EQ( false, str.isEmpty() );
-    i32 res( strncmp( buffer, str.c_str(), str.size() ) );
+    int res( strncmp( buffer, str.c_str(), str.size() ) );
     EXPECT_EQ( 0, res );
 }
 

@@ -35,9 +35,9 @@ TEST_F( TQueueTest, constructTest) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TQueueTest, enqueueDequeueTest ) {
-	TQueue<f32> f32Queue;
+	TQueue<float> f32Queue;
 	bool hasItems = false;
-	f32 val = 0.0f;
+    float val = 0.0f;
 
 	f32Queue.enqueue( 0.0f );
 	EXPECT_EQ( f32Queue.size(), 1 );
@@ -70,7 +70,7 @@ TEST_F( TQueueTest, enqueueDequeueTest ) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TQueueTest, sizeTest ) {
-	TQueue<f32> f32Queue;
+    TQueue<float> f32Queue;
 	EXPECT_EQ( f32Queue.size(), 0 );
 
 	f32Queue.enqueue( 0.0f );
@@ -78,7 +78,7 @@ TEST_F( TQueueTest, sizeTest ) {
 	f32Queue.enqueue( 2.0f );
 	EXPECT_EQ( f32Queue.size(), 3 );
 
-	f32 val;
+    float val;
 	bool hasItems = f32Queue.dequeue( val );
 	EXPECT_TRUE( hasItems );
 	EXPECT_EQ( val, 0.0f );
@@ -87,7 +87,7 @@ TEST_F( TQueueTest, sizeTest ) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TQueueTest, clearTest )	{
-	TQueue<f32> f32Queue;
+    TQueue<float> f32Queue;
 
 	f32Queue.enqueue( 0.0f );
 	f32Queue.enqueue( 1.0f );

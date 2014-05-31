@@ -72,7 +72,7 @@ public:
 	///	@param	type		Type enumeration.
 	///	@param	pData		Pointer to the data buffer.
 	///	@param	numItems	Size of the data buffer.
-	Variant( Type type, void *pData, ui32 numItems );
+	Variant( Type type, void *pData, size_t numItems );
 	
     /// @brief  The class constructor with a boolean value.
     /// @param  value       [in] The boolean value.
@@ -91,73 +91,73 @@ public:
 
 	///	@brief	Sets a new integer value, old values will be released and destroyed.
 	///	@param	val		[in] A new integer value.
-	void setInt( i32 val );
+	void setInt( int val );
 
 	///	@brief	Returns the integer value of the instance.
 	///	@return	The stored integer value will be returned.
-	i32 getInt() const;
+	int getInt() const;
 	
 	///	@brief	Set a new integer vector, the old data will be released and destroyed.
 	///	@param	val1	Component 1, integer.
 	///	@param	val2	Component 2, integer.
 	///	@param	val3	Component 3, integer.
-	void setInt3( i32 val1, i32 val2, i32 val3 );
+    void setInt3( int val1, int val2, int val3 );
 	
 	///	@brief	Returns a pointer to the first element of the integer vector. You can access the 2
 	///			following with the index operator for instance.
 	///	@return	Pointer to the first component of th vector array.
-	i32 *getInt3() const;
+    int *getInt3( ) const;
 
 	///	@brief	Set a new integer vector, the old data will be released and destroyed.
 	///	@param	val1	Component 1, integer.
 	///	@param	val2	Component 2, integer.
 	///	@param	val3	Component 3, integer.
 	///	@param	val4	Component 3, integer.
-	void setInt4( i32 val1, i32 val2, i32 val3, i32 val4 );
+    void setInt4( int val1, int val2, int val3, int val4 );
 
 	///	@brief	Returns a pointer to the first element of the integer vector. You can access the 3
 	///			following with the index operator for instance.
 	///	@return	Pointer to the first component of th vector array.
-	i32 *getInt4() const;
+    int *getInt4( ) const;
 
 	///	@brief	Returns the float value of the instance.
 	///	@param	val		A new float value.
-	void setFloat( f32 val );
+	void setFloat( float val );
 	
 	///	@brief	Returns the float value of the instance.
 	///	@return	The stored float value will be returned.
-	f32 getFloat() const;
+    float getFloat( ) const;
 
 	///	@brief	Set a new float vector, the old data will be released and destroyed.
 	///	@param	val1	Component 1, float.
 	///	@param	val2	Component 2, float.
 	///	@param	val3	Component 3, float.
-	void setFloat3( f32 val1, f32 val2, f32 val3 );
+    void setFloat3( float val1, float val2, float val3 );
 	
 	///	@brief	Returns a pointer to the first element of the float vector. You can access the 2
 	///			following with the index operator for instance.
 	///	@return	Pointer to the first component of th vector array.
-	f32 *getFloat3() const;
+    float *getFloat3( ) const;
 
 	///	@brief	Set a new float vector, the old data will be released and destroyed.
 	///	@param	val1	Component 1, float.
 	///	@param	val2	Component 2, float.
 	///	@param	val3	Component 3, float.
 	///	@param	val4	Component 4, float.
-	void setFloat4( f32 val1, f32 val2, f32 val3, f32 val4 );
+    void setFloat4( float val1, float val2, float val3, float val4 );
 
 	///	@brief	Returns a pointer to the first element of the float vector. You can access the 3
 	///			following with the index operator for instance.
 	///	@return	Pointer to the first component of th vector array.
-	f32 *getFloat4() const;
+    float *getFloat4( ) const;
 
 	///	@brief	Assigns a new float 4x4 item.
 	///	@param	pData	[in] A float pointer to the 4x4 buffer.
-	void setFloat4x4( f32 *pData );
+    void setFloat4x4( float *pData );
 	
 	///	@brief	Returns the pointer to the float 4x4 value.
 	///	@return	A pointer showing to the 4x4 float item.
-	f32 *getFloat4x4() const;
+    float *getFloat4x4( ) const;
 
 	///	@brief	Sets a string value.
 	///	@param	rValue	The new string value.
@@ -165,7 +165,7 @@ public:
 	
 	///	@brief	Returns a constant reference to the string value.
 	///	@return	A pointer showing to the data buffer of the string.
-	const c8 *getString() const;
+	const char *getString() const;
 
     void setBool( bool value );
     bool getBool() const;
@@ -178,12 +178,12 @@ public:
 	Variant &operator = ( const Variant &rOther );
 
 protected:
-	bool isValid( Type type, ui32 numItems ) const;
-	void reserve( Type type, ui32 size );
+	bool isValid( Type type, size_t numItems ) const;
+    void reserve( Type type, size_t size );
 
 private:
 	Type m_Type;
-	ui32 m_BufferSize;
+    size_t m_BufferSize;
 	void *m_pData;
 };
 
@@ -198,16 +198,16 @@ Variant::Variant()
 
 //-------------------------------------------------------------------------------------------------
 inline
-Variant::Variant( Type type, void *pData, ui32 numItems ) 
+Variant::Variant( Type type, void *pData, size_t numItems )
 : m_Type( None )
 , m_BufferSize( 0 )
 , m_pData( nullptr ) {
 	if ( isValid( type, numItems ) ) {
-		ui32 size = 0;
+        size_t size = 0;
 		m_Type = type;
 		if ( type == String ) {
 			assert( nullptr != pData );
-			CString str( (c8*) pData );
+			CString str( (char*) pData );
 			setString( str );
 		} else {
 			reserve( type, size );
@@ -256,26 +256,26 @@ Variant::Type Variant::getType() const {
 
 //-------------------------------------------------------------------------------------------------
 inline 
-void Variant::setInt( i32 val ) {
+void Variant::setInt( int val ) {
 	clear();
 	reserve( Int, 0 );
-	::memcpy( m_pData, &val, sizeof( i32 ) );
+    ::memcpy( m_pData, &val, sizeof( int ) );
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
-i32 Variant::getInt() const {
+int Variant::getInt( ) const {
 	assert( m_Type == Int );
 
-	return ( *reinterpret_cast<i32*>( m_pData ) );
+    return ( *reinterpret_cast<int*>( m_pData ) );
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
-void Variant::setInt3( i32 val1, i32 val2, i32 val3 ) {
+void Variant::setInt3( int val1, int val2, int val3 ) {
 	clear();
 	reserve( Int3, 0 );
-	i32 *ptr = reinterpret_cast<i32*>( m_pData );
+    int *ptr = reinterpret_cast<int*>( m_pData );
 	*ptr = val1;
 	++ptr;
 	*ptr = val2;
@@ -285,17 +285,17 @@ void Variant::setInt3( i32 val1, i32 val2, i32 val3 ) {
 
 //-------------------------------------------------------------------------------------------------
 inline 
-i32 *Variant::getInt3() const {
+int *Variant::getInt3( ) const {
 	assert( m_Type == Int3 );
-	return ( reinterpret_cast<i32*>( m_pData ) );
+    return ( reinterpret_cast<int*>( m_pData ) );
 }
 
 //-------------------------------------------------------------------------------------------------
 inline
-void Variant::setInt4( i32 val1, i32 val2, i32 val3, i32 val4 ) {	
+void Variant::setInt4( int val1, int val2, int val3, int val4 ) {
 	clear();
 	reserve( Int4, 0 );
-	i32 *ptr = reinterpret_cast<i32*>( m_pData );
+    int *ptr = reinterpret_cast<int*>( m_pData );
 	*ptr = val1;
 	++ptr;
 	*ptr = val2;
@@ -307,33 +307,33 @@ void Variant::setInt4( i32 val1, i32 val2, i32 val3, i32 val4 ) {
 
 //-------------------------------------------------------------------------------------------------
 inline 
-i32 *Variant::getInt4() const {
+int *Variant::getInt4( ) const {
 	assert( m_Type == Int4 );
 	
-	return ( reinterpret_cast<i32*>( m_pData ) );
+    return ( reinterpret_cast<int*>( m_pData ) );
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
-void Variant::setFloat( f32 val ) {
+void Variant::setFloat( float val ) {
 	clear();
 	reserve( Float, 0 );
-	::memcpy( m_pData, &val, sizeof( f32 ) );
+    ::memcpy( m_pData, &val, sizeof( float ) );
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
-f32 Variant::getFloat() const {
+float Variant::getFloat( ) const {
 	assert( m_Type == Float );
-	return ( *reinterpret_cast<f32*>( m_pData ) );
+    return ( *reinterpret_cast<float*>( m_pData ) );
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
-void Variant::setFloat3( f32 val1, f32 val2, f32 val3 ) {
+void Variant::setFloat3( float val1, float val2, float val3 ) {
 	clear();
 	reserve( Float3, 0 );
-	f32 *ptr = reinterpret_cast<f32*>( m_pData );
+    float *ptr = reinterpret_cast<float*>( m_pData );
 	*ptr = val1;
 	++ptr;
 	*ptr = val2;
@@ -344,17 +344,17 @@ void Variant::setFloat3( f32 val1, f32 val2, f32 val3 ) {
 
 //-------------------------------------------------------------------------------------------------
 inline 
-f32 *Variant::getFloat3() const {
+float *Variant::getFloat3( ) const {
     assert( m_Type == Float3 );
-	return ( reinterpret_cast<f32*>( m_pData ) );
+    return ( reinterpret_cast<float*>( m_pData ) );
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
-void Variant::setFloat4( f32 val1, f32 val2, f32 val3, f32 val4 ) {
+void Variant::setFloat4( float val1, float val2, float val3, float val4 ) {
 	clear();
 	reserve( Float4, 0 );
-	f32 *ptr = reinterpret_cast<f32*>( m_pData );
+    float *ptr = reinterpret_cast<float*>( m_pData );
 	*ptr = val1;
 	++ptr;
 	*ptr = val2;
@@ -366,24 +366,24 @@ void Variant::setFloat4( f32 val1, f32 val2, f32 val3, f32 val4 ) {
 
 //-------------------------------------------------------------------------------------------------
 inline 
-f32 *Variant::getFloat4() const {
+float *Variant::getFloat4( ) const {
 	assert( m_Type == Float4 );
-	return ( reinterpret_cast<f32*>( m_pData ) );
+    return ( reinterpret_cast<float*>( m_pData ) );
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
-void Variant::setFloat4x4( f32 *pData ) {
+void Variant::setFloat4x4( float *pData ) {
 	clear();
 	reserve( Float4x4, 0 );
-    ::memcpy( m_pData, pData, sizeof( f32 ) * 16 );
+    ::memcpy( m_pData, pData, sizeof( float ) * 16 );
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
-f32 *Variant::getFloat4x4() const {
+float *Variant::getFloat4x4( ) const {
     assert( m_Type == Float4x4 );
-    return ( reinterpret_cast<f32*>( m_pData ) );
+    return ( reinterpret_cast<float*>( m_pData ) );
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -391,22 +391,23 @@ inline
 void Variant::setString( const CString &str ) {
 	clear();
 	m_Type = String;
-    m_pData = new c8[ str.size() + 1 ];
-	memcpy( m_pData, str.c_str(), sizeof( c8 ) * str.size() );
-    c8 *ptr = (c8* ) m_pData;
+    m_pData = new char[ str.size() + 1 ];
+	memcpy( m_pData, str.c_str(), sizeof( char ) * str.size() );
+    char *ptr = (char* ) m_pData;
     ptr[ str.size() ] = '\0';
 }
 	
 //-------------------------------------------------------------------------------------------------
 inline 
-const c8 *Variant::getString() const {
+const char *Variant::getString() const {
 	assert( m_Type == String );
-    return static_cast<c8*>( m_pData );
+
+    return static_cast<char*>( m_pData );
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
-void Variant::setBool(  bool value ) {
+void Variant::setBool( bool value ) {
     clear();
     reserve( Boolean, 0 );
     ::memcpy( m_pData, &value, sizeof( bool ) );
@@ -464,7 +465,7 @@ Variant &Variant::operator = ( const Variant &rOther ) {
 
 //-------------------------------------------------------------------------------------------------
 inline 
-bool Variant::isValid( Type type, ui32 numItems ) const {
+bool Variant::isValid( Type type, size_t numItems ) const {
 	bool res = false;
 	if ( type == Int || type == Float )	{
 		if ( 1 == numItems ) {
@@ -491,29 +492,29 @@ bool Variant::isValid( Type type, ui32 numItems ) const {
 
 //-------------------------------------------------------------------------------------------------
 inline 
-void Variant::reserve( Type type, ui32 size ) {
+void Variant::reserve( Type type, size_t size ) {
 	if ( 0 == size ) {
 		if ( type == Int3 ) {
-			size = sizeof( i32 ) * 3;
+			size = sizeof( int ) * 3;
         } else if ( type == Float3 ) {
-			size = sizeof( f32 ) * 3;
+			size = sizeof( float ) * 3;
         } else if ( type == Int4 ) {
-			size = sizeof( i32 ) * 4;
+            size = sizeof( int ) * 4;
         } else if ( type == Float4 ) {
-			size = sizeof( f32 ) * 4;
+            size = sizeof( float ) * 4;
         } else if ( type == Float4x4 ) {
-			size = sizeof( f32 ) * 4 * 4;
+            size = sizeof( float ) * 4 * 4;
         } else if ( type == Int ) {
-			size = sizeof( i32 );
+            size = sizeof( int );
         } else if ( type == Float ) {
-			size = sizeof( f32 );
+            size = sizeof( float );
         } else if ( type == Boolean ) {
             size = sizeof( bool );
         }
 	}
 
 	m_BufferSize = size;
-	m_pData = new uc8[ size ];
+	m_pData = new unsigned char[ size ];
 	m_Type = type;
 }
 

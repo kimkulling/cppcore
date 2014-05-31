@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace CPPCore {
 
-c8 *getTrans( ui32 /* id */ ) {
+char *getTrans( unsigned int /* id */ ) {
     return nullptr;
 }
 
@@ -37,14 +37,14 @@ CString::CString()
     // empty
 }
 
-CString::CString( const c8 *pStr )
+CString::CString( const char *pStr )
 : m_string( pStr ) {
 
 }
 
 CString::CString( const CString &rhs )
 : m_string() {
-    TStringBase<c8>::copyFrom( m_string, rhs.c_str() );
+    TStringBase<char>::copyFrom( m_string, rhs.c_str() );
 }
 
 CString::~CString() {
@@ -55,7 +55,7 @@ bool CString::isEmpty() const {
     return ( m_string.m_size == 0 );
 }
 
-ui32 CString::size() const {
+size_t CString::size() const {
     return m_string.m_size;
 }
 
@@ -66,11 +66,11 @@ void CString::clear() {
     m_string.m_size = 0;
 }
 
-const c8* CString::c_str() const {
+const char* CString::c_str() const {
     return m_string.m_pStringBuffer;
 }
 
-c8 CString::operator [] ( ui32 idx ) const {
+char CString::operator [] ( size_t idx ) const {
     assert( idx < m_string.m_size );
 
     return m_string.m_pStringBuffer[ idx ];
@@ -98,7 +98,7 @@ CString &CString::operator = ( const CString &rhs ) {
 
     clear();
     m_string.m_size =  rhs.size() + 1;
-    m_string.m_pStringBuffer = new CPPCore::c8[ m_string.m_size ];
+    m_string.m_pStringBuffer = new char[ m_string.m_size ];
     strncpy( m_string.m_pStringBuffer, rhs.c_str(), rhs.size() );
     m_string.m_pStringBuffer[ m_string.m_size ] = '\0';
 

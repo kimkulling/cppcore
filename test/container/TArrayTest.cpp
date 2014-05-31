@@ -7,9 +7,9 @@
 
 using namespace CPPCore;
 
-static const ui32 ArraySize = 4;
+static const size_t ArraySize = 4;
 
-static const f32  ArrayData[ ArraySize ] = {
+static const float ArrayData[ ArraySize ] = {
 	0.0f,
 	1.0f,
 	2.0f,
@@ -24,8 +24,8 @@ static const f32  ArrayData[ ArraySize ] = {
 //-------------------------------------------------------------------------------------------------
 class TArrayTest : public testing::Test {
 protected:
-	void createArray( const f32 *pOrig, ui32 numItems, TArray<f32> &arrayInstance ) {
-		for ( ui32 i=0; i<numItems; ++i ) {
+    void createArray( const float *pOrig, size_t numItems, TArray<float> &arrayInstance ) {
+		for ( size_t i=0; i<numItems; ++i ) {
 			arrayInstance.add( pOrig[ i ] );
 		}
 	}
@@ -34,7 +34,7 @@ protected:
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, constructTest ) {
-	TArray<f32> arrayInstance;
+    TArray<float> arrayInstance;
 	EXPECT_EQ( true, arrayInstance.isEmpty() );
     EXPECT_EQ( 0, arrayInstance.size() );
     EXPECT_EQ( arrayInstance.begin(), arrayInstance.end() );
@@ -42,13 +42,13 @@ TEST_F( TArrayTest, constructTest ) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, constructWithSizeTest) {
-	TArray<f32> arrayInstance( 4 );
+    TArray<float> arrayInstance( 4 );
 	EXPECT_EQ( 4, arrayInstance.size() );
 }
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, addTest) {
-	TArray<f32> arrayInstance;
+    TArray<float> arrayInstance;
 	arrayInstance.add( 0.0f );
 	arrayInstance.add( 1.0f );
 
@@ -59,7 +59,7 @@ TEST_F( TArrayTest, addTest) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, accessTest) {
-	TArray<f32> arrayInstance;
+    TArray<float> arrayInstance;
 	arrayInstance.add( 0.0f );
 	arrayInstance.add( 1.0f );
 		
@@ -69,16 +69,16 @@ TEST_F( TArrayTest, accessTest) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, removeTest) {
-	TArray<f32> arrayInstance;
+    TArray<float> arrayInstance;
 	createArray( ArrayData, ArraySize, arrayInstance );
 
 	std::stringstream stream;
-	static const ui32 Size = 3;
+	static const size_t Size = 3;
 	arrayInstance.remove( 1 );
 	EXPECT_EQ( Size, arrayInstance.size() );
-	f32 expectedResult[ Size ] = { 0.0f, 2.0f, 3.0f };
+	float expectedResult[ Size ] = { 0.0f, 2.0f, 3.0f };
 	bool equal = true;
-	for ( ui32 i=0; i<Size; ++i ) {
+	for ( size_t i=0; i<Size; ++i ) {
 		if ( arrayInstance[ i ] != expectedResult[ i ] ) {
 			stream << "error in index " << i << std::endl;
 			equal = false;
@@ -90,7 +90,7 @@ TEST_F( TArrayTest, removeTest) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, removeBackTest) {
-	TArray<f32> arrayInstance;
+    TArray<float> arrayInstance;
 	createArray( ArrayData, ArraySize, arrayInstance );
 
 	arrayInstance.removeBack();
@@ -100,7 +100,7 @@ TEST_F( TArrayTest, removeBackTest) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, resizeTest ) {
-	TArray<f32> arrayInstance;
+    TArray<float> arrayInstance;
 	EXPECT_EQ( 0, arrayInstance.size() );
 
 	arrayInstance.resize( 5 );
@@ -109,7 +109,7 @@ TEST_F( TArrayTest, resizeTest ) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, moveTest ) {
-    TArray<f32> arrayInstance;
+    TArray<float> arrayInstance;
     arrayInstance.add( 1.0f );
     arrayInstance.add( 2.0f );
     arrayInstance.add( 3.0f );
@@ -118,7 +118,7 @@ TEST_F( TArrayTest, moveTest ) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, reserveTest ) {
-	TArray<f32> arrayInstance;
+    TArray<float> arrayInstance;
 	EXPECT_EQ( 0, arrayInstance.capacity() );
 
 	arrayInstance.reserve( 5 );
@@ -130,31 +130,30 @@ TEST_F( TArrayTest, reserveTest ) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, iterateTest ) {
-	TArray<f32> arrayInstance;
+    TArray<float> arrayInstance;
 	createArray( ArrayData, ArraySize, arrayInstance );
 
-	ui32 i( 0 );
-	for ( TArray<f32>::Iterator it = arrayInstance.begin(); it != arrayInstance.end(); ++it ) {
-		++i;
+	size_t i( 0 );
+    for( TArray<float>::Iterator it = arrayInstance.begin( ); it != arrayInstance.end( ); ++it ) {
+        ++i;
 	}
 	EXPECT_EQ( i, arrayInstance.size() );
 }
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, preIncIterateTest ) {
-	TArray<f32> arrayInstance;
+    TArray<float> arrayInstance;
 	createArray( ArrayData, ArraySize, arrayInstance );
 
 	bool ok = true;
 	try {
-		ui32 i=0;
-		for ( TArray<f32>::Iterator it = arrayInstance.begin(); it != arrayInstance.end(); ++it ) {
-			f32 tmp = *it;
+		size_t i=0;
+        for( TArray<float>::Iterator it = arrayInstance.begin( ); it != arrayInstance.end( ); ++it ) {
+            float tmp = *it;
 			EXPECT_EQ( tmp, ArrayData[ i ] );
 			++i;
 		}
-	}
-	catch (...)	{
+	} catch (...)	{
 		ok = false;	
 	}
 	EXPECT_TRUE( ok );
@@ -162,19 +161,18 @@ TEST_F( TArrayTest, preIncIterateTest ) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, postIncIterateTest ) {
-	TArray<f32> arrayInstance;
+	TArray<float> arrayInstance;
 	createArray( ArrayData, ArraySize, arrayInstance );
 
 	bool ok = true;
 	try {
-		ui32 i=0;
-		for ( TArray<f32>::Iterator it = arrayInstance.begin(); it != arrayInstance.end(); it++ ) {
-			f32 tmp = *it;
+		size_t i=0;
+        for( TArray<float>::Iterator it = arrayInstance.begin( ); it != arrayInstance.end( ); it++ ) {
+            float tmp = *it;
 			EXPECT_EQ( tmp, ArrayData[ i ] );
 			++i;
 		}
-	}
-	catch (...) {
+	} catch (...) {
 		ok = false;	
 	}
 	EXPECT_TRUE( ok );
@@ -182,14 +180,14 @@ TEST_F( TArrayTest, postIncIterateTest ) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, findTest )	{
-	TArray<f32> arrayInstance;
+    TArray<float> arrayInstance;
 	arrayInstance.add( 0.0f );
 	arrayInstance.add( 1.0f );
 	arrayInstance.add( 2.0f );
 	arrayInstance.add( 3.0f );
 	EXPECT_EQ( 4, arrayInstance.size() );
 
-	TArray<f32>::Iterator it = arrayInstance.find( 1.0f );
+    TArray<float>::Iterator it = arrayInstance.find( 1.0f );
 	EXPECT_NE( it, arrayInstance.end() );
 	EXPECT_EQ( *it, 1.0f );
 }
@@ -198,12 +196,11 @@ TEST_F( TArrayTest, findTest )	{
 //	Crash when iterating an empty array.
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, bug_IterateEmptyListTest )	{
-	TArray<f32> arrayInstance;
+    TArray<float> arrayInstance;
 	bool ok = true;
 	try {
-		for ( TArray<f32>::Iterator it = arrayInstance.begin(); it != arrayInstance.end(); ++it );
-	}
-	catch ( ... ) {
+        for( TArray<float>::Iterator it = arrayInstance.begin( ); it != arrayInstance.end( ); ++it );
+	} catch ( ... ) {
 		ok = false;
 	}
 	EXPECT_TRUE( ok );
@@ -213,9 +210,9 @@ TEST_F( TArrayTest, bug_IterateEmptyListTest )	{
 //	Heap corruption after grow.
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, bug_AddHeapCorruptTest ) {
-	TArray<f32> arrayInstance;
-	for ( ui32 i=0; i<50; ++i ) {
-		arrayInstance.add( (f32) i );
+    TArray<float> arrayInstance;
+	for ( size_t i=0; i<50; ++i ) {
+        arrayInstance.add( ( float ) i );
 	}
 }
 	

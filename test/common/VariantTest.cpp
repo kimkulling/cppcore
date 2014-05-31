@@ -12,28 +12,28 @@ using namespace CPPCore;
 class VariantTest : public testing::Test {
 protected:
 	//---------------------------------------------------------------------------------------------
-	i32 *createInt( ui32 buffersize ) {
-        i32 *pData = new i32[ buffersize ];
-        for ( ui32 i=0; i<buffersize; i++ ) {
-            pData[ i ] = (i32)i * 1;
+	int *createInt( size_t buffersize ) {
+        int *pData = new int[ buffersize ];
+        for ( size_t i=0; i<buffersize; i++ ) {
+            pData[ i ] = ( int ) i * 1;
         }
 
         return pData;
 	}
 
 	//---------------------------------------------------------------------------------------------
-	f32 *createFloatData( ui32 buffersize )	{
-        f32 *pData = new f32[ buffersize ];
-        for ( ui32 i=0; i<buffersize; i++ ) {
-            pData[ i ] = (f32)i * 1.0f;
+	float *createFloatData( size_t buffersize )	{
+        float *pData = new float[ buffersize ];
+        for ( size_t i=0; i<buffersize; i++ ) {
+            pData[ i ] = (float)i * 1.0f;
         }
 		
         return pData;		
 	}
 	//---------------------------------------------------------------------------------------------
-	bool validateIntData( ui32 buffersize, i32 *pData, i32 *pRes ) {
+    bool validateIntData( size_t buffersize, int *pData, int *pRes ) {
 		bool equal = true;
-		for ( ui32 i=0; i<buffersize; i++ ) {
+        for( size_t i = 0; i<buffersize; i++ ) {
 			if ( *pRes != pData[ i ] ) {
 				equal = false;
 				break;
@@ -44,9 +44,9 @@ protected:
 	}
 
 	//---------------------------------------------------------------------------------------------
-	bool validateFloatData( ui32 buffersize, f32 *pData, f32 *pRes ) {
+    bool validateFloatData( size_t buffersize, float *pData, float *pRes ) {
 		bool equal = true;
-		for ( ui32 i=0; i<buffersize; i++ ) {
+        for( size_t i = 0; i<buffersize; i++ ) {
 			if ( *pRes != pData[ i ] ) {
 				equal = false;
 				break;
@@ -59,7 +59,7 @@ protected:
 	
 //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, createTest ) {
-	i32 data = 1;
+	int data = 1;
 	Variant test1( Variant::Int, (void*)&data, 1 ); 
 	EXPECT_TRUE ( true );
 
@@ -73,7 +73,7 @@ TEST_F( VariantTest, createTest ) {
 	
 //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, copyTest ) {
-	i32 data = 1;
+    int data = 1;
 	Variant test1( Variant::Int, (void*)&data, 1 ); 
 	EXPECT_TRUE ( true );
 
@@ -83,10 +83,10 @@ TEST_F( VariantTest, copyTest ) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessIntTest ) {
-	i32 data = 1;
+    int data = 1;
 	Variant test( Variant::Int, (void*)&data, 1 ); 
 
-	i32 res = test.getInt();
+    int res = test.getInt( );
 	EXPECT_EQ ( res, data );
 
 	data = 2;
@@ -97,11 +97,11 @@ TEST_F( VariantTest, accessIntTest ) {
 	
 //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessInt3Test ) {
-	static const ui32 bufferSize = 3;
-	i32 *pData = createInt( bufferSize );
+	static const size_t bufferSize = 3;
+    int *pData = createInt( bufferSize );
 	Variant test( Variant::Int3, (void*) pData, bufferSize ); 
 
-	i32 *pRes = test.getInt3();
+    int *pRes = test.getInt3( );
 	EXPECT_NE( nullptr, pRes );
 		
 	EXPECT_TRUE( validateIntData( bufferSize, pData, pRes ) );
@@ -111,11 +111,11 @@ TEST_F( VariantTest, accessInt3Test ) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessInt4Test ) {
-	const ui32 bufferSize = 4;
-	i32 *pData = createInt( bufferSize );
+	const size_t bufferSize = 4;
+    int *pData = createInt( bufferSize );
 	Variant test( Variant::Int4, (void*) pData, bufferSize ); 
 
-	i32 *pRes = test.getInt4();
+    int *pRes = test.getInt4( );
 	EXPECT_NE( nullptr, pRes );
 		
 	EXPECT_TRUE( validateIntData( bufferSize, pData, pRes ) );
@@ -124,10 +124,10 @@ TEST_F( VariantTest, accessInt4Test ) {
 
 	//---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessFloatTest ) {
-	f32 data = 1.0f;
+	float data = 1.0f;
 	Variant test( Variant::Float, (void*)&data, 1 ); 
 
-	f32 res = test.getFloat();
+    float res = test.getFloat( );
 	EXPECT_EQ( res, data );
 
 	data = 2.0f;
@@ -138,11 +138,11 @@ TEST_F( VariantTest, accessFloatTest ) {
 
 //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessFloat3Test )	{
-	const ui32 bufferSize = 3;
-	f32 *pData  = createFloatData( bufferSize );
+	const size_t bufferSize = 3;
+    float *pData = createFloatData( bufferSize );
 	Variant test( Variant::Float3, (void*) pData, bufferSize ); 
 
-	f32 *pRes = test.getFloat3();
+    float *pRes = test.getFloat3( );
 	EXPECT_NE( pRes, nullptr );
 		
 	EXPECT_TRUE( validateFloatData( bufferSize, pData, pRes ) );
@@ -152,16 +152,16 @@ TEST_F( VariantTest, accessFloat3Test )	{
 
 //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessFloat4Test ) {
-	const ui32 bufferSize = 4;
-	f32 *pData  = createFloatData( bufferSize );
+	const size_t bufferSize = 4;
+    float *pData = createFloatData( bufferSize );
 	Variant test( Variant::Float4, (void*) pData, bufferSize ); 
 
-	f32 *pRes = test.getFloat4();
+    float *pRes = test.getFloat4( );
     EXPECT_NE( pRes, nullptr );
 
 	validateFloatData( bufferSize, pData, pRes );
 
-    f32 data[ 4 ] = {
+    float data[ 4 ] = {
         1.0f, 2.0f, 3.0f, 4.0f
     };
     test.setFloat4( data[ 0 ], data[ 1 ], data[ 2 ], data[ 3 ] );

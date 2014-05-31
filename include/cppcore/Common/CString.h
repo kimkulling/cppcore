@@ -30,7 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace CPPCore {
 
-c8 *getTrans( ui32 id );
+char *getTrans( unsigned int id );
         
 //-------------------------------------------------------------------------------------------------
 ///	@class		CString
@@ -45,7 +45,7 @@ public:
 
     /// @brief  The class constructor with a buffer of data.
     /// @param  pStr        [in] The buffer with the data.
-    CString( const c8 *pStr );
+    CString( const char *pStr );
 
     /// @brief  The copy class constructor.
     /// @param  rhs         [in] String to copy.
@@ -60,22 +60,22 @@ public:
 
     /// @brief  Returns the length of the string.
     /// @return The length.
-    ui32 size() const;
+    size_t size() const;
 
     /// @brief  Clears the string buffer, all buffers and data will be released.
     void clear();
 
     /// @brief  Returns a pointer showing to the first element of the string buffer.
     /// @return The pointer showing to the first element of the string.
-    const c8* c_str() const;
+    const char* c_str() const;
 
-    c8 operator [] ( ui32 idx ) const;
+    char operator [] ( size_t idx ) const;
     bool operator == ( const CString &rhs ) const;
     bool operator != ( const CString &rhs ) const;
     CString &operator = ( const CString &rhs );
 
 private:
-    TStringBase<c8> m_string;
+    TStringBase<char> m_string;
 };
 
 //-------------------------------------------------------------------------------------------------

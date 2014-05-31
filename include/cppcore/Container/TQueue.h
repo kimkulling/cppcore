@@ -69,7 +69,7 @@ public:
 	
 	///	@brief	The number of enqueued items will be returned.
 	///	@return	The number of enqueued items.
-	ui32 size();
+    size_t size( );
 	
 	///	@brief	The queue will be cleared.
 	void clear();
@@ -144,7 +144,7 @@ bool TQueue<T>::isEmpty() const {
 //-------------------------------------------------------------------------------------------------
 template<class T>
 inline
-ui32 TQueue<T>::size() {
+size_t TQueue<T>::size( ) {
 	return m_QueueData.size();
 }
 
