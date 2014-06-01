@@ -30,6 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <cppcore/Common/CString.h>
 
 #include <string.h>
+#include <string>
 #include <cassert>
 
 namespace CPPCore {
@@ -162,7 +163,8 @@ public:
 	///	@brief	Sets a string value.
 	///	@param	rValue	The new string value.
 	void setString( const CString &rValue );
-	
+    void setStdString( const std::string &value );
+
 	///	@brief	Returns a constant reference to the string value.
 	///	@return	A pointer showing to the data buffer of the string.
 	const char *getString() const;
@@ -224,7 +226,6 @@ Variant::Variant( bool value )
 , m_pData( nullptr )  {
     reserve( Boolean, 0 );
     ::memcpy( m_pData, &value, m_BufferSize );
-
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -392,11 +393,22 @@ void Variant::setString( const CString &str ) {
 	clear();
 	m_Type = String;
     m_pData = new char[ str.size() + 1 ];
-	memcpy( m_pData, str.c_str(), sizeof( char ) * str.size() );
+	::memcpy( m_pData, str.c_str(), sizeof( char ) * str.size() );
     char *ptr = (char* ) m_pData;
     ptr[ str.size() ] = '\0';
 }
-	
+
+//-------------------------------------------------------------------------------------------------
+inline
+void Variant::setStdString( const std::string &value ) {
+    clear();
+    m_Type = String;
+    m_pData = new char[ value.size( ) + 1 ];
+    ::memcpy( m_pData, value.c_str( ), sizeof( char ) * value.size( ) );
+    char *ptr = ( char* ) m_pData;
+    ptr[ value.size( ) ] = '\0';
+}
+
 //-------------------------------------------------------------------------------------------------
 inline 
 const char *Variant::getString() const {
