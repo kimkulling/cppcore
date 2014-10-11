@@ -43,6 +43,26 @@ namespace CPPCore {
 #   define DLL_CPPCORE_EXPORT
 #endif
 
+//-------------------------------------------------------------------------------------------------
+/// @fn ContainerClear
+///
+/// @brief  Will release a container with a simple delete.
+/// @param  ctr     [in] A reference to the container to release.
+//-------------------------------------------------------------------------------------------------
+template<class T>
+void ContainerClear( T & ctr ) {
+    if( ctr.isEmpty() ) {
+        return;
+    }
+
+    for( size_t i = 0; i < ctr.size(); ++i ) {
+        delete ctr[ i ];
+    }
+    ctr.clear();
+}
+
+//-------------------------------------------------------------------------------------------------
+
 } // Namespace CPPCore
 
 #endif // CPPCORE_COMMON_H_INC
