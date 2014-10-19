@@ -48,9 +48,10 @@ SET ( cppcore_src
 )
 
 SET ( cppcore_common_src
-	../include/cppcore/Common/Variant.h
+    ../include/cppcore/Common/Hash.h
     ../include/cppcore/Common/CString.h
     ../include/cppcore/Common/TStringBase.h
+	../include/cppcore/Common/Variant.h
     ../code/Common/CString.cpp
 )
 
