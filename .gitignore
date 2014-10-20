@@ -8,3 +8,4 @@
 *.vcxproj
 build/CMakeFiles/generate.stamp.depend
 build/cmake_install.cmake
+build/CMakeCache.txt

@@ -72,7 +72,8 @@ ADD_LIBRARY( cppcore SHARED
 )
 
 SET( cppcore_common_test_src
-	../test/common/StringTest.cpp
+	../test/common/HashTest.cpp
+    ../test/common/StringTest.cpp
     ../test/common/VariantTest.cpp
 )
 

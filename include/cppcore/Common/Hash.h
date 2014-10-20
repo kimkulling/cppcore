@@ -34,13 +34,30 @@ namespace CPPCore {
 ///	@class		Hash
 ///	@ingroup	CPPCore
 ///
-///	@brief
+///	@brief  This class is used to calculate the hash value for a given integer or character buffer.
 //-------------------------------------------------------------------------------------------------
 class Hash {
 public:
+    /// @brief  The default class constructor.
     Hash();
+
+    /// @brief  The class constructor with a given value.
+    /// @param  value   [in] An integer value to compute the hash from.
     Hash( int value );
+
+    /// @brief  The class constructor with a given value.
+    /// @param  value   [in] A character buffer to compute the hash from.
+    Hash( const char *buffer );
+
+    /// @brief  The class destructor.
     ~Hash();
+
+    /// @brief  Computes the hash value for a given character buffer.
+    /// @return The hash value.
+    int toHash( const char *buffer );
+    
+    /// brief    Returns the stored hash value.
+    /// @return The hash value.
     int hashValue() const;
 
 private:
@@ -63,8 +80,32 @@ Hash::Hash( int value )
 
 //-------------------------------------------------------------------------------------------------
 inline
+Hash::Hash( const char *buffer )
+: m_hash( toHash( buffer ) ) {
+    // empty
+}
+
+//-------------------------------------------------------------------------------------------------
+inline
 Hash::~Hash() {
     // empty
+}
+
+//-------------------------------------------------------------------------------------------------
+inline
+int Hash::toHash( const char *buffer ) {
+    m_hash = 0;
+    if( !buffer ) {
+        return m_hash;
+    }
+    
+    // using division-rest method.
+    // see http://de.wikipedia.org/wiki/Divisionsrestmethode
+    for( size_t i = 0; i < strlen( buffer ); ++i ) {
+        m_hash = ( m_hash * 128 + buffer[ i ] ) % 7;
+    }
+    
+    return m_hash;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -74,7 +115,6 @@ int Hash::hashValue() const {
 }
 
 //-------------------------------------------------------------------------------------------------
-
 
 } // Namespace CPPCore
 

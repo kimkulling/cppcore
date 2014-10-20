@@ -27,6 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define CPPCORE_COMMON_H_INC
 
 #include <cstddef>
+#include <string.h>
 
 namespace CPPCore {
 
