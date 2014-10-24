@@ -42,30 +42,58 @@ TEST_F( HashTest, CreateTest ) {
     Hash myHash2( 10 );
     EXPECT_EQ( myHash2.hashValue(), 10 );
 
-    Hash myHash3( "test" );
+    Hash myHash3( "test", 7 );
     EXPECT_NE( myHash3.hashValue(), 0 );
 }
 
 //---------------------------------------------------------------------------------------------
 TEST_F( HashTest, MakeStringHashTest ) {
-    Hash myHash;
-    EXPECT_EQ(myHash.hashValue(), 0 );
+    static const unsigned int Base = 7;
+    Hash myHash_empty;
+    EXPECT_EQ( myHash_empty.hashValue(), 0 );
     
     std::string value;
     value = ( "huhu1" );
-    const int hash1 = myHash.toHash( value.c_str() );
-    EXPECT_EQ( myHash.hashValue(), hash1 );
-    EXPECT_NE( myHash.hashValue(), 0 );
+    const int hash1 = Hash::toHash( value.c_str(), Base );
+    EXPECT_NE( hash1, 0 );
+    EXPECT_LE( hash1, Base );
 
     value = ( "huhu2" );
-    const int hash2 = myHash.toHash( value.c_str() );
-    EXPECT_EQ( myHash.hashValue(), hash2 );
-    EXPECT_NE( myHash.hashValue(), 0 );
+    const int hash2 = Hash::toHash( value.c_str(), Base );
+    EXPECT_NE( hash2, 0 );
+    EXPECT_LE( hash2, Base );
 
     value = ( "huhu3" );
-    const int hash3 = myHash.toHash( value.c_str() );
-    EXPECT_EQ( myHash.hashValue(), hash3 );
-    EXPECT_NE( myHash.hashValue(), 0 );
+    const int hash3 = Hash::toHash( value.c_str(), Base );
+    EXPECT_NE( hash3, 0 );
+    EXPECT_LE( hash3, Base );
+
+    Hash myHash_inited( value.c_str(), Base );
+    EXPECT_EQ( myHash_inited.hashValue(), hash3 );
+}
+//---------------------------------------------------------------------------------------------
+TEST_F( HashTest, MakeUIntHashTest ) {
+    static const unsigned int Base = 7;
+    Hash myHash_empty;
+    EXPECT_EQ( myHash_empty.hashValue(), 0 );
+
+    unsigned int value = 17;
+    const int hash1 = Hash::toHash( value, Base );
+    EXPECT_NE( hash1, 0 );
+    EXPECT_LE( hash1, Base );
+
+    value = 27;
+    const int hash2 = Hash::toHash( value, Base );
+    EXPECT_NE( hash2, 0 );
+    EXPECT_LE( hash2, Base );
+
+    value = 37;
+    const int hash3 = Hash::toHash( value, Base );
+    EXPECT_NE( hash3, 0 );
+    EXPECT_LE( hash3, Base );
+
+    Hash myHash_inited( value, Base );
+    EXPECT_EQ( myHash_inited.hashValue(), hash3 );
 }
 
 //---------------------------------------------------------------------------------------------

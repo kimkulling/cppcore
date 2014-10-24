@@ -9,3 +9,5 @@
 build/CMakeFiles/generate.stamp.depend
 build/cmake_install.cmake
 build/CMakeCache.txt
+build/lib/Debug/cppcore.exp
+build/CMakeFiles/2.8.12.2/CompilerIdCXX/CMakeCXXCompilerId.cpp

@@ -32,7 +32,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace CPPCore {
 	
-
 //-------------------------------------------------------------------------------------------------
 ///	@class		TArray
 ///	@ingroup	CPPCore

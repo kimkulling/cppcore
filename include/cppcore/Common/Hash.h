@@ -41,27 +41,34 @@ public:
     /// @brief  The default class constructor.
     Hash();
 
-    /// @brief  The class constructor with a given value.
-    /// @param  value   [in] An integer value to compute the hash from.
-    Hash( int value );
+    /// @brief  The class constructor with a given hash value.
+    /// @param  hash    [in] An integer value to compute the hash from.
+    explicit Hash( unsigned int hash );
 
     /// @brief  The class constructor with a given value.
     /// @param  value   [in] A character buffer to compute the hash from.
-    Hash( const char *buffer );
+    /// @param  base    [in] the table base.
+    explicit Hash( const char *buffer, unsigned int base );
+    
+    ///
+    explicit Hash( unsigned int value, unsigned int base );
 
     /// @brief  The class destructor.
     ~Hash();
 
     /// @brief  Computes the hash value for a given character buffer.
+    /// @param  buffer  [in] The buffer.
+    /// @param  base    [in] The table base.
     /// @return The hash value.
-    int toHash( const char *buffer );
-    
+    static unsigned int toHash( const char *buffer, unsigned int base );
+    static unsigned int toHash( unsigned int value, unsigned int base );
+
     /// brief    Returns the stored hash value.
     /// @return The hash value.
-    int hashValue() const;
+    unsigned int hashValue() const;
 
 private:
-    int m_hash;
+    unsigned int m_hash;
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -73,15 +80,22 @@ Hash::Hash()
 
 //-------------------------------------------------------------------------------------------------
 inline
-Hash::Hash( int value ) 
-:m_hash( value ) {
+Hash::Hash( unsigned int hash )
+: m_hash( hash ) {
     // empty
 }
 
 //-------------------------------------------------------------------------------------------------
 inline
-Hash::Hash( const char *buffer )
-: m_hash( toHash( buffer ) ) {
+Hash::Hash( const char *buffer, unsigned int base )
+: m_hash( toHash( buffer, base ) ) {
+    // empty
+}
+
+//-------------------------------------------------------------------------------------------------
+inline
+Hash::Hash( unsigned int value, unsigned int base )
+: m_hash( toHash( value, base ) ) {
     // empty
 }
 
@@ -93,24 +107,31 @@ Hash::~Hash() {
 
 //-------------------------------------------------------------------------------------------------
 inline
-int Hash::toHash( const char *buffer ) {
-    m_hash = 0;
+unsigned int Hash::toHash( const char *buffer, unsigned int base ) {
+    unsigned int hash( 0 );
     if( !buffer ) {
-        return m_hash;
+        return hash;
     }
     
-    // using division-rest method.
+    // using division-rest method
     // see http://de.wikipedia.org/wiki/Divisionsrestmethode
     for( size_t i = 0; i < strlen( buffer ); ++i ) {
-        m_hash = ( m_hash * 128 + buffer[ i ] ) % 7;
+        hash = ( hash * 128 + buffer[ i ] ) % base;
     }
     
-    return m_hash;
+    return hash;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline
-int Hash::hashValue() const {
+unsigned int Hash::toHash( unsigned int value, unsigned int base ) {
+    const unsigned int hash( value%base );
+    return hash;
+}
+
+//-------------------------------------------------------------------------------------------------
+inline
+unsigned int Hash::hashValue() const {
     return m_hash;
 }
 

@@ -56,6 +56,7 @@ SET ( cppcore_common_src
 )
 
 SET ( cppcore_container_src
+    ../include/cppcore/Container/THashMap.h
     ../include/cppcore/Container/TArray.h
     ../include/cppcore/Container/TList.h
     ../include/cppcore/Container/TQueue.h
@@ -79,6 +80,7 @@ SET( cppcore_common_test_src
 
 SET( cppcore_container_test_src
     ../test/container/TArrayTest.cpp
+    ../test/container/THashMapTest.cpp
     ../test/container/TListTest.cpp
     ../test/container/TQueueTest.cpp
 )
