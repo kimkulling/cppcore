@@ -41,7 +41,56 @@ TEST_F( THashMapTest, constructTest ) {
     EXPECT_TRUE( ok );
 }
 
+TEST_F( THashMapTest, clearTest ) {
+    THashMap<unsigned int, unsigned int> myHashMap( 1 );
+    myHashMap.insert( 1, 10 );
+    myHashMap.insert( 2, 10 );
+    myHashMap.insert( 3, 10 );
+    myHashMap.clear();
+}
+
 TEST_F( THashMapTest, insertTest ) {
     THashMap<unsigned int, unsigned int> myHashMap;
+    bool hasKey( true );
+
+    unsigned int size( 0 );
+    size = myHashMap.size();
+    EXPECT_EQ( size, 0 );
+
+    hasKey = myHashMap.hasKey( 1 );
+    EXPECT_FALSE( hasKey );
+    
     myHashMap.insert( 1, 10 );
+    hasKey = myHashMap.hasKey( 1 );
+    EXPECT_TRUE( hasKey );
+
+    size = myHashMap.size();
+    EXPECT_EQ( size, 1 );
+
+    unsigned int value = myHashMap.getValue( 1 );
+    EXPECT_EQ( value, 10 );
+
+    myHashMap.insert( 2, 10 );
+    hasKey = myHashMap.hasKey( 2 );
+    EXPECT_TRUE( hasKey );
+
+    size = myHashMap.size();
+    EXPECT_EQ( size, 2 );
+}
+
+TEST_F( THashMapTest, collideTest ) {
+    THashMap<unsigned int, unsigned int> myHashMap( 1 );
+    bool hasKey( true );
+
+    unsigned int size( 0 );
+    size = myHashMap.size();
+    EXPECT_EQ( size, 0 );
+
+    myHashMap.insert( 1, 10 );
+    hasKey = myHashMap.hasKey( 1 );
+    EXPECT_TRUE( hasKey );
+
+    myHashMap.insert( 2, 10 );
+    hasKey = myHashMap.hasKey( 2 );
+    EXPECT_TRUE( hasKey );
 }
