@@ -72,6 +72,10 @@ ADD_LIBRARY( cppcore SHARED
 	${cppcore_src}
 )
 
+SET( cppcore_test_src  
+    ../test/CPPCoreCommonTest.cpp 
+)
+
 SET( cppcore_common_test_src
 	../test/common/HashTest.cpp
     ../test/common/StringTest.cpp
@@ -98,13 +102,14 @@ SET ( gtest_src
     ${GTEST_PATH}/src/gtest.cc
     ${GTEST_PATH}/src/gtest_main.cc
 )
-
+SOURCE_GROUP( code            FILES ${cppcore_test_src} )
 SOURCE_GROUP( code\\common    FILES ${cppcore_common_test_src} )
 SOURCE_GROUP( code\\container FILES ${cppcore_container_test_src} )
 SOURCE_GROUP( contrib\\gtest  FILES ${gtest_src} )
 
 ADD_EXECUTABLE( cppcore_test
     ${gtest_src}
+    ${cppcore_test_src}
     ${cppcore_common_test_src}
     ${cppcore_container_test_src}
 )

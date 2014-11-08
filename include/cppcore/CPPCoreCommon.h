@@ -63,6 +63,17 @@ void ContainerClear( T & ctr ) {
 }
 
 //-------------------------------------------------------------------------------------------------
+/// @def    CPPCORE_NONE_COPYING
+///
+/// @brief  This macro marks a class a not copyable.
+/// @param  name    [in] The name of the class.
+//-------------------------------------------------------------------------------------------------
+#define CPPCORE_NONE_COPYING( name ) \
+private:\
+    name( const name & );\
+    name &operator = ( const name & );
+
+//-------------------------------------------------------------------------------------------------
 
 } // Namespace CPPCore
 
