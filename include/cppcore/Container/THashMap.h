@@ -138,7 +138,6 @@ template<class T, class U>
 inline
 void THashMap<T, U>::clear() {
     for( size_t i = 0; i < m_buffersize; ++i ) {
-        Node *node( &m_buffer[ i ] ), *current( nullptr );
         if( m_buffer[ i ].m_next ) {
             Node *current( m_buffer[ i ].m_next ), *tmp( nullptr );
             while( current ) {
@@ -163,13 +162,7 @@ template<class T, class U>
 inline
 void THashMap<T, U>::insert( const T &key, const U &value ) {
     const unsigned int hash( Hash::toHash( key, m_buffersize ) );
-
-    if( m_buffer[ hash ].m_key == UnsetNode ) {
-        m_buffer[ hash ].m_key = key;
-        m_buffer[ hash ].m_value = value;
-    } else {
-        m_buffer[ hash ].append( key, value );
-    }
+    m_buffer[ hash ].append( key, value );
     m_numItems++;
 }
 
