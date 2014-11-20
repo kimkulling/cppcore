@@ -41,6 +41,7 @@ class THashMap {
 public:
     static const size_t       InitSize = 1024;
     static const unsigned int UnsetNode = 999999999;
+
 public:
     THashMap( size_t init = InitSize );
     ~THashMap();
@@ -60,26 +61,36 @@ private:
         Node *m_next;
 
         Node();
-        void insert( T key, const U &value ) {
-            Node *next( m_next );
-            if( !m_next ) {
-                // first one in the list
-                m_next = new Node;
-                next = m_next;
-            } else {
-                // append to list
-                while( next->m_next ) {
-                    next = next->m_next;
-                }
+        ~Node();
+        void append( T key, const U &value ) {
+            if( m_key == UnsetNode ) {
+                m_key = key;
+                m_value = value;
+                return;
             }
-            next->m_next = new Node;
-            next->m_next->m_key = key;
-            next->m_next->m_value = value;
+
+            Node *current( m_next );
+            if( current ) {
+                // already collisions, traverse
+                while( current->m_next ) {
+                    current = current->m_next;
+                }
+                current->m_next = new Node;
+                current->m_next->m_key = key;
+                current->m_next->m_value = value;
+            } else {
+                // first collision
+                m_next = new Node;
+                current = m_next;
+                current->m_key = key;
+                current->m_value = value;
+            }
         }
     };
 
     Node *m_buffer;
     Node *m_first;
+    Node *m_current;
     Node *m_last;
     size_t m_numItems;
     size_t m_buffersize;
@@ -91,12 +102,13 @@ inline
 THashMap<T, U>::THashMap( size_t init )
 : m_buffer( nullptr )
 , m_first( nullptr )
+, m_current( nullptr )
 , m_last( nullptr )
-, m_numItems( 0 ),
-m_buffersize( 0 ) {
+, m_numItems( 0 )
+, m_buffersize( 0 ) {
     m_buffer = new Node[ init ];
     m_first = m_buffer;
-    m_last = &m_buffer[InitSize-1] + 1;
+    m_last = &m_buffer[ InitSize-1 ] + 1;
     m_buffersize = init;
 }
 
@@ -126,13 +138,13 @@ template<class T, class U>
 inline
 void THashMap<T, U>::clear() {
     for( size_t i = 0; i < m_buffersize; ++i ) {
-        Node &node( m_buffer[ i ] );
-        if( node.m_next ) {
-            Node *next( node.m_next );
-            while( next ) {
-                delete node.m_next;
-                next = next->m_next;
-                node.m_next = next;
+        Node *node( &m_buffer[ i ] ), *current( nullptr );
+        if( m_buffer[ i ].m_next ) {
+            Node *current( m_buffer[ i ].m_next ), *tmp( nullptr );
+            while( current ) {
+                tmp = current;
+                current = current->m_next;
+                delete tmp;
             }
         }
     }
@@ -140,6 +152,7 @@ void THashMap<T, U>::clear() {
     delete[] m_buffer;
     m_buffer = nullptr;
     m_first = nullptr;
+    m_current = nullptr;
     m_last = nullptr;
     m_numItems = 0;
     m_buffersize = 0;
@@ -155,7 +168,7 @@ void THashMap<T, U>::insert( const T &key, const U &value ) {
         m_buffer[ hash ].m_key = key;
         m_buffer[ hash ].m_value = value;
     } else {
-        m_buffer[ hash ].insert( key, value );
+        m_buffer[ hash ].append( key, value );
     }
     m_numItems++;
 }
@@ -247,6 +260,13 @@ THashMap<T, U>::Node::Node()
 , m_value()
 , m_next( nullptr ) {
     // empty
+}
+
+//-------------------------------------------------------------------------------------------------
+template < class T, class U >
+inline
+THashMap<T, U>::Node::~Node() {
+
 }
 
 //-------------------------------------------------------------------------------------------------

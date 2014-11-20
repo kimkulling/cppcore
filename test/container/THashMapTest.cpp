@@ -47,6 +47,8 @@ TEST_F( THashMapTest, clearTest ) {
     myHashMap.insert( 2, 10 );
     myHashMap.insert( 3, 10 );
     myHashMap.clear();
+
+    EXPECT_EQ( myHashMap.size(), 0 );
 }
 
 TEST_F( THashMapTest, insertTest ) {
