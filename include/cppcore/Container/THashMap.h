@@ -39,19 +39,54 @@ namespace CPPCore {
 template<class T, class U> 
 class THashMap {
 public:
+    ///	@brief  The initial hash size.
     static const size_t       InitSize = 1024;
+    ///	@brief  Marker for unset node keys.
     static const unsigned int UnsetNode = 999999999;
 
 public:
+    ///	@brief  The class constructor.
+    /// @param  init    [in9 The initial size for the hash.
     THashMap( size_t init = InitSize );
+
+    /// @brief  The class destructor.
     ~THashMap();
+
+    ///	@brief  Returns the number of stored items in the hash-map.
+    /// @return The number of items within the hash-map.
     size_t size() const;
+
+    ///	@brief  Will return true, if hash-map is empty.
+    ///	@return true for empty, false for not empty.
     bool isEmpty() const;
+
+    /// @brief  The hash-map will be cleared.
     void clear();
+
+    ///	@brief  A new key value pair will be entered.
+    ///	@param  key     [in] The key.
+    ///	@param  value   [in] The value to store.
     void insert( const T &key, const U &value );
+    
+    ///	@brief  Will remove a given key-value pair form the hash-map.
+    ///	@param  key     [in] The key to look for.
+    ///	@return true, if key-value pair was found and removed.
     bool remove( const T &key );
+    
+    ///	@brief  Looks for a given key and returns true, if a key-value pair is stored in the list.
+    ///	@param  key     [in] The key to look for.
+    ///	@return true, if key-value pair was found.
     bool hasKey( const T &key );
-    U &getValue( const T &key ) const;
+    
+    ///	@brief  Returns the assigned value for the given key.
+    ///	@param  key     [in] The key to look for.
+    ///	@param  value   [in] The value, unset when no key-value pair was found.
+    ///	@return true, if key-value pair was found, false if not.
+    bool getValue( const T &key, U &value ) const;
+
+    ///	@brief  Returns the assigned value for the given key.
+    ///	@param  key     [in] The key to look for.
+    ///	@return The value, will unset when no key-value pair was found. 
     U &operator [] ( const T &key ) const;
 
 private:
@@ -63,6 +98,7 @@ private:
         Node();
         ~Node();
         void append( T key, const U &value );
+        bool remove( T key );
         void releaseList();
     };
 
@@ -146,7 +182,24 @@ bool THashMap<T, U>::remove( const T &key ) {
         return false;
     }
     
-    return false;
+    bool found( false );
+    Node *current( m_buffer[ hash ] );
+    if( current->m_key == key ) {
+        Node *next( current->m_next );
+        if( next ) {
+            m_buffer[ hash ] = next;
+        }
+        delete current;
+        m_numItems--;
+        found = true;
+    } else {
+        found = current->remove( key );
+        if( found ) {
+            m_numItems--;
+        }
+    }
+
+    return found;
 }
  
 //-------------------------------------------------------------------------------------------------
@@ -179,23 +232,23 @@ bool THashMap<T, U>::hasKey( const T &key ) {
 //-------------------------------------------------------------------------------------------------
 template<class T, class U>
 inline
-U &THashMap<T, U>::getValue( const T &key ) const {
-    static U dummy;
+bool THashMap<T, U>::getValue( const T &key, U &value ) const {
     const unsigned int pos( Hash::toHash( key, m_buffersize ) );
     if( m_buffer[ pos ]->m_key == key ) {
-        return m_buffer[ pos ]->m_value;
+        value = m_buffer[ pos ]->m_value;
+        return true;
     } else {
         Node *node( m_buffer[ pos ] );
         Node *next( node->m_next );
         while( next->m_key != key ) {
             next = next->m_next;
             if( !next ) {
-                return dummy;
+                return false;
             }
         }
+        value = next->m_value;
+        return true;
     }
-
-    return dummy;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -263,6 +316,32 @@ void THashMap<T, U>::Node::append( T key, const U &value ) {
         current->m_key = key;
         current->m_value = value;
     }
+}
+
+//-------------------------------------------------------------------------------------------------
+template < class T, class U >
+inline
+bool THashMap<T, U>::Node::remove( T key ) {
+    if( !m_next ) {
+        return false;
+    }
+
+    bool found( false );
+    Node *current( m_next ), *prev( nullptr );
+    while( current ) {
+        if( current->m_key == key ) {
+            if( prev ) {
+                prev->m_next = current->m_next;
+                delete current;
+            }
+            found = true;
+            break;
+        }
+        prev = current;
+        current = current->m_next;
+    }
+
+    return found;
 }
 
 //-------------------------------------------------------------------------------------------------

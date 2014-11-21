@@ -69,7 +69,10 @@ TEST_F( THashMapTest, insertTest ) {
     size = myHashMap.size();
     EXPECT_EQ( size, 1 );
 
-    unsigned int value = myHashMap.getValue( 1 );
+    bool success( false );
+    unsigned int value;
+    success = myHashMap.getValue( 1, value );
+    EXPECT_TRUE( success );
     EXPECT_EQ( value, 10 );
 
     myHashMap.insert( 2, 10 );
@@ -96,3 +99,38 @@ TEST_F( THashMapTest, collideTest ) {
     hasKey = myHashMap.hasKey( 2 );
     EXPECT_TRUE( hasKey );
 }
+
+TEST_F( THashMapTest, removeTest ) {
+    bool success( false );
+    unsigned int size( 0 );
+    THashMap<unsigned int, unsigned int> myHashMap( 1 );
+
+    success = myHashMap.remove( 1 );
+    EXPECT_FALSE( success );
+
+    myHashMap.insert( 1, 10 );
+    myHashMap.insert( 2, 10 );
+    myHashMap.insert( 3, 10 );
+    size = myHashMap.size();
+    EXPECT_EQ( size, 3 );
+
+    success = myHashMap.remove( 2 );
+    EXPECT_TRUE( success );
+    size = myHashMap.size();
+    EXPECT_EQ( size, 2 );
+
+    success = myHashMap.remove( 1 );
+    EXPECT_TRUE( success );
+    size = myHashMap.size();
+    EXPECT_EQ( size, 1 );
+
+    success = myHashMap.remove( 3 );
+    EXPECT_TRUE( success );
+    size = myHashMap.size();
+    EXPECT_EQ( size, 0 );
+    EXPECT_TRUE( myHashMap.isEmpty() );
+
+    success = myHashMap.remove( 1 );
+    EXPECT_FALSE( success );
+}
+
