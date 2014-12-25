@@ -29,3 +29,5 @@ build/bin/Debug/cppcore.ilk
 *.exe
 *.sdf
 build/cppcore_test.dir/Debug/cppcore_test.vcxprojResolveAssemblyReference.cache
+build/cppcore.opensdf
+build/cppcore_test.vcxproj.user
