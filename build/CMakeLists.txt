@@ -107,11 +107,11 @@ SOURCE_GROUP( code\\common    FILES ${cppcore_common_test_src} )
 SOURCE_GROUP( code\\container FILES ${cppcore_container_test_src} )
 SOURCE_GROUP( contrib\\gtest  FILES ${gtest_src} )
 
-ADD_EXECUTABLE( cppcore_test
+ADD_EXECUTABLE( cppcore_unittest
     ${gtest_src}
     ${cppcore_test_src}
     ${cppcore_common_test_src}
     ${cppcore_container_test_src}
 )
 
-target_link_libraries( cppcore_test cppcore ${CMAKE_THREAD_LIBS_INIT} )
+target_link_libraries( cppcore_unittest cppcore ${CMAKE_THREAD_LIBS_INIT} )
