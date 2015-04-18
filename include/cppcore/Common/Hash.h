@@ -23,8 +23,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------
 */
 #pragma once
-#ifndef CPPCORE_HASH_H_INC
-#define CPPCORE_HASH_H_INC
 
 #include <cppcore/CPPCoreCommon.h>
 
@@ -138,5 +136,3 @@ unsigned int Hash::hashValue() const {
 //-------------------------------------------------------------------------------------------------
 
 } // Namespace CPPCore
-
-#endif // CPPCORE_HASH_H_INC

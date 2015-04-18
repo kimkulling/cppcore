@@ -23,8 +23,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------
 */
 #pragma once
-#ifndef CPPCORE_COMMON_TSTRINGBASE_H_INC
-#define CPPCORE_COMMON_TSTRINGBASE_H_INC
 
 #include <cppcore/CPPCoreCommon.h>
 
@@ -134,5 +132,3 @@ void TStringBase<T>::copyFrom( TStringBase<T> &base, const T *pPtr ) {
 //-------------------------------------------------------------------------------------------------
 
 } // Namespace CPPCore
-
-#endif // CPPCORE_COMMON_TSTRINGBASE_H_INC

@@ -23,8 +23,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------
 */
 #pragma once
-#ifndef CPPCORE_CSTRING_H_INC
-#define CPPCORE_CSTRING_H_INC
 
 #include <cppcore/Common/TStringBase.h>
 
@@ -81,5 +79,3 @@ private:
 //-------------------------------------------------------------------------------------------------
 
 } // Namespace CPPCore
-
-#endif // CPPCORE_CSTRING_H_INC

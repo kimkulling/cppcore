@@ -23,8 +23,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------
 */
 #pragma once
-#ifndef CE_INFRASTRUCTURE_CORE_VARIANT_H_INC
-#define CE_INFRASTRUCTURE_CORE_VARIANT_H_INC
 
 #include <cppcore/CPPCoreCommon.h>
 #include <cppcore/Common/CString.h>
@@ -49,144 +47,144 @@ namespace CPPCore {
 //-------------------------------------------------------------------------------------------------
 class Variant {
 public:
-	///	@enum	Type
-	///	@brief	This enum describes the variable type of the variant instance.
-	enum Type {
-		None,		///< Initialization value.
-		Int,		///< Integer value.
-		Int3,		///< Integer vector, 3 components.
-		Int4,		///< Integer vector, 4 components.
-		Float,		///< Float value.
-		Float3,		///< Float vector, 3 components.
-		Float4,		///< Float vector, 4 components.
-		Float4x4,	///< Float matrix, 4 x 4 components.
-		String,		///< String value.
+    ///	@enum	Type
+    ///	@brief	This enum describes the variable type of the variant instance.
+    enum Type {
+        None,		///< Initialization value.
+        Int,		///< Integer value.
+        Int3,		///< Integer vector, 3 components.
+        Int4,		///< Integer vector, 4 components.
+        Float,		///< Float value.
+        Float3,		///< Float vector, 3 components.
+        Float4,		///< Float vector, 4 components.
+        Float4x4,	///< Float matrix, 4 x 4 components.
+        String,		///< String value.
         Boolean,    ///< Boolean type.
-		MaxType		///< Upper limit.
-	};
+        MaxType		///< Upper limit.
+    };
 
-	///	@brief	The class default constructor.
-	Variant();
+    ///	@brief	The class default constructor.
+    Variant();
 
-	///	@brief	The class constructor with type information and data. A data buffer will be used to pass 
-	///			the data. The size of the buffer will be check on runtime as well.
-	///	@param	type		Type enumeration.
-	///	@param	pData		Pointer to the data buffer.
-	///	@param	numItems	Size of the data buffer.
-	Variant( Type type, void *pData, size_t numItems );
-	
+    ///	@brief	The class constructor with type information and data. A data buffer will be used to pass 
+    ///			the data. The size of the buffer will be check on runtime as well.
+    ///	@param	type		Type enumeration.
+    ///	@param	pData		Pointer to the data buffer.
+    ///	@param	numItems	Size of the data buffer.
+    Variant( Type type, void *pData, size_t numItems );
+    
     /// @brief  The class constructor with a boolean value.
     /// @param  value       [in] The boolean value.
     explicit Variant( bool value );
 
-	///	@brief	The class copy constructor.
-	///	@param	other	[in] Other instance to copy from.
-	Variant( const Variant &other );
+    ///	@brief	The class copy constructor.
+    ///	@param	other	[in] Other instance to copy from.
+    Variant( const Variant &other );
 
-	///	@brief	The class destructor.
-	~Variant();
+    ///	@brief	The class destructor.
+    ~Variant();
 
-	///	@brief	Returns the type of the instance.
-	///	@return	TYpe enum of the current dynamic type of the instance.
-	Type getType() const;
+    ///	@brief	Returns the type of the instance.
+    ///	@return	TYpe enum of the current dynamic type of the instance.
+    Type getType() const;
 
-	///	@brief	Sets a new integer value, old values will be released and destroyed.
-	///	@param	val		[in] A new integer value.
-	void setInt( int val );
+    ///	@brief	Sets a new integer value, old values will be released and destroyed.
+    ///	@param	val		[in] A new integer value.
+    void setInt( int val );
 
-	///	@brief	Returns the integer value of the instance.
-	///	@return	The stored integer value will be returned.
-	int getInt() const;
-	
-	///	@brief	Set a new integer vector, the old data will be released and destroyed.
-	///	@param	val1	Component 1, integer.
-	///	@param	val2	Component 2, integer.
-	///	@param	val3	Component 3, integer.
+    ///	@brief	Returns the integer value of the instance.
+    ///	@return	The stored integer value will be returned.
+    int getInt() const;
+    
+    ///	@brief	Set a new integer vector, the old data will be released and destroyed.
+    ///	@param	val1	Component 1, integer.
+    ///	@param	val2	Component 2, integer.
+    ///	@param	val3	Component 3, integer.
     void setInt3( int val1, int val2, int val3 );
-	
-	///	@brief	Returns a pointer to the first element of the integer vector. You can access the 2
-	///			following with the index operator for instance.
-	///	@return	Pointer to the first component of th vector array.
+    
+    ///	@brief	Returns a pointer to the first element of the integer vector. You can access the 2
+    ///			following with the index operator for instance.
+    ///	@return	Pointer to the first component of th vector array.
     int *getInt3( ) const;
 
-	///	@brief	Set a new integer vector, the old data will be released and destroyed.
-	///	@param	val1	Component 1, integer.
-	///	@param	val2	Component 2, integer.
-	///	@param	val3	Component 3, integer.
-	///	@param	val4	Component 3, integer.
+    ///	@brief	Set a new integer vector, the old data will be released and destroyed.
+    ///	@param	val1	Component 1, integer.
+    ///	@param	val2	Component 2, integer.
+    ///	@param	val3	Component 3, integer.
+    ///	@param	val4	Component 3, integer.
     void setInt4( int val1, int val2, int val3, int val4 );
 
-	///	@brief	Returns a pointer to the first element of the integer vector. You can access the 3
-	///			following with the index operator for instance.
-	///	@return	Pointer to the first component of th vector array.
+    ///	@brief	Returns a pointer to the first element of the integer vector. You can access the 3
+    ///			following with the index operator for instance.
+    ///	@return	Pointer to the first component of th vector array.
     int *getInt4( ) const;
 
-	///	@brief	Returns the float value of the instance.
-	///	@param	val		A new float value.
-	void setFloat( float val );
-	
-	///	@brief	Returns the float value of the instance.
-	///	@return	The stored float value will be returned.
+    ///	@brief	Returns the float value of the instance.
+    ///	@param	val		A new float value.
+    void setFloat( float val );
+    
+    ///	@brief	Returns the float value of the instance.
+    ///	@return	The stored float value will be returned.
     float getFloat( ) const;
 
-	///	@brief	Set a new float vector, the old data will be released and destroyed.
-	///	@param	val1	Component 1, float.
-	///	@param	val2	Component 2, float.
-	///	@param	val3	Component 3, float.
+    ///	@brief	Set a new float vector, the old data will be released and destroyed.
+    ///	@param	val1	Component 1, float.
+    ///	@param	val2	Component 2, float.
+    ///	@param	val3	Component 3, float.
     void setFloat3( float val1, float val2, float val3 );
-	
-	///	@brief	Returns a pointer to the first element of the float vector. You can access the 2
-	///			following with the index operator for instance.
-	///	@return	Pointer to the first component of th vector array.
+    
+    ///	@brief	Returns a pointer to the first element of the float vector. You can access the 2
+    ///			following with the index operator for instance.
+    ///	@return	Pointer to the first component of th vector array.
     float *getFloat3( ) const;
 
-	///	@brief	Set a new float vector, the old data will be released and destroyed.
-	///	@param	val1	Component 1, float.
-	///	@param	val2	Component 2, float.
-	///	@param	val3	Component 3, float.
-	///	@param	val4	Component 4, float.
+    ///	@brief	Set a new float vector, the old data will be released and destroyed.
+    ///	@param	val1	Component 1, float.
+    ///	@param	val2	Component 2, float.
+    ///	@param	val3	Component 3, float.
+    ///	@param	val4	Component 4, float.
     void setFloat4( float val1, float val2, float val3, float val4 );
 
-	///	@brief	Returns a pointer to the first element of the float vector. You can access the 3
-	///			following with the index operator for instance.
-	///	@return	Pointer to the first component of th vector array.
+    ///	@brief	Returns a pointer to the first element of the float vector. You can access the 3
+    ///			following with the index operator for instance.
+    ///	@return	Pointer to the first component of th vector array.
     float *getFloat4( ) const;
 
-	///	@brief	Assigns a new float 4x4 item.
-	///	@param	pData	[in] A float pointer to the 4x4 buffer.
+    ///	@brief	Assigns a new float 4x4 item.
+    ///	@param	pData	[in] A float pointer to the 4x4 buffer.
     void setFloat4x4( float *pData );
-	
-	///	@brief	Returns the pointer to the float 4x4 value.
-	///	@return	A pointer showing to the 4x4 float item.
+    
+    ///	@brief	Returns the pointer to the float 4x4 value.
+    ///	@return	A pointer showing to the 4x4 float item.
     float *getFloat4x4( ) const;
 
-	///	@brief	Sets a string value.
-	///	@param	rValue	The new string value.
-	void setString( const CString &rValue );
+    ///	@brief	Sets a string value.
+    ///	@param	rValue	The new string value.
+    void setString( const CString &rValue );
     void setStdString( const std::string &value );
 
-	///	@brief	Returns a constant reference to the string value.
-	///	@return	A pointer showing to the data buffer of the string.
-	const char *getString() const;
+    ///	@brief	Returns a constant reference to the string value.
+    ///	@return	A pointer showing to the data buffer of the string.
+    const char *getString() const;
 
     void setBool( bool value );
     bool getBool() const;
 
-	///	@brief	Clears the variant data, type will set back to None.
-	void clear();
+    ///	@brief	Clears the variant data, type will set back to None.
+    void clear();
 
-	///	@brief	Operator implementations.
-	bool operator == ( const Variant &rOther ) const;
-	Variant &operator = ( const Variant &rOther );
+    ///	@brief	Operator implementations.
+    bool operator == ( const Variant &rOther ) const;
+    Variant &operator = ( const Variant &rOther );
 
 protected:
-	bool isValid( Type type, size_t numItems ) const;
+    bool isValid( Type type, size_t numItems ) const;
     void reserve( Type type, size_t size );
 
 private:
-	Type m_Type;
+    Type m_Type;
     size_t m_BufferSize;
-	void *m_pData;
+    void *m_pData;
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -195,7 +193,7 @@ Variant::Variant()
 : m_Type( None )
 , m_BufferSize( 0 )
 , m_pData( nullptr ) {
-	// empty
+    // empty
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -204,18 +202,18 @@ Variant::Variant( Type type, void *pData, size_t numItems )
 : m_Type( None )
 , m_BufferSize( 0 )
 , m_pData( nullptr ) {
-	if ( isValid( type, numItems ) ) {
+    if ( isValid( type, numItems ) ) {
         size_t size = 0;
-		m_Type = type;
-		if ( type == String ) {
-			assert( nullptr != pData );
-			CString str( (char*) pData );
-			setString( str );
-		} else {
-			reserve( type, size );
-			::memcpy( m_pData, pData, m_BufferSize );
-		}
-	}
+        m_Type = type;
+        if ( type == String ) {
+            assert( nullptr != pData );
+            CString str( (char*) pData );
+            setString( str );
+        } else {
+            reserve( type, size );
+            ::memcpy( m_pData, pData, m_BufferSize );
+        }
+    }
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -234,39 +232,39 @@ Variant::Variant( const Variant &other )
 : m_Type( None )
 , m_BufferSize( 0 )
 , m_pData( NULL ) {
-	m_Type = other.m_Type;
-	if ( String == m_Type ) {
-		setString( other.getString() );
-	} else {
-		reserve( m_Type, 0 );
-		::memcpy( m_pData, other.m_pData, m_BufferSize );
-	}
+    m_Type = other.m_Type;
+    if ( String == m_Type ) {
+        setString( other.getString() );
+    } else {
+        reserve( m_Type, 0 );
+        ::memcpy( m_pData, other.m_pData, m_BufferSize );
+    }
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
 Variant::~Variant() {
-	clear();
+    clear();
 }
 
 //-------------------------------------------------------------------------------------------------
 inline
 Variant::Type Variant::getType() const {
-	return m_Type;
+    return m_Type;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
 void Variant::setInt( int val ) {
-	clear();
-	reserve( Int, 0 );
+    clear();
+    reserve( Int, 0 );
     ::memcpy( m_pData, &val, sizeof( int ) );
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
 int Variant::getInt( ) const {
-	assert( m_Type == Int );
+    assert( m_Type == Int );
 
     return ( *reinterpret_cast<int*>( m_pData ) );
 }
@@ -274,72 +272,72 @@ int Variant::getInt( ) const {
 //-------------------------------------------------------------------------------------------------
 inline 
 void Variant::setInt3( int val1, int val2, int val3 ) {
-	clear();
-	reserve( Int3, 0 );
+    clear();
+    reserve( Int3, 0 );
     int *ptr = reinterpret_cast<int*>( m_pData );
-	*ptr = val1;
-	++ptr;
-	*ptr = val2;
-	++ptr;
-	*ptr = val3;
+    *ptr = val1;
+    ++ptr;
+    *ptr = val2;
+    ++ptr;
+    *ptr = val3;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
 int *Variant::getInt3( ) const {
-	assert( m_Type == Int3 );
+    assert( m_Type == Int3 );
     return ( reinterpret_cast<int*>( m_pData ) );
 }
 
 //-------------------------------------------------------------------------------------------------
 inline
 void Variant::setInt4( int val1, int val2, int val3, int val4 ) {
-	clear();
-	reserve( Int4, 0 );
+    clear();
+    reserve( Int4, 0 );
     int *ptr = reinterpret_cast<int*>( m_pData );
-	*ptr = val1;
-	++ptr;
-	*ptr = val2;
-	++ptr;
-	*ptr = val3;
-	++ptr;
-	*ptr = val4;
+    *ptr = val1;
+    ++ptr;
+    *ptr = val2;
+    ++ptr;
+    *ptr = val3;
+    ++ptr;
+    *ptr = val4;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
 int *Variant::getInt4( ) const {
-	assert( m_Type == Int4 );
-	
+    assert( m_Type == Int4 );
+    
     return ( reinterpret_cast<int*>( m_pData ) );
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
 void Variant::setFloat( float val ) {
-	clear();
-	reserve( Float, 0 );
+    clear();
+    reserve( Float, 0 );
     ::memcpy( m_pData, &val, sizeof( float ) );
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
 float Variant::getFloat( ) const {
-	assert( m_Type == Float );
+    assert( m_Type == Float );
     return ( *reinterpret_cast<float*>( m_pData ) );
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
 void Variant::setFloat3( float val1, float val2, float val3 ) {
-	clear();
-	reserve( Float3, 0 );
+    clear();
+    reserve( Float3, 0 );
     float *ptr = reinterpret_cast<float*>( m_pData );
-	*ptr = val1;
-	++ptr;
-	*ptr = val2;
-	++ptr;
-	*ptr = val3;
+    *ptr = val1;
+    ++ptr;
+    *ptr = val2;
+    ++ptr;
+    *ptr = val3;
 
 }
 
@@ -353,30 +351,30 @@ float *Variant::getFloat3( ) const {
 //-------------------------------------------------------------------------------------------------
 inline 
 void Variant::setFloat4( float val1, float val2, float val3, float val4 ) {
-	clear();
-	reserve( Float4, 0 );
+    clear();
+    reserve( Float4, 0 );
     float *ptr = reinterpret_cast<float*>( m_pData );
-	*ptr = val1;
-	++ptr;
-	*ptr = val2;
-	++ptr;
-	*ptr = val3;
-	++ptr;
-	*ptr = val4;
+    *ptr = val1;
+    ++ptr;
+    *ptr = val2;
+    ++ptr;
+    *ptr = val3;
+    ++ptr;
+    *ptr = val4;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
 float *Variant::getFloat4( ) const {
-	assert( m_Type == Float4 );
+    assert( m_Type == Float4 );
     return ( reinterpret_cast<float*>( m_pData ) );
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
 void Variant::setFloat4x4( float *pData ) {
-	clear();
-	reserve( Float4x4, 0 );
+    clear();
+    reserve( Float4x4, 0 );
     ::memcpy( m_pData, pData, sizeof( float ) * 16 );
 }
 
@@ -390,10 +388,10 @@ float *Variant::getFloat4x4( ) const {
 //-------------------------------------------------------------------------------------------------
 inline 
 void Variant::setString( const CString &str ) {
-	clear();
-	m_Type = String;
+    clear();
+    m_Type = String;
     m_pData = new char[ str.size() + 1 ];
-	::memcpy( m_pData, str.c_str(), sizeof( char ) * str.size() );
+    ::memcpy( m_pData, str.c_str(), sizeof( char ) * str.size() );
     char *ptr = (char* ) m_pData;
     ptr[ str.size() ] = '\0';
 }
@@ -412,7 +410,7 @@ void Variant::setStdString( const std::string &value ) {
 //-------------------------------------------------------------------------------------------------
 inline 
 const char *Variant::getString() const {
-	assert( m_Type == String );
+    assert( m_Type == String );
 
     return static_cast<char*>( m_pData );
 }
@@ -436,80 +434,80 @@ bool Variant::getBool() const {
 //-------------------------------------------------------------------------------------------------
 inline 
 void Variant::clear() {
-	if ( None == m_Type ) {
-		return;
-	}
+    if ( None == m_Type ) {
+        return;
+    }
 
-	delete [] m_pData;
-	m_pData = nullptr;
-	m_Type = None;
+    delete [] m_pData;
+    m_pData = nullptr;
+    m_Type = None;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
 bool Variant::operator == ( const Variant &rOther ) const {
-	if ( rOther.m_Type != m_Type ) {
-		return false;
-	}
-	
-	if ( rOther.m_BufferSize != m_BufferSize ) {
-		return false;
-	}
+    if ( rOther.m_Type != m_Type ) {
+        return false;
+    }
+    
+    if ( rOther.m_BufferSize != m_BufferSize ) {
+        return false;
+    }
 
-	if ( 0 != ::memcmp( rOther.m_pData, m_pData, m_BufferSize ) ) {
-		return false;
-	}
-	
-	return true;
+    if ( 0 != ::memcmp( rOther.m_pData, m_pData, m_BufferSize ) ) {
+        return false;
+    }
+    
+    return true;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
 Variant &Variant::operator = ( const Variant &rOther ) {
-	if ( !( rOther == *this ) )	{
-		m_Type = rOther.m_Type;
-		reserve( m_Type, 0 );
-		::memcpy( m_pData, rOther.m_pData, m_BufferSize );
-	}
+    if ( !( rOther == *this ) )	{
+        m_Type = rOther.m_Type;
+        reserve( m_Type, 0 );
+        ::memcpy( m_pData, rOther.m_pData, m_BufferSize );
+    }
 
-	return *this;
+    return *this;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
 bool Variant::isValid( Type type, size_t numItems ) const {
-	bool res = false;
-	if ( type == Int || type == Float )	{
-		if ( 1 == numItems ) {
-			res = true;
-		}
-	} else if ( type == Int3 || type == Float3 ) {
-		if ( 3 == numItems ) {
-			res = true;
-		}
-	} else if ( type == Int4 || type == Float4 ) {
-		if ( 4 == numItems ) {
-			res = true;
-		}
-	} else if ( type == String ) {
-		if ( 0 != numItems ) {
-			res = true;
-		}
-	} else if ( type == None ) {
-		res = true;
-	}
-	
-	return res;
+    bool res = false;
+    if ( type == Int || type == Float )	{
+        if ( 1 == numItems ) {
+            res = true;
+        }
+    } else if ( type == Int3 || type == Float3 ) {
+        if ( 3 == numItems ) {
+            res = true;
+        }
+    } else if ( type == Int4 || type == Float4 ) {
+        if ( 4 == numItems ) {
+            res = true;
+        }
+    } else if ( type == String ) {
+        if ( 0 != numItems ) {
+            res = true;
+        }
+    } else if ( type == None ) {
+        res = true;
+    }
+    
+    return res;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline 
 void Variant::reserve( Type type, size_t size ) {
-	if ( 0 == size ) {
-		if ( type == Int3 ) {
-			size = sizeof( int ) * 3;
+    if ( 0 == size ) {
+        if ( type == Int3 ) {
+            size = sizeof( int ) * 3;
         } else if ( type == Float3 ) {
-			size = sizeof( float ) * 3;
+            size = sizeof( float ) * 3;
         } else if ( type == Int4 ) {
             size = sizeof( int ) * 4;
         } else if ( type == Float4 ) {
@@ -523,15 +521,13 @@ void Variant::reserve( Type type, size_t size ) {
         } else if ( type == Boolean ) {
             size = sizeof( bool );
         }
-	}
+    }
 
-	m_BufferSize = size;
-	m_pData = new unsigned char[ size ];
-	m_Type = type;
+    m_BufferSize = size;
+    m_pData = new unsigned char[ size ];
+    m_Type = type;
 }
 
 //-------------------------------------------------------------------------------------------------
 
 } // Namespace CPPCore
-
-#endif // CE_INFRASTRUCTURE_CORE_VARIANT_H_INC

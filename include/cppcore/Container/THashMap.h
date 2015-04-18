@@ -23,8 +23,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------
 */
 #pragma once
-#ifndef CPPCORE_THASHMAP_H_INC
-#define CPPCORE_THASHMAP_H_INC
 
 #include <cppcore/Common/Hash.h>
 
@@ -363,5 +361,3 @@ void THashMap<T, U>::Node::releaseList() {
 //-------------------------------------------------------------------------------------------------
 
 } // Namespace CPPCore
-
-#endif // CPPCORE_THASHMAP_H_INC
