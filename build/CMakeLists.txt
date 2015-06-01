@@ -10,18 +10,20 @@ if( CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX )
     find_package(Threads)
 endif()
 
+option( BUILD_UNITTESTS "Build unit tests." ON )
+
 add_definitions( -DCPPCORE_BUILD )
 add_definitions( -D_VARIADIC_MAX=10 )
 
 INCLUDE_DIRECTORIES(
-	../
-	../include/
+    ../
+    ../include/
     ../contrib/gtest-1.7.0/include
     ../contrib/gtest-1.7.0/
 )
 
 link_directories(
-	../
+    ../
 )
 
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/lib )
@@ -43,7 +45,7 @@ elseif ( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" )
 endif()
 
 SET ( cppcore_src
-	../code/cppcore.cpp
+    ../code/cppcore.cpp
     ../include/cppcore/CPPCoreCommon.h
 )
 
@@ -51,7 +53,7 @@ SET ( cppcore_common_src
     ../include/cppcore/Common/Hash.h
     ../include/cppcore/Common/CString.h
     ../include/cppcore/Common/TStringBase.h
-	../include/cppcore/Common/Variant.h
+    ../include/cppcore/Common/Variant.h
     ../code/Common/CString.cpp
 )
 
@@ -69,49 +71,52 @@ SOURCE_GROUP( code\\container FILES ${cppcore_container_src} )
 ADD_LIBRARY( cppcore SHARED
     ${cppcore_container_src}
     ${cppcore_common_src}
-	${cppcore_src}
+    ${cppcore_src}
 )
 
-SET( cppcore_test_src  
-    ../test/CPPCoreCommonTest.cpp 
-)
 
-SET( cppcore_common_test_src
-	../test/common/HashTest.cpp
-    ../test/common/StringTest.cpp
-    ../test/common/VariantTest.cpp
-)
+IF( BUILD_UNITTESTS )
+    SET( cppcore_test_src  
+        ../test/CPPCoreCommonTest.cpp 
+    )
 
-SET( cppcore_container_test_src
-    ../test/container/TArrayTest.cpp
-    ../test/container/THashMapTest.cpp
-    ../test/container/TListTest.cpp
-    ../test/container/TQueueTest.cpp
-)
+    SET( cppcore_common_test_src
+        ../test/common/HashTest.cpp
+        ../test/common/StringTest.cpp
+        ../test/common/VariantTest.cpp
+    )
 
-SET ( GTEST_PATH ../contrib/gtest-1.7.0 )
+    SET( cppcore_container_test_src
+        ../test/container/TArrayTest.cpp
+        ../test/container/THashMapTest.cpp
+        ../test/container/TListTest.cpp
+        ../test/container/TQueueTest.cpp
+    )
 
-SET ( gtest_src
-    ${GTEST_PATH}/src/gtest-death-test.cc
-    ${GTEST_PATH}/src/gtest-filepath.cc
-    ${GTEST_PATH}/src/gtest-internal-inl.h
-    ${GTEST_PATH}/src/gtest-port.cc
-    ${GTEST_PATH}/src/gtest-printers.cc
-    ${GTEST_PATH}/src/gtest-test-part.cc
-    ${GTEST_PATH}/src/gtest-typed-test.cc
-    ${GTEST_PATH}/src/gtest.cc
-    ${GTEST_PATH}/src/gtest_main.cc
-)
-SOURCE_GROUP( code            FILES ${cppcore_test_src} )
-SOURCE_GROUP( code\\common    FILES ${cppcore_common_test_src} )
-SOURCE_GROUP( code\\container FILES ${cppcore_container_test_src} )
-SOURCE_GROUP( contrib\\gtest  FILES ${gtest_src} )
+    SET ( GTEST_PATH ../contrib/gtest-1.7.0 )
 
-ADD_EXECUTABLE( cppcore_unittest
-    ${gtest_src}
-    ${cppcore_test_src}
-    ${cppcore_common_test_src}
-    ${cppcore_container_test_src}
-)
+    SET ( gtest_src
+        ${GTEST_PATH}/src/gtest-death-test.cc
+        ${GTEST_PATH}/src/gtest-filepath.cc
+        ${GTEST_PATH}/src/gtest-internal-inl.h
+        ${GTEST_PATH}/src/gtest-port.cc
+        ${GTEST_PATH}/src/gtest-printers.cc
+        ${GTEST_PATH}/src/gtest-test-part.cc
+        ${GTEST_PATH}/src/gtest-typed-test.cc
+        ${GTEST_PATH}/src/gtest.cc
+        ${GTEST_PATH}/src/gtest_main.cc
+    )
+    SOURCE_GROUP( code            FILES ${cppcore_test_src} )
+    SOURCE_GROUP( code\\common    FILES ${cppcore_common_test_src} )
+    SOURCE_GROUP( code\\container FILES ${cppcore_container_test_src} )
+    SOURCE_GROUP( contrib\\gtest  FILES ${gtest_src} )
 
-target_link_libraries( cppcore_unittest cppcore ${CMAKE_THREAD_LIBS_INIT} )
+    ADD_EXECUTABLE( cppcore_unittest
+        ${gtest_src}
+        ${cppcore_test_src}
+        ${cppcore_common_test_src}
+        ${cppcore_container_test_src}
+    )
+
+    target_link_libraries( cppcore_unittest cppcore ${CMAKE_THREAD_LIBS_INIT} )
+ENDIF( BUILD_UNITTESTS )

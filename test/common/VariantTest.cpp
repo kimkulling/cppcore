@@ -28,162 +28,162 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using namespace CPPCore;
 
 //-------------------------------------------------------------------------------------------------
-///	@class		ZFXCE2::UnitTest::VariantTest
+///	@class		::VariantTest
 ///	@ingroup	Test
 ///
 ///	@brief	This class implements the variant unit-tests.
 //-------------------------------------------------------------------------------------------------
 class VariantTest : public testing::Test {
 protected:
-	//---------------------------------------------------------------------------------------------
-	int *createInt( size_t buffersize ) {
+    //---------------------------------------------------------------------------------------------
+    int *createInt( size_t buffersize ) {
         int *pData = new int[ buffersize ];
         for ( size_t i=0; i<buffersize; i++ ) {
             pData[ i ] = ( int ) i * 1;
         }
 
         return pData;
-	}
+    }
 
-	//---------------------------------------------------------------------------------------------
-	float *createFloatData( size_t buffersize )	{
+    //---------------------------------------------------------------------------------------------
+    float *createFloatData( size_t buffersize )	{
         float *pData = new float[ buffersize ];
         for ( size_t i=0; i<buffersize; i++ ) {
             pData[ i ] = (float)i * 1.0f;
         }
-		
+        
         return pData;		
-	}
-	//---------------------------------------------------------------------------------------------
+    }
+    //---------------------------------------------------------------------------------------------
     bool validateIntData( size_t buffersize, int *pData, int *pRes ) {
-		bool equal = true;
+        bool equal = true;
         for( size_t i = 0; i<buffersize; i++ ) {
-			if ( *pRes != pData[ i ] ) {
-				equal = false;
-				break;
-			}
-			++pRes;
-		}
+            if ( *pRes != pData[ i ] ) {
+                equal = false;
+                break;
+            }
+            ++pRes;
+        }
         return equal;
-	}
+    }
 
-	//---------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------------
     bool validateFloatData( size_t buffersize, float *pData, float *pRes ) {
-		bool equal = true;
+        bool equal = true;
         for( size_t i = 0; i<buffersize; i++ ) {
-			if ( *pRes != pData[ i ] ) {
-				equal = false;
-				break;
-			}
-			++pRes;
-		}
+            if ( *pRes != pData[ i ] ) {
+                equal = false;
+                break;
+            }
+            ++pRes;
+        }
         return equal;
     }
 };
-	
+    
 //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, createTest ) {
-	int data = 1;
-	Variant test1( Variant::Int, (void*)&data, 1 ); 
-	EXPECT_TRUE ( true );
+    int data = 1;
+    Variant test1( Variant::Int, (void*)&data, 1 ); 
+    EXPECT_TRUE ( true );
 
-	Variant test2;
-	EXPECT_TRUE ( true );
-		
-	Variant *pTest3 = new Variant;
-	delete pTest3;
-	EXPECT_TRUE( true );
+    Variant test2;
+    EXPECT_TRUE ( true );
+        
+    Variant *pTest3 = new Variant;
+    delete pTest3;
+    EXPECT_TRUE( true );
 }
-	
+    
 //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, copyTest ) {
     int data = 1;
-	Variant test1( Variant::Int, (void*)&data, 1 ); 
-	EXPECT_TRUE ( true );
+    Variant test1( Variant::Int, (void*)&data, 1 ); 
+    EXPECT_TRUE ( true );
 
-	Variant test2( test1 );
-	EXPECT_EQ( test2, test1 );
+    Variant test2( test1 );
+    EXPECT_EQ( test2, test1 );
 }
 
 //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessIntTest ) {
     int data = 1;
-	Variant test( Variant::Int, (void*)&data, 1 ); 
+    Variant test( Variant::Int, (void*)&data, 1 ); 
 
     int res = test.getInt( );
-	EXPECT_EQ ( res, data );
+    EXPECT_EQ ( res, data );
 
-	data = 2;
-	test.setInt( data );
-	res = test.getInt();
-	EXPECT_EQ ( res, data );
+    data = 2;
+    test.setInt( data );
+    res = test.getInt();
+    EXPECT_EQ ( res, data );
 }
-	
+    
 //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessInt3Test ) {
-	static const size_t bufferSize = 3;
+    static const size_t bufferSize = 3;
     int *pData = createInt( bufferSize );
-	Variant test( Variant::Int3, (void*) pData, bufferSize ); 
+    Variant test( Variant::Int3, (void*) pData, bufferSize ); 
 
     int *pRes = test.getInt3( );
-	EXPECT_NE( nullptr, pRes );
-		
-	EXPECT_TRUE( validateIntData( bufferSize, pData, pRes ) );
-		
-	delete [] pData;
+    EXPECT_NE( nullptr, pRes );
+        
+    EXPECT_TRUE( validateIntData( bufferSize, pData, pRes ) );
+        
+    delete [] pData;
 }
 
 //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessInt4Test ) {
-	const size_t bufferSize = 4;
+    const size_t bufferSize = 4;
     int *pData = createInt( bufferSize );
-	Variant test( Variant::Int4, (void*) pData, bufferSize ); 
+    Variant test( Variant::Int4, (void*) pData, bufferSize ); 
 
     int *pRes = test.getInt4( );
-	EXPECT_NE( nullptr, pRes );
-		
-	EXPECT_TRUE( validateIntData( bufferSize, pData, pRes ) );
-	delete [] pData;
+    EXPECT_NE( nullptr, pRes );
+        
+    EXPECT_TRUE( validateIntData( bufferSize, pData, pRes ) );
+    delete [] pData;
 }
 
-	//---------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessFloatTest ) {
-	float data = 1.0f;
-	Variant test( Variant::Float, (void*)&data, 1 ); 
+    float data = 1.0f;
+    Variant test( Variant::Float, (void*)&data, 1 ); 
 
     float res = test.getFloat( );
-	EXPECT_EQ( res, data );
+    EXPECT_EQ( res, data );
 
-	data = 2.0f;
-	test.setFloat( data );
-	res = test.getFloat();
-	EXPECT_EQ( res, data );
+    data = 2.0f;
+    test.setFloat( data );
+    res = test.getFloat();
+    EXPECT_EQ( res, data );
 }
 
 //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessFloat3Test )	{
-	const size_t bufferSize = 3;
+    const size_t bufferSize = 3;
     float *pData = createFloatData( bufferSize );
-	Variant test( Variant::Float3, (void*) pData, bufferSize ); 
+    Variant test( Variant::Float3, (void*) pData, bufferSize ); 
 
     float *pRes = test.getFloat3( );
-	EXPECT_NE( pRes, nullptr );
-		
-	EXPECT_TRUE( validateFloatData( bufferSize, pData, pRes ) );
-		
-	delete [] pData;
+    EXPECT_NE( pRes, nullptr );
+        
+    EXPECT_TRUE( validateFloatData( bufferSize, pData, pRes ) );
+        
+    delete [] pData;
 }
 
 //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessFloat4Test ) {
-	const size_t bufferSize = 4;
+    const size_t bufferSize = 4;
     float *pData = createFloatData( bufferSize );
-	Variant test( Variant::Float4, (void*) pData, bufferSize ); 
+    Variant test( Variant::Float4, (void*) pData, bufferSize ); 
 
     float *pRes = test.getFloat4( );
     EXPECT_NE( pRes, nullptr );
 
-	validateFloatData( bufferSize, pData, pRes );
+    validateFloatData( bufferSize, pData, pRes );
 
     float data[ 4 ] = {
         1.0f, 2.0f, 3.0f, 4.0f
@@ -192,24 +192,24 @@ TEST_F( VariantTest, accessFloat4Test ) {
     pRes = test.getFloat4();
     EXPECT_TRUE( validateFloatData( 4, data, pRes ) );
 
-	delete [] pData;
+    delete [] pData;
 }
-	
+    
 //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessStringTest ) {
-	CString str( "test" );
-	Variant test( Variant::String, (void*) str.c_str(), str.size() );
+    CString str( "test" );
+    Variant test( Variant::String, (void*) str.c_str(), str.size() );
 
-	const CString buffer( test.getString() );
-	EXPECT_TRUE( !buffer.isEmpty() );
+    const CString buffer( test.getString() );
+    EXPECT_TRUE( !buffer.isEmpty() );
 
-	bool equal = true;
-	for ( size_t i=0; i<buffer.size(); i++ ) {
-		if ( buffer[ i ] != str[ i ] ) {
-			equal = false;
-		}
-	}
-	EXPECT_TRUE( buffer == str );
+    bool equal = true;
+    for ( size_t i=0; i<buffer.size(); i++ ) {
+        if ( buffer[ i ] != str[ i ] ) {
+            equal = false;
+        }
+    }
+    EXPECT_TRUE( buffer == str );
 }
 
 //---------------------------------------------------------------------------------------------
