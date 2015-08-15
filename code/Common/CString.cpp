@@ -89,7 +89,14 @@ bool CString::operator != ( const CString &rhs ) const {
 CString &CString::operator = ( const CString &rhs ) {
     if ( m_string.m_capacity > rhs.m_string.m_size ) {
         ::memset( m_string.m_pStringBuffer, '\0', m_string.m_capacity );
+
+#ifdef _WIN32
+        ::strncpy_s( m_string.m_pStringBuffer, m_string.m_capacity, rhs.c_str(), rhs.size() );
+#else
         strncpy( m_string.m_pStringBuffer, rhs.c_str(), rhs.size() );
+#endif
+
+
         m_string.m_size = rhs.size();
         return *this;
     }
@@ -97,7 +104,11 @@ CString &CString::operator = ( const CString &rhs ) {
     clear();
     m_string.m_size =  rhs.size() + 1;
     m_string.m_pStringBuffer = new char[ m_string.m_size ];
+#ifdef _WIN32
+    ::strncpy_s( m_string.m_pStringBuffer, m_string.m_size, rhs.c_str(), rhs.size() );
+#else
     strncpy( m_string.m_pStringBuffer, rhs.c_str(), rhs.size() );
+#endif
     m_string.m_pStringBuffer[ m_string.m_size ] = '\0';
 
     return *this;
