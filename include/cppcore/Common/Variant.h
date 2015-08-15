@@ -1,5 +1,4 @@
-/*
--------------------------------------------------------------------------------------------------
+/*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
 Copyright (c) 2014 Kim Kulling
@@ -20,6 +19,7 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+<<<<<<< HEAD
 -------------------------------------------------------------------------------------------------
 */
 #pragma once
@@ -531,3 +531,8 @@ void Variant::reserve( Type type, size_t size ) {
 //-------------------------------------------------------------------------------------------------
 
 } // Namespace CPPCore
+<<<<<<< HEAD
+=======
+
+#endif // CPPCORE_VARIANT_H_INC
+>>>>>>> 801c74630910727b5afd554aa8f8f1b67d338e59

@@ -1,5 +1,6 @@
-/*
--------------------------------------------------------------------------------------------------
+#pragma once
+
+/*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
 Copyright (c) 2014 Kim Kulling
@@ -20,9 +21,7 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
--------------------------------------------------------------------------------------------------
-*/
-#pragma once
+-----------------------------------------------------------------------------------------------*/
 #ifndef CPPCORE_COMMON_H_INC
 #define CPPCORE_COMMON_H_INC
 
@@ -74,6 +73,17 @@ private:\
     name &operator = ( const name & );
 
 //-------------------------------------------------------------------------------------------------
+/// @def    CPPCORE_ARRAY_SIZE
+///
+/// @brief  This macro calculates the number of items inside of an error.
+/// @param  x    [in] The array to get the number of items.
+///	@remark Be careful, use it as following:
+///	@code
+///	int array[] = {1,2,3,4}; CPPCORE_ARRAY_SIZE( array );  // correct
+/// void foo( int array[] ) { CPPCORE_ARRAY_SIZE( array ); // not correct
+/// @endcode
+//-------------------------------------------------------------------------------------------------
+#define CPPCORE_ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
 
 } // Namespace CPPCore
 
