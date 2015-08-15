@@ -73,6 +73,8 @@ public:
     ///	@param	newValue    [in] The value to add.
     void add( const T &newValue );
 
+    void add( T *newValues, size_t numItems );
+
     ///	@brief	Removes an item at the given index.
     ///	@param	index	    [in] The index of the item to remove.
     void remove( size_t index );
@@ -219,6 +221,24 @@ void TArray<T>::add( const T &rValue ) {
     }
     m_pData[ m_Size ] = rValue;
     ++m_Size;
+}
+
+//-------------------------------------------------------------------------------------------------
+template<class T>
+inline
+void TArray<T>::add( T *newValues, size_t numItems ) {
+    if( 0 == numItems ) {
+        return;
+    }
+
+    const size_t newCapa( m_Size + numItems );
+    if( newCapa > m_Capacity ) {
+        reserve( m_Capacity + newCapa );
+    }
+    for( size_t i = 0; i < numItems; i++ ) {
+        m_pData[ m_Size ] = newValues[i];
+        m_Size++;
+    }
 }
 
 //-------------------------------------------------------------------------------------------------

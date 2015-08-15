@@ -83,6 +83,22 @@ TEST_F( TArrayTest, addTest) {
 }
 
 //---------------------------------------------------------------------------------------------
+TEST_F( TArrayTest, addItemsTest ) {
+    TArray<float> arrayInstance;
+    arrayInstance.add( 0.0f );
+
+    float data[2] = { 0, 1 };
+    arrayInstance.add( data, 2 );
+    EXPECT_EQ( 3, arrayInstance.size() );
+    EXPECT_EQ( 0.0f, arrayInstance[ 0 ] );
+    EXPECT_EQ( 0.0f, arrayInstance[ 1 ] );
+    EXPECT_EQ( 1.0f, arrayInstance[ 2 ] );
+
+    arrayInstance.add( nullptr, 0 );
+    EXPECT_EQ( 3, arrayInstance.size() );
+}
+
+//---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, accessTest) {
     TArray<float> arrayInstance;
 	arrayInstance.add( 0.0f );
