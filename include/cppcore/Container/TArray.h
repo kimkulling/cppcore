@@ -73,7 +73,10 @@ public:
     ///	@param	newValue    [in] The value to add.
     void add( const T &newValue );
 
-    void add( T *newValues, size_t numItems );
+    ///	@brief	An array of new items will be added to the array.
+    ///	@param	newValues   [in] The array of new values to add.
+    ///	@param	numItems    [in] The number of items in the array.
+    void add(const T *newValues, size_t numItems);
 
     ///	@brief	Removes an item at the given index.
     ///	@param	index	    [in] The index of the item to remove.
@@ -226,7 +229,7 @@ void TArray<T>::add( const T &rValue ) {
 //-------------------------------------------------------------------------------------------------
 template<class T>
 inline
-void TArray<T>::add( T *newValues, size_t numItems ) {
+void TArray<T>::add( const T *newValues, size_t numItems ) {
     if( 0 == numItems ) {
         return;
     }
