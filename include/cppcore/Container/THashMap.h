@@ -74,7 +74,7 @@ public:
     ///	@brief  Looks for a given key and returns true, if a key-value pair is stored in the list.
     ///	@param  key     [in] The key to look for.
     ///	@return true, if key-value pair was found.
-    bool hasKey( const T &key );
+    bool hasKey( const T &key ) const;
     
     ///	@brief  Returns the assigned value for the given key.
     ///	@param  key     [in] The key to look for.
@@ -203,7 +203,7 @@ bool THashMap<T, U>::remove( const T &key ) {
 //-------------------------------------------------------------------------------------------------
 template<class T, class U>
 inline
-bool THashMap<T, U>::hasKey( const T &key ) {
+bool THashMap<T, U>::hasKey( const T &key ) const {
     const unsigned int hash( Hash::toHash( key, m_buffersize ) );
     const Node *node( m_buffer[ hash ] );
     if( !node ) {
