@@ -27,7 +27,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace CPPCore {
 
-#ifdef _WIN32
+#if defined( _WIN32 ) || defined( _WIN64 )
+#   define CPPCORE_WINDOWS
+#   define _CRT_SECURE_NO_WARNINGS
+#elif defined(__gnu_linux__)
+#   define CPPCORE_GNU_LINUX
+#endif
+
+#ifdef CPPCORE_WINDOWS
 #   define TAG_DLL_EXPORT __declspec(dllexport)
 #   define TAG_DLL_IMPORT __declspec(dllimport )
 #   ifdef CPPCORE_BUILD
@@ -66,8 +73,8 @@ void ContainerClear( T & ctr ) {
 //-------------------------------------------------------------------------------------------------
 #define CPPCORE_NONE_COPYING( name ) \
 private:\
-    name( const name & );\
-    name &operator = ( const name & );
+    name( const name & ) = delete ;\
+    name &operator = ( const name & ) = delete;
 
 //-------------------------------------------------------------------------------------------------
 /// @def    CPPCORE_ARRAY_SIZE

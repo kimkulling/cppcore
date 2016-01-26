@@ -122,7 +122,7 @@ void TStringBase<T>::copyFrom( TStringBase<T> &base, const T *pPtr ) {
         if ( base.m_size ) {
             base.m_capacity = base.m_size + 1;
             base.m_pStringBuffer = alloc<T>( base.m_capacity );
-#ifdef _WIN32
+#ifdef CPPCORE_WINDOWS
             ::strncpy_s( base.m_pStringBuffer, base.m_capacity, pPtr, base.m_size );
 #else
             ::strncpy( base.m_pStringBuffer, pPtr, base.m_size );
