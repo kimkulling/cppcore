@@ -42,12 +42,14 @@ public:
     /// @param  hash    [in] An integer value to compute the hash from.
     explicit Hash( unsigned int hash );
 
-    /// @brief  The class constructor with a given value.
+    /// @brief  The class constructor with a given char buffer.
     /// @param  value   [in] A character buffer to compute the hash from.
-    /// @param  base    [in] the table base.
+    /// @param  base    [in] The table base.
     explicit Hash( const char *buffer, unsigned int base );
     
-    ///
+    /// @brief  The class constructor with a given unsigned int value.
+    /// @param  value   [in] An unsigned int value to compute the hash from.
+    /// @param  base    [in] The table base.
     explicit Hash( unsigned int value, unsigned int base );
 
     /// @brief  The class destructor.
@@ -68,41 +70,35 @@ private:
     unsigned int m_hash;
 };
 
-//-------------------------------------------------------------------------------------------------
 inline
 Hash::Hash() 
 : m_hash( 0 ){
     // empty
 }
 
-//-------------------------------------------------------------------------------------------------
 inline
 Hash::Hash( unsigned int hash )
 : m_hash( hash ) {
     // empty
 }
 
-//-------------------------------------------------------------------------------------------------
 inline
 Hash::Hash( const char *buffer, unsigned int base )
 : m_hash( toHash( buffer, base ) ) {
     // empty
 }
 
-//-------------------------------------------------------------------------------------------------
 inline
 Hash::Hash( unsigned int value, unsigned int base )
 : m_hash( toHash( value, base ) ) {
     // empty
 }
 
-//-------------------------------------------------------------------------------------------------
 inline
 Hash::~Hash() {
     // empty
 }
 
-//-------------------------------------------------------------------------------------------------
 inline
 unsigned int Hash::toHash( const char *buffer, unsigned int base ) {
     unsigned int hash( 0 );
@@ -119,19 +115,16 @@ unsigned int Hash::toHash( const char *buffer, unsigned int base ) {
     return hash;
 }
 
-//-------------------------------------------------------------------------------------------------
 inline
 unsigned int Hash::toHash( unsigned int value, unsigned int base ) {
     const unsigned int hash( value%base );
     return hash;
 }
 
-//-------------------------------------------------------------------------------------------------
 inline
 unsigned int Hash::hashValue() const {
     return m_hash;
 }
 
-//-------------------------------------------------------------------------------------------------
 
 } // Namespace CPPCore

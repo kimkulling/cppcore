@@ -29,21 +29,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace CPPCore {
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 T *alloc( unsigned int size ) {
     return new T[ size ];
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 void dealloc( T *ptr ) {
     delete [] ptr;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 static unsigned int countChars( T *ptr ) {
@@ -83,7 +80,6 @@ public:
     size_t m_capacity;
 };
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 TStringBase<T>::TStringBase()
@@ -93,7 +89,6 @@ TStringBase<T>::TStringBase()
     // empty
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 TStringBase<T>::TStringBase( const T *pPtr ) 
@@ -103,7 +98,6 @@ TStringBase<T>::TStringBase( const T *pPtr )
     copyFrom( *this, pPtr );
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 TStringBase<T>::~TStringBase() {
@@ -132,6 +126,5 @@ void TStringBase<T>::copyFrom( TStringBase<T> &base, const T *pPtr ) {
     }
 }
 
-//-------------------------------------------------------------------------------------------------
 
 } // Namespace CPPCore

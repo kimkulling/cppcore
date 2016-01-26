@@ -186,7 +186,6 @@ private:
     void *m_pData;
 };
 
-//-------------------------------------------------------------------------------------------------
 inline 
 Variant::Variant()
 : m_Type( None )
@@ -195,7 +194,6 @@ Variant::Variant()
     // empty
 }
 
-//-------------------------------------------------------------------------------------------------
 inline
 Variant::Variant( Type type, void *pData, size_t numItems )
 : m_Type( None )
@@ -215,7 +213,6 @@ Variant::Variant( Type type, void *pData, size_t numItems )
     }
 }
 
-//-------------------------------------------------------------------------------------------------
 inline
 Variant::Variant( bool value )
 : m_Type( Boolean )
@@ -225,7 +222,6 @@ Variant::Variant( bool value )
     ::memcpy( m_pData, &value, m_BufferSize );
 }
 
-//-------------------------------------------------------------------------------------------------
 inline
 Variant::Variant( const Variant &other ) 
 : m_Type( None )
@@ -240,19 +236,16 @@ Variant::Variant( const Variant &other )
     }
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 Variant::~Variant() {
     clear();
 }
 
-//-------------------------------------------------------------------------------------------------
 inline
 Variant::Type Variant::getType() const {
     return m_Type;
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 void Variant::setInt( int val ) {
     clear();
@@ -260,7 +253,6 @@ void Variant::setInt( int val ) {
     ::memcpy( m_pData, &val, sizeof( int ) );
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 int Variant::getInt( ) const {
     assert( m_Type == Int );
@@ -268,7 +260,6 @@ int Variant::getInt( ) const {
     return ( *reinterpret_cast<int*>( m_pData ) );
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 void Variant::setInt3( int val1, int val2, int val3 ) {
     clear();
@@ -281,14 +272,12 @@ void Variant::setInt3( int val1, int val2, int val3 ) {
     *ptr = val3;
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 int *Variant::getInt3( ) const {
     assert( m_Type == Int3 );
     return ( reinterpret_cast<int*>( m_pData ) );
 }
 
-//-------------------------------------------------------------------------------------------------
 inline
 void Variant::setInt4( int val1, int val2, int val3, int val4 ) {
     clear();
@@ -303,7 +292,6 @@ void Variant::setInt4( int val1, int val2, int val3, int val4 ) {
     *ptr = val4;
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 int *Variant::getInt4( ) const {
     assert( m_Type == Int4 );
@@ -311,7 +299,6 @@ int *Variant::getInt4( ) const {
     return ( reinterpret_cast<int*>( m_pData ) );
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 void Variant::setFloat( float val ) {
     clear();
@@ -319,14 +306,12 @@ void Variant::setFloat( float val ) {
     ::memcpy( m_pData, &val, sizeof( float ) );
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 float Variant::getFloat( ) const {
     assert( m_Type == Float );
     return ( *reinterpret_cast<float*>( m_pData ) );
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 void Variant::setFloat3( float val1, float val2, float val3 ) {
     clear();
@@ -340,14 +325,12 @@ void Variant::setFloat3( float val1, float val2, float val3 ) {
 
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 float *Variant::getFloat3( ) const {
     assert( m_Type == Float3 );
     return ( reinterpret_cast<float*>( m_pData ) );
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 void Variant::setFloat4( float val1, float val2, float val3, float val4 ) {
     clear();
@@ -362,14 +345,12 @@ void Variant::setFloat4( float val1, float val2, float val3, float val4 ) {
     *ptr = val4;
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 float *Variant::getFloat4( ) const {
     assert( m_Type == Float4 );
     return ( reinterpret_cast<float*>( m_pData ) );
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 void Variant::setFloat4x4( float *pData ) {
     clear();
@@ -377,14 +358,12 @@ void Variant::setFloat4x4( float *pData ) {
     ::memcpy( m_pData, pData, sizeof( float ) * 16 );
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 float *Variant::getFloat4x4( ) const {
     assert( m_Type == Float4x4 );
     return ( reinterpret_cast<float*>( m_pData ) );
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 void Variant::setString( const CString &str ) {
     clear();
@@ -395,7 +374,6 @@ void Variant::setString( const CString &str ) {
     ptr[ str.size() ] = '\0';
 }
 
-//-------------------------------------------------------------------------------------------------
 inline
 void Variant::setStdString( const std::string &value ) {
     clear();
@@ -406,7 +384,6 @@ void Variant::setStdString( const std::string &value ) {
     ptr[ value.size( ) ] = '\0';
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 const char *Variant::getString() const {
     assert( m_Type == String );
@@ -414,7 +391,6 @@ const char *Variant::getString() const {
     return static_cast<char*>( m_pData );
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 void Variant::setBool( bool value ) {
     clear();
@@ -422,7 +398,6 @@ void Variant::setBool( bool value ) {
     ::memcpy( m_pData, &value, sizeof( bool ) );
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 bool Variant::getBool() const {
     assert( Boolean == m_Type );
@@ -430,7 +405,6 @@ bool Variant::getBool() const {
     return ( *reinterpret_cast<bool*>( m_pData ) );
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 void Variant::clear() {
     if ( None == m_Type ) {
@@ -442,7 +416,6 @@ void Variant::clear() {
     m_Type = None;
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 bool Variant::operator == ( const Variant &rOther ) const {
     if ( rOther.m_Type != m_Type ) {
@@ -460,7 +433,6 @@ bool Variant::operator == ( const Variant &rOther ) const {
     return true;
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 Variant &Variant::operator = ( const Variant &rOther ) {
     if ( !( rOther == *this ) )	{
@@ -472,7 +444,6 @@ Variant &Variant::operator = ( const Variant &rOther ) {
     return *this;
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 bool Variant::isValid( Type type, size_t numItems ) const {
     bool res = false;
@@ -499,7 +470,6 @@ bool Variant::isValid( Type type, size_t numItems ) const {
     return res;
 }
 
-//-------------------------------------------------------------------------------------------------
 inline 
 void Variant::reserve( Type type, size_t size ) {
     if ( 0 == size ) {
@@ -527,6 +497,5 @@ void Variant::reserve( Type type, size_t size ) {
     m_Type = type;
 }
 
-//-------------------------------------------------------------------------------------------------
 
 } // Namespace CPPCore

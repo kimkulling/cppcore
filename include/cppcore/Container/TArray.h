@@ -165,7 +165,6 @@ private:
     T *m_pData;
 };
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 TArray<T>::TArray() 
@@ -176,7 +175,6 @@ TArray<T>::TArray()
     // empty
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 TArray<T>::TArray( size_t size ) 
@@ -189,7 +187,6 @@ TArray<T>::TArray( size_t size )
     resize( size );
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 TArray<T>::TArray( const TArray<T> &rOther ) 
@@ -203,7 +200,6 @@ TArray<T>::TArray( const TArray<T> &rOther )
     }
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 TArray<T>::~TArray() {
@@ -213,7 +209,6 @@ TArray<T>::~TArray() {
     m_pData = nullptr;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 void TArray<T>::add( const T &rValue ) {
@@ -225,7 +220,6 @@ void TArray<T>::add( const T &rValue ) {
     ++m_Size;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 void TArray<T>::add( const T *newValues, size_t numItems ) {
@@ -243,7 +237,6 @@ void TArray<T>::add( const T *newValues, size_t numItems ) {
     }
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 void TArray<T>::remove( size_t index ) {
@@ -259,7 +252,6 @@ void TArray<T>::remove( size_t index ) {
     }
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 void TArray<T>::remove( Iterator it ) {
@@ -282,7 +274,6 @@ void TArray<T>::remove( Iterator it ) {
     }
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 void TArray<T>::removeBack() {
@@ -291,7 +282,6 @@ void TArray<T>::removeBack() {
     remove( size() - 1 );
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 void TArray<T>::destroy( size_t index ) {
@@ -299,7 +289,6 @@ void TArray<T>::destroy( size_t index ) {
     pElem->~T();
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 T &TArray<T>::front() {
@@ -308,7 +297,6 @@ T &TArray<T>::front() {
     return m_pData[ 0 ];
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 T &TArray<T>::back() {
@@ -317,7 +305,6 @@ T &TArray<T>::back() {
     return ( m_pData[ m_Size-1 ] );
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 void TArray<T>::move( size_t fromIdx, size_t toIdx ) {
@@ -355,7 +342,6 @@ void TArray<T>::move( size_t fromIdx, size_t toIdx ) {
     m_Size = toIdx + numElements;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 void TArray<T>::reserve( size_t capacity ) {
@@ -386,7 +372,6 @@ void TArray<T>::reserve( size_t capacity ) {
     }
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 void TArray<T>::resize( size_t size ) {
@@ -419,28 +404,24 @@ void TArray<T>::resize( size_t size ) {
     m_Size = size;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 size_t TArray<T>::size( ) const {
     return m_Size;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 size_t TArray<T>::capacity( ) const {
     return m_Capacity;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 bool TArray<T>::isEmpty() const {
     return ( 0 == m_Size );
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 typename TArray<T>::Iterator TArray<T>::find( const T &rItem ) {
@@ -455,7 +436,6 @@ typename TArray<T>::Iterator TArray<T>::find( const T &rItem ) {
     return end();
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 void TArray<T>::clear() {
@@ -465,7 +445,6 @@ void TArray<T>::clear() {
     m_Capacity = 0;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 typename TArray<T>::Iterator TArray<T>::begin() {
@@ -476,7 +455,6 @@ typename TArray<T>::Iterator TArray<T>::begin() {
     return &m_pData[ 0 ];
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 typename TArray<T>::Iterator TArray<T>::end() {
@@ -486,7 +464,6 @@ typename TArray<T>::Iterator TArray<T>::end() {
     return tmp;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 T &TArray<T>::operator[]( size_t idx ) const {
@@ -496,7 +473,6 @@ T &TArray<T>::operator[]( size_t idx ) const {
     return m_pData[ idx ];
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 TArray<T> &TArray<T>::operator = ( const TArray<T> &rOther ) {
@@ -518,7 +494,6 @@ TArray<T> &TArray<T>::operator = ( const TArray<T> &rOther ) {
     return *this;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 bool TArray<T>::operator == ( const TArray<T> &rOther ) const {
@@ -535,7 +510,6 @@ bool TArray<T>::operator == ( const TArray<T> &rOther ) const {
     return true;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 size_t TArray<T>::getGrowing( size_t size ) {
@@ -549,7 +523,5 @@ size_t TArray<T>::getGrowing( size_t size ) {
 
     return 4096;
 }
-
-//-------------------------------------------------------------------------------------------------
 
 } // Namespace CPPCore
