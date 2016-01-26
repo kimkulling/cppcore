@@ -54,10 +54,32 @@ TEST_F( CPPCoreCommonTest, NoneCopyingTest ) {
     EXPECT_TRUE( success );
 }
 
-TEST_F( CPPCoreCommonTest, ContainerClearTest ) {
-    TArray<int*> myArray;
-    for( size_t i = 0; i < 10; i++ ) {
+static void createTestArray( TArray<int*> &myArray ) {
+    for ( size_t i = 0; i < 10; i++ ) {
         myArray.add( new int );
     }
+}
+
+TEST_F( CPPCoreCommonTest, ContainerClearTest ) {
+    TArray<int*> myArray;
+    createTestArray( myArray );
     ContainerClear( myArray );
+    EXPECT_TRUE( myArray.isEmpty() );
+}
+
+void deleterTestFunc( TArray<int*> &myArray ) {
+    if ( myArray.isEmpty() ) {
+        return;
+    }
+    for ( size_t i = 0; i < myArray.size(); i++ ) {
+        delete myArray[ i ];
+    }
+    myArray.resize( 0 );
+}
+
+TEST_F( CPPCoreCommonTest, ContainerClearWithDeleterTest ) {
+    TArray<int*> myArray;
+    createTestArray( myArray );
+    ContainerClear( myArray, deleterTestFunc );
+    EXPECT_TRUE( myArray.isEmpty() );
 }

@@ -50,17 +50,21 @@ namespace CPPCore {
 //-------------------------------------------------------------------------------------------------
 /// @fn ContainerClear
 ///
-/// @brief  Will release a container with a simple delete.
+/// @brief  Will release a CPPCore-specific container with a simple delete.
 /// @param  ctr     [in] A reference to the container to release.
 //-------------------------------------------------------------------------------------------------
 template<class T>
-void ContainerClear( T & ctr ) {
+void ContainerClear( T & ctr, void( *DeleterFunc )( T & ) = nullptr ) {
     if( ctr.isEmpty() ) {
         return;
     }
 
-    for( size_t i = 0; i < ctr.size(); ++i ) {
-        delete ctr[ i ];
+    if ( nullptr == DeleterFunc ) {
+        for ( size_t i = 0; i < ctr.size(); ++i ) {
+            delete ctr[ i ];
+        }
+    } else { 
+        DeleterFunc( ctr );
     }
     ctr.clear();
 }
