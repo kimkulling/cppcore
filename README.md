@@ -18,13 +18,13 @@ The library is pretty small and contains at this moment:
 
 Common stuff:
 -------------
-- CString  Simple string implementation without the big overhead of a std::string
-- Variant  Implements a variant to deal with arbitrary data types.
-- THash    A hash function to calculate hash values.
+- CString:  Simple string implementation without the big overhead of a std::string
+- Variant:  Implements a variant to deal with arbitrary data types.
+- THash:    A hash function to calculate hash values.
 
 Containers:
 ----------
-- TArray  A simple dynamic array.
-- TList   A double linked list.
-- TQueue  A simple queue.
-- THashMap  A key-value hash map for easy lookup tables
+- TArray:    A simple dynamic array.
+- TList:     A double linked list.
+- TQueue:    A simple queue.
+- THashMap:  A key-value hash map for easy lookup tables
