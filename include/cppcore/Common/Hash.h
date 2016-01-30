@@ -19,8 +19,7 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
--------------------------------------------------------------------------------------------------
-*/
+-----------------------------------------------------------------------------------------------*/
 #pragma once
 
 #include <cppcore/CPPCoreCommon.h>
@@ -60,6 +59,11 @@ public:
     /// @param  base    [in] The table base.
     /// @return The hash value.
     static unsigned int toHash( const char *buffer, unsigned int base );
+
+    /// @brief  Computes the hash value for a given unsigned int value.
+    /// @param  buffer  [in] The unsigned int value.
+    /// @param  base    [in] The table base.
+    /// @return The hash value.
     static unsigned int toHash( unsigned int value, unsigned int base );
 
     /// brief    Returns the stored hash value.
@@ -84,13 +88,13 @@ Hash::Hash( unsigned int hash )
 
 inline
 Hash::Hash( const char *buffer, unsigned int base )
-: m_hash( toHash( buffer, base ) ) {
+: m_hash( Hash::toHash( buffer, base ) ) {
     // empty
 }
 
 inline
 Hash::Hash( unsigned int value, unsigned int base )
-: m_hash( toHash( value, base ) ) {
+: m_hash( Hash::toHash( value, base ) ) {
     // empty
 }
 
@@ -117,7 +121,7 @@ unsigned int Hash::toHash( const char *buffer, unsigned int base ) {
 
 inline
 unsigned int Hash::toHash( unsigned int value, unsigned int base ) {
-    const unsigned int hash( value%base );
+    const unsigned int hash( value % base );
     return hash;
 }
 
@@ -125,6 +129,5 @@ inline
 unsigned int Hash::hashValue() const {
     return m_hash;
 }
-
 
 } // Namespace CPPCore
