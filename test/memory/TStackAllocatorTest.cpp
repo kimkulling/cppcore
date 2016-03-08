@@ -48,8 +48,14 @@ TEST_F( TStackAllocatorTest, CreateTest ) {
 TEST_F( TStackAllocatorTest, AllocReleaseTest ) {
     TStackAllocator<int> myAllocator( 1024 );
 
+    int *init( myAllocator.alloc( 1 ) );
+    const size_t size0( myAllocator.freeMem() );
+    EXPECT_TRUE( nullptr != init );
+
+    const size_t size1( myAllocator.freeMem() );
     int *myArray = myAllocator.alloc( 10 );
     EXPECT_TRUE( nullptr != myArray );
 
     myAllocator.release( myArray );
+    const size_t size2( myAllocator.freeMem() );
 }
