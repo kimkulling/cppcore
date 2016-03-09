@@ -52,8 +52,8 @@ TEST_F( TStackAllocatorTest, AllocReleaseTest ) {
     const size_t size0( myAllocator.freeMem() );
     EXPECT_TRUE( nullptr != init );
 
-    const size_t size1( myAllocator.freeMem() );
     int *myArray = myAllocator.alloc( 10 );
+    const size_t size1( myAllocator.freeMem() );
     EXPECT_TRUE( nullptr != myArray );
 
     myAllocator.release( myArray );
