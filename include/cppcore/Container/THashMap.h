@@ -104,7 +104,6 @@ private:
     size_t m_buffersize;
 };
 
-//-------------------------------------------------------------------------------------------------
 template<class T, class U>
 inline
 THashMap<T, U>::THashMap( size_t init )
@@ -118,28 +117,24 @@ THashMap<T, U>::THashMap( size_t init )
     m_buffersize = init;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T, class U>
 inline
 THashMap<T, U>::~THashMap() {
     clear();
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T, class U>
 inline
 size_t THashMap<T, U>::size() const {
     return m_numItems;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T, class U>
 inline
 bool THashMap<T, U>::isEmpty() const {
     return ( 0 == m_numItems );
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T, class U>
 inline 
 void THashMap<T, U>::clear() {
@@ -154,7 +149,6 @@ void THashMap<T, U>::clear() {
     m_buffersize = 0;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T, class U>
 inline
 void THashMap<T, U>::insert( const T &key, const U &value ) {
@@ -170,7 +164,6 @@ void THashMap<T, U>::insert( const T &key, const U &value ) {
     m_numItems++;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T, class U>
 inline
 bool THashMap<T, U>::remove( const T &key ) {
@@ -199,7 +192,6 @@ bool THashMap<T, U>::remove( const T &key ) {
     return found;
 }
  
-//-------------------------------------------------------------------------------------------------
 template<class T, class U>
 inline
 bool THashMap<T, U>::hasKey( const T &key ) const {
@@ -226,7 +218,6 @@ bool THashMap<T, U>::hasKey( const T &key ) const {
     return false;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T, class U>
 inline
 bool THashMap<T, U>::getValue( const T &key, U &value ) const {
@@ -234,21 +225,22 @@ bool THashMap<T, U>::getValue( const T &key, U &value ) const {
     if( m_buffer[ pos ]->m_key == key ) {
         value = m_buffer[ pos ]->m_value;
         return true;
-    } else {
-        Node *node( m_buffer[ pos ] );
-        Node *next( node->m_next );
-        while( next->m_key != key ) {
-            next = next->m_next;
-            if( !next ) {
-                return false;
-            }
+    } 
+
+    Node *node( m_buffer[ pos ] );
+    Node *next( node->m_next );
+    while( next->m_key != key ) {
+        next = next->m_next;
+        if( !next ) {
+            return false;
         }
-        value = next->m_value;
-        return true;
     }
+    value = next->m_value;
+
+     
+    return true;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T, class U>
 inline
 U &THashMap<T, U>::operator [] ( const T &key ) const {
@@ -270,7 +262,6 @@ U &THashMap<T, U>::operator [] ( const T &key ) const {
     return dummy;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T, class U>
 inline
 THashMap<T, U>::Node::Node()
@@ -280,14 +271,12 @@ THashMap<T, U>::Node::Node()
     // empty
 }
 
-//-------------------------------------------------------------------------------------------------
 template < class T, class U >
 inline
 THashMap<T, U>::Node::~Node() {
     m_next = nullptr;
 }
 
-//-------------------------------------------------------------------------------------------------
 template < class T, class U >
 inline
 void THashMap<T, U>::Node::append( T key, const U &value ) {
@@ -315,7 +304,6 @@ void THashMap<T, U>::Node::append( T key, const U &value ) {
     }
 }
 
-//-------------------------------------------------------------------------------------------------
 template < class T, class U >
 inline
 bool THashMap<T, U>::Node::remove( T key ) {
@@ -341,7 +329,6 @@ bool THashMap<T, U>::Node::remove( T key ) {
     return found;
 }
 
-//-------------------------------------------------------------------------------------------------
 template < class T, class U >
 inline
 void THashMap<T, U>::Node::releaseList() {
@@ -356,7 +343,5 @@ void THashMap<T, U>::Node::releaseList() {
         delete tmp;
     }
 }
-
-//-------------------------------------------------------------------------------------------------
 
 } // Namespace CPPCore
