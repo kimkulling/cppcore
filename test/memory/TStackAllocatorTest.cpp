@@ -22,64 +22,40 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------
 */
-#include <cppcore/CPPCoreCommon.h>
-#include <cppcore/Container/TArray.h>
+
+#include <cppcore/Memory/TStackAllocator.h>
 
 #include "gtest/gtest.h"
 
 using namespace CPPCore;
 
 //---------------------------------------------------------------------------------------------
-class CPPCoreCommonTest : public testing::Test {
+class TStackAllocatorTest : public testing::Test {
 protected:
 };
 
-class NoCopyMock {
-    CPPCORE_NONE_COPYING( NoCopyMock );
-
-public:
-    NoCopyMock() {
-        // empty
-    }
-};
-
-TEST_F( CPPCoreCommonTest, NoneCopyingTest ) {
-    bool success( true );
+TEST_F( TStackAllocatorTest, CreateTest ) {
+    bool ok( true );
     try {
-        NoCopyMock mymock;
+        TStackAllocator<int> myAllocator( 1024 );
     }
-    catch( ... ) {
-        success = false;
+    catch ( ... ) {
+        ok = false;
     }
-    EXPECT_TRUE( success );
+    EXPECT_TRUE( ok );
 }
 
-static void createTestArray( TArray<int*> &myArray ) {
-    for ( size_t i = 0; i < 10; i++ ) {
-        myArray.add( new int );
-    }
-}
+TEST_F( TStackAllocatorTest, AllocReleaseTest ) {
+    TStackAllocator<int> myAllocator( 1024 );
 
-TEST_F( CPPCoreCommonTest, ContainerClearTest ) {
-    TArray<int*> myArray;
-    createTestArray( myArray );
-    ContainerClear( myArray );
-    EXPECT_TRUE( myArray.isEmpty() );
-}
+    int *init( myAllocator.alloc( 1 ) );
+    const size_t size0( myAllocator.freeMem() );
+    EXPECT_TRUE( nullptr != init );
 
-void deleterTestFunc( TArray<int*> &myArray ) {
-    if ( myArray.isEmpty() ) {
-        return;
-    }
-    for ( size_t i = 0; i < myArray.size(); i++ ) {
-        delete myArray[ i ];
-    }
-    myArray.resize( 0 );
-}
+    int *myArray = myAllocator.alloc( 10 );
+    const size_t size1( myAllocator.freeMem() );
+    EXPECT_TRUE( nullptr != myArray );
 
-TEST_F( CPPCoreCommonTest, ContainerClearWithDeleterTest ) {
-    TArray<int*> myArray;
-    createTestArray( myArray );
-    ContainerClear( myArray, deleterTestFunc );
-    EXPECT_TRUE( myArray.isEmpty() );
+    myAllocator.release( myArray );
+    const size_t size2( myAllocator.freeMem() );
 }

@@ -19,8 +19,7 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
--------------------------------------------------------------------------------------------------
-*/
+-----------------------------------------------------------------------------------------------*/
 #pragma once
 
 #include <cppcore/CPPCoreCommon.h>
@@ -189,24 +188,21 @@ TArray<T>::TArray( size_t size )
 
 template<class T>
 inline
-TArray<T>::TArray( const TArray<T> &rOther ) 
-: m_Sorted( rOther.m_Sorted )
+TArray<T>::TArray( const TArray<T> &rhs ) 
+: m_Sorted( rhs.m_Sorted )
 , m_Size( 0 )
 , m_Capacity( 0 )
 , m_pData( nullptr ) {
-    resize( rOther.m_Size );
+    resize( rhs.m_Size );
     for( size_t i = 0; i<m_Size; ++i )	{
-        m_pData[ i ] = rOther.m_pData[ i ];
+        m_pData[ i ] = rhs.m_pData[ i ];
     }
 }
 
 template<class T>
 inline
 TArray<T>::~TArray() {
-    m_Size = 0;
-    m_Capacity = 0;
-    delete [] m_pData;
-    m_pData = nullptr;
+    clear();
 }
 
 template<class T>
@@ -359,6 +355,7 @@ void TArray<T>::reserve( size_t capacity ) {
 
     if ( m_pData ) {
         delete [] m_pData;
+        m_pData = nullptr;
     }
     
     m_pData = new T[ capacity ];

@@ -64,13 +64,19 @@ SET ( cppcore_container_src
     ../include/cppcore/Container/TQueue.h
 )
  
+ SET ( cppcore_memory_src
+    ../include/cppcore/Memory/TStackAllocator.h
+ )
+
 SOURCE_GROUP( code            FILES ${cppcore_src} )
 SOURCE_GROUP( code\\common    FILES ${cppcore_common_src} )
 SOURCE_GROUP( code\\container FILES ${cppcore_container_src} )
+SOURCE_GROUP( code\\memory    FILES ${cppcore_memory_src} )
 
 ADD_LIBRARY( cppcore SHARED
     ${cppcore_container_src}
     ${cppcore_common_src}
+    ${cppcore_memory_src}
     ${cppcore_src}
 )
 
@@ -93,6 +99,10 @@ IF( BUILD_UNITTESTS )
         ../test/container/TQueueTest.cpp
     )
 
+    SET( cppcore_memory_test_src
+        ../test/memory/TStackAllocatorTest.cpp
+    )
+
     SET ( GTEST_PATH ../contrib/gtest-1.7.0 )
 
     SET ( gtest_src
@@ -109,12 +119,13 @@ IF( BUILD_UNITTESTS )
     SOURCE_GROUP( code            FILES ${cppcore_test_src} )
     SOURCE_GROUP( code\\common    FILES ${cppcore_common_test_src} )
     SOURCE_GROUP( code\\container FILES ${cppcore_container_test_src} )
+    SOURCE_GROUP( code\\memory    FILES ${cppcore_memory_test_src} ) 
     SOURCE_GROUP( contrib\\gtest  FILES ${gtest_src} )
-
     ADD_EXECUTABLE( cppcore_unittest
         ${gtest_src}
         ${cppcore_test_src}
         ${cppcore_common_test_src}
+        ${cppcore_memory_test_src}
         ${cppcore_container_test_src}
     )
 

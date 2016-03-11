@@ -2,7 +2,7 @@
 -------------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014 Kim Kulling
+Copyright (c) 2014-2016 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -78,6 +78,7 @@ TEST_F( HashTest, MakeUIntHashTest ) {
 
     unsigned int value = 17;
     const unsigned int hash1 = Hash::toHash( value, Base );
+
     EXPECT_NE( hash1, static_cast<unsigned int>( 0 ) );
     EXPECT_LE( hash1, Base );
 
