@@ -45,7 +45,7 @@ private:
     };
     size_t m_capacity;
     size_t m_top;
-    T *m_data;
+    unsigned char *m_data;
 
 private:
 };
@@ -78,7 +78,7 @@ T *TStackAllocator<T>::alloc( size_t size ) {
         return nullptr;
     }
 
-    T *ptr = ( &m_data[ m_top ] ) + sizeof( Header );
+    T *ptr = (T*)( &m_data[ m_top ] ) + sizeof( Header );
     Header *header = ( Header* ) ( &m_data[ m_top ] );
     header->m_size = size;
     m_top += newSize;
@@ -101,10 +101,10 @@ void TStackAllocator<T>::release( T *ptr ) {
 template<class T>
 inline
 void TStackAllocator<T>::reserve( size_t size ) {
-    if ( size > ( m_capacity/sizeof( T )  ) ) {
+    if ( size > ( m_capacity ) ) {
         clear();
-        m_capacity = size * sizeof( T );
-        m_data = new T[ m_capacity ];
+        m_capacity = size;
+        m_data = new unsigned char[ m_capacity ];
     }
 }
 
