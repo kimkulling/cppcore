@@ -47,6 +47,7 @@ TEST_F( TStackAllocatorTest, CreateTest ) {
 
 TEST_F( TStackAllocatorTest, AllocReleaseTest ) {
     TStackAllocator<int> myAllocator( 1024 );
+    EXPECT_EQ( 1024, myAllocator.freeMem() );
 
     int *init( myAllocator.alloc( 1 ) );
     const size_t size0( myAllocator.freeMem() );

@@ -72,16 +72,20 @@ T *TStackAllocator<T>::alloc( size_t size ) {
         return nullptr;
     }
 
-    size_t newSize( size * sizeof( T ) + sizeof( Header ) );
-    const size_t limit( m_top + newSize );
+    const size_t range( size * sizeof( T ) + sizeof( Header ) );
+    const size_t limit( m_top + range );
     if ( limit > m_capacity ) {
         return nullptr;
     }
 
-    T *ptr = (T*)( &m_data[ m_top ] ) + sizeof( Header );
+    // head
     Header *header = ( Header* ) ( &m_data[ m_top ] );
-    header->m_size = size;
-    m_top += newSize;
+    header->m_size = size * sizeof( T );
+    m_top += size * sizeof( Header );
+
+    // data
+    T *ptr = (T*)( &m_data[ m_top ] );
+    m_top += header->m_size;
 
     return ptr;
 }
@@ -93,8 +97,11 @@ void TStackAllocator<T>::release( T *ptr ) {
         return;
     }
 
+    // head
     Header *head = ( Header* ) ptr - sizeof( Header );
-    const size_t allocSize = ( head->m_size * sizeof( T ) ) - sizeof( Header );
+    const size_t allocSize = head->m_size + sizeof( Header );
+    
+    // data
     m_top -= allocSize;
 }
 
