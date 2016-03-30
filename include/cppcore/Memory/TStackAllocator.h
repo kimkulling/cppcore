@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <stddef.h>
 #include <cppcore/Common/CString.h>
-#include "string.h"
+#include <stdio.h>
 
 namespace CPPCore {
 
