@@ -171,7 +171,7 @@ inline
 void TStackAllocator<T>::dumpAllocations( CString & allocs ) {
     allocs.clear();
     char buffer[ 512 ];
-    sprintf( buffer, "Number allocations = %d\n", m_numAllocs );
+    sprintf( buffer, "Number allocations = %d\n", ( int ) m_numAllocs );
     allocs.set( buffer );
 }
 
