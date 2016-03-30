@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <cppcore/Memory/TStackAllocator.h>
 
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 using namespace CPPCore;
 
@@ -38,8 +38,7 @@ TEST_F( TStackAllocatorTest, CreateTest ) {
     bool ok( true );
     try {
         TStackAllocator<int> myAllocator( 1024 );
-    }
-    catch ( ... ) {
+    } catch ( ... ) {
         ok = false;
     }
     EXPECT_TRUE( ok );
@@ -56,7 +55,29 @@ TEST_F( TStackAllocatorTest, AllocReleaseTest ) {
     int *myArray = myAllocator.alloc( 10 );
     const size_t size1( myAllocator.freeMem() );
     EXPECT_TRUE( nullptr != myArray );
+    EXPECT_TRUE( size1 < size0 );
 
+    bool ok( true );
     myAllocator.release( myArray );
     const size_t size2( myAllocator.freeMem() );
+    EXPECT_EQ( size2, size0 );
+    EXPECT_TRUE( ok );
+}
+
+TEST_F( TStackAllocatorTest, badReleaseTest ) {
+    TStackAllocator<int> myAllocator( 1024 );
+    EXPECT_EQ( 1024, myAllocator.freeMem() );
+
+    bool ok( true );
+    ok = myAllocator.release( nullptr );
+    EXPECT_FALSE( ok );
+}
+
+TEST_F( TStackAllocatorTest, dumpAllocationsTest ) {
+    TStackAllocator<int> myAllocator( 1024 );
+    static_cast< void >( myAllocator.alloc( 100 ) );
+
+    CString dumps, exp = "Number allocations = 1\n";
+    myAllocator.dumpAllocations( dumps );
+    EXPECT_EQ( exp, dumps );
 }

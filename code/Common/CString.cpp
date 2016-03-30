@@ -64,6 +64,10 @@ void CString::clear() {
     m_string.m_size = 0;
 }
 
+void CString::set( const char *str ) {
+    m_string.set( str );
+}
+
 const char* CString::c_str() const {
     return m_string.m_pStringBuffer;
 }
