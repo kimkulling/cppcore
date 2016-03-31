@@ -80,7 +80,6 @@ private:
     TList<T> m_QueueData;
 };
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 TQueue<T>::TQueue() 
@@ -88,7 +87,6 @@ TQueue<T>::TQueue()
     // empty
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 TQueue<T>::TQueue( const TQueue<T> &rhs ) 
@@ -96,21 +94,18 @@ TQueue<T>::TQueue( const TQueue<T> &rhs )
     // empty
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 TQueue<T>::~TQueue() {
     clear();
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 void TQueue<T>::enqueue( const T &item ) {
     m_QueueData.addBack( item );
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 bool TQueue<T>::dequeue( T &item ) {
@@ -123,35 +118,30 @@ bool TQueue<T>::dequeue( T &item ) {
     }
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 T TQueue<T>::front() {
     return m_QueueData.front();
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 bool TQueue<T>::isEmpty() const {
     return m_QueueData.isEmpty();
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 size_t TQueue<T>::size( ) {
     return m_QueueData.size();
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 void TQueue<T>::clear() {
     m_QueueData.clear();
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 TQueue<T> &TQueue<T>::operator = ( const TQueue<T> &rhs ) {
@@ -164,13 +154,10 @@ TQueue<T> &TQueue<T>::operator = ( const TQueue<T> &rhs ) {
     return *this;
 }
 
-//-------------------------------------------------------------------------------------------------
 template<class T>
 inline
 bool TQueue<T>::operator == ( const TQueue<T> &rhs ) const {
     return m_QueueData == rhs.m_QueueData;
 }
-
-//-------------------------------------------------------------------------------------------------
 
 } // Namespace CPPCore

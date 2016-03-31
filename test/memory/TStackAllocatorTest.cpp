@@ -29,7 +29,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using namespace CPPCore;
 
-//---------------------------------------------------------------------------------------------
 class TStackAllocatorTest : public testing::Test {
 protected:
 };
@@ -46,7 +45,7 @@ TEST_F( TStackAllocatorTest, CreateTest ) {
 
 TEST_F( TStackAllocatorTest, AllocReleaseTest ) {
     TStackAllocator<int> myAllocator( 1024 );
-    EXPECT_EQ( 1024, myAllocator.freeMem() );
+    EXPECT_EQ( 1024*sizeof(int), myAllocator.freeMem() );
 
     int *init( myAllocator.alloc( 1 ) );
     const size_t size0( myAllocator.freeMem() );
@@ -64,9 +63,17 @@ TEST_F( TStackAllocatorTest, AllocReleaseTest ) {
     EXPECT_TRUE( ok );
 }
 
+TEST_F( TStackAllocatorTest, badAllocTest ) {
+    TStackAllocator<int> myAllocator( 1024 );
+    EXPECT_EQ( 1024 * sizeof( int ), myAllocator.freeMem() );
+
+    int *ptr( myAllocator.alloc( 2048 ) );
+    EXPECT_TRUE( nullptr == ptr );
+}
+
 TEST_F( TStackAllocatorTest, badReleaseTest ) {
     TStackAllocator<int> myAllocator( 1024 );
-    EXPECT_EQ( 1024, myAllocator.freeMem() );
+    EXPECT_EQ( 1024 * sizeof( int ), myAllocator.freeMem() );
 
     bool ok( true );
     ok = myAllocator.release( nullptr );

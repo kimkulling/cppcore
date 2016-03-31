@@ -134,7 +134,7 @@ inline
 void TStackAllocator<T>::reserve( size_t size ) {
     if ( size > ( m_capacity ) ) {
         clear();
-        m_capacity = size;
+        m_capacity = size * sizeof( T );
         m_data = new byte_t[ m_capacity ];
     }
 }
