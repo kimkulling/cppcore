@@ -23,6 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #pragma once
 
 #include <cppcore/CPPCoreCommon.h>
+#include <cppcore/Common/CString.h>
 
 namespace CPPCore {
 
@@ -53,6 +54,12 @@ public:
 
     /// @brief  The class destructor.
     ~Hash();
+
+    /// @brief  Computes the hash value for a given string.
+    /// @param  key     [in] The string.
+    /// @param  base    [in] The table base.
+    /// @return The hash value.
+    static unsigned int toHash( const CString &key, unsigned int base );
 
     /// @brief  Computes the hash value for a given character buffer.
     /// @param  buffer  [in] The buffer.
@@ -101,6 +108,11 @@ Hash::Hash( unsigned int value, unsigned int base )
 inline
 Hash::~Hash() {
     // empty
+}
+
+inline 
+unsigned int Hash::toHash( const CString &key, unsigned int base ) {
+    return toHash( key.c_str(), base );
 }
 
 inline

@@ -20,6 +20,8 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
+#pragma once
+
 #include <cppcore/Common/TStringBase.h>
 
 namespace CPPCore {
@@ -61,7 +63,7 @@ public:
 
     /// @brief  Returns a pointer showing to the first element of the string buffer.
     /// @return The pointer showing to the first element of the string.
-    const char* c_str() const;
+    const char *c_str() const;
 
     char operator [] ( size_t idx ) const;
     bool operator == ( const CString &rhs ) const;
