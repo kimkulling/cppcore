@@ -1,6 +1,7 @@
- The CppCore Library
+ The CppCore-Library
 =====================
-My collection of common tools for c++, which I have written the last couple of years.
+My collection of common tools for c++, which I have written the last couple of years 
+for myself or libraries I worked on.
 Feel free to use them or to show me, what I did wrong. I am also deploying my unit
 tests, so doing a proof of my failures are easy :-).
 
@@ -28,3 +29,8 @@ Containers:
 - TList:     A double linked list.
 - TQueue:    A simple queue.
 - THashMap:  A key-value hash map for easy lookup tables
+
+Memory:
+-------
+- TStackAllocator  A stack-based allocator scheme. Not much overhead and really fast.
+

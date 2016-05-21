@@ -19,8 +19,7 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
--------------------------------------------------------------------------------------------------
-*/
+-----------------------------------------------------------------------------------------------*/
 #pragma once
 
 #include <cppcore/CPPCoreCommon.h>
@@ -70,6 +69,8 @@ public:
     /// @brief  The class destructor.
     ~TStringBase();
 
+    void set( const T *ptr );
+
     /// @brief  Helper method to copy data into the string.
     /// @param  base        [inout] The string data to copy in.
     /// @param  pPtr        [in] The data source.
@@ -107,7 +108,15 @@ TStringBase<T>::~TStringBase() {
     }
 }
 
-//-------------------------------------------------------------------------------------------------
+template<class T>
+inline
+void TStringBase<T>::set( const T *ptr ) {
+    dealloc( m_pStringBuffer );
+    if ( nullptr != ptr ) {
+        copyFrom( *this, ptr );
+    }
+}
+
 template<class T>
 inline
 void TStringBase<T>::copyFrom( TStringBase<T> &base, const T *pPtr ) {
@@ -125,6 +134,5 @@ void TStringBase<T>::copyFrom( TStringBase<T> &base, const T *pPtr ) {
         }
     }
 }
-
 
 } // Namespace CPPCore

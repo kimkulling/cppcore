@@ -61,6 +61,8 @@ public:
     /// @brief  Clears the string buffer, all buffers and data will be released.
     void clear();
 
+    void set( const char *str );
+
     /// @brief  Returns a pointer showing to the first element of the string buffer.
     /// @return The pointer showing to the first element of the string.
     const char *c_str() const;
