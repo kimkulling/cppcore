@@ -35,7 +35,7 @@ protected:
 };
 
 class NoCopyMock {
-    CPPCORE_NONE_COPYING( NoCopyMock );
+    CPPCORE_NONE_COPYING( NoCopyMock )
 
 public:
     NoCopyMock() {
