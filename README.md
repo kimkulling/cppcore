@@ -37,5 +37,5 @@ Memory:
 
 Used in...
 ----------
-OSRE: https://github.com/kimkulling/osre
+OSRE ( aka Open-Source-Render-Experience ): https://github.com/kimkulling/osre
 
