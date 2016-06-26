@@ -132,5 +132,18 @@ TEST_F( THashMapTest, removeTest ) {
 
     success = myHashMap.remove( 1 );
     EXPECT_FALSE( success );
+
+    success = myHashMap.hasKey( 1 );
+    EXPECT_FALSE( success );
+}
+
+TEST_F( THashMapTest, removeOnlyOneTest ) {
+    THashMap<unsigned int, unsigned int> myHashMap;
+    myHashMap.insert( 1, 10 );
+    bool success = myHashMap.remove( 1 );
+    EXPECT_TRUE( success );
+
+    success = myHashMap.hasKey( 1 );
+    EXPECT_FALSE( success );
 }
 

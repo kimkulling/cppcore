@@ -167,7 +167,7 @@ template<class T, class U>
 inline
 bool THashMap<T, U>::remove( const T &key ) {
     const unsigned int hash( Hash::toHash( key, m_buffersize ) );
-    if( m_buffer[ hash ] == nullptr ) {
+    if( nullptr == m_buffer[ hash ] ) {
         return false;
     }
     
@@ -175,8 +175,10 @@ bool THashMap<T, U>::remove( const T &key ) {
     Node *current( m_buffer[ hash ] );
     if( current->m_key == key ) {
         Node *next( current->m_next );
-        if( next ) {
+        if( nullptr != next ) {
             m_buffer[ hash ] = next;
+        } else {
+            m_buffer[ hash ] = nullptr;
         }
         delete current;
         m_numItems--;
