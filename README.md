@@ -34,3 +34,8 @@ Memory:
 -------
 - TStackAllocator  A stack-based allocator scheme. Not much overhead and really fast.
 
+
+Used in...
+----------
+OSRE ( aka Open-Source-Render-Experience ): https://github.com/kimkulling/osre
+
