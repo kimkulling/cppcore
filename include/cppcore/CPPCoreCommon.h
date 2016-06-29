@@ -32,6 +32,8 @@ namespace CPPCore {
 #   define _CRT_SECURE_NO_WARNINGS
 #elif defined(__gnu_linux__)
 #   define CPPCORE_GNU_LINUX
+#else
+#   error "UNsupported operation system."
 #endif
 
 #ifdef CPPCORE_WINDOWS
