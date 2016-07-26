@@ -410,7 +410,7 @@ void Variant::clear() {
         return;
     }
 
-    delete [] m_pData;
+    ::free( m_pData );
     m_pData = nullptr;
     m_Type = None;
 }
@@ -492,7 +492,7 @@ void Variant::reserve( Type type, size_t size ) {
     }
 
     m_BufferSize = size;
-    m_pData = new unsigned char[ size ];
+    m_pData = ::malloc( size );
     m_Type = type;
 }
 

@@ -47,8 +47,7 @@ TEST_F( CPPCoreCommonTest, NoneCopyingTest ) {
     bool success( true );
     try {
         NoCopyMock mymock;
-    }
-    catch( ... ) {
+    } catch( ... ) {
         success = false;
     }
     EXPECT_TRUE( success );
