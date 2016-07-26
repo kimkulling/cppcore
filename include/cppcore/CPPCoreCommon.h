@@ -33,7 +33,7 @@ namespace CPPCore {
 #elif defined(__gnu_linux__)
 #   define CPPCORE_GNU_LINUX
 #else
-#   error "UNsupported operation system."
+#   error "Unsupported operation system."
 #endif
 
 #ifdef CPPCORE_WINDOWS
