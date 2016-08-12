@@ -88,7 +88,7 @@ private:\
 //-------------------------------------------------------------------------------------------------
 /// @def    CPPCORE_ARRAY_SIZE
 ///
-/// @brief  This macro calculates the number of items inside of an error.
+/// @brief  This macro calculates the number of items inside of an array.
 /// @param  x    [in] The array to get the number of items.
 ///	@remark Be careful, use it as following:
 ///	@code
