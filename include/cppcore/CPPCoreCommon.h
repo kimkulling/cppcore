@@ -32,6 +32,8 @@ namespace CPPCore {
 #   define _CRT_SECURE_NO_WARNINGS
 #elif defined(__gnu_linux__)
 #   define CPPCORE_GNU_LINUX
+#elif defined(__APPLE__) || defined(__MACH__)
+#   define CPPCORE_IOS
 #else
 #   error "Unsupported operation system."
 #endif
