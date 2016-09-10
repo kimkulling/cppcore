@@ -57,6 +57,11 @@ SET ( cppcore_common_src
     ../code/Common/CString.cpp
 )
 
+SET( cppcore_random_src
+	../include/cppcore/Random/RandomGenerator.h
+	../code/Random/RandomGenerator.cpp
+)
+
 SET ( cppcore_container_src
     ../include/cppcore/Container/THashMap.h
     ../include/cppcore/Container/TArray.h
@@ -72,11 +77,13 @@ SOURCE_GROUP( code            FILES ${cppcore_src} )
 SOURCE_GROUP( code\\common    FILES ${cppcore_common_src} )
 SOURCE_GROUP( code\\container FILES ${cppcore_container_src} )
 SOURCE_GROUP( code\\memory    FILES ${cppcore_memory_src} )
+SOURCE_GROUP( code\\random    FILES ${cppcore_random_src} )
 
 ADD_LIBRARY( cppcore SHARED
     ${cppcore_container_src}
     ${cppcore_common_src}
     ${cppcore_memory_src}
+	${cppcore_random_src}
     ${cppcore_src}
 )
 
@@ -103,6 +110,10 @@ IF( BUILD_UNITTESTS )
         ../test/memory/TStackAllocatorTest.cpp
     )
 
+	SET( cppcore_random_test_src
+		../test/random/RandomGeneratorTest.cpp
+	)
+	
     SET ( GTEST_PATH ../contrib/gtest-1.7.0 )
 
     SET ( gtest_src
@@ -120,12 +131,14 @@ IF( BUILD_UNITTESTS )
     SOURCE_GROUP( code\\common    FILES ${cppcore_common_test_src} )
     SOURCE_GROUP( code\\container FILES ${cppcore_container_test_src} )
     SOURCE_GROUP( code\\memory    FILES ${cppcore_memory_test_src} ) 
+	SOURCE_GROUP( code\\random    FILES ${cppcore_random_test_src} )
     SOURCE_GROUP( contrib\\gtest  FILES ${gtest_src} )
     ADD_EXECUTABLE( cppcore_unittest
         ${gtest_src}
         ${cppcore_test_src}
         ${cppcore_common_test_src}
         ${cppcore_memory_test_src}
+		${cppcore_random_test_src}
         ${cppcore_container_test_src}
     )
 
