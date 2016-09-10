@@ -111,7 +111,7 @@ IF( BUILD_UNITTESTS )
     )
 
 	SET( cppcore_random_test_src
-		../test/random/RandomGeneratorTest.cpp
+		../test/Random/RandomGeneratorTest.cpp
 	)
 	
     SET ( GTEST_PATH ../contrib/gtest-1.7.0 )
