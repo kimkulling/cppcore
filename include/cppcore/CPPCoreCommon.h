@@ -32,6 +32,8 @@ namespace CPPCore {
 #   define _CRT_SECURE_NO_WARNINGS
 #elif defined(__gnu_linux__)
 #   define CPPCORE_GNU_LINUX
+#elif defined(__APPLE__) || defined(__MACH__)
+#   define CPPCORE_IOS
 #else
 #   error "Unsupported operation system."
 #endif
@@ -86,7 +88,7 @@ private:\
 //-------------------------------------------------------------------------------------------------
 /// @def    CPPCORE_ARRAY_SIZE
 ///
-/// @brief  This macro calculates the number of items inside of an error.
+/// @brief  This macro calculates the number of items inside of an array.
 /// @param  x    [in] The array to get the number of items.
 ///	@remark Be careful, use it as following:
 ///	@code
