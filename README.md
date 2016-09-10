@@ -32,8 +32,11 @@ Containers:
 
 Memory:
 -------
-- TStackAllocator  A stack-based allocator scheme. Not much overhead and really fast.
+- TStackAllocator:  A stack-based allocator scheme. Not much overhead and really fast.
 
+Random:
+-------
+- RandomGenerator: A wrapper class to get random numbers.
 
 Used in...
 ----------
