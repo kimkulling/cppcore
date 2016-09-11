@@ -32,8 +32,14 @@ class RandomGeneratorTest : public testing::Test {
 TEST_F( RandomGeneratorTest, getTest ) {
     RandomGenerator generator;
 
-    for ( int i = 0; i < 100; i++ ) {
+    static const size_t Size = 100;
+    int old( -10 );
+    for ( int i = 0; i < Size; i++ ) {
         int v = generator.get( 0, 10 );
+        if ( -10 != old ) {
+            EXPECT_NE( old, v );
+            old = v;
+        }
         EXPECT_NE( -1, v );
         EXPECT_NE( 11, v );
     }

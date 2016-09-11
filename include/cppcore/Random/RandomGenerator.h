@@ -34,17 +34,32 @@ namespace CPPCore {
 //-------------------------------------------------------------------------------------------------
 class DLL_CPPCORE_EXPORT RandomGenerator {
 public:
+    /// @brief  This enum describes the requested random generator.
     enum class GeneratorType {
-        Standard
+        Standard    ///< The default c+++ generator.
     };
 
 public:
+    /// @brief  The class constructor.
+    /// @param  type    [in] The requested generator.
     RandomGenerator( GeneratorType type = GeneratorType::Standard );
+
+    /// @brief  The class destructor.
     ~RandomGenerator();
+
+    /// @brief  Gets a new random number.
+    /// @param  lower   [in] The lower bound.
+    /// @param  upper   [in] The upper bound.
+    /// @return A new random number.
     int get( int lower, int upper );
 
 private:
     GeneratorType m_type;
+
+private:
+    RandomGenerator( const RandomGenerator & ) = delete;
+    RandomGenerator &operator = ( const RandomGenerator & ) = delete;
+
 };
 
 } // Namespace CPPCore

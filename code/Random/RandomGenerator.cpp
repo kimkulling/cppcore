@@ -28,7 +28,7 @@ namespace CPPCore {
 
 RandomGenerator::RandomGenerator( GeneratorType type )
 : m_type( type ) {
-    // empty
+    ::srand( static_cast< unsigned int >( time( NULL ) ) );
 }
 
 RandomGenerator::~RandomGenerator() {
@@ -38,7 +38,6 @@ RandomGenerator::~RandomGenerator() {
 int RandomGenerator::get( int lower, int upper ) {
     int ret( 0 );
     if ( GeneratorType::Standard == m_type ) {
-        ::srand( static_cast<unsigned int>( time( NULL ) ) );
         ret = ::rand() % upper + lower;
     }
 
