@@ -57,7 +57,6 @@ protected:
 
 };
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, constructTest ) {
     TArray<float> arrayInstance;
 	EXPECT_EQ( true, arrayInstance.isEmpty() );
@@ -65,13 +64,11 @@ TEST_F( TArrayTest, constructTest ) {
     EXPECT_EQ( arrayInstance.begin(), arrayInstance.end() );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, constructWithSizeTest) {
     TArray<float> arrayInstance( 4 );
 	EXPECT_EQ( 4, arrayInstance.size() );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, addTest) {
     TArray<float> arrayInstance;
 	arrayInstance.add( 0.0f );
@@ -82,7 +79,6 @@ TEST_F( TArrayTest, addTest) {
 	EXPECT_EQ( 1.0f, arrayInstance[ 1 ] );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, addItemsTest ) {
     TArray<float> arrayInstance;
     arrayInstance.add( 0.0f );
@@ -98,7 +94,6 @@ TEST_F( TArrayTest, addItemsTest ) {
     EXPECT_EQ( 3, arrayInstance.size() );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, accessTest) {
     TArray<float> arrayInstance;
 	arrayInstance.add( 0.0f );
@@ -108,7 +103,6 @@ TEST_F( TArrayTest, accessTest) {
 	EXPECT_EQ( 1.0f, arrayInstance[ 1 ] );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, removeTest) {
     TArray<float> arrayInstance;
 	createArray( ArrayData, ArraySize, arrayInstance );
@@ -129,7 +123,6 @@ TEST_F( TArrayTest, removeTest) {
     EXPECT_TRUE( equal ) << stream.str();
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, removeBackTest) {
     TArray<float> arrayInstance;
 	createArray( ArrayData, ArraySize, arrayInstance );
@@ -139,7 +132,6 @@ TEST_F( TArrayTest, removeBackTest) {
 	EXPECT_EQ( 2.0f, arrayInstance[ 2 ] );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, resizeTest ) {
     TArray<float> arrayInstance;
 	EXPECT_EQ( 0, arrayInstance.size() );
@@ -148,7 +140,6 @@ TEST_F( TArrayTest, resizeTest ) {
 	EXPECT_EQ( 5, arrayInstance.size() );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, moveTest ) {
     TArray<float> arrayInstance;
     arrayInstance.add( 1.0f );
@@ -157,7 +148,6 @@ TEST_F( TArrayTest, moveTest ) {
     arrayInstance.move( 1, 3 );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, reserveTest ) {
     TArray<float> arrayInstance;
 	EXPECT_EQ( 0, arrayInstance.capacity() );
@@ -169,7 +159,17 @@ TEST_F( TArrayTest, reserveTest ) {
 	EXPECT_EQ( 2000, arrayInstance.capacity() );
 }
 
-//---------------------------------------------------------------------------------------------
+TEST_F( TArrayTest, resize_with_init_Test ) {
+    TArray<float> arrayInstance;
+    EXPECT_EQ( 0, arrayInstance.capacity() );
+
+    arrayInstance.resize( 10, 1.0f );
+    EXPECT_EQ( 10, arrayInstance.size() );
+    for ( size_t i = 0; i < 10; i++ ) {
+        EXPECT_FLOAT_EQ( 1.0f, arrayInstance[ i ] );
+    }
+}
+
 TEST_F( TArrayTest, iterateTest ) {
     TArray<float> arrayInstance;
 	createArray( ArrayData, ArraySize, arrayInstance );
@@ -181,7 +181,6 @@ TEST_F( TArrayTest, iterateTest ) {
 	EXPECT_EQ( i, arrayInstance.size() );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, preIncIterateTest ) {
     TArray<float> arrayInstance;
 	createArray( ArrayData, ArraySize, arrayInstance );
@@ -200,7 +199,6 @@ TEST_F( TArrayTest, preIncIterateTest ) {
 	EXPECT_TRUE( ok );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, postIncIterateTest ) {
 	TArray<float> arrayInstance;
 	createArray( ArrayData, ArraySize, arrayInstance );
@@ -219,7 +217,6 @@ TEST_F( TArrayTest, postIncIterateTest ) {
 	EXPECT_TRUE( ok );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, findTest )	{
     TArray<float> arrayInstance;
 	arrayInstance.add( 0.0f );
@@ -233,7 +230,6 @@ TEST_F( TArrayTest, findTest )	{
 	EXPECT_EQ( *it, 1.0f );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, ContainerClearTest ) {
     TArray<float*> arrayInstance;
     ContainerClear( arrayInstance );
@@ -273,4 +269,3 @@ TEST_F( TArrayTest, bug_AddHeapCorruptTest ) {
 	}
 }
 	
-//---------------------------------------------------------------------------------------------

@@ -113,6 +113,11 @@ public:
     ///	@param	size	    [in] The new size for the array.
     void resize( size_t size );
 
+    ///	@brief	Resize the array, new items will be created.
+    ///	@param	size	    [in] The new size for the array.
+    /// @param  val         [in9 The value for initialization.
+    void resize( size_t size, T val );
+
     ///	@brief	The current size of the array will be returned.
     ///	@return	The current size.
     size_t size( ) const;
@@ -399,6 +404,17 @@ void TArray<T>::resize( size_t size ) {
         m_Capacity = size;
     }
     m_Size = size;
+}
+
+template<class T>
+inline
+void TArray<T>::resize( size_t size, T val ) {
+    resize( size );
+    if ( 0 != size ) {
+        for ( size_t i = 0; i < size; i++ ) {
+            m_pData[ i ] = val;
+        }
+    }
 }
 
 template<class T>
