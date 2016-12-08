@@ -123,6 +123,17 @@ TEST_F( TArrayTest, removeTest) {
     EXPECT_TRUE( equal ) << stream.str();
 }
 
+TEST_F( TArrayTest, removeItTest) {
+    TArray<float> arrayInstance;
+    arrayInstance.add( 1.0f );
+    EXPECT_EQ( 1, arrayInstance.size() );
+    TArray<float>::Iterator it = arrayInstance.find( 1.0f );
+    EXPECT_NE( arrayInstance.end(), it );
+
+    arrayInstance.remove( it );
+    EXPECT_EQ( 0, arrayInstance.size() );
+}
+
 TEST_F( TArrayTest, removeBackTest) {
     TArray<float> arrayInstance;
 	createArray( ArrayData, ArraySize, arrayInstance );

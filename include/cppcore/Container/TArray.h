@@ -262,11 +262,11 @@ void TArray<T>::remove( Iterator it ) {
     int pos = -1;
     Iterator currentIt = this->begin();
     for( size_t i = 0; i<m_Size; ++i )	{
-        ++currentIt;
         if ( it == currentIt ) {
             pos = i;
             break;
         }
+        ++currentIt;
     }
 
     // Remove the item at the position
