@@ -86,5 +86,5 @@ TEST_F( CPPCoreCommonTest, ContainerClearWithDeleterTest ) {
 TEST_F( CPPCoreCommonTest, ArraySizeTest ) {
     int array[ 10 ];
     size_t size = CPPCORE_ARRAY_SIZE( array );
-    EXPECT_EQ( size, 10 );
+    EXPECT_EQ( size, 10U );
 }

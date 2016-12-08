@@ -60,7 +60,7 @@ protected:
 TEST_F( TArrayTest, constructTest ) {
     TArray<float> arrayInstance;
 	EXPECT_EQ( true, arrayInstance.isEmpty() );
-    EXPECT_EQ( 0, arrayInstance.size() );
+    EXPECT_EQ( 0U, arrayInstance.size() );
     EXPECT_EQ( arrayInstance.begin(), arrayInstance.end() );
 }
 
@@ -250,9 +250,9 @@ TEST_F( TArrayTest, ContainerClearTest ) {
     arrayInstance.add( new float( 1.0f ) );
     arrayInstance.add( new float( 2.0f ) );
 
-    EXPECT_EQ( arrayInstance.size(), 3 );
+    EXPECT_EQ( arrayInstance.size(), 3U );
     ContainerClear( arrayInstance );
-    EXPECT_EQ( arrayInstance.size(), 0 );
+    EXPECT_EQ( arrayInstance.size(), 0U );
     EXPECT_TRUE( arrayInstance.isEmpty() );
 }
 
