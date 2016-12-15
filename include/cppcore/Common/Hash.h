@@ -118,7 +118,7 @@ unsigned int Hash::toHash( const CString &key, unsigned int base ) {
 inline
 unsigned int Hash::toHash( const char *buffer, unsigned int base ) {
     unsigned int hash( 0 );
-    if( !buffer ) {
+    if( nullptr == buffer ) {
         return hash;
     }
     

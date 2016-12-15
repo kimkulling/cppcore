@@ -43,6 +43,8 @@ public:
     typedef T* Iterator;
     ///	The const iterator type.
     typedef const T* ConstIterator;
+    /// The index address type
+    typedef size_t array_size_type;
 
     ///	@enum	SortedMode
     ///	@brief	This enum describes the sorting mode of the array.
@@ -58,7 +60,7 @@ public:
 
     ///	@brief	The class constructor with an initial size.
     ///	@param	size	[in] The initial size.
-    TArray( size_t size );
+    TArray( array_size_type size );
 
     ///	@brief	The copy constructor.
     ///	@param	other	    [in] The instance to copy from.
@@ -74,11 +76,11 @@ public:
     ///	@brief	An array of new items will be added to the array.
     ///	@param	newValues   [in] The array of new values to add.
     ///	@param	numItems    [in] The number of items in the array.
-    void add(const T *newValues, size_t numItems);
+    void add( const T *newValues, array_size_type numItems );
 
     ///	@brief	Removes an item at the given index.
     ///	@param	index	    [in] The index of the item to remove.
-    void remove( size_t index );
+    void remove( array_size_type index );
 
     ///	@brief	Removes the item describes by a given iterator.
     ///	@param	it	        [in] The iterator describing the position.
@@ -89,7 +91,7 @@ public:
 
     ///	@brief	The item at the given index will be destroyed, the destructor will be called manually.
     ///	@param	index	    [in] The index of the item.
-    void destroy( size_t index );
+    void destroy( array_size_type index );
 
     ///	@brief	Returns the first item.
     ///	@return	The first item.
@@ -102,21 +104,21 @@ public:
     ///	@brief	Moves the items from the start- to the end-index.
     ///	@param	startIdx	[in] The start index.
     ///	@param	endIdx		[in] The last index.
-    void move( size_t startIdx, size_t endIdx );
+    void move( array_size_type startIdx, array_size_type endIdx );
     
     ///	@brief	Ensures, that the capacity of the array is big enough for the given size. 
     ///	@param	capacity	[in] The new capacity.
     ///	@remark	The size will not be modified.
-    void reserve( size_t capacity );
+    void reserve( array_size_type capacity );
 
     ///	@brief	Resize the array, new items will be created.
     ///	@param	size	    [in] The new size for the array.
-    void resize( size_t size );
+    void resize( array_size_type size );
 
     ///	@brief	Resize the array, new items will be created.
     ///	@param	size	    [in] The new size for the array.
     /// @param  val         [in9 The value for initialization.
-    void resize( size_t size, T val );
+    void resize( array_size_type size, T val );
 
     ///	@brief	The current size of the array will be returned.
     ///	@return	The current size.
@@ -150,7 +152,7 @@ public:
     Iterator end();
 
     ///	@brief	The	[] operator.
-    T &operator[]( size_t idx ) const;
+    T &operator[]( array_size_type idx ) const;
     
     ///	@brief	The assignment operator.
     TArray<T> &operator = (const TArray<T> &rOther );
