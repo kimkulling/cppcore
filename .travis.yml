@@ -3,7 +3,6 @@ before_install:
 
 env:
   - TRAVIS_NO_EXPORT=YES
-  - TRAVIS_NO_EXPORT=NO
 
 language: cpp
 
