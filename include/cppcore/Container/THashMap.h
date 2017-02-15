@@ -337,9 +337,9 @@ void THashMap<T, U>::Node::releaseList() {
         return;
     }
 
-    Node *current( m_next ), *tmp( nullptr );
+    Node *current( m_next );
     while( current ) {
-        tmp = current;
+        Node *tmp = current;
         current = current->m_next;
         delete tmp;
     }
