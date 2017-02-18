@@ -70,7 +70,9 @@ SET ( cppcore_container_src
 )
  
  SET ( cppcore_memory_src
+    ../include/cppcore/Memory/MemUtils.h
     ../include/cppcore/Memory/TStackAllocator.h
+    ../code/Memory/MemUtils.cpp
  )
 
 SOURCE_GROUP( code            FILES ${cppcore_src} )
