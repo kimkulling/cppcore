@@ -60,7 +60,7 @@ public:
 
     ///	@brief	The class constructor with an initial size.
     ///	@param	size	[in] The initial size.
-    TArray( array_size_type size );
+    explicit TArray( array_size_type size );
 
     ///	@brief	The copy constructor.
     ///	@param	other	    [in] The instance to copy from.
