@@ -22,8 +22,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
 #pragma once
 
-namespace CPPCore {
+#include <string.h>
 
+namespace CPPCore {
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		THashMap

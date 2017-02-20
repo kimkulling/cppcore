@@ -22,8 +22,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
 #include <cppcore/Memory/MemUtils.h>
 
-#include <string.h>
-
 namespace CPPCore {
     
 void MemUtils::clearMemory( void *buffer, size_t size ) {
