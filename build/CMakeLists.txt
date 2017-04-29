@@ -100,6 +100,7 @@ IF( BUILD_UNITTESTS )
         ../test/common/HashTest.cpp
         ../test/common/StringTest.cpp
         ../test/common/VariantTest.cpp
+		../test/common/TSharedPtrTest.cpp
     )
 
     SET( cppcore_container_test_src

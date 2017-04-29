@@ -20,60 +20,33 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
-#include <cppcore/Common/CString.h>
+#include <gtest/gtest.h>
 
-#include "gtest/gtest.h"
+#include <cppcore/Common/TSharedPtr.h>
 
-using namespace CPPCore;
+using namespace ::CPPCore;
 
-class StringTest : public testing::Test {
-protected:
+class TSharedPtrTest : public ::testing::Test {
     // empty
 };
 
-TEST_F( StringTest, DefaultConstructor ) {
-    CString str;
-    EXPECT_EQ( 0, str.size() );
-    EXPECT_EQ( true, str.isEmpty() );
+TEST_F( TSharedPtrTest, createInstance_success ) {
+    bool ok( true );
+    try {
+        int *ptr = new int;
+        TSharedPtr<int> myPtr( ptr );
+    } catch ( ... ) {
+        ok = false;
+    }
+    EXPECT_TRUE( ok );
 }
 
-TEST_F( StringTest, PtrConstructor ) {
-    const char buffer[] = "this is a test\0";
-    CString str( buffer );
-    EXPECT_EQ( 14, str.size() );
-    EXPECT_EQ( false, str.isEmpty() );
-    int res( strncmp( buffer, str.c_str(), str.size() ) );
-    EXPECT_EQ( 0, res );
-}
-
-TEST_F( StringTest, CopyConstructor ) {
-    CString str1( "test1" );
-    CString str2( str1 );
-    EXPECT_EQ( str1, str2 );
-
-    CString str3( "test1" );
-    CString str4( str3 );
-    EXPECT_EQ( str3, str4 );
-}
-
-TEST_F( StringTest, AssignmentOperator ) {
-    CString str1( "test1" );
-    CString str2( "test2" );
-    str1 = str2;
-    EXPECT_EQ( CString( "test2" ), str2 );
-    EXPECT_EQ( str1, str2 );
-
-    CString emptystr;
-    str1 = emptystr;
-    EXPECT_TRUE( str1.isEmpty() );
-}
-
-TEST_F( StringTest, CompareOperator ) {
-    CString str1( "test1" );
-    CString str2( "test2" );
-    EXPECT_NE( str1, str2 );
-    EXPECT_EQ( str1, str1 );
-
-    CString str3( "test1" );
-    EXPECT_EQ( str1, str3 );
+TEST_F( TSharedPtrTest, copyPtr_success ) {
+    int *ptr = new int;
+    TSharedPtr<int> myPtr1( ptr );
+    TSharedPtr<int> myPtr2( myPtr1 );
+    unsigned int refs1 = myPtr2.getRefs();
+    myPtr2.clear();
+    unsigned int refs2 = myPtr2.getRefs();
+    EXPECT_TRUE( refs2 < refs1 );
 }
