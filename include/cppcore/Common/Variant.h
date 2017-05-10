@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2016 Kim Kulling
+Copyright (c) 2014-2017 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -157,8 +157,8 @@ public:
     float *getFloat4x4( ) const;
 
     ///	@brief	Sets a string value.
-    ///	@param	rValue	The new string value.
-    void setString( const CString &rValue );
+    ///	@param	value   The new string value.
+    void setString( const CString &value );
     void setStdString( const std::string &value );
 
     ///	@brief	Returns a constant reference to the string value.

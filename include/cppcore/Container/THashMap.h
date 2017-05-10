@@ -196,6 +196,10 @@ bool THashMap<T, U>::remove( const T &key ) {
 template<class T, class U>
 inline
 bool THashMap<T, U>::hasKey( const T &key ) const {
+    // no buffer, so no items stored
+    if ( 0 == m_buffersize ) {
+        return false;
+    }
     const unsigned int hash( Hash::toHash( key, m_buffersize ) );
     const Node *node( m_buffer[ hash ] );
     if( !node ) {

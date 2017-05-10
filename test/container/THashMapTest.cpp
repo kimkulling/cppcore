@@ -147,3 +147,10 @@ TEST_F( THashMapTest, removeOnlyOneTest ) {
     EXPECT_FALSE( success );
 }
 
+TEST_F( THashMapTest, HasKeyWhenCleared_ReturnsFalse ) {
+    THashMap<unsigned int, unsigned int> myHashMap;
+    myHashMap.clear();
+
+    bool result = myHashMap.hasKey( 1 );
+    EXPECT_FALSE( result );
+}
