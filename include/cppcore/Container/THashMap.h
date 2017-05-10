@@ -42,7 +42,7 @@ public:
 
 public:
     ///	@brief  The class constructor.
-    /// @param  init    [in9 The initial size for the hash.
+    /// @param  init    [in] The initial size for the hash.
     THashMap( size_t init = InitSize );
 
     /// @brief  The class destructor.
@@ -52,9 +52,17 @@ public:
     /// @return The number of items within the hash-map.
     size_t size() const;
 
+    /// @brief  Will return the number of possible hash items stored in the hash map.
+    /// @return The number of possible hash items.
+    size_t capacity() const;
+
     ///	@brief  Will return true, if hash-map is empty.
     ///	@return true for empty, false for not empty.
     bool isEmpty() const;
+
+    ///	@brief  Will init the hash-map.
+    /// @param  init    [in] The initial size for the hash.
+    void init( size_t init );
 
     /// @brief  The hash-map will be cleared.
     void clear();
@@ -105,15 +113,11 @@ private:
 
 template<class T, class U>
 inline
-THashMap<T, U>::THashMap( size_t init )
+THashMap<T, U>::THashMap( size_t initSize )
 : m_buffer( nullptr )
 , m_numItems( 0 )
 , m_buffersize( 0 ) {
-    m_buffer = new Node*[ init ];
-    for( size_t i = 0; i < init; i++ ) {
-        m_buffer[ i ] = nullptr;
-    }
-    m_buffersize = init;
+    init( initSize );
 }
 
 template<class T, class U>
@@ -130,8 +134,24 @@ size_t THashMap<T, U>::size() const {
 
 template<class T, class U>
 inline
+size_t THashMap<T, U>::capacity() const {
+    return m_buffersize;
+}
+
+template<class T, class U>
+inline
 bool THashMap<T, U>::isEmpty() const {
     return ( 0 == m_numItems );
+}
+
+template<class T, class U>
+inline
+void THashMap<T, U>::init( size_t init ) {
+    m_buffer = new Node*[ init ];
+    for ( size_t i = 0; i < init; i++ ) {
+        m_buffer[ i ] = nullptr;
+    }
+    m_buffersize = init;
 }
 
 template<class T, class U>

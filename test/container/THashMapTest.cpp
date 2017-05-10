@@ -32,29 +32,40 @@ class THashMapTest : public ::testing::Test {
 };
 
 TEST_F( THashMapTest, constructTest ) {
+    // Arrange
+    // Act
     bool ok( true );
     try {
         THashMap<unsigned int, unsigned int> myHashMap;
     } catch( ... ) {
         ok = false;
     }
+
+    // Assert
     EXPECT_TRUE( ok );
 }
 
 TEST_F( THashMapTest, clearTest ) {
+    // Arrange
     THashMap<unsigned int, unsigned int> myHashMap( 1 );
     myHashMap.insert( 1, 10 );
     myHashMap.insert( 2, 10 );
     myHashMap.insert( 3, 10 );
+
+    // Act
     myHashMap.clear();
 
+    // Assert
     EXPECT_EQ( myHashMap.size(), 0 );
 }
 
 TEST_F( THashMapTest, insertTest ) {
+    // Arrange
     THashMap<unsigned int, unsigned int> myHashMap;
     bool hasKey( true );
 
+    // Act
+    // Assert
     unsigned int size( 0 );
     size = myHashMap.size();
     EXPECT_EQ( size, 0 );
@@ -84,9 +95,12 @@ TEST_F( THashMapTest, insertTest ) {
 }
 
 TEST_F( THashMapTest, collideTest ) {
+    // Arrange
     THashMap<unsigned int, unsigned int> myHashMap( 1 );
     bool hasKey( true );
 
+    // Act
+    // Assert
     unsigned int size( 0 );
     size = myHashMap.size();
     EXPECT_EQ( size, 0 );
@@ -101,6 +115,9 @@ TEST_F( THashMapTest, collideTest ) {
 }
 
 TEST_F( THashMapTest, removeTest ) {
+    // Arrange
+    // Act
+    // Assert
     bool success( false );
     unsigned int size( 0 );
     THashMap<unsigned int, unsigned int> myHashMap( 1 );
@@ -138,7 +155,11 @@ TEST_F( THashMapTest, removeTest ) {
 }
 
 TEST_F( THashMapTest, removeOnlyOneTest ) {
+    // Arrange
     THashMap<unsigned int, unsigned int> myHashMap;
+
+    // Act
+    // Assert
     myHashMap.insert( 1, 10 );
     bool success = myHashMap.remove( 1 );
     EXPECT_TRUE( success );
@@ -148,9 +169,36 @@ TEST_F( THashMapTest, removeOnlyOneTest ) {
 }
 
 TEST_F( THashMapTest, HasKeyWhenCleared_ReturnsFalse ) {
+    // Arrange
     THashMap<unsigned int, unsigned int> myHashMap;
-    myHashMap.clear();
 
+    // Act
+    myHashMap.clear();
     bool result = myHashMap.hasKey( 1 );
+
+    // Assert
     EXPECT_FALSE( result );
+}
+
+TEST_F( THashMapTest, InitAccessCapacity_Successful ) {
+    // Arrange
+    // Act
+    THashMap<unsigned int, unsigned int> myHashMap( 100 );
+
+    // Assert
+    EXPECT_EQ( 100, myHashMap.capacity() );
+}
+
+TEST_F( THashMapTest, Reinit_Successful ) {
+    // Arrange
+    THashMap<unsigned int, unsigned int> myHashMap( 100 );
+
+    // Act
+    myHashMap.clear();
+    myHashMap.init( 100 );
+
+    // Assert
+    EXPECT_EQ( 100, myHashMap.capacity() );
+    myHashMap.insert( 1, 10 );
+    EXPECT_TRUE( myHashMap.hasKey( 1 ) );
 }
