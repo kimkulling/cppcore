@@ -127,7 +127,7 @@ TSharedPtr<T> &TSharedPtr<T>::operator = ( const TSharedPtr<T> &rhs ) {
 template<class T>
 inline
 bool TSharedPtr<T>::operator == ( const TSharedPtr<T> &rhs ) const {
-    if ( rhs.m_ptr == m_ptr ) {
+    if ( rhs.m_ptrType == m_ptrType) {
         return true;
     }
     return false;
