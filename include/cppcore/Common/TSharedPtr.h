@@ -104,7 +104,7 @@ TSharedPtr<T>::~TSharedPtr() {
 
 template<class T>
 inline
-void TSharedPtr<T>::reset( T *ptr, deleterFunc func = nullptr ) {
+void TSharedPtr<T>::reset( T *ptr, deleterFunc func ) {
     if ( nullptr != m_ptrType ) {
         clear();
     }
