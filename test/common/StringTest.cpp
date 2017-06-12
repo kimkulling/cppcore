@@ -40,8 +40,8 @@ TEST_F( StringTest, DefaultConstructor ) {
 TEST_F( StringTest, PtrConstructor ) {
     const char buffer[] = "this is a test\0";
     CString str( buffer );
-    EXPECT_EQ( 14, str.size() );
-    EXPECT_EQ( false, str.isEmpty() );
+    EXPECT_EQ( 14U, str.size() );
+    EXPECT_FALSE( str.isEmpty() );
     int res( strncmp( buffer, str.c_str(), str.size() ) );
     EXPECT_EQ( 0, res );
 }
