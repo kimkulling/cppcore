@@ -26,14 +26,22 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace CPPCore {
 
+//-------------------------------------------------------------------------------------------------
+///	@class		TSharedPtr
+///	@ingroup	CPPCore
+///
+///	@brief  This class a shared pointer implementation.
+//-------------------------------------------------------------------------------------------------
 template<class T>
 class TSharedPtr {
 public:
     typedef void ( *deleterFunc ) ( T *ptr );
 
+    TSharedPtr();
     explicit TSharedPtr( T *ptr, deleterFunc func = nullptr );
     TSharedPtr( const TSharedPtr<T> &rhs );
     ~TSharedPtr();
+    void reset( T *ptr, deleterFunc func = nullptr );
     void clear();
     unsigned int getRefs() const;
     T *operator ->() const;
@@ -69,6 +77,13 @@ private:
 
 template<class T>
 inline
+TSharedPtr<T>::TSharedPtr()
+: m_ptrType( nullptr ) {
+    // empty
+}
+
+template<class T>
+inline
 TSharedPtr<T>::TSharedPtr( T *ptr, deleterFunc func )
 : m_ptrType( nullptr ) {
     m_ptrType = new PtrType( ptr, func );
@@ -89,7 +104,20 @@ TSharedPtr<T>::~TSharedPtr() {
 
 template<class T>
 inline
+void TSharedPtr<T>::reset( T *ptr, deleterFunc func = nullptr ) {
+    if ( nullptr != m_ptrType ) {
+        clear();
+    }
+    m_ptrType = new PtrType( ptr, func );
+}
+
+template<class T>
+inline
 void TSharedPtr<T>::clear() {
+    if ( nullptr == m_ptrType ) {
+        return;
+    }
+
     m_ptrType->m_refs--;
     if ( 0 == m_ptrType->m_refs ) {
         delete m_ptrType;

@@ -50,3 +50,10 @@ TEST_F( TSharedPtrTest, copyPtr_success ) {
     unsigned int refs2 = myPtr2.getRefs();
     EXPECT_TRUE( refs2 < refs1 );
 }
+
+TEST_F( TSharedPtrTest, resetPtr_success ) {
+    int *ptr = new int;
+    TSharedPtr<int> myPtr1( ptr );
+
+    myPtr1.reset( new int );
+}
