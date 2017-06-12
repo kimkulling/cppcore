@@ -28,72 +28,69 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using namespace CPPCore;
 
-//---------------------------------------------------------------------------------------------
 class HashTest : public testing::Test {
 protected:
+    // empty
 };
 
-//---------------------------------------------------------------------------------------------
 TEST_F( HashTest, CreateTest ) {
     Hash myHash1;
-    EXPECT_EQ( myHash1.hashValue(), 0 );
+    EXPECT_EQ( myHash1.hashValue(), 0U );
 
-    Hash myHash2( 10 );
-    EXPECT_EQ( myHash2.hashValue(), 10 );
+    Hash myHash2( 10U );
+    EXPECT_EQ( myHash2.hashValue(), 10U );
 
     Hash myHash3( "test", 7 );
-    EXPECT_NE( myHash3.hashValue(), static_cast<unsigned int>( 0 ) );
+    EXPECT_NE( myHash3.hashValue(), 0U );
 }
 
 //---------------------------------------------------------------------------------------------
 TEST_F( HashTest, MakeStringHashTest ) {
     static const unsigned int Base = 7;
     Hash myHash_empty;
-    EXPECT_EQ( myHash_empty.hashValue(), 0 );
+    EXPECT_EQ( myHash_empty.hashValue(), 0U );
     
     std::string value;
     value = ( "huhu1" );
     const unsigned int hash1 = Hash::toHash( value.c_str(), Base );
-    EXPECT_NE( hash1, static_cast<unsigned int>( 0 ) );
+    EXPECT_NE( hash1, 0U );
     EXPECT_LE( hash1, Base );
 
     value = ( "huhu2" );
     const unsigned int hash2 = Hash::toHash( value.c_str(), Base );
-    EXPECT_NE( hash2, static_cast<unsigned int>( 0 ) );
+    EXPECT_NE( hash2, 0U );
     EXPECT_LE( hash2, Base );
 
     value = ( "huhu3" );
     const unsigned int hash3 = Hash::toHash( value.c_str(), Base );
-    EXPECT_NE( hash3, static_cast<unsigned int>( 0 ) );
+    EXPECT_NE( hash3, 0U );
     EXPECT_LE( hash3, Base );
 
     Hash myHash_inited( value.c_str(), Base );
     EXPECT_EQ( myHash_inited.hashValue(), hash3 );
 }
-//---------------------------------------------------------------------------------------------
-TEST_F( HashTest, MakeUIntHashTest ) {
-    static const unsigned int Base = 7;
-    Hash myHash_empty;
-    EXPECT_EQ( myHash_empty.hashValue(), 0 );
 
-    unsigned int value = 17;
+TEST_F( HashTest, MakeUIntHashTest ) {
+    static const unsigned int Base = 7U;
+    Hash myHash_empty;
+    EXPECT_EQ( myHash_empty.hashValue(), 0U );
+
+    unsigned int value = 17U;
     const unsigned int hash1 = Hash::toHash( value, Base );
 
-    EXPECT_NE( hash1, static_cast<unsigned int>( 0 ) );
+    EXPECT_NE( hash1, 0U );
     EXPECT_LE( hash1, Base );
 
-    value = 27;
+    value = 27U;
     const unsigned int hash2 = Hash::toHash( value, Base );
-    EXPECT_NE( hash2, static_cast<unsigned int>( 0 ) );
+    EXPECT_NE( hash2, 0U );
     EXPECT_LE( hash2, Base );
 
-    value = 37;
+    value = 37U;
     const unsigned int hash3 = Hash::toHash( value, Base );
-    EXPECT_NE( hash3, static_cast<unsigned int>( 0 ) );
+    EXPECT_NE( hash3, 0U );
     EXPECT_LE( hash3, Base );
 
     Hash myHash_inited( value, Base );
     EXPECT_EQ( myHash_inited.hashValue(), hash3 );
 }
-
-//---------------------------------------------------------------------------------------------
