@@ -53,8 +53,8 @@ public:
 private:
     struct PtrType {
         unsigned int m_refs;
-        T *m_ptr;
-        deleterFunc m_delFunc;
+        T           *m_ptr;
+        deleterFunc  m_delFunc;
 
         PtrType( T *ptr, deleterFunc func )
         : m_refs( 0 )
@@ -64,6 +64,7 @@ private:
                 ++m_refs;
             }
         }
+
         ~PtrType() {
             if ( nullptr == m_delFunc ) {
                 delete m_ptr;
@@ -71,6 +72,9 @@ private:
                 m_delFunc( m_ptr );
             }
         }
+
+        PtrType() = delete;
+        PtrType( const PtrType & rhs ) = delete;
     };
     PtrType *m_ptrType;
 };
@@ -93,7 +97,9 @@ template<class T>
 inline
 TSharedPtr<T>::TSharedPtr( const TSharedPtr<T> &rhs )
 : m_ptrType( rhs.m_ptrType ) {
-    m_ptrType->m_refs++;
+    if ( nullptr != m_ptrType ) {
+        m_ptrType->m_refs++;
+    }
 }
 
 template<class T>
