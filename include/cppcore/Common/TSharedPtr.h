@@ -126,7 +126,8 @@ void TSharedPtr<T>::clear() {
 
     m_ptrType->m_refs--;
     if ( 0 == m_ptrType->m_refs ) {
-        delete m_ptrType;
+        delete m_ptrType->m_ptr;
+        m_ptrType->m_ptr = nullptr;
     }
 }
 
