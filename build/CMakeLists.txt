@@ -146,5 +146,12 @@ IF( BUILD_UNITTESTS )
         ${cppcore_container_test_src}
     )
 
-    target_link_libraries( cppcore_unittest cppcore ${CMAKE_THREAD_LIBS_INIT} )
+	IF( WIN32 )
+		SET( platform_libs )
+	ELSE( WIN32 )
+		SET( platform_libs pthread )
+	ENDIF( WIN32 )
+    target_link_libraries( cppcore_unittest cppcore ${CMAKE_THREAD_LIBS_INIT} ${platform_libs} )
+
+
 ENDIF( BUILD_UNITTESTS )
