@@ -33,7 +33,7 @@ protected:
 
 TEST_F( StringTest, DefaultConstructor ) {
     CString str;
-    EXPECT_EQ( 0, str.size() );
+    EXPECT_EQ( 0U, str.size() );
     EXPECT_EQ( true, str.isEmpty() );
 }
 
