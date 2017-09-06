@@ -46,7 +46,7 @@ TEST_F( TSharedPtrTest, copyPtr_success ) {
     TSharedPtr<int> myPtr1( ptr );
     TSharedPtr<int> myPtr2( myPtr1 );
     unsigned int refs1 = myPtr2.getRefs();
-    EXPECT_EQ( 1U, refs1 );
+    EXPECT_EQ( 2U, refs1 );
 
     myPtr2.clear();
     //unsigned int refs2 = myPtr2.getRefs();
