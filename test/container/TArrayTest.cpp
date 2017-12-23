@@ -54,7 +54,6 @@ protected:
 			arrayInstance.add( pOrig[ i ] );
 		}
 	}
-
 };
 
 TEST_F( TArrayTest, constructTest ) {
@@ -101,6 +100,39 @@ TEST_F( TArrayTest, accessTest) {
 		
 	EXPECT_EQ( 0.0f, arrayInstance[ 0 ] );
 	EXPECT_EQ( 1.0f, arrayInstance[ 1 ] );
+}
+
+TEST_F( TArrayTest, backTest ) {
+    float item( 0.0f );
+    TArray<float> arrayInstance;
+    arrayInstance.add( 1.0f );
+    item = arrayInstance.back();
+    EXPECT_FLOAT_EQ( 1.0f, item );
+
+    arrayInstance.add( 2.0f );
+    item = arrayInstance.back();
+    EXPECT_FLOAT_EQ( 2.0f, item );
+}
+
+struct foo {
+    float m_item;
+    foo() : m_item( 1.0f ) {}
+};
+
+TEST_F( TArrayTest, constBackTest ) {
+    TArray<foo> fooArrayInstance;
+    foo foo1;
+    foo1.m_item = 1.0f;
+    fooArrayInstance.add( foo1 );
+    const foo &res1 = fooArrayInstance.back();
+    EXPECT_FLOAT_EQ( 1.0f, res1.m_item );
+
+    foo foo2;
+    foo2.m_item = 2.0f;
+    fooArrayInstance.add( foo2 );
+    const foo &res2 = fooArrayInstance.back();
+    EXPECT_FLOAT_EQ( 2.0f, res2.m_item );
+
 }
 
 TEST_F( TArrayTest, removeTest) {

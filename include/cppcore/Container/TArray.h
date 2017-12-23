@@ -101,6 +101,10 @@ public:
     ///	@return	The last item.
     T &back();
 
+    ///	@brief	Returns the last item as a const reference.
+    ///	@return	The last item.
+    const T &back() const;
+
     ///	@brief	Moves the items from the start- to the end-index.
     ///	@param	startIdx	[in] The start index.
     ///	@param	endIdx		[in] The last index.
@@ -310,6 +314,14 @@ T &TArray<T>::back() {
 
 template<class T>
 inline
+const T &TArray<T>::back() const {
+    assert( m_Size > 0 );
+
+    return ( m_pData[ m_Size - 1 ] );
+}
+
+template<class T>
+inline
 void TArray<T>::move( size_t fromIdx, size_t toIdx ) {
     if ( fromIdx == toIdx ) {
         return;
@@ -511,13 +523,13 @@ TArray<T> &TArray<T>::operator = ( const TArray<T> &rOther ) {
 
 template<class T>
 inline
-bool TArray<T>::operator == ( const TArray<T> &rOther ) const {
-    if ( rOther.m_Size != m_Size ) {
+bool TArray<T>::operator == ( const TArray<T> &rhs ) const {
+    if ( rhs.m_Size != m_Size ) {
         return false;
     }
 
     for( size_t i = 0; i<m_Size; ++i )	{
-        if ( m_pData[ i ] != rOther.m_pData[ i ] ) {
+        if ( m_pData[ i ] != rhs.m_pData[ i ] ) {
             return false;
         }
     }
