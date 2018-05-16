@@ -66,8 +66,10 @@ SET( cppcore_random_src
 SET ( cppcore_container_src
     ../include/cppcore/Container/THashMap.h
     ../include/cppcore/Container/TArray.h
+    ../include/cppcore/Container/TStaticArray.h
     ../include/cppcore/Container/TList.h
     ../include/cppcore/Container/TQueue.h
+    ../include/cppcore/Container/TStaticArray.h
 )
  
  SET ( cppcore_memory_src
@@ -108,6 +110,7 @@ IF( BUILD_UNITTESTS )
         ../test/container/THashMapTest.cpp
         ../test/container/TListTest.cpp
         ../test/container/TQueueTest.cpp
+        ../test/container/TStaticArrayTest.cpp
     )
 
     SET( cppcore_memory_test_src
