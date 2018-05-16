@@ -25,10 +25,11 @@ Common stuff:
 
 Containers:
 ----------
-- TArray:    A simple dynamic array.
-- TList:     A double linked list.
-- TQueue:    A simple queue.
-- THashMap:  A key-value hash map for easy lookup tables
+- TStaticArray  A static array.
+- TArray:       A simple dynamic array.
+- TList:        A double linked list.
+- TQueue:       A simple FIFO queue.
+- THashMap:     A key-value hash map for easy lookup tables
 
 Memory:
 -------
