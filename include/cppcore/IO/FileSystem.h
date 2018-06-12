@@ -92,6 +92,7 @@ void FileSystem::refresh() {
 #endif 
 }
 
+inline
 FSSpace *FileSystem::getFreeDiskSpace() {
     refresh();
 
