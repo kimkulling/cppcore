@@ -78,9 +78,14 @@ SET ( cppcore_container_src
     ../code/Memory/MemUtils.cpp
  )
 
+ SET( cppcore_io_src 
+    ../include/cppcore/IO/FileSystem.h
+ )
+
 SOURCE_GROUP( code            FILES ${cppcore_src} )
 SOURCE_GROUP( code\\common    FILES ${cppcore_common_src} )
 SOURCE_GROUP( code\\container FILES ${cppcore_container_src} )
+SOURCE_GROUP( code\\IO        FILES ${cppcore_io_src} )
 SOURCE_GROUP( code\\memory    FILES ${cppcore_memory_src} )
 SOURCE_GROUP( code\\random    FILES ${cppcore_random_src} )
 
@@ -89,6 +94,7 @@ ADD_LIBRARY( cppcore SHARED
     ${cppcore_common_src}
     ${cppcore_memory_src}
 	${cppcore_random_src}
+    ${cppcore_io_src}
     ${cppcore_src}
 )
 

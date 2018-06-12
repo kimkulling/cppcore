@@ -35,6 +35,10 @@ Memory:
 -------
 - TStackAllocator:  A stack-based allocator scheme. Not much overhead and really fast.
 
+IO:
+---
+- FileSystem: A file-system abstraction for platform independent access and info.
+
 Random:
 -------
 - RandomGenerator: A wrapper class to get random numbers.
