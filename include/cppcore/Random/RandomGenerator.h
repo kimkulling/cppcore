@@ -42,7 +42,7 @@ public:
 public:
     /// @brief  The class constructor.
     /// @param  type    [in] The requested generator.
-    RandomGenerator( GeneratorType type = GeneratorType::Standard );
+    RandomGenerator( GeneratorType type = GeneratorType::Standard ) noexcept;
 
     /// @brief  The class destructor.
     ~RandomGenerator();
@@ -53,13 +53,12 @@ public:
     /// @return A new random number.
     int get( int lower, int upper );
 
+    // unused
+    RandomGenerator(const RandomGenerator &) = delete;
+    RandomGenerator &operator = (const RandomGenerator &) = delete;
+
 private:
     GeneratorType m_type;
-
-private:
-    RandomGenerator( const RandomGenerator & ) = delete;
-    RandomGenerator &operator = ( const RandomGenerator & ) = delete;
-
 };
 
 } // Namespace CPPCore

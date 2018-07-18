@@ -60,7 +60,7 @@ template<class T>
 class TStringBase {
 public:
     /// @brief  The default class constructor.
-    TStringBase();
+    TStringBase() noexcept;
 
     /// @brief  The class constructor with a pointer showing to the data buffer.
     /// @param  pPtr        [in] The data buffer.
@@ -83,7 +83,7 @@ public:
 
 template<class T>
 inline
-TStringBase<T>::TStringBase()
+TStringBase<T>::TStringBase() noexcept
 : m_pStringBuffer( nullptr )
 , m_size( 0 )
 , m_capacity( 0 ) {

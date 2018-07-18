@@ -30,7 +30,7 @@ char *getTrans( unsigned int /* id */ ) {
     return nullptr;
 }
 
-CString::CString()
+CString::CString() noexcept
 : m_string() {
     // empty
 }

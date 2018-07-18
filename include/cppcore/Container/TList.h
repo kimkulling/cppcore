@@ -43,11 +43,11 @@ public:
     class Iterator;
 
     ///	@brief	The class default constructor.
-    TList();
+    TList() noexcept;
 
     ///	@brief	The class copy constructor.
-    ///	@param	rOther	Instance to copy from.
-    TList( const TList<T> &rOther );
+    ///	@param	rhs	Instance to copy from.
+    TList( const TList<T> &rhs );
 
     ///	@brief	The class destructor.
     ~TList();
@@ -163,7 +163,7 @@ private:
 //-------------------------------------------------------------------------------------------------
 template<class T>
 inline
-TList<T>::TList() 
+TList<T>::TList() noexcept
 : m_pFist( nullptr )
 , m_pLast( nullptr )
 , m_size( 0 ) {

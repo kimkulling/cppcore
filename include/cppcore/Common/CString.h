@@ -37,7 +37,7 @@ char *getTrans( unsigned int id );
 class DLL_CPPCORE_EXPORT CString {
 public:
     /// @brief  The default class constructor.
-    CString();
+    CString() noexcept;
 
     /// @brief  The class constructor with a buffer of data.
     /// @param  pStr        [in] The buffer with the data.

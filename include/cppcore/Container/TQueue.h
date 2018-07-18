@@ -36,7 +36,7 @@ template<class T>
 class TQueue {
 public:
     ///	@brief	The default class constructor.
-    TQueue();
+    TQueue() noexcept;
 
     ///	@brief	The class copy constructor.
     ///	@param	rhs 	[in] The instance to copy from.
@@ -82,7 +82,7 @@ private:
 
 template<class T>
 inline
-TQueue<T>::TQueue() 
+TQueue<T>::TQueue() noexcept
 : m_QueueData() {
     // empty
 }
