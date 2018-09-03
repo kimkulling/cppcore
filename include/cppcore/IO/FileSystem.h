@@ -74,7 +74,7 @@ FileSystem::~FileSystem() {
 inline
 void FileSystem::refresh() {
 #ifdef WIN32
-    PULARGE_INTEGER freeByteAvailable(0), totalNumberOfBytes(0), totalNumberOfFreeBytes(0);
+    PULARGE_INTEGER freeByteAvailable, totalNumberOfBytes, totalNumberOfFreeBytes;
     BOOL result = ::GetDiskFreeSpaceEx(m_drive, freeByteAvailable, totalNumberOfBytes, totalNumberOfFreeBytes);
     if (TRUE == result) {
         ::memcpy(&m_fsSpace->capacity, &totalNumberOfBytes->QuadPart, sizeof(PULARGE_INTEGER));
@@ -83,10 +83,10 @@ void FileSystem::refresh() {
         ::memcpy(&m_fsSpace->inUse, &res, sizeof(PULARGE_INTEGER));
     }
 #else
-    statvfs *buf;
-    statvfs(m_drive, buf);
-    m_fsSpace->capacity = buf->f_bsize;
-    m_fsSpace->free = buf->f_bsize * buf->f_bfree;
+    statvfs buf;
+    statvfs(m_drive, &buf);
+    m_fsSpace->capacity = buf.f_bsize;
+    m_fsSpace->free = buf.f_bsize * buf.f_bfree;
     m_fsSpace->inUse = m_fsSpace->capacity - m_fsSpace->free;
 
 #endif 
