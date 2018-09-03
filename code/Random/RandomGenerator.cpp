@@ -26,7 +26,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace CPPCore {
 
-RandomGenerator::RandomGenerator( GeneratorType type )
+RandomGenerator::RandomGenerator( GeneratorType type ) noexcept
 : m_type( type ) {
     ::srand( static_cast< unsigned int >( time( NULL ) ) );
 }
