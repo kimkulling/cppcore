@@ -83,10 +83,10 @@ void FileSystem::refresh() {
         ::memcpy(&m_fsSpace->inUse, &res, sizeof(PULARGE_INTEGER));
     }
 #else
-    statvfs buf;
-    statvfs(m_drive, &buf);
-    m_fsSpace->capacity = buf.f_bsize;
-    m_fsSpace->free = buf.f_bsize * buf.f_bfree;
+    struct statvfs stats;
+    statvfs(m_drive, &stats );
+    m_fsSpace->capacity = stats.f_bsize;
+    m_fsSpace->free = stats.f_bsize * stats.f_bfree;
     m_fsSpace->inUse = m_fsSpace->capacity - m_fsSpace->free;
 
 #endif 
