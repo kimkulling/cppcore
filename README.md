@@ -11,7 +11,8 @@ At first you have to install CMake on your loal machine. After that start cmake
 in the working directory of the CppCore library by typing:
 > cmake build/CMakeLists.txt
 
-Depending on your operation system CMake will generate a build environment for your special platform in the build directory.
+Depending on your operation system CMake will generate a build environment for your 
+special platform in the build directory.
 
 [![Build Status](https://travis-ci.org/kimkulling/cppcore.png)](https://travis-ci.org/kimkulling/cppcore)
 
@@ -26,7 +27,7 @@ Common stuff:
 Containers:
 ----------
 - TStaticArray  A static array.
-- TArray:       A simple dynamic array.
+- TArray:       A simple dynamic array liste std::vector.
 - TList:        A double linked list.
 - TQueue:       A simple FIFO queue.
 - THashMap:     A key-value hash map for easy lookup tables
@@ -41,9 +42,11 @@ IO:
 
 Random:
 -------
-- RandomGenerator: A wrapper class to get random numbers.
+- RandomGenerator: A wrapper class to get random numbers. Currently supported are 
+  + The standard c++ random generator, be careful if you want to reach a good distribution of 
+    your random values
+  + The Mersenne-Twister randome generator which provides a much better distribution of points
 
 Used in...
 ----------
 OSRE ( aka Open-Source-Render-Experience ): https://github.com/kimkulling/osre
-

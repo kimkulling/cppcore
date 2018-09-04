@@ -21,10 +21,58 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
 #include <cppcore/Random/RandomGenerator.h>
+
 #include <stdlib.h>
 #include <time.h>
+#include <cassert>
 
 namespace CPPCore {
+
+static const unsigned int N = 624;
+static const unsigned int M = 397;
+
+static void mersenne_twister_vector_init( unsigned int *seedPoints, size_t len ) {
+    assert( nullptr != seedPoints );
+
+    const unsigned int mult = 1812433253ul;
+    unsigned int       seed = 5489ul;
+    for (unsigned int i = 0; i < len; ++i) {
+        seedPoints[ i ] = seed;
+        seed = mult * (seed ^ (seed >> 30)) + (i + 1);
+    }
+}
+
+static void mersenne_twister_vector_update(unsigned int* const p) {
+    static const unsigned int A[ 2 ] = { 0, 0x9908B0DF };
+    unsigned int i;
+    for (; i < N - M; i++)
+        p[i] = p[i + (M)] ^ (((p[i] & 0x80000000) | (p[i + 1] & 0x7FFFFFFF)) >> 1) ^ A[p[i + 1] & 1];
+    for (; i < N - 1; i++)
+        p[i] = p[i + (M - N)] ^ (((p[i] & 0x80000000) | (p[i + 1] & 0x7FFFFFFF)) >> 1) ^ A[p[i + 1] & 1];
+    p[N - 1] = p[M - 1] ^ (((p[N - 1] & 0x80000000) | (p[0] & 0x7FFFFFFF)) >> 1) ^ A[p[0] & 1];
+}
+
+unsigned int mersenne_twister() {
+    static unsigned int  vector[ N ];   /* Zustandsvektor */
+    static int           idx = N + 1;   /* Auslese-Index; idx>N: neuer Vektor muß berechnet werden, idx=N+1: Vektor muß überhaupt erst mal initialisiert werden */
+
+    if (idx >= N) {
+        if (idx > N) {
+            mersenne_twister_vector_init(vector, N);
+        }
+        mersenne_twister_vector_update(vector);
+        idx = 0;
+    }
+    unsigned int e = vector[ idx++ ];
+    
+    // Tempering
+    e ^= (e >> 11);             
+    e ^= (e << 7)  & 0x9D2C5680;
+    e ^= (e << 15) & 0xEFC60000;
+    e ^= (e >> 18);
+
+    return e;
+}
 
 RandomGenerator::RandomGenerator( GeneratorType type ) noexcept
 : m_type( type ) {
@@ -39,6 +87,8 @@ int RandomGenerator::get( int lower, int upper ) {
     int ret( 0 );
     if ( GeneratorType::Standard == m_type ) {
         ret = ::rand() % upper + lower;
+    } else if (GeneratorType::MersenneTwister == m_type) {
+        ret = mersenne_twister() % upper + lower;
     }
 
     return ret;

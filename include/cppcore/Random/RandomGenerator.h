@@ -36,10 +36,10 @@ class DLL_CPPCORE_EXPORT RandomGenerator {
 public:
     /// @brief  This enum describes the requested random generator.
     enum class GeneratorType {
-        Standard    ///< The default c+++ generator.
+        Standard,           ///< The default c+++ generator.
+        MersenneTwister     ///< The MersenneTwister algorithm
     };
 
-public:
     /// @brief  The class constructor.
     /// @param  type    [in] The requested generator.
     RandomGenerator( GeneratorType type = GeneratorType::Standard ) noexcept;
@@ -53,7 +53,7 @@ public:
     /// @return A new random number.
     int get( int lower, int upper );
 
-    // unused
+    // Copying is not allowed
     RandomGenerator(const RandomGenerator &) = delete;
     RandomGenerator &operator = (const RandomGenerator &) = delete;
 
