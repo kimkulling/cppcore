@@ -75,6 +75,7 @@ SET ( cppcore_container_src
  SET ( cppcore_memory_src
     ../include/cppcore/Memory/MemUtils.h
     ../include/cppcore/Memory/TStackAllocator.h
+    ../include/cppcore/Memory/TPoolAllocator.h
     ../code/Memory/MemUtils.cpp
  )
 
