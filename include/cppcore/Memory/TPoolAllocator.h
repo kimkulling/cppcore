@@ -139,7 +139,10 @@ size_t TPoolAllocator<T>::freeMem() const {
 template<class T>
 inline
 void TPoolAllocator<T>::dumpAllocations(CString & allocs) {
-    const ui32 end(m_currentIdx - 1);
+    allocs.clear();
+    char buffer[512];
+    sprintf(buffer, "Number allocations = %d\n", (int)m_currentIdx);
+    allocs.set(buffer);
 }
 
 }

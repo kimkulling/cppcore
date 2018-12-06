@@ -63,3 +63,21 @@ TEST_F(TPoolAllocatorTest, alloc_access_Test) {
     PoolItem *nullItem = allocator.alloc();
     EXPECT_EQ(nullptr, nullItem);
 }
+
+TEST_F(TPoolAllocatorTest, countAllocsTest) {
+    TPoolAllocator<PoolItem> allocator;
+    allocator.reserve(NumItems);
+
+    static_cast<void>(allocator.alloc());
+    EXPECT_EQ(499, allocator.freeMem());
+}
+
+TEST_F(TPoolAllocatorTest, getAllocsTest) {
+    TPoolAllocator<PoolItem> allocator;
+    allocator.reserve(NumItems);
+
+    CString allocs;
+    allocator.dumpAllocations(allocs);
+    int res = strncmp("Number allocations = 0\n", allocs.c_str(), allocs.size());
+    EXPECT_EQ( 0, res);
+}
