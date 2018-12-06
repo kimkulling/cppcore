@@ -122,6 +122,7 @@ IF( BUILD_UNITTESTS )
 
     SET( cppcore_memory_test_src
         ../test/memory/TStackAllocatorTest.cpp
+        ../test/memory/TPoolAllocatorTest.cpp
     )
 
 	SET( cppcore_random_test_src
