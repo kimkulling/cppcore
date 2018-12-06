@@ -35,6 +35,7 @@ Containers:
 Memory:
 -------
 - TStackAllocator:  A stack-based allocator scheme. Not much overhead and really fast.
+- TPoolAllocator:   A pool-based allocator scheme. Not much overhead and really fast. Not possible to release single objects.
 
 IO:
 ---
