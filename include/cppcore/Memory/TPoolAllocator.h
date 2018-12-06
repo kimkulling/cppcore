@@ -140,7 +140,6 @@ template<class T>
 inline
 void TPoolAllocator<T>::dumpAllocations(CString & allocs) {
     const ui32 end(m_currentIdx - 1);
-    for ()
 }
 
 }
