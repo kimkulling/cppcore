@@ -33,9 +33,9 @@ Containers:
 - THashMap:     A key-value hash map for easy lookup tables
 
 Memory:
--------
-- TStackAllocator:  A stack-based allocator scheme. Not much overhead and really fast.
-- TPoolAllocator:   A pool-based allocator scheme. Not much overhead and really fast. Not possible to release single objects.
+-------Not
+- TStackAllocator:  A stack-based allocator, first allocation must be released at last ( FiFo-schema ).
+- TPoolAllocator:   A pool-based allocator. Not much overhead and really fast. At the moment it is not supported to release single objects.
 
 IO:
 ---
