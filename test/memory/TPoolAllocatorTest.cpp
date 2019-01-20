@@ -81,3 +81,11 @@ TEST_F(TPoolAllocatorTest, getAllocsTest) {
     int res = strncmp("Number allocations = 0\n", allocs.c_str(), allocs.size());
     EXPECT_EQ( 0, res);
 }
+
+TEST_F(TPoolAllocatorTest, clearTest ) {
+    TPoolAllocator<int> allocator;
+    allocator.reserve( 100 );
+    allocator.clear();
+    EXPECT_EQ( allocator.freeMem(), 0u );
+}
+

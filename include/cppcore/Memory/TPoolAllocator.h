@@ -54,9 +54,9 @@ public:
     void dumpAllocations(CString & allocs);
 
 private:
-    size_t m_poolsize;
-    T *m_pool;
-    unsigned int m_currentIdx;
+    size_t  m_poolsize;
+    T      *m_pool;
+    size_t  m_currentIdx;
 };
 
 template<class T>
@@ -115,7 +115,10 @@ void TPoolAllocator<T>::clear() {
         return;
     }
 
+    delete [] m_pool;
+    m_pool = nullptr;
     m_currentIdx = 0;
+    m_poolsize = 0;
 }
 
 template<class T>
