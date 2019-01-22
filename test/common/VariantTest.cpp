@@ -202,12 +202,13 @@ TEST_F( VariantTest, accessStringTest ) {
     const CString buffer( test.getString() );
     EXPECT_TRUE( !buffer.isEmpty() );
 
-    bool equal = true;
+    bool equal( true );
     for ( size_t i=0; i<buffer.size(); i++ ) {
         if ( buffer[ i ] != str[ i ] ) {
             equal = false;
         }
     }
+    EXPECT_TRUE( equal );
     EXPECT_TRUE( buffer == str );
 }
 

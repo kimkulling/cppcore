@@ -28,26 +28,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using namespace CPPCore;
 
-//-------------------------------------------------------------------------------------------------
-///	@class		TQueueTest
-///	@ingroup	UnitTest
-///
-///	@brief	The queue tests.
-//-------------------------------------------------------------------------------------------------
 class TQueueTest : public testing::Test {
-public:
-	//---------------------------------------------------------------------------------------------
-	virtual void setUp() { 
-		// empty
-	}
-
-	//---------------------------------------------------------------------------------------------
-	virtual void tearDown()	{ 
-		// empty
-	}
+    // empty
 };
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TQueueTest, constructTest) {
     TQueue<float> f32Queue;
     EXPECT_TRUE( f32Queue.isEmpty() );
@@ -57,70 +41,66 @@ TEST_F( TQueueTest, constructTest) {
     EXPECT_TRUE( copy.isEmpty() );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TQueueTest, enqueueDequeueTest ) {
-	TQueue<float> f32Queue;
-	bool hasItems = false;
+    TQueue<float> f32Queue;
+    bool hasItems = false;
     float val = 0.0f;
 
-	f32Queue.enqueue( 0.0f );
-	EXPECT_EQ( f32Queue.size(), 1 );
-	EXPECT_TRUE( !f32Queue.isEmpty() );
-	hasItems = f32Queue.dequeue( val );
-	EXPECT_TRUE( !hasItems );
-	EXPECT_EQ( 0.0f, val );
+    f32Queue.enqueue( 0.0f );
+    EXPECT_EQ( f32Queue.size(), 1u );
+    EXPECT_TRUE( !f32Queue.isEmpty() );
+    hasItems = f32Queue.dequeue( val );
+    EXPECT_TRUE( !hasItems );
+    EXPECT_EQ( 0.0f, val );
 
-	f32Queue.enqueue( 0.0f );
-	f32Queue.enqueue( 1.0f );
-	f32Queue.enqueue( 2.0f );
-	EXPECT_EQ( f32Queue.size(), 3 );
+    f32Queue.enqueue( 0.0f );
+    f32Queue.enqueue( 1.0f );
+    f32Queue.enqueue( 2.0f );
+    EXPECT_EQ( f32Queue.size(), 3u );
 
-	hasItems = f32Queue.dequeue( val );
-	EXPECT_EQ( val, 0.0f );
-	EXPECT_TRUE( hasItems );
-	EXPECT_EQ( f32Queue.size(), 2 );
+    hasItems = f32Queue.dequeue( val );
+    EXPECT_EQ( val, 0.0f );
+    EXPECT_TRUE( hasItems );
+    EXPECT_EQ( f32Queue.size(), 2u );
 
-	hasItems = f32Queue.dequeue( val );
-	EXPECT_EQ( val, 1.0f );
-	EXPECT_TRUE( hasItems );
-	EXPECT_EQ( f32Queue.size(), 1 );
+    hasItems = f32Queue.dequeue( val );
+    EXPECT_EQ( val, 1.0f );
+    EXPECT_TRUE( hasItems );
+    EXPECT_EQ( f32Queue.size(), 1u );
 
-	hasItems = f32Queue.dequeue( val );
-	EXPECT_EQ( val, 2.0f );
-	EXPECT_EQ( f32Queue.size(), 0 );
-	EXPECT_TRUE( !hasItems );
-	EXPECT_TRUE( f32Queue.isEmpty() );
+    hasItems = f32Queue.dequeue( val );
+    EXPECT_EQ( val, 2.0f );
+    EXPECT_EQ( f32Queue.size(), 0u );
+    EXPECT_FALSE( hasItems );
+    EXPECT_TRUE( f32Queue.isEmpty() );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TQueueTest, sizeTest ) {
     TQueue<float> f32Queue;
-	EXPECT_EQ( f32Queue.size(), 0 );
+	EXPECT_EQ( f32Queue.size(), 0u );
 
 	f32Queue.enqueue( 0.0f );
 	f32Queue.enqueue( 1.0f );
 	f32Queue.enqueue( 2.0f );
-	EXPECT_EQ( f32Queue.size(), 3 );
+	EXPECT_EQ( f32Queue.size(), 3u );
 
     float val;
-	bool hasItems = f32Queue.dequeue( val );
-	EXPECT_TRUE( hasItems );
-	EXPECT_EQ( val, 0.0f );
-	EXPECT_EQ( f32Queue.size(), 2 );
+    bool hasItems = f32Queue.dequeue( val );
+    EXPECT_TRUE( hasItems );
+    EXPECT_EQ( val, 0.0f );
+    EXPECT_EQ( f32Queue.size(), 2u );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TQueueTest, clearTest )	{
     TQueue<float> f32Queue;
 
 	f32Queue.enqueue( 0.0f );
 	f32Queue.enqueue( 1.0f );
 	f32Queue.enqueue( 2.0f );
-	EXPECT_EQ( f32Queue.size(), 3 );
+	EXPECT_EQ( f32Queue.size(), 3u );
 
 	f32Queue.clear();
 	EXPECT_TRUE( f32Queue.isEmpty() );
-	EXPECT_EQ( 0, f32Queue.size() );
+	EXPECT_EQ( 0u, f32Queue.size() );
 }
 
-//---------------------------------------------------------------------------------------------

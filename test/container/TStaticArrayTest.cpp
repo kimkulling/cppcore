@@ -40,17 +40,17 @@ class TStaticArrayTest : public testing::Test {
 
 TEST_F(TStaticArrayTest, constructTest) {
     TStaticArray<int, 4> arr;
-    EXPECT_EQ(4, arr.size());
+    EXPECT_EQ(4u, arr.size());
     EXPECT_EQ(0, arr[0]);
     EXPECT_EQ(0, arr[3]);
 }
 
 TEST_F(TStaticArrayTest, access_items_Test) {
     TStaticArray<int, 4> arr;
-    for (size_t i = 0; i < 4; ++i) {
+    for (int i = 0; i < 4; ++i) {
         arr[i] = i;
     }
-    for (size_t i = 0; i < 4; ++i) {
+    for (int i = 0; i < 4; ++i) {
         EXPECT_EQ(i, arr[i]);
     }
 }

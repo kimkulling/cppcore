@@ -69,7 +69,7 @@ TEST_F(TPoolAllocatorTest, countAllocsTest) {
     allocator.reserve(NumItems);
 
     static_cast<void>(allocator.alloc());
-    EXPECT_EQ(499, allocator.freeMem());
+    EXPECT_EQ(499u, allocator.freeMem());
 }
 
 TEST_F(TPoolAllocatorTest, getAllocsTest) {

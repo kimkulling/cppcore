@@ -41,57 +41,57 @@ using namespace CPPCore;
 class TListTest : public testing::Test {
 protected:
     void createList( size_t numEntries, TList<float> &rDataList, std::vector<float> &rValues ) {
-		rValues.resize( 0 );
-		rDataList.clear();
+        rValues.resize( 0 );
+        rDataList.clear();
         for( size_t i = 0; i<numEntries; ++i ) {
             float value = i*1.0f;
-			rDataList.addBack( value );
-			rValues.push_back( value );
-		}
-	}
+	    rDataList.addBack( value );
+	    rValues.push_back( value );
+        }
+    }
 };
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TListTest, constructTest) {
     TList<float> listTest;
-	EXPECT_TRUE( listTest.isEmpty() );
-	EXPECT_EQ( 0, listTest.size() );
+    EXPECT_TRUE( listTest.isEmpty() );
+    EXPECT_EQ( 0u, listTest.size() );
 }
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TListTest, addBackTest) {
     TList<float> listTest;
-	listTest.addBack( 1.0f );
-	listTest.addBack( 2.0f );
-	listTest.addBack( 3.0f );
+    listTest.addBack( 1.0f );
+    listTest.addBack( 2.0f );
+    listTest.addBack( 3.0f );
 
-	EXPECT_EQ( 3, listTest.size() );
-	EXPECT_TRUE( !listTest.isEmpty() ); 
+    EXPECT_EQ( 3u, listTest.size() );
+    EXPECT_TRUE( !listTest.isEmpty() ); 
 }
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TListTest, addFrontTest) {
     TList<float> listTest;
-	listTest.addFront( 1.0f );
-	listTest.addFront( 2.0f );
-	listTest.addFront( 3.0f );
+    listTest.addFront( 1.0f );
+    listTest.addFront( 2.0f );
+    listTest.addFront( 3.0f );
 		
-	EXPECT_EQ( 3, listTest.size() );
-	EXPECT_TRUE( !listTest.isEmpty() ); 
+    EXPECT_EQ( 3u, listTest.size() );
+    EXPECT_TRUE( !listTest.isEmpty() ); 
 }
 
 //---------------------------------------------------------------------------------------------
 TEST_F( TListTest, copyTest ) {
     TList<float> listTest;
     TList<float> copyTest1( listTest );
-	EXPECT_TRUE( copyTest1.isEmpty() );
-	EXPECT_EQ( 0, copyTest1.size() );
+    EXPECT_TRUE( copyTest1.isEmpty() );
+    EXPECT_EQ( 0u, copyTest1.size() );
 
-	listTest.addBack( 1.0f );
-	listTest.addBack( 2.0f );
+    listTest.addBack( 1.0f );
+    listTest.addBack( 2.0f );
     TList<float> copyTest2( listTest );
-	EXPECT_TRUE( !copyTest2.isEmpty() );
-	EXPECT_EQ( 2, copyTest2.size() );
+    EXPECT_TRUE( !copyTest2.isEmpty() );
+    EXPECT_EQ( 2u, copyTest2.size() );
 }
 
 //---------------------------------------------------------------------------------------------

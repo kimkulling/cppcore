@@ -29,6 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using namespace ::CPPCore;
 
 class THashMapTest : public ::testing::Test {
+    // empty
 };
 
 TEST_F( THashMapTest, constructTest ) {
@@ -56,7 +57,7 @@ TEST_F( THashMapTest, clearTest ) {
     myHashMap.clear();
 
     // Assert
-    EXPECT_EQ( myHashMap.size(), 0 );
+    EXPECT_EQ( myHashMap.size(), 0u );
 }
 
 TEST_F( THashMapTest, insertTest ) {
@@ -68,7 +69,7 @@ TEST_F( THashMapTest, insertTest ) {
     // Assert
     unsigned int size( 0 );
     size = myHashMap.size();
-    EXPECT_EQ( size, 0 );
+    EXPECT_EQ( size, 0u );
 
     hasKey = myHashMap.hasKey( 1 );
     EXPECT_FALSE( hasKey );
@@ -78,20 +79,20 @@ TEST_F( THashMapTest, insertTest ) {
     EXPECT_TRUE( hasKey );
 
     size = myHashMap.size();
-    EXPECT_EQ( size, 1 );
+    EXPECT_EQ( size, 1u );
 
     bool success( false );
     unsigned int value;
     success = myHashMap.getValue( 1, value );
     EXPECT_TRUE( success );
-    EXPECT_EQ( value, 10 );
+    EXPECT_EQ( value, 10u );
 
     myHashMap.insert( 2, 10 );
     hasKey = myHashMap.hasKey( 2 );
     EXPECT_TRUE( hasKey );
 
     size = myHashMap.size();
-    EXPECT_EQ( size, 2 );
+    EXPECT_EQ( size, 2u );
 }
 
 TEST_F( THashMapTest, collideTest ) {
@@ -103,7 +104,7 @@ TEST_F( THashMapTest, collideTest ) {
     // Assert
     unsigned int size( 0 );
     size = myHashMap.size();
-    EXPECT_EQ( size, 0 );
+    EXPECT_EQ( size, 0u );
 
     myHashMap.insert( 1, 10 );
     hasKey = myHashMap.hasKey( 1 );
@@ -129,22 +130,22 @@ TEST_F( THashMapTest, removeTest ) {
     myHashMap.insert( 2, 10 );
     myHashMap.insert( 3, 10 );
     size = myHashMap.size();
-    EXPECT_EQ( size, 3 );
+    EXPECT_EQ( size, 3u );
 
     success = myHashMap.remove( 2 );
     EXPECT_TRUE( success );
     size = myHashMap.size();
-    EXPECT_EQ( size, 2 );
+    EXPECT_EQ( size, 2u );
 
     success = myHashMap.remove( 1 );
     EXPECT_TRUE( success );
     size = myHashMap.size();
-    EXPECT_EQ( size, 1 );
+    EXPECT_EQ( size, 1u );
 
     success = myHashMap.remove( 3 );
     EXPECT_TRUE( success );
     size = myHashMap.size();
-    EXPECT_EQ( size, 0 );
+    EXPECT_EQ( size, 0u );
     EXPECT_TRUE( myHashMap.isEmpty() );
 
     success = myHashMap.remove( 1 );
@@ -186,7 +187,7 @@ TEST_F( THashMapTest, InitAccessCapacity_Successful ) {
     THashMap<unsigned int, unsigned int> myHashMap( 100 );
 
     // Assert
-    EXPECT_EQ( 100, myHashMap.capacity() );
+    EXPECT_EQ( 100u, myHashMap.capacity() );
 }
 
 TEST_F( THashMapTest, Reinit_Successful ) {
@@ -198,7 +199,9 @@ TEST_F( THashMapTest, Reinit_Successful ) {
     myHashMap.init( 100 );
 
     // Assert
-    EXPECT_EQ( 100, myHashMap.capacity() );
+    EXPECT_EQ( 100u, myHashMap.capacity() );
     myHashMap.insert( 1, 10 );
     EXPECT_TRUE( myHashMap.hasKey( 1 ) );
 }
+
+
