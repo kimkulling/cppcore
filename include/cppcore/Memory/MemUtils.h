@@ -26,6 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace CPPCore {
 
+#define ALIGN_MASK( value, mask) ( ( ( value ) + ( mask ) ) & ( (~0)&(~( mask) ) ) )
+
 //-------------------------------------------------------------------------------------------------
 ///	@class		THashMap
 ///	@ingroup	CPPCore
@@ -37,6 +39,40 @@ public:
     /// @brief  Will clear the given buffer with zero.
     /// @param  buffer      [inout] The buffer to clear.
     static void clearMemory( void *buffer, size_t size );
+
+    static bool isAligned(const void *ptr, size_t align);
+
+    static void* alignPtr(void *ptr, size_t extra, size_t align);
+
+    MemUtils() = delete;
+    ~MemUtils() = delete;
 };
+
+inline
+bool MemUtils::isAligned(const void* _ptr, size_t _align) {
+    union {
+        const void* ptr;
+        uintptr_t addr;
+    } unaligned;
+
+    unaligned.ptr = _ptr;
+    return 0 == (unaligned.addr & (_align - 1));
+}
+
+inline
+void *MemUtils::alignPtr(void* _ptr, size_t _extra, size_t _align) {
+    union {
+        void *ptr;
+        uintptr_t addr;
+    } unaligned;
+
+    unaligned.ptr = _ptr;
+    uintptr_t un = unaligned.addr + _extra; // space for header
+    const uintptr_t mask = _align - 1;
+    uintptr_t aligned = ALIGN_MASK(un, mask);
+    unaligned.addr = aligned;
+
+    return unaligned.ptr;
+}
 
 } // Namespace CPPCore
