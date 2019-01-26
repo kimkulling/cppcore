@@ -70,7 +70,7 @@ void *MemUtils::alignPtr(void * ptr, size_t extra, size_t align) {
     uintptr_t un = unaligned.mAddr + extra; // space for header
     const uintptr_t mask = align - 1;
     uintptr_t aligned = ALIGN_MASK(un, mask);
-    unaligned.addr = aligned;
+    unaligned.mAddr = aligned;
 
     return unaligned.mPtr;
 }
