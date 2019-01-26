@@ -49,30 +49,30 @@ public:
 };
 
 inline
-bool MemUtils::isAligned(const void* _ptr, size_t _align) {
+bool MemUtils::isAligned(const void *ptr, size_t align) {
     union {
-        const void* ptr;
-        uintptr_t addr;
+        const void* mPtr;
+        uintptr_t   mAddr;
     } unaligned;
 
-    unaligned.ptr = _ptr;
-    return 0 == (unaligned.addr & (_align - 1));
+    unaligned.mPtr = ptr;
+    return 0 == (unaligned.mAddr & ( align - 1 ) );
 }
 
 inline
-void *MemUtils::alignPtr(void* _ptr, size_t _extra, size_t _align) {
+void *MemUtils::alignPtr(void * ptr, size_t extra, size_t align) {
     union {
-        void *ptr;
-        uintptr_t addr;
+        void     *mPtr;
+        uintptr_t mAddr;
     } unaligned;
 
-    unaligned.ptr = _ptr;
-    uintptr_t un = unaligned.addr + _extra; // space for header
-    const uintptr_t mask = _align - 1;
+    unaligned.mPtr = ptr;
+    uintptr_t un = unaligned.mAddr + extra; // space for header
+    const uintptr_t mask = align - 1;
     uintptr_t aligned = ALIGN_MASK(un, mask);
     unaligned.addr = aligned;
 
-    return unaligned.ptr;
+    return unaligned.mPtr;
 }
 
 } // Namespace CPPCore
