@@ -39,7 +39,7 @@ Memory:
 
 IO:
 ---
-- **FileSystemv**:      Common file-system abstractions for platform independent access and info.
+- **FileSystem**:      Common file-system abstractions for platform independent access and info.
 
 Random:
 -------
