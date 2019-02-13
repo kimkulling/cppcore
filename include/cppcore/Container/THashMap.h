@@ -95,8 +95,8 @@ public:
 
 private:
     struct Node {
-        T m_key;
-        U m_value;
+        T     m_key;
+        U     m_value;
         Node *m_next;
 
         Node();
