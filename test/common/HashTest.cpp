@@ -44,7 +44,6 @@ TEST_F( HashTest, CreateTest ) {
     EXPECT_NE( myHash3.hashValue(), 0U );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( HashTest, MakeStringHashTest ) {
     static const unsigned int Base = 7;
     Hash myHash_empty;
