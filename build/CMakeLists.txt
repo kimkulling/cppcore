@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
+CMAKE_MINIMUM_REQUIRED( VERSION 2.8 )
 PROJECT( cppcore )
 SET ( CPPCORE_VERSION_MAJOR 0 )
 SET ( CPPCORE_VERSION_MINOR 1 )
@@ -16,14 +16,14 @@ add_definitions( -DCPPCORE_BUILD )
 add_definitions( -D_VARIADIC_MAX=10 )
 
 INCLUDE_DIRECTORIES(
-    ../
-    ../include/
-    ../contrib/gtest-1.7.0/include
-    ../contrib/gtest-1.7.0/
+    ${CMAKE_HOME_DIRECTORY}/.
+    ${CMAKE_HOME_DIRECTORY}/include/
+    ${CMAKE_HOME_DIRECTORY}/contrib/gtest-1.7.0/include
+    ${CMAKE_HOME_DIRECTORY}/contrib/gtest-1.7.0/
 )
 
 link_directories(
-    ../
+    ${CMAKE_HOME_DIRECTORY}/
 )
 
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/lib )
