@@ -34,7 +34,6 @@ using namespace CPPCore;
 //-------------------------------------------------------------------------------------------------
 class VariantTest : public testing::Test {
 protected:
-    //---------------------------------------------------------------------------------------------
     int *createInt( size_t buffersize ) {
         int *pData = new int[ buffersize ];
         for ( size_t i=0; i<buffersize; i++ ) {
@@ -44,7 +43,6 @@ protected:
         return pData;
     }
 
-    //---------------------------------------------------------------------------------------------
     float *createFloatData( size_t buffersize )	{
         float *pData = new float[ buffersize ];
         for ( size_t i=0; i<buffersize; i++ ) {
@@ -53,7 +51,7 @@ protected:
         
         return pData;		
     }
-    //---------------------------------------------------------------------------------------------
+
     bool validateIntData( size_t buffersize, int *pData, int *pRes ) {
         bool equal = true;
         for( size_t i = 0; i<buffersize; i++ ) {
@@ -66,7 +64,6 @@ protected:
         return equal;
     }
 
-    //---------------------------------------------------------------------------------------------
     bool validateFloatData( size_t buffersize, float *pData, float *pRes ) {
         bool equal = true;
         for( size_t i = 0; i<buffersize; i++ ) {
@@ -80,7 +77,6 @@ protected:
     }
 };
     
-//---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, createTest ) {
     int data = 1;
     Variant test1( Variant::Int, (void*)&data, 1 ); 
@@ -94,7 +90,6 @@ TEST_F( VariantTest, createTest ) {
     EXPECT_TRUE( true );
 }
     
-//---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, copyTest ) {
     int data = 1;
     Variant test1( Variant::Int, (void*)&data, 1 ); 
@@ -104,7 +99,6 @@ TEST_F( VariantTest, copyTest ) {
     EXPECT_EQ( test2, test1 );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessIntTest ) {
     int data = 1;
     Variant test( Variant::Int, (void*)&data, 1 ); 
@@ -118,7 +112,6 @@ TEST_F( VariantTest, accessIntTest ) {
     EXPECT_EQ ( res, data );
 }
     
-//---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessInt3Test ) {
     static const size_t bufferSize = 3;
     int *pData = createInt( bufferSize );
@@ -132,7 +125,6 @@ TEST_F( VariantTest, accessInt3Test ) {
     delete [] pData;
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessInt4Test ) {
     const size_t bufferSize = 4;
     int *pData = createInt( bufferSize );
@@ -145,7 +137,6 @@ TEST_F( VariantTest, accessInt4Test ) {
     delete [] pData;
 }
 
-    //---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessFloatTest ) {
     float data = 1.0f;
     Variant test( Variant::Float, (void*)&data, 1 ); 
@@ -159,7 +150,6 @@ TEST_F( VariantTest, accessFloatTest ) {
     EXPECT_EQ( res, data );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessFloat3Test )	{
     const size_t bufferSize = 3;
     float *pData = createFloatData( bufferSize );
@@ -173,7 +163,6 @@ TEST_F( VariantTest, accessFloat3Test )	{
     delete [] pData;
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessFloat4Test ) {
     const size_t bufferSize = 4;
     float *pData = createFloatData( bufferSize );
@@ -194,7 +183,6 @@ TEST_F( VariantTest, accessFloat4Test ) {
     delete [] pData;
 }
     
-//---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessStringTest ) {
     CString str( "test" );
     Variant test( Variant::String, (void*) str.c_str(), str.size() );
@@ -212,7 +200,6 @@ TEST_F( VariantTest, accessStringTest ) {
     EXPECT_TRUE( buffer == str );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( VariantTest, accessBooleanTest ) {
     bool value( true );
     Variant test( value );
@@ -225,5 +212,3 @@ TEST_F( VariantTest, accessBooleanTest ) {
     Variant test1( test );
     EXPECT_EQ( test1, test );
 }
-
-//---------------------------------------------------------------------------------------------

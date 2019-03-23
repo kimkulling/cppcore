@@ -15,7 +15,7 @@ option( BUILD_UNITTESTS "Build unit tests." ON )
 add_definitions( -DCPPCORE_BUILD )
 add_definitions( -D_VARIADIC_MAX=10 )
 
-INCLUDE_DIRECTORIES(
+INCLUDE_DIRECTORIES( BEFORE
     ${CMAKE_HOME_DIRECTORY}/.
     ${CMAKE_HOME_DIRECTORY}/include/
     ${CMAKE_HOME_DIRECTORY}/contrib/gtest-1.7.0/include
