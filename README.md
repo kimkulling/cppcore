@@ -14,6 +14,11 @@ in the working directory of the CppCore library by typing:
 Depending on your operation system CMake will generate a build environment for your 
 special platform in the build directory.
 
+If you are using Visual Studio on windows a solution file will be generated.
+
+If you are using Linux, you can build it with the make-command:
+> make -j3
+
 [![Build Status](https://travis-ci.org/kimkulling/cppcore.png)](https://travis-ci.org/kimkulling/cppcore)
 
 The library is pretty small and contains at this moment:
