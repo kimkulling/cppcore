@@ -49,6 +49,7 @@ public:
     ///	@brief	This enum describes the variable type of the variant instance.
     enum Type {
         None,		///< Initialization value.
+        Byte,       ///< 1 Byte type.
         Int,		///< Integer value.
         Int3,		///< Integer vector, 3 components.
         Int4,		///< Integer vector, 4 components.
@@ -85,6 +86,9 @@ public:
     ///	@brief	Returns the type of the instance.
     ///	@return	TYpe enum of the current dynamic type of the instance.
     Type getType() const;
+
+    void setByte(unsigned char value);
+    unsigned char getByte() const;
 
     ///	@brief	Sets a new integer value, old values will be released and destroyed.
     ///	@param	val		[in] A new integer value.
@@ -243,6 +247,20 @@ Variant::~Variant() {
 inline
 Variant::Type Variant::getType() const {
     return m_Type;
+}
+
+inline
+void Variant::setByte(unsigned char value) {
+    clear();
+    reserve(Byte, 0);
+    ::memcpy(m_pData, &value, sizeof(unsigned char));
+
+}
+
+inline
+unsigned char Variant::getByte() const {
+    return (*reinterpret_cast<unsigned char*>(m_pData));
+
 }
 
 inline 
@@ -446,7 +464,11 @@ Variant &Variant::operator = ( const Variant &rOther ) {
 inline 
 bool Variant::isValid( Type type, size_t numItems ) const {
     bool res = false;
-    if ( type == Int || type == Float )	{
+    if (type == Byte) {
+        if (1 == numItems) {
+            res = true;
+        }
+    } else if ( type == Int || type == Float )	{
         if ( 1 == numItems ) {
             res = true;
         }
@@ -480,8 +502,11 @@ void Variant::reserve( Type type, size_t size ) {
             size = sizeof( int ) * 4;
         } else if ( type == Float4 ) {
             size = sizeof( float ) * 4;
-        } else if ( type == Float4x4 ) {
-            size = sizeof( float ) * 4 * 4;
+        }
+        else if (type == Float4x4) {
+            size = sizeof(float) * 4 * 4;
+        } else if ( type == Byte ) {
+            size = sizeof(unsigned char);
         } else if ( type == Int ) {
             size = sizeof( int );
         } else if ( type == Float ) {
@@ -495,6 +520,5 @@ void Variant::reserve( Type type, size_t size ) {
     m_pData = ::malloc( size );
     m_Type = type;
 }
-
 
 } // Namespace CPPCore
