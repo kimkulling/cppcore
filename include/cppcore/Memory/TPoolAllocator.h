@@ -148,6 +148,8 @@ void TPoolAllocator<T>::reserve(size_t size) {
     
     m_current->m_pool = new T[ size ];
     m_current->m_poolsize = size;
+
+    m_capacity = size;
 }
 
 template<class T>
@@ -213,6 +215,7 @@ void TPoolAllocator<T>::resize(size_t newSize) {
 
     m_current->m_next = new Pool(m_current->m_poolsize, m_current);
     m_current = m_current->m_next;
+    m_capacity += m_current->m_poolsize;
 }
 
 }
