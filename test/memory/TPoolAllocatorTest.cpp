@@ -89,3 +89,7 @@ TEST_F(TPoolAllocatorTest, clearTest ) {
     EXPECT_EQ( allocator.freeMem(), 0u );
 }
 
+TEST_F(TPoolAllocatorTest, resizeTest) {
+    TPoolAllocator<int> allocator;
+    allocator.resize(100);
+}

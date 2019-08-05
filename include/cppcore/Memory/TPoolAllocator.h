@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2016 Kim Kulling
+Copyright (c) 2014-2019 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,17 +28,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace CPPCore {
 
-    //-------------------------------------------------------------------------------------------------
-    ///	@class		TPoolAllocator
-    ///	@ingroup	CPPCore
-    ///
-    ///	@brief  This class implements a simple poll-based allocation scheme.
-    /// Initially you have to define its size. Each allocation will be done from this initially created 
-    /// pool. You have to release all pooled instances after the usage. 
-    /// This allocation scheme is fast and does no call any new-calls during the lifetime of the 
-    /// allocator.
-    //-------------------------------------------------------------------------------------------------
-    template<class T>
+//-------------------------------------------------------------------------------------------------
+///	@class		TPoolAllocator
+///	@ingroup	CPPCore
+///
+///	@brief  This class implements a simple poll-based allocation scheme.
+/// Initially you have to define its size. Each allocation will be done from this initially created 
+/// pool. You have to release all pooled instances after the usage. 
+/// This allocation scheme is fast and does no call any new-calls during the lifetime of the 
+/// allocator.
+//-------------------------------------------------------------------------------------------------
+template<class T>
 class TPoolAllocator {
 public:
     TPoolAllocator();
@@ -84,13 +84,15 @@ private:
 
     Pool *m_first;
     Pool *m_current;
+    size_t  m_capacity;
 };
 
 template<class T>
 inline
 TPoolAllocator<T>::TPoolAllocator()
 : m_first( nullptr )
-, m_current( nullptr ) {
+, m_current( nullptr )
+, m_capacity( 0L ) {
     // empty
 }
 
@@ -112,7 +114,12 @@ TPoolAllocator<T>::~TPoolAllocator() {
 template<class T>
 inline
 T *TPoolAllocator<T>::alloc() { 
+    if (nullptr == m_current) {
+        return nullptr;
+    }
+
     if ( m_current->m_currentIdx == m_current->m_poolsize ) {
+        resize(m_current->m_poolsize);
         m_current->m_next = new Pool(m_first->m_poolsize, m_current );
         return nullptr;
     }
@@ -124,6 +131,10 @@ T *TPoolAllocator<T>::alloc() {
 template<class T>
 inline
 void TPoolAllocator<T>::release() {
+    if (nullptr == m_current) {
+        return;
+    }
+
     m_current->m_currentIdx = 0;
 }
 
@@ -155,19 +166,27 @@ void TPoolAllocator<T>::clear() {
 template<class T>
 inline
 size_t TPoolAllocator<T>::capacity() const {
+    if (nullptr == m_current) {
+        return 0L;
+    }
+
     return m_current->m_poolsize;
 }
 
 template<class T>
 inline
 size_t TPoolAllocator<T>::reservedMem() const {
-    return m_current->m_poolsize * sizeof(T);
+    return m_capacity;
 }
 
 template<class T>
 inline
 size_t TPoolAllocator<T>::freeMem() const {
-    return m_current->m_poolsize - m_current->m_currentIdx;
+    if (nullptr == m_current) {
+        return 0L;
+    }
+
+    return (m_current->m_poolsize - m_current->m_currentIdx)-1;
 }
 
 template<class T>
@@ -182,7 +201,13 @@ void TPoolAllocator<T>::dumpAllocations(CString & allocs) {
 template<class T>
 inline
 void TPoolAllocator<T>::resize(size_t newSize) {
-    if (newSize < m_poolsize) {
+    if (newSize < m_current->m_poolsize) {
+        return;
+    }
+
+    if (nullptr == m_first) {
+        m_first = new Pool(newSize, nullptr);
+        m_current = m_first;
         return;
     }
 
