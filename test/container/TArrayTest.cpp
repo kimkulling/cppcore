@@ -65,7 +65,7 @@ TEST_F( TArrayTest, constructTest ) {
 
 TEST_F( TArrayTest, constructWithSizeTest) {
     TArray<float> arrayInstance( 4 );
-	EXPECT_EQ( 4, arrayInstance.size() );
+	EXPECT_EQ( 4u, arrayInstance.size() );
 }
 
 TEST_F( TArrayTest, addTest) {
@@ -73,7 +73,7 @@ TEST_F( TArrayTest, addTest) {
 	arrayInstance.add( 0.0f );
 	arrayInstance.add( 1.0f );
 
-	EXPECT_EQ( 2, arrayInstance.size() );
+	EXPECT_EQ( 2u, arrayInstance.size() );
 	EXPECT_EQ( 0.0f, arrayInstance[ 0 ] );
 	EXPECT_EQ( 1.0f, arrayInstance[ 1 ] );
 }
@@ -84,13 +84,13 @@ TEST_F( TArrayTest, addItemsTest ) {
 
     float data[2] = { 0, 1 };
     arrayInstance.add( data, 2 );
-    EXPECT_EQ( 3, arrayInstance.size() );
+    EXPECT_EQ( 3u, arrayInstance.size() );
     EXPECT_EQ( 0.0f, arrayInstance[ 0 ] );
     EXPECT_EQ( 0.0f, arrayInstance[ 1 ] );
     EXPECT_EQ( 1.0f, arrayInstance[ 2 ] );
 
     arrayInstance.add( nullptr, 0 );
-    EXPECT_EQ( 3, arrayInstance.size() );
+    EXPECT_EQ( 3u, arrayInstance.size() );
 }
 
 TEST_F( TArrayTest, accessTest) {

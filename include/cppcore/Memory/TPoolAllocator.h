@@ -125,7 +125,7 @@ T *TPoolAllocator<T>::alloc() {
     }
     
     m_current->m_currentIdx++;
-    return &m_current->m_pool[m_current->m_currentIdx-1];
+    return &m_current->m_pool[m_current->m_currentIdx];
 }
 
 template<class T>
