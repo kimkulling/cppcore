@@ -22,9 +22,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
 #pragma once
 
-#include <stddef.h>
+#include <cppcore/CPPCoreCommon.h>
 #include <cppcore/Common/CString.h>
-#include <stdio.h>
 
 namespace CPPCore {
 
@@ -52,57 +51,62 @@ public:
     size_t reservedMem() const;
     size_t freeMem() const;
     void dumpAllocations(CString & allocs);
-    void resize(size_t newSize);
-    TPoolAllocator(const TPoolAllocator&) = delete;
-    TPoolAllocator(TPoolAllocator&&) = delete;
-    TPoolAllocator& operator = (const TPoolAllocator&) = delete;
-    
+    void resize(size_t growSize );
+
+    CPPCORE_NONE_COPYING(TPoolAllocator)
 
 private:
     struct Pool {
         size_t  m_poolsize;
-        T*      m_pool;
+        T      *m_pool;
         size_t  m_currentIdx;
         Pool   *m_next;
 
         Pool()
-        : m_poolsize(0)
+        : m_poolsize(0u)
         , m_pool(nullptr)
-        , m_currentIdx(0) 
-        , m_next( nullptr ) {
+        , m_currentIdx(0u)
+        , m_next(nullptr) {
             // empty
         }
 
-        Pool(size_t numItems, Pool *prev )
-        : m_poolsize( numItems )
+        Pool(size_t numItems, Pool *prev)
+        : m_poolsize(numItems)
         , m_pool(nullptr)
-        , m_currentIdx(0)
+        , m_currentIdx(0u)
         , m_next(prev) {
             m_pool = new T[m_poolsize];
         }
+
+        ~Pool() {
+            delete[] m_pool;
+            m_pool = nullptr;
+        }
+
+        CPPCORE_NONE_COPYING(Pool)
     };
 
-    Pool *m_first;
-    Pool *m_current;
+    Pool   *m_first;
+    Pool   *m_current;
     size_t  m_capacity;
 };
 
 template<class T>
 inline
 TPoolAllocator<T>::TPoolAllocator()
-: m_first( nullptr )
-, m_current( nullptr )
-, m_capacity( 0L ) {
+: m_first(nullptr)
+, m_current(nullptr)
+, m_capacity(0L) {
     // empty
 }
 
 template<class T>
 inline
 TPoolAllocator<T>::TPoolAllocator(size_t numItems)
-: m_first( nullptr )
-, m_current( nullptr ) {
-    m_first = new Pool( numItems );
-    m_current = m_first; 
+: m_first(nullptr)
+, m_current(nullptr) {
+    m_first = new Pool(numItems);
+    m_current = m_first;
 }
 
 template<class T>
@@ -113,19 +117,19 @@ TPoolAllocator<T>::~TPoolAllocator() {
 
 template<class T>
 inline
-T *TPoolAllocator<T>::alloc() { 
+T *TPoolAllocator<T>::alloc() {
     if (nullptr == m_current) {
         return nullptr;
     }
 
-    if ( m_current->m_currentIdx == m_current->m_poolsize ) {
+    if (m_current->m_currentIdx == m_current->m_poolsize) {
         resize(m_current->m_poolsize);
-        m_current->m_next = new Pool(m_first->m_poolsize, m_current );
-        return nullptr;
     }
-    
+
+    T *ptr(&m_current->m_pool[m_current->m_currentIdx]);
     m_current->m_currentIdx++;
-    return &m_current->m_pool[m_current->m_currentIdx];
+    
+    return ptr;
 }
 
 template<class T>
@@ -142,11 +146,11 @@ template<class T>
 inline
 void TPoolAllocator<T>::reserve(size_t size) {
     clear();
-    
-    m_first = new Pool(size, nullptr );
+
+    m_first = new Pool(size, nullptr);
     m_current = m_first;
-    
-    m_current->m_pool = new T[ size ];
+
+    m_current->m_pool = new T[size];
     m_current->m_poolsize = size;
 
     m_capacity = size;
@@ -159,10 +163,13 @@ void TPoolAllocator<T>::clear() {
         return;
     }
 
-    delete [] m_current->m_pool;
-    m_current->m_pool = nullptr;
-    m_current->m_currentIdx = 0;
-    m_current->m_poolsize = 0;
+    Pool *next(m_first);
+    while ( nullptr != next) {
+        Pool *current = next;
+        next = current->m_next;
+        delete current;
+    }
+    m_current = nullptr;
 }
 
 template<class T>
@@ -188,7 +195,7 @@ size_t TPoolAllocator<T>::freeMem() const {
         return 0L;
     }
 
-    return (m_current->m_poolsize - m_current->m_currentIdx)-1;
+    return (m_current->m_poolsize - m_current->m_currentIdx);
 }
 
 template<class T>
@@ -196,26 +203,27 @@ inline
 void TPoolAllocator<T>::dumpAllocations(CString & allocs) {
     allocs.clear();
     char buffer[512];
-    sprintf(buffer, "Number allocations = %d\n", (int)m_current->m_currentIdx);
+    ::sprintf(buffer, "Number allocations = %zu\n", m_current->m_currentIdx);
     allocs.set(buffer);
 }
 
 template<class T>
 inline
-void TPoolAllocator<T>::resize(size_t newSize) {
-    if (newSize < m_current->m_poolsize) {
-        return;
+void TPoolAllocator<T>::resize(size_t growSize) {
+    if (nullptr != m_current) {
+        if (growSize < m_current->m_poolsize) {
+            return;
+        }
     }
 
     if (nullptr == m_first) {
-        m_first = new Pool(newSize, nullptr);
+        m_first = new Pool(growSize, nullptr);
         m_current = m_first;
-        return;
+    } else {
+        m_current->m_next = new Pool(growSize, nullptr);
+        m_current = m_current->m_next;
     }
-
-    m_current->m_next = new Pool(m_current->m_poolsize, m_current);
-    m_current = m_current->m_next;
     m_capacity += m_current->m_poolsize;
 }
 
-}
+} // Namespace CPPCore

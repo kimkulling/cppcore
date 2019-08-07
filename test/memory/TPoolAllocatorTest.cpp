@@ -61,7 +61,7 @@ TEST_F(TPoolAllocatorTest, alloc_access_Test) {
     }
 
     PoolItem *nullItem = allocator.alloc();
-    EXPECT_EQ(nullptr, nullItem);
+    EXPECT_NE(nullptr, nullItem);
 }
 
 TEST_F(TPoolAllocatorTest, countAllocsTest) {
@@ -84,7 +84,7 @@ TEST_F(TPoolAllocatorTest, getAllocsTest) {
 
 TEST_F(TPoolAllocatorTest, clearTest ) {
     TPoolAllocator<int> allocator;
-    allocator.reserve( 100 );
+    allocator.reserve( 100u );
     allocator.clear();
     EXPECT_EQ( allocator.freeMem(), 0u );
 }
@@ -92,4 +92,10 @@ TEST_F(TPoolAllocatorTest, clearTest ) {
 TEST_F(TPoolAllocatorTest, resizeTest) {
     TPoolAllocator<int> allocator;
     allocator.resize(100);
+    //allocator.resize(100);
+
+    for (size_t i = 0; i < 200; ++i) {
+        EXPECT_NE(nullptr, allocator.alloc());
+    }
+    EXPECT_EQ(200u, allocator.reservedMem());
 }
