@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2017 Kim Kulling
+Copyright (c) 2014-2019 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -87,7 +87,12 @@ public:
     ///	@return	TYpe enum of the current dynamic type of the instance.
     Type getType() const;
 
+    /// @brief  Will set the payload to the given value.
+    /// @param  value   [in] The new given payload.
     void setByte(unsigned char value);
+
+    /// @brief  Will return the current payload as a byte value.
+    /// @return The byte value.
     unsigned char getByte() const;
 
     ///	@brief	Sets a new integer value, old values will be released and destroyed.

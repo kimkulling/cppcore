@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2016 Kim Kulling
+Copyright (c) 2014-2019 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -24,6 +24,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <cstddef>
 #include <string.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <stdarg.h>
 
 namespace CPPCore {
 
@@ -81,8 +84,9 @@ void ContainerClear( T & ctr, void( *DeleterFunc )( T & ) = nullptr ) {
 /// @param  name    [in] The name of the class.
 //-------------------------------------------------------------------------------------------------
 #define CPPCORE_NONE_COPYING( name ) \
-private:\
+public: \
     name( const name & ) = delete ;\
+    name( name && ) = delete; \
     name &operator = ( const name & ) = delete;
 
 //-------------------------------------------------------------------------------------------------

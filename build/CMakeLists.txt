@@ -14,6 +14,7 @@ option( BUILD_UNITTESTS "Build unit tests." ON )
 
 add_definitions( -DCPPCORE_BUILD )
 add_definitions( -D_VARIADIC_MAX=10 )
+add_definitions( -D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING=1)
 
 INCLUDE_DIRECTORIES( BEFORE
     ${CMAKE_HOME_DIRECTORY}/..

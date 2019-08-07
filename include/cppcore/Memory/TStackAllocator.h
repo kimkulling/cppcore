@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2016 Kim Kulling
+Copyright (c) 2014-2019 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -22,9 +22,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
 #pragma once
 
-#include <stddef.h>
+#include <cppcore/CPPCoreCommon.h>
 #include <cppcore/Common/CString.h>
-#include <stdio.h>
 
 namespace CPPCore {
 
@@ -52,11 +51,11 @@ public:
     size_t reservedMem() const;
     size_t freeMem() const;
     void dumpAllocations( CString & allocs );
-    TStackAllocator( const TStackAllocator<T> & ) = delete;
-    TStackAllocator<T> &operator = ( const TStackAllocator<T> & ) = delete;
+
+    CPPCORE_NONE_COPYING(TStackAllocator)
 
 private:
-    typedef unsigned char byte_t;
+    using byte_t = unsigned char;
     struct Header {
         size_t m_size;
     };
@@ -171,7 +170,7 @@ inline
 void TStackAllocator<T>::dumpAllocations( CString & allocs ) {
     allocs.clear();
     char buffer[ 512 ];
-    sprintf( buffer, "Number allocations = %d\n", ( int ) m_numAllocs );
+    sprintf( buffer, "Number allocations = %zu\n", m_numAllocs );
     allocs.set( buffer );
 }
 
