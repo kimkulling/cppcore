@@ -86,25 +86,37 @@ private:
         CPPCORE_NONE_COPYING(Pool)
     };
 
+    Pool *getFreePool() {
+        Pool *current(m_freeList);
+        if (nullptr != m_freeList) {
+            m_freeList = m_freeList->m_next;
+        }
+        return current;
+    }
+
     Pool   *m_first;
     Pool   *m_current;
+    Pool   *m_freeList;
     size_t  m_capacity;
 };
 
 template<class T>
 inline
 TPoolAllocator<T>::TPoolAllocator()
-: m_first(nullptr)
-, m_current(nullptr)
-, m_capacity(0L) {
+: m_first( nullptr )
+, m_current( nullptr )
+, m_freeList( nullptr )
+, m_capacity( 0L ) {
     // empty
 }
 
 template<class T>
 inline
 TPoolAllocator<T>::TPoolAllocator(size_t numItems)
-: m_first(nullptr)
-, m_current(nullptr) {
+: m_first( nullptr )
+, m_current( nullptr )
+, m_freeList( nullptr )
+, m_capacity(0L) {
     m_first = new Pool(numItems);
     m_current = m_first;
 }
@@ -140,6 +152,14 @@ void TPoolAllocator<T>::release() {
     }
 
     m_current->m_currentIdx = 0;
+
+    Pool *current(m_first);
+    while(nullptr != current ) {
+        current->m_currentIdx = 0;
+        current = current->m_next;
+    }
+    m_freeList = m_first->m_next;
+    m_current = m_first;
 }
 
 template<class T>
@@ -170,22 +190,19 @@ void TPoolAllocator<T>::clear() {
         delete current;
     }
     m_current = nullptr;
+    m_freeList = nullptr;
 }
 
 template<class T>
 inline
 size_t TPoolAllocator<T>::capacity() const {
-    if (nullptr == m_current) {
-        return 0L;
-    }
-
-    return m_current->m_poolsize;
+    return m_capacity;
 }
 
 template<class T>
 inline
 size_t TPoolAllocator<T>::reservedMem() const {
-    return m_capacity;
+    return m_capacity * sizeof(T);
 }
 
 template<class T>
@@ -219,11 +236,16 @@ void TPoolAllocator<T>::resize(size_t growSize) {
     if (nullptr == m_first) {
         m_first = new Pool(growSize, nullptr);
         m_current = m_first;
+        m_capacity += m_current->m_poolsize;
     } else {
-        m_current->m_next = new Pool(growSize, nullptr);
+        Pool *pool = getFreePool();
+        if (nullptr == pool) {
+            pool = new Pool(growSize, nullptr);
+            m_capacity += growSize;
+        }
+        m_current->m_next = pool;
         m_current = m_current->m_next;
     }
-    m_capacity += m_current->m_poolsize;
 }
 
 } // Namespace CPPCore

@@ -92,10 +92,25 @@ TEST_F(TPoolAllocatorTest, clearTest ) {
 TEST_F(TPoolAllocatorTest, resizeTest) {
     TPoolAllocator<int> allocator;
     allocator.resize(100);
-    //allocator.resize(100);
 
     for (size_t i = 0; i < 200; ++i) {
         EXPECT_NE(nullptr, allocator.alloc());
     }
-    EXPECT_EQ(200u, allocator.reservedMem());
+    EXPECT_EQ(200u, allocator.capacity());
+}
+
+TEST_F(TPoolAllocatorTest, releaseTest) {
+    TPoolAllocator<int> allocator;
+    allocator.resize(100);
+    for (size_t i = 0; i < 200; ++i) {
+        EXPECT_NE(nullptr, allocator.alloc());
+    }
+
+    allocator.release();
+    for (size_t i = 0; i < 200; ++i) {
+        EXPECT_NE(nullptr, allocator.alloc());
+    }
+
+    size_t c = allocator.capacity();
+    EXPECT_EQ(200u, allocator.capacity());
 }
