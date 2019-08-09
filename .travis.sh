@@ -18,11 +18,12 @@ function generate() {
 if [ "$TRAVIS_OS_NAME" = "linux" ]; then
   if [ $ANALYZE = "ON" ] ; then
     if [ "$CC" = "clang" ]; then
-        scan-build cmake -G "Unix Makefiles" -DBUILD_SHARED_LIBS=OFF -DASSIMP_BUILD_TESTS=OFF
-        scan-build --status-bugs make -j2
+        cd build
+        scan-build cmake -G "Unix Makefiles"
+        scan-build --status-bugs make -j4
     fi
   else
     generate \
-    && make -j4 && cd bin && ./cppcore_unittest
+    && cd build && make -j4 && cd bin && ./cppcore_unittest
   fi
 fi
