@@ -4,7 +4,6 @@ before_install:
   - sudo apt-get install cmake
 
 os:
-#  - windows
   - linux
   
 language: 
@@ -13,6 +12,7 @@ language:
 compiler:
   - gcc
   - clang
+
 script: 
   - cd build && cmake -G "Unix Makefiles" && make -j4 && cd bin && ./cppcore_unittest
 

@@ -2,7 +2,7 @@
 -------------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2016 Kim Kulling
+Copyright (c) 2014-2019 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -40,25 +40,23 @@ using namespace CPPCore;
 //-------------------------------------------------------------------------------------------------
 class TListTest : public testing::Test {
 protected:
-    void createList( size_t numEntries, TList<float> &rDataList, std::vector<float> &rValues ) {
-        rValues.resize( 0 );
-        rDataList.clear();
+    void createList( size_t numEntries, TList<float> &dataList, std::vector<float> &values ) {
+        values.resize( 0 );
+        dataList.clear();
         for( size_t i = 0; i<numEntries; ++i ) {
             float value = i*1.0f;
-	    rDataList.addBack( value );
-	    rValues.push_back( value );
+	        dataList.addBack( value );
+	        values.push_back( value );
         }
     }
 };
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TListTest, constructTest) {
     TList<float> listTest;
     EXPECT_TRUE( listTest.isEmpty() );
     EXPECT_EQ( 0u, listTest.size() );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TListTest, addBackTest) {
     TList<float> listTest;
     listTest.addBack( 1.0f );
@@ -69,7 +67,6 @@ TEST_F( TListTest, addBackTest) {
     EXPECT_TRUE( !listTest.isEmpty() ); 
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TListTest, addFrontTest) {
     TList<float> listTest;
     listTest.addFront( 1.0f );
@@ -80,7 +77,6 @@ TEST_F( TListTest, addFrontTest) {
     EXPECT_TRUE( !listTest.isEmpty() ); 
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TListTest, copyTest ) {
     TList<float> listTest;
     TList<float> copyTest1( listTest );
@@ -94,7 +90,6 @@ TEST_F( TListTest, copyTest ) {
     EXPECT_EQ( 2u, copyTest2.size() );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TListTest, accessTest ) {
 	const size_t numEntries = 10;
     TList<float> listTest;
@@ -113,21 +108,19 @@ TEST_F( TListTest, accessTest ) {
 	}
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TListTest, clearTest ) {
-	const size_t numEntries = 10;
+	static const size_t numEntries = 10;
     TList<float> listTest;
     std::vector<float> values;
 	createList( numEntries, listTest, values );
 
 	listTest.clear();
-	EXPECT_EQ( listTest.size(), 0 );
+	EXPECT_EQ( listTest.size(), 0u );
 	EXPECT_TRUE( listTest.isEmpty() );
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TListTest, removeTest )	{
-	const size_t numEntries = 10;
+	static const size_t numEntries = 10;
     TList<float> listTest;
     std::vector<float> values;
 
@@ -140,7 +133,6 @@ TEST_F( TListTest, removeTest )	{
 	}
 }
 
-//---------------------------------------------------------------------------------------------
 TEST_F( TListTest, isEmptyTest ) {
     TList<float> listTest;
 	EXPECT_TRUE( listTest.isEmpty() );
@@ -151,7 +143,6 @@ TEST_F( TListTest, isEmptyTest ) {
 	EXPECT_TRUE( listTest.isEmpty() );
 }
 	
-//---------------------------------------------------------------------------------------------
 TEST_F( TListTest, bug_IterateEmptyListTest ) {
     TList<float> listTest;
 	bool ok = true;
@@ -162,5 +153,3 @@ TEST_F( TListTest, bug_IterateEmptyListTest ) {
 	}
 	EXPECT_TRUE( ok );
 }
-
-//---------------------------------------------------------------------------------------------
