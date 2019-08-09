@@ -111,6 +111,5 @@ TEST_F(TPoolAllocatorTest, releaseTest) {
         EXPECT_NE(nullptr, allocator.alloc());
     }
 
-    size_t c = allocator.capacity();
     EXPECT_EQ(200u, allocator.capacity());
 }
