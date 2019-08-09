@@ -118,6 +118,7 @@ TPoolAllocator<T>::TPoolAllocator(size_t numItems)
 , m_freeList( nullptr )
 , m_capacity(0L) {
     m_first = new Pool(numItems);
+    m_capacity += numItems;
     m_current = m_first;
 }
 
@@ -150,8 +151,6 @@ void TPoolAllocator<T>::release() {
     if (nullptr == m_current) {
         return;
     }
-
-    m_current->m_currentIdx = 0;
 
     Pool *current(m_first);
     while(nullptr != current ) {
