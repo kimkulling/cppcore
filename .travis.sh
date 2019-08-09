@@ -15,11 +15,10 @@ function generate() {
 
     cmake -G "Unix Makefiles" $OPTIONS
 }
+
 if [ "$TRAVIS_OS_NAME" = "linux" ]; then
   if [ $ANALYZE = "ON" ] ; then
     if [ "$CC" = "clang" ]; then
-        cd build
-        scan-build cmake -G "Unix Makefiles"
         scan-build --status-bugs make -j4
     fi
   else
