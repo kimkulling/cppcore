@@ -2,7 +2,7 @@
 -------------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2016 Kim Kulling
+Copyright (c) 2014-2019 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -158,12 +158,12 @@ TEST_F( TArrayTest, removeTest) {
 TEST_F( TArrayTest, removeItTest) {
     TArray<float> arrayInstance;
     arrayInstance.add( 1.0f );
-    EXPECT_EQ( 1, arrayInstance.size() );
+    EXPECT_EQ( 1u, arrayInstance.size() );
     TArray<float>::Iterator it = arrayInstance.find( 1.0f );
     EXPECT_NE( arrayInstance.end(), it );
 
     arrayInstance.remove( it );
-    EXPECT_EQ( 0, arrayInstance.size() );
+    EXPECT_EQ( 0u, arrayInstance.size() );
 }
 
 TEST_F( TArrayTest, removeBackTest) {
@@ -171,16 +171,16 @@ TEST_F( TArrayTest, removeBackTest) {
 	createArray( ArrayData, ArraySize, arrayInstance );
 
 	arrayInstance.removeBack();
-	EXPECT_EQ( 3, arrayInstance.size() );
+	EXPECT_EQ( 3u, arrayInstance.size() );
 	EXPECT_EQ( 2.0f, arrayInstance[ 2 ] );
 }
 
 TEST_F( TArrayTest, resizeTest ) {
     TArray<float> arrayInstance;
-	EXPECT_EQ( 0, arrayInstance.size() );
+	EXPECT_EQ( 0u, arrayInstance.size() );
 
 	arrayInstance.resize( 5 );
-	EXPECT_EQ( 5, arrayInstance.size() );
+	EXPECT_EQ( 5u, arrayInstance.size() );
 }
 
 TEST_F( TArrayTest, moveTest ) {
@@ -193,22 +193,23 @@ TEST_F( TArrayTest, moveTest ) {
 
 TEST_F( TArrayTest, reserveTest ) {
     TArray<float> arrayInstance;
-	EXPECT_EQ( 0, arrayInstance.capacity() );
+	EXPECT_EQ( 0u, arrayInstance.capacity() );
 
 	arrayInstance.reserve( 5 );
-	EXPECT_EQ( 5, arrayInstance.capacity() );
+	EXPECT_EQ( 5u, arrayInstance.capacity() );
 
-	arrayInstance.reserve( 2000 );
-	EXPECT_EQ( 2000, arrayInstance.capacity() );
+    static const size_t NewSize = 2000;
+	arrayInstance.reserve(NewSize);
+	EXPECT_EQ( NewSize, arrayInstance.capacity() );
 }
 
 TEST_F( TArrayTest, resize_with_init_Test ) {
     TArray<float> arrayInstance;
-    EXPECT_EQ( 0, arrayInstance.capacity() );
+    EXPECT_EQ( 0u, arrayInstance.capacity() );
 
     arrayInstance.resize( 10, 1.0f );
-    EXPECT_EQ( 10, arrayInstance.size() );
-    for ( size_t i = 0; i < 10; i++ ) {
+    EXPECT_EQ( 10u, arrayInstance.size() );
+    for ( size_t i = 0; i < 10; ++i ) {
         EXPECT_FLOAT_EQ( 1.0f, arrayInstance[ i ] );
     }
 }
@@ -230,7 +231,7 @@ TEST_F( TArrayTest, preIncIterateTest ) {
 
 	bool ok = true;
 	try {
-		size_t i=0;
+		size_t i( 0 );
         for( TArray<float>::Iterator it = arrayInstance.begin( ); it != arrayInstance.end( ); ++it ) {
             float tmp = *it;
 			EXPECT_EQ( tmp, ArrayData[ i ] );
@@ -248,7 +249,7 @@ TEST_F( TArrayTest, postIncIterateTest ) {
 
 	bool ok = true;
 	try {
-		size_t i=0;
+		size_t i(0);
         for( TArray<float>::Iterator it = arrayInstance.begin( ); it != arrayInstance.end( ); it++ ) {
             float tmp = *it;
 			EXPECT_EQ( tmp, ArrayData[ i ] );
@@ -266,7 +267,7 @@ TEST_F( TArrayTest, findTest )	{
 	arrayInstance.add( 1.0f );
 	arrayInstance.add( 2.0f );
 	arrayInstance.add( 3.0f );
-	EXPECT_EQ( 4, arrayInstance.size() );
+	EXPECT_EQ( 4u, arrayInstance.size() );
 
     TArray<float>::Iterator it = arrayInstance.find( 1.0f );
 	EXPECT_NE( it, arrayInstance.end() );
@@ -311,4 +312,3 @@ TEST_F( TArrayTest, bug_AddHeapCorruptTest ) {
         arrayInstance.add( ( float ) i );
 	}
 }
-	

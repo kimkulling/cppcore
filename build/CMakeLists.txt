@@ -10,7 +10,18 @@ if( CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX )
     find_package(Threads)
 endif()
 
-option( BUILD_UNITTESTS "Build unit tests." ON )
+option( BUILD_UNITTESTS 
+    "Build unit tests."
+     ON 
+)
+option( CPPCORE_ASAN
+    "Enable AddressSanitizer."
+    OFF
+)
+option( CPPCORE_UBSAN
+    "Enable Undefined Behavior sanitizer."
+    OFF
+)
 
 add_definitions( -DCPPCORE_BUILD )
 add_definitions( -D_VARIADIC_MAX=10 )
@@ -44,6 +55,18 @@ elseif( CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX )
 elseif ( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" )
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -pedantic -std=c++11")
 endif()
+
+IF (ASSIMP_ASAN)
+  MESSAGE(STATUS "AddressSanitizer enabled")
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
+  SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address")
+ENDIF()
+
+IF (ASSIMP_UBSAN)
+  MESSAGE(STATUS "Undefined Behavior sanitizer enabled")
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined -fno-sanitize-recover=all")
+  SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=undefined -fno-sanitize-recover=all")
+ENDIF()
 
 SET ( cppcore_src
     ../code/cppcore.cpp
