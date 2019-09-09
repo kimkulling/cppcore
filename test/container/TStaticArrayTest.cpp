@@ -65,4 +65,3 @@ TEST_F(TStaticArrayTest, clear_Test) {
         EXPECT_EQ(0, arr[i]);
     }
 }
-

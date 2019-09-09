@@ -265,11 +265,11 @@ void TArray<T>::remove( Iterator it ) {
     assert( it < end() );
 
     // Look out for the index 
-    int pos = -1;
+    long pos = -1;
     Iterator currentIt = this->begin();
     for( size_t i = 0; i<m_Size; ++i )	{
         if ( it == currentIt ) {
-            pos = i;
+            pos = static_cast<long>(i);
             break;
         }
         ++currentIt;

@@ -51,7 +51,7 @@ public:
 
 private:
     T m_array[len];
-    unsigned  int m_len;
+    unsigned int m_len;
 };
 
 template<class T, unsigned int len>
@@ -65,7 +65,7 @@ template<class T, unsigned int len>
 inline
 TStaticArray<T, len>::TStaticArray(const TStaticArray<T, len> &rhs)
 : m_len(rhs.m_len) {
-    assert(m_len == rhs.m_len);
+    static_assert(m_len == rhs.m_len);
 
     for (unsigned int i = 0; i < m_len; ++i) {
         m_array[i] = rhs.m_array[i];
