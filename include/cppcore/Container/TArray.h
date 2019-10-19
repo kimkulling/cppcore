@@ -155,6 +155,10 @@ public:
     ///			for the end of the array.
     Iterator end();
 
+    /// @brief  Will return the data pointer.
+    /// @return The data pointer.
+    T data() const;
+
     ///	@brief	The	[] operator.
     T &operator[]( array_size_type idx ) const;
     
@@ -344,7 +348,7 @@ void TArray<T>::move( size_t fromIdx, size_t toIdx ) {
             destroy( index );
         }
     } else {
-        for ( int i=numElements-1; i>=0; --i ) {
+        for ( size_t i=numElements-1; i>=0; --i ) {
             m_pData[ toIdx + i ] = m_pData[ fromIdx + i ];
         }
 
@@ -489,6 +493,12 @@ typename TArray<T>::Iterator TArray<T>::end() {
     tmp += m_Size;
 
     return tmp;
+}
+
+template<class T>
+inline
+T TArray<T>::data() const {
+    return m_pData;
 }
 
 template<class T>

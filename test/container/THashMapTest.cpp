@@ -67,7 +67,7 @@ TEST_F( THashMapTest, insertTest ) {
 
     // Act
     // Assert
-    unsigned int size( 0 );
+    size_t size( 0 );
     size = myHashMap.size();
     EXPECT_EQ( size, 0u );
 
@@ -102,7 +102,7 @@ TEST_F( THashMapTest, collideTest ) {
 
     // Act
     // Assert
-    unsigned int size( 0 );
+    size_t size( 0 );
     size = myHashMap.size();
     EXPECT_EQ( size, 0u );
 
@@ -120,7 +120,7 @@ TEST_F( THashMapTest, removeTest ) {
     // Act
     // Assert
     bool success( false );
-    unsigned int size( 0 );
+    size_t size( 0 );
     THashMap<unsigned int, unsigned int> myHashMap( 1 );
 
     success = myHashMap.remove( 1 );

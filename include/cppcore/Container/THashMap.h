@@ -246,7 +246,7 @@ bool THashMap<T, U>::hasKey( const T &key ) const {
 template<class T, class U>
 inline
 bool THashMap<T, U>::getValue( const T &key, U &value ) const {
-    const unsigned int pos( Hash::toHash( key, m_buffersize ) );
+    const size_t pos( Hash::toHash( key, (unsigned int) m_buffersize ) );
     if( m_buffer[ pos ]->m_key == key ) {
         value = m_buffer[ pos ]->m_value;
         return true;
