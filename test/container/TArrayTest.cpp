@@ -188,7 +188,7 @@ TEST_F( TArrayTest, moveTest ) {
     arrayInstance.add( 1.0f );
     arrayInstance.add( 2.0f );
     arrayInstance.add( 3.0f );
-    arrayInstance.move( 1, 3 );
+    arrayInstance.move( 1, 2 );
 }
 
 TEST_F( TArrayTest, reserveTest ) {
