@@ -73,8 +73,6 @@ public:
     /// @return The hash value.
     static unsigned int toHash( unsigned int value, unsigned int base );
 
-    static size_t toHash( size_t value, size_t base);
-
     /// brief    Returns the stored hash value.
     /// @return The hash value.
     unsigned int hashValue() const;
@@ -131,13 +129,6 @@ unsigned int Hash::toHash( const char *buffer, unsigned int base ) {
     }
     
     return hash;
-}
-
-inline
-size_t Hash::toHash(size_t value, size_t base) {
-    const size_t hash(value % base);
-    return hash;
-
 }
 
 inline

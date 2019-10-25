@@ -171,7 +171,7 @@ void THashMap<T, U>::clear() {
 template<class T, class U>
 inline
 void THashMap<T, U>::insert( const T &key, const U &value ) {
-    const unsigned int hash( Hash::toHash( key, m_buffersize ) );
+    const unsigned int hash( Hash::toHash( key, (unsigned int) m_buffersize ) );
     if( nullptr == m_buffer[ hash ] ) {
         Node *node = new Node;
         node->m_key = key;
@@ -186,7 +186,7 @@ void THashMap<T, U>::insert( const T &key, const U &value ) {
 template<class T, class U>
 inline
 bool THashMap<T, U>::remove( const T &key ) {
-    const unsigned int hash( Hash::toHash( key, m_buffersize ) );
+    const unsigned int hash( Hash::toHash( key, (unsigned int) m_buffersize ) );
     if( nullptr == m_buffer[ hash ] ) {
         return false;
     }
@@ -220,7 +220,7 @@ bool THashMap<T, U>::hasKey( const T &key ) const {
     if ( 0 == m_buffersize ) {
         return false;
     }
-    const unsigned int hash( Hash::toHash( key, m_buffersize ) );
+    const unsigned int hash( Hash::toHash( key, (unsigned int) m_buffersize ) );
     const Node *node( m_buffer[ hash ] );
     if( !node ) {
         return false;
