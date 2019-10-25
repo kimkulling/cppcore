@@ -104,6 +104,11 @@ public:
     ///	@brief	Returns the last item as a const reference.
     ///	@return	The last item.
     const T &back() const;
+
+    ///	@brief	Moves the items from the start- to the end-index.
+    ///	@param	startIdx	[in] The start index.
+    ///	@param	endIdx		[in] The last index.
+    void move( array_size_type startIdx, array_size_type endIdx );
     
     ///	@brief	Ensures, that the capacity of the array is big enough for the given size. 
     ///	@param	capacity	[in] The new capacity.
@@ -317,6 +322,43 @@ const T &TArray<T>::back() const {
     assert( m_Size > 0 );
 
     return ( m_pData[ m_Size - 1 ] );
+}
+
+template<class T>
+inline
+void TArray<T>::move( size_t fromIdx, size_t toIdx ) {
+    if ( fromIdx == toIdx ) {
+        return;
+    }
+
+    size_t numElements = m_Size - fromIdx;
+    size_t newSize = toIdx + numElements;
+    while ( m_Capacity < newSize ) {
+        resize( m_Capacity + getGrowing( newSize - m_Capacity ) );
+    }
+
+    size_t index( 0 );
+    if ( fromIdx > toIdx ) {
+        for( size_t i = 0; i < numElements; ++i ) {
+            m_pData[ toIdx + i ] = m_pData[ fromIdx + i ];
+        }
+
+        for( size_t i = toIdx; i<fromIdx + 1; --i ) {
+            index = i;
+            destroy( index );
+        }
+    } else {
+        for ( size_t i=numElements-1; i>=0; --i ) {
+            m_pData[ toIdx + i ] = m_pData[ fromIdx + i ];
+        }
+
+        for( size_t i = 0; i<numElements; i++ ) {
+            index = fromIdx + i;
+            destroy( index );
+        }
+    }
+
+    m_Size = toIdx + numElements;
 }
 
 template<class T>

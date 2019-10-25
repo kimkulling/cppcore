@@ -183,6 +183,14 @@ TEST_F( TArrayTest, resizeTest ) {
 	EXPECT_EQ( 5u, arrayInstance.size() );
 }
 
+TEST_F( TArrayTest, moveTest ) {
+    TArray<float> arrayInstance;
+    arrayInstance.add( 1.0f );
+    arrayInstance.add( 2.0f );
+    arrayInstance.add( 3.0f );
+    arrayInstance.move( 1, 2 );
+}
+
 TEST_F( TArrayTest, reserveTest ) {
     TArray<float> arrayInstance;
 	EXPECT_EQ( 0u, arrayInstance.capacity() );
