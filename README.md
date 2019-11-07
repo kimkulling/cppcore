@@ -5,6 +5,10 @@ for myself or libraries I worked on.
 Feel free to use them or to show me, what I did wrong. I am also deploying my unit
 tests, so doing a proof of my failures are easy :-).
 
+Documentation:
+--------------
+https://readthedocs.org/projects/cppcore/ ( under construction )
+
 How to build it:
 ----------------
 At first you have to install CMake on your loal machine. After that start cmake
