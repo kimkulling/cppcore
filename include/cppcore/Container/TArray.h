@@ -331,9 +331,8 @@ void TArray<T>::move( size_t fromIdx, size_t toIdx ) {
         return;
     }
 
-    size_t numElements = m_Size - fromIdx;
-    size_t newSize = toIdx + numElements;
-    printf("newSize = %d\n", newSize);
+    const size_t numElements = m_Size - fromIdx;
+    const size_t newSize = toIdx + numElements;
     while ( m_Capacity < newSize ) {
         resize( m_Capacity + getGrowing( newSize - m_Capacity ) );
     }
