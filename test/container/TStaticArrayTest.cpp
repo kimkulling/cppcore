@@ -74,6 +74,6 @@ TEST_F(TStaticArrayTest, string_Test) {
         arr[i] = "huhu";
     }
     for (size_t i = 0; i < 4; ++i) {
-        EXPECT_EQ("huhu, arr[i]);
+        EXPECT_EQ("huhu", arr[i]);
     }
 }
