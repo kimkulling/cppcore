@@ -26,6 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "gtest/gtest.h"
 
+#include <string>
+
 using namespace CPPCore;
 
 //-------------------------------------------------------------------------------------------------
@@ -63,5 +65,15 @@ TEST_F(TStaticArrayTest, clear_Test) {
     arr.clear();
     for (size_t i = 0; i < 4; ++i) {
         EXPECT_EQ(0, arr[i]);
+    }
+}
+
+TEST_F(TStaticArrayTest, string_Test) {
+    TStaticArray<std::string, 4> arr;
+    for (size_t i = 0; i < 4; ++i) {
+        arr[i] = "huhu";
+    }
+    for (size_t i = 0; i < 4; ++i) {
+        EXPECT_EQ("huhu, arr[i]);
     }
 }
