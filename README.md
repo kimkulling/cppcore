@@ -36,8 +36,8 @@ Common stuff:
 Containers:
 ----------
 - **TStaticArray**:     A static template-based array.
-- **TArray**:           A simple dynamic template-based array list, similar to std::vector. Examples can be found here:  https://github.com/kimkulling/cppcore/blob/master/test/container/TArrayTest.cpp
-- **TList**:            A double template-based linked list. Examples can be found here: https://github.com/kimkulling/cppcore/blob/master/test/container/TListTest.cpp
+- **TArray**:           A simple dynamic template-based array list, similar to std::vector. [Examples can be found here](https://github.com/kimkulling/cppcore/blob/master/test/container/TArrayTest.cpp)
+- **TList**:            A double template-based linked list. [Examples can be found here](https://github.com/kimkulling/cppcore/blob/master/test/container/TListTest.cpp) 
 - **TQueue**:           A simple template-based FIFO queue.
 - **THashMap**:         A key-value template-based hash map for easy lookup tables
 
