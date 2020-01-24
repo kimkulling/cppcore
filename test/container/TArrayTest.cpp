@@ -32,13 +32,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using namespace CPPCore;
 
+// Some test-data
 static const size_t ArraySize = 4;
-
 static const float ArrayData[ ArraySize ] = {
-	0.0f,
-	1.0f,
-	2.0f,
-	3.0f
+    0.0f,
+    1.0f,
+    2.0f,
+    3.0f
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -56,6 +56,7 @@ protected:
     }
 };
 
+// Just check whether the array is empty at the beginning
 TEST_F( TArrayTest, constructTest ) {
     TArray<float> arrayInstance;
     EXPECT_EQ( true, arrayInstance.isEmpty() );
@@ -63,12 +64,12 @@ TEST_F( TArrayTest, constructTest ) {
     EXPECT_EQ( arrayInstance.begin(), arrayInstance.end() );
 }
 
+// Just checks how to initialize the array
 TEST_F( TArrayTest, constructWithSizeTest) {
     TArray<float> arrayInstance( 4 );
     EXPECT_EQ( 4u, arrayInstance.size() );
     for ( size_t i=0; i<4; ++i ) {
         const float f = arrayInstance[i];
-	EXPECT_EQ(0, f );
     }
 }
 
@@ -311,7 +312,7 @@ TEST_F( TArrayTest, bug_IterateEmptyListTest )	{
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, bug_AddHeapCorruptTest ) {
     TArray<float> arrayInstance;
-	for ( size_t i=0; i<50; ++i ) {
+    for ( size_t i=0; i<50; ++i ) {
         arrayInstance.add( ( float ) i );
-	}
+    }
 }
