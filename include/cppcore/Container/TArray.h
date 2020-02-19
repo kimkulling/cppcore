@@ -331,8 +331,8 @@ void TArray<T>::move( size_t fromIdx, size_t toIdx ) {
         return;
     }
 
-    size_t numElements = m_Size - fromIdx;
-    size_t newSize = toIdx + numElements;
+    const size_t numElements = m_Size - fromIdx;
+    const size_t newSize = toIdx + numElements;
     while ( m_Capacity < newSize ) {
         resize( m_Capacity + getGrowing( newSize - m_Capacity ) );
     }
@@ -348,8 +348,8 @@ void TArray<T>::move( size_t fromIdx, size_t toIdx ) {
             destroy( index );
         }
     } else {
-        for ( size_t i=numElements-1; i>=0; --i ) {
-            m_pData[ toIdx + i ] = m_pData[ fromIdx + i ];
+	for ( size_t i=numElements-1; i!=0; --i ) {
+	    m_pData[ toIdx + i ] = m_pData[ fromIdx + i ];
         }
 
         for( size_t i = 0; i<numElements; i++ ) {

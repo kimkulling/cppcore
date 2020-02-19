@@ -32,50 +32,55 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using namespace CPPCore;
 
+// Some test-data
 static const size_t ArraySize = 4;
-
 static const float ArrayData[ ArraySize ] = {
-	0.0f,
-	1.0f,
-	2.0f,
-	3.0f
+    0.0f,
+    1.0f,
+    2.0f,
+    3.0f
 };
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		TArrayTest
 ///	@ingroup	UnitTest
 ///
-///	@brief	The array tests.
+///	@brief	The array tests, includes showcases how to add remove and access data.
 //-------------------------------------------------------------------------------------------------
 class TArrayTest : public testing::Test {
 protected:
     void createArray( const float *pOrig, size_t numItems, TArray<float> &arrayInstance ) {
-		for ( size_t i=0; i<numItems; ++i ) {
-			arrayInstance.add( pOrig[ i ] );
-		}
+        for ( size_t i=0; i<numItems; ++i ) {
+	    arrayInstance.add( pOrig[ i ] );
 	}
+    }
 };
 
+// Just check whether the array is empty at the beginning
 TEST_F( TArrayTest, constructTest ) {
     TArray<float> arrayInstance;
-	EXPECT_EQ( true, arrayInstance.isEmpty() );
+    EXPECT_EQ( true, arrayInstance.isEmpty() );
     EXPECT_EQ( 0U, arrayInstance.size() );
     EXPECT_EQ( arrayInstance.begin(), arrayInstance.end() );
 }
 
+// Just checks how to initialize the array
 TEST_F( TArrayTest, constructWithSizeTest) {
     TArray<float> arrayInstance( 4 );
-	EXPECT_EQ( 4u, arrayInstance.size() );
+    EXPECT_EQ( 4u, arrayInstance.size() );
+    for ( size_t i=0; i<4; ++i ) {
+        const float f = arrayInstance[i];
+    }
 }
 
 TEST_F( TArrayTest, addTest) {
     TArray<float> arrayInstance;
-	arrayInstance.add( 0.0f );
-	arrayInstance.add( 1.0f );
+    arrayInstance.add( 0.0f );
+    arrayInstance.add( 1.0f );
 
-	EXPECT_EQ( 2u, arrayInstance.size() );
-	EXPECT_EQ( 0.0f, arrayInstance[ 0 ] );
-	EXPECT_EQ( 1.0f, arrayInstance[ 1 ] );
+    EXPECT_EQ( 2u, arrayInstance.size() );
+    EXPECT_EQ( 0.0f, arrayInstance[ 0 ] );
+    EXPECT_EQ( 1.0f, arrayInstance[ 1 ] );
 }
 
 TEST_F( TArrayTest, addItemsTest ) {
@@ -95,11 +100,11 @@ TEST_F( TArrayTest, addItemsTest ) {
 
 TEST_F( TArrayTest, accessTest) {
     TArray<float> arrayInstance;
-	arrayInstance.add( 0.0f );
-	arrayInstance.add( 1.0f );
+    arrayInstance.add( 0.0f );
+    arrayInstance.add( 1.0f );
 		
-	EXPECT_EQ( 0.0f, arrayInstance[ 0 ] );
-	EXPECT_EQ( 1.0f, arrayInstance[ 1 ] );
+    EXPECT_EQ( 0.0f, arrayInstance[ 0 ] );
+    EXPECT_EQ( 1.0f, arrayInstance[ 1 ] );
 }
 
 TEST_F( TArrayTest, backTest ) {
@@ -132,26 +137,25 @@ TEST_F( TArrayTest, constBackTest ) {
     fooArrayInstance.add( foo2 );
     const foo &res2 = fooArrayInstance.back();
     EXPECT_FLOAT_EQ( 2.0f, res2.m_item );
-
 }
 
 TEST_F( TArrayTest, removeTest) {
     TArray<float> arrayInstance;
-	createArray( ArrayData, ArraySize, arrayInstance );
+    createArray( ArrayData, ArraySize, arrayInstance );
 
-	std::stringstream stream;
-	static const size_t Size = 3;
-	arrayInstance.remove( 1 );
-	EXPECT_EQ( Size, arrayInstance.size() );
-	float expectedResult[ Size ] = { 0.0f, 2.0f, 3.0f };
-	bool equal = true;
-	for ( size_t i=0; i<Size; ++i ) {
-		if ( arrayInstance[ i ] != expectedResult[ i ] ) {
-			stream << "error in index " << i << std::endl;
-			equal = false;
-			break;
-		}
-	}
+    std::stringstream stream;
+    static const size_t Size = 3;
+    arrayInstance.remove( 1 );
+    EXPECT_EQ( Size, arrayInstance.size() );
+    float expectedResult[ Size ] = { 0.0f, 2.0f, 3.0f };
+    bool equal = true;
+    for ( size_t i=0; i<Size; ++i ) {
+        if ( arrayInstance[ i ] != expectedResult[ i ] ) {
+            stream << "error in index " << i << std::endl;
+            equal = false;
+            break;
+        }
+    }
     EXPECT_TRUE( equal ) << stream.str();
 }
 
@@ -168,19 +172,19 @@ TEST_F( TArrayTest, removeItTest) {
 
 TEST_F( TArrayTest, removeBackTest) {
     TArray<float> arrayInstance;
-	createArray( ArrayData, ArraySize, arrayInstance );
+    createArray( ArrayData, ArraySize, arrayInstance );
 
-	arrayInstance.removeBack();
-	EXPECT_EQ( 3u, arrayInstance.size() );
-	EXPECT_EQ( 2.0f, arrayInstance[ 2 ] );
+    arrayInstance.removeBack();
+    EXPECT_EQ( 3u, arrayInstance.size() );
+    EXPECT_EQ( 2.0f, arrayInstance[ 2 ] );
 }
 
 TEST_F( TArrayTest, resizeTest ) {
     TArray<float> arrayInstance;
-	EXPECT_EQ( 0u, arrayInstance.size() );
+    EXPECT_EQ( 0u, arrayInstance.size() );
 
-	arrayInstance.resize( 5 );
-	EXPECT_EQ( 5u, arrayInstance.size() );
+    arrayInstance.resize( 5 );
+    EXPECT_EQ( 5u, arrayInstance.size() );
 }
 
 TEST_F( TArrayTest, moveTest ) {
@@ -193,14 +197,14 @@ TEST_F( TArrayTest, moveTest ) {
 
 TEST_F( TArrayTest, reserveTest ) {
     TArray<float> arrayInstance;
-	EXPECT_EQ( 0u, arrayInstance.capacity() );
+    EXPECT_EQ( 0u, arrayInstance.capacity() );
 
-	arrayInstance.reserve( 5 );
-	EXPECT_EQ( 5u, arrayInstance.capacity() );
+    arrayInstance.reserve( 5 );
+    EXPECT_EQ( 5u, arrayInstance.capacity() );
 
     static const size_t NewSize = 2000;
-	arrayInstance.reserve(NewSize);
-	EXPECT_EQ( NewSize, arrayInstance.capacity() );
+    arrayInstance.reserve(NewSize);
+    EXPECT_EQ( NewSize, arrayInstance.capacity() );
 }
 
 TEST_F( TArrayTest, resize_with_init_Test ) {
@@ -216,22 +220,22 @@ TEST_F( TArrayTest, resize_with_init_Test ) {
 
 TEST_F( TArrayTest, iterateTest ) {
     TArray<float> arrayInstance;
-	createArray( ArrayData, ArraySize, arrayInstance );
+    createArray( ArrayData, ArraySize, arrayInstance );
 
-	size_t i( 0 );
+    size_t i( 0 );
     for( TArray<float>::Iterator it = arrayInstance.begin( ); it != arrayInstance.end( ); ++it ) {
         ++i;
-	}
-	EXPECT_EQ( i, arrayInstance.size() );
+    }
+    EXPECT_EQ( i, arrayInstance.size() );
 }
 
 TEST_F( TArrayTest, preIncIterateTest ) {
     TArray<float> arrayInstance;
-	createArray( ArrayData, ArraySize, arrayInstance );
+    createArray( ArrayData, ArraySize, arrayInstance );
 
-	bool ok = true;
-	try {
-		size_t i( 0 );
+    bool ok = true;
+    try {
+ 	size_t i( 0 );
         for( TArray<float>::Iterator it = arrayInstance.begin( ); it != arrayInstance.end( ); ++it ) {
             float tmp = *it;
 			EXPECT_EQ( tmp, ArrayData[ i ] );
@@ -308,7 +312,7 @@ TEST_F( TArrayTest, bug_IterateEmptyListTest )	{
 //---------------------------------------------------------------------------------------------
 TEST_F( TArrayTest, bug_AddHeapCorruptTest ) {
     TArray<float> arrayInstance;
-	for ( size_t i=0; i<50; ++i ) {
+    for ( size_t i=0; i<50; ++i ) {
         arrayInstance.add( ( float ) i );
-	}
+    }
 }

@@ -35,87 +35,84 @@ namespace CPPCore {
 /// You can use it to add new items, remove them and iterate through them. The data items are 
 /// stores in an array.
 //-------------------------------------------------------------------------------------------------
-template<class T, unsigned int len>
+template<class T, size_t len>
 class TStaticArray {
 public:
     TStaticArray();
     TStaticArray(const TStaticArray<T, len> &rhs);
     ~TStaticArray();
     void clear();
-    unsigned int size() const;
-    void set(unsigned int index, T value);
-    T operator[](unsigned int index) const;
-    T &operator[](unsigned int index);
+    size_t size() const;
+    void set(size_t index, T value);
+    T operator[](size_t index) const;
+    T &operator[](size_t index);
     bool operator == (const TStaticArray<T, len> &rhs) const;
     TStaticArray<T, len> &operator = (const TStaticArray<T, len> &rhs);
 
 private:
     T m_array[len];
-    unsigned int m_len;
+	size_t m_len;
 };
 
-template<class T, unsigned int len>
+template <class T, size_t len>
 inline
 TStaticArray<T,len>::TStaticArray() 
 : m_len(len) {
     clear();
 }
 
-template<class T, unsigned int len>
+template <class T, size_t len>
 inline
 TStaticArray<T, len>::TStaticArray(const TStaticArray<T, len> &rhs)
 : m_len(rhs.m_len) {
-    //static_assert(m_len == rhs.m_len);
-
-    for (unsigned int i = 0; i < m_len; ++i) {
+	for (size_t i = 0; i < m_len; ++i) {
         m_array[i] = rhs.m_array[i];
     }
 }
 
-template<class T, unsigned int len>
+template <class T, size_t len>
 inline
 TStaticArray<T, len>::~TStaticArray() {
     // empty
 }
 
-template<class T, unsigned int len>
+template<class T, size_t len>
 inline
 void TStaticArray<T, len>::clear() {
     ::memset(m_array, 0, sizeof(T) * m_len);
 }
 
-template<class T, unsigned int len>
+template<class T, size_t len>
 inline
-void TStaticArray<T, len>::set(unsigned int index, T value) {
+void TStaticArray<T, len>::set(size_t index, T value) {
     assert(index < m_len);
 
     m_array[index] = value;
 }
 
-template<class T, unsigned int len>
+template<class T, size_t len>
 inline
-unsigned int TStaticArray<T, len>::size() const {
+size_t TStaticArray<T, len>::size() const {
     return m_len;
 }
 
-template<class T, unsigned int len>
-inline
-T TStaticArray<T, len>::operator[](unsigned int index) const {
+template<class T, size_t len>
+inline T TStaticArray<T, len>::operator[](size_t index) const {
     assert(index < m_len);
 
     return m_array[index];
 }
 
-template<class T, unsigned int len>
+template<class T, size_t len>
 inline
-T &TStaticArray<T, len>::operator[](unsigned int index) {
+T &TStaticArray<T, len>::operator[](size_t index) {
     return m_array[index];
 }
 
-template<class T, unsigned int len>
+template<class T, size_t len>
 inline
 bool TStaticArray<T, len>::operator == (const TStaticArray<T, len> &rhs) const {
-    for (unsigned int i = 0; i < m_len; ++i) {
+    for (size_t i = 0; i < m_len; ++i) {
         if (m_array[i] != rhs.m_array[i]) {
             return false;
         }
@@ -124,7 +121,7 @@ bool TStaticArray<T, len>::operator == (const TStaticArray<T, len> &rhs) const {
     return true;
 }
 
-template<class T, unsigned int len>
+template<class T, size_t len>
 inline
 TStaticArray<T, len> &TStaticArray<T, len>::operator = (const TStaticArray<T, len> &rhs) {
     if (*this == rhs) {
