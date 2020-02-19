@@ -65,3 +65,11 @@ TEST_F(TStaticArrayTest, clear_Test) {
         EXPECT_EQ(0, arr[i]);
     }
 }
+
+TEST_F(TStaticArrayTest, access_strin_Test) {
+    TStaticArray < std::string, 4> arr;
+    arr[0] = std::string("bla");
+    arr[1] = std::string("bla");
+    arr[2] = std::string("bla");
+    arr[3] = std::string("huhu");
+}
