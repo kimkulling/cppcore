@@ -75,15 +75,16 @@ TEST_F(TStaticArrayTest, access_string_Test) {
     arr[2] = std::string("bla");
     arr[3] = std::string("huhu");
 
-    EXPECT_EQ( 4, arr.size());
+    EXPECT_EQ( 4u, arr.size());
 }
 
 TEST_F(TStaticArrayTest, string_Test) {
     TStaticArray<std::string, 4> arr;
     for (size_t i = 0; i < 4; ++i) {
-		arr[i] = std::string("huhu");
+        arr[i] = std::string("huhu");
     }
     for (size_t i = 0; i < 4; ++i) {
         EXPECT_EQ("huhu", arr[i]);
     }
 }
+
