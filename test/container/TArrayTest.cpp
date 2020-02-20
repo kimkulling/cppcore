@@ -67,9 +67,14 @@ TEST_F( TArrayTest, constructTest ) {
 // Just checks how to initialize the array
 TEST_F( TArrayTest, constructWithSizeTest) {
     TArray<float> arrayInstance( 4 );
+    arrayInstance[0] = 0.0f;
+    arrayInstance[1] = 1.0f;
+    arrayInstance[2] = 2.0f;
+    arrayInstance[3] = 3.0f;
     EXPECT_EQ( 4u, arrayInstance.size() );
     for ( size_t i=0; i<4; ++i ) {
         const float f = arrayInstance[i];
+	EXPECT_EQ( (float) i, f );
     }
 }
 

@@ -41,7 +41,7 @@ class TStaticArrayTest : public testing::Test {
 };
 
 TEST_F(TStaticArrayTest, constructTest) {
-    TStaticArray<int, 4> arr;
+    TStaticArray<int, 4> arr(0);
     EXPECT_EQ(4u, arr.size());
     EXPECT_EQ(0, arr[0]);
     EXPECT_EQ(0, arr[3]);
@@ -62,14 +62,14 @@ TEST_F(TStaticArrayTest, clear_Test) {
     for (size_t i = 0; i < 4; ++i) {
         arr[i] = i;
     }
-    arr.clear();
+    arr.memset( 0 );
     for (size_t i = 0; i < 4; ++i) {
         EXPECT_EQ(0, arr[i]);
     }
 }
 
 TEST_F(TStaticArrayTest, access_string_Test) {
-    TStaticArray < std::string, 4> arr;
+    TStaticArray <std::string, 4> arr;
     arr[0] = std::string("bla");
     arr[1] = std::string("bla");
     arr[2] = std::string("bla");

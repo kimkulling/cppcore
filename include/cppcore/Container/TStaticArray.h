@@ -39,11 +39,12 @@ template<class T, size_t len>
 class TStaticArray {
 public:
     TStaticArray();
+    TStaticArray(T initValue);
     TStaticArray(const TStaticArray<T, len> &rhs);
     ~TStaticArray();
-    void clear();
     size_t size() const;
     void set(size_t index, T value);
+    void memset(T value);
     T operator[](size_t index) const;
     T &operator[](size_t index);
     bool operator == (const TStaticArray<T, len> &rhs) const;
@@ -51,21 +52,28 @@ public:
 
 private:
     T m_array[len];
-	size_t m_len;
+    size_t m_len;
 };
 
-template <class T, size_t len>
+template<class T, size_t len>
 inline
 TStaticArray<T,len>::TStaticArray() 
 : m_len(len) {
-    clear();
+    // empty
+}
+
+template<class T, size_t len>
+inline
+TStaticArray<T, len>::TStaticArray( T initValue ) :
+        m_len(len) {
+    memset(initValue);
 }
 
 template <class T, size_t len>
 inline
 TStaticArray<T, len>::TStaticArray(const TStaticArray<T, len> &rhs)
 : m_len(rhs.m_len) {
-	for (size_t i = 0; i < m_len; ++i) {
+    for (size_t i = 0; i < m_len; ++i) {
         m_array[i] = rhs.m_array[i];
     }
 }
@@ -78,16 +86,18 @@ TStaticArray<T, len>::~TStaticArray() {
 
 template<class T, size_t len>
 inline
-void TStaticArray<T, len>::clear() {
-    ::memset(m_array, 0, sizeof(T) * m_len);
-}
-
-template<class T, size_t len>
-inline
 void TStaticArray<T, len>::set(size_t index, T value) {
     assert(index < m_len);
 
     m_array[index] = value;
+}
+
+template<class T, size_t len>
+inline
+void TStaticArray<T, len>::memset( T value ) {
+    for ( size_t i=0; i<m_len; ++i ) {
+        m_array[i] = value;
+    }
 }
 
 template<class T, size_t len>
