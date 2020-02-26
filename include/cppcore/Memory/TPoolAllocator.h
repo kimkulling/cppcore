@@ -31,7 +31,7 @@ namespace CPPCore {
 ///	@class		TPoolAllocator
 ///	@ingroup	CPPCore
 ///
-///	@brief  This class implements a simple poll-based allocation scheme.
+///	@brief  This class implements a simple pool-based allocation scheme.
 /// Initially you have to define its size. Each allocation will be done from this initially created 
 /// pool. You have to release all pooled instances after the usage. 
 /// This allocation scheme is fast and does no call any new-calls during the lifetime of the 
