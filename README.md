@@ -29,7 +29,7 @@ The library is pretty small and contains at this moment:
 
 How to contribute
 -----------------
-See (How to contribute)[CONTRIBUTING.md]
+See [How to contribute](CONTRIBUTING.md)
 
 Common stuff:
 -------------
