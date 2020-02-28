@@ -27,6 +27,10 @@ If you are using Linux, you can build it with the make-command:
 
 The library is pretty small and contains at this moment:
 
+How to contribute
+-----------------
+See (How to contribute)[CONTRIBUTING.md]
+
 Common stuff:
 -------------
 - **CString**:          Simple string implementation without the big overhead of a std::string
