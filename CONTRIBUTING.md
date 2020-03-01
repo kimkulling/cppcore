@@ -1,10 +1,10 @@
 # How to contribute
-- Clone the repo
-- Make your fix / imrpovement
-- Add a new branch and pusg the change to your cloned repo
-- Create a pull-request
+- Clone the repository
+- Make your fix / add your improvements
+- Add a new branch and push the changes
+- Create a pull-request via Github ( see https://opensource.com/article/19/7/create-pull-request-github )
 - Wait until the code review is done
-- Do the changes if their are any findings
-- Done
+- Fix the findings
+- Wait for the merge
 
 Thanks a lot for your help!!!
