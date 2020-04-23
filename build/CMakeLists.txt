@@ -75,11 +75,9 @@ SET ( cppcore_src
 
 SET ( cppcore_common_src
     ../include/cppcore/Common/Hash.h
-    ../include/cppcore/Common/CString.h
     ../include/cppcore/Common/TStringBase.h
 	../include/cppcore/Common/TSharedPtr.h
     ../include/cppcore/Common/Variant.h
-    ../code/Common/CString.cpp
 )
 
 SET( cppcore_random_src
@@ -131,7 +129,6 @@ IF( BUILD_UNITTESTS )
 
     SET( cppcore_common_test_src
         ../test/common/HashTest.cpp
-        ../test/common/StringTest.cpp
         ../test/common/VariantTest.cpp
 		../test/common/TSharedPtrTest.cpp
     )

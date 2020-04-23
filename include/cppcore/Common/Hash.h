@@ -23,7 +23,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #pragma once
 
 #include <cppcore/CPPCoreCommon.h>
-#include <cppcore/Common/CString.h>
 
 namespace CPPCore {
 
@@ -40,38 +39,32 @@ public:
 
     /// @brief  The class constructor with a given hash value.
     /// @param  hash    [in] An integer value to compute the hash from.
-    explicit Hash( unsigned int hash );
+    explicit Hash(unsigned int hash);
 
     /// @brief  The class constructor with a given char buffer.
     /// @param  value   [in] A character buffer to compute the hash from.
     /// @param  base    [in] The table base.
-    explicit Hash( const char *buffer, unsigned int base );
-    
+    explicit Hash(const char *buffer, unsigned int base);
+
     /// @brief  The class constructor with a given unsigned int value.
     /// @param  value   [in] An unsigned int value to compute the hash from.
     /// @param  base    [in] The table base.
-    explicit Hash( unsigned int value, unsigned int base );
+    explicit Hash(unsigned int value, unsigned int base);
 
     /// @brief  The class destructor.
     ~Hash();
-
-    /// @brief  Computes the hash value for a given string.
-    /// @param  key     [in] The string.
-    /// @param  base    [in] The table base.
-    /// @return The hash value.
-    static unsigned int toHash( const CString &key, unsigned int base );
 
     /// @brief  Computes the hash value for a given character buffer.
     /// @param  buffer  [in] The buffer.
     /// @param  base    [in] The table base.
     /// @return The hash value.
-    static unsigned int toHash( const char *buffer, unsigned int base );
+    static unsigned int toHash(const char *buffer, unsigned int base);
 
     /// @brief  Computes the hash value for a given unsigned int value.
     /// @param  buffer  [in] The unsigned int value.
     /// @param  base    [in] The table base.
     /// @return The hash value.
-    static unsigned int toHash( unsigned int value, unsigned int base );
+    static unsigned int toHash(unsigned int value, unsigned int base);
 
     /// brief    Returns the stored hash value.
     /// @return The hash value.
@@ -81,64 +74,51 @@ private:
     unsigned int m_hash;
 };
 
-inline
-Hash::Hash() 
-: m_hash( 0 ){
+inline Hash::Hash() :
+        m_hash(0) {
     // empty
 }
 
-inline
-Hash::Hash( unsigned int hash )
-: m_hash( hash ) {
+inline Hash::Hash(unsigned int hash) :
+        m_hash(hash) {
     // empty
 }
 
-inline
-Hash::Hash( const char *buffer, unsigned int base )
-: m_hash( Hash::toHash( buffer, base ) ) {
+inline Hash::Hash(const char *buffer, unsigned int base) :
+        m_hash(Hash::toHash(buffer, base)) {
     // empty
 }
 
-inline
-Hash::Hash( unsigned int value, unsigned int base )
-: m_hash( Hash::toHash( value, base ) ) {
+inline Hash::Hash(unsigned int value, unsigned int base) :
+        m_hash(Hash::toHash(value, base)) {
     // empty
 }
 
-inline
-Hash::~Hash() {
+inline Hash::~Hash() {
     // empty
 }
 
-inline 
-unsigned int Hash::toHash( const CString &key, unsigned int base ) {
-    return toHash( key.c_str(), base );
-}
-
-inline
-unsigned int Hash::toHash( const char *buffer, unsigned int base ) {
-    unsigned int hash( 0 );
-    if( nullptr == buffer ) {
+inline unsigned int Hash::toHash(const char *buffer, unsigned int base) {
+    unsigned int hash(0);
+    if (nullptr == buffer) {
         return hash;
     }
-    
+
     // using division-rest method
     // see http://de.wikipedia.org/wiki/Divisionsrestmethode
-    for( size_t i = 0; i < strlen( buffer ); ++i ) {
-        hash = ( hash * 128 + buffer[ i ] ) % base;
+    for (size_t i = 0; i < strlen(buffer); ++i) {
+        hash = (hash * 128 + buffer[i]) % base;
     }
-    
+
     return hash;
 }
 
-inline
-unsigned int Hash::toHash( unsigned int value, unsigned int base ) {
-    const unsigned int hash( value % base );
+inline unsigned int Hash::toHash(unsigned int value, unsigned int base) {
+    const unsigned int hash(value % base);
     return hash;
 }
 
-inline
-unsigned int Hash::hashValue() const {
+inline unsigned int Hash::hashValue() const {
     return m_hash;
 }
 

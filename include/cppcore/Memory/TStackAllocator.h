@@ -23,7 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #pragma once
 
 #include <cppcore/CPPCoreCommon.h>
-#include <cppcore/Common/CString.h>
+
+#include <string>
 
 namespace CPPCore {
 
@@ -50,7 +51,7 @@ public:
     size_t capacity() const;
     size_t reservedMem() const;
     size_t freeMem() const;
-    void dumpAllocations( CString & allocs );
+    void dumpAllocations( std::string & allocs );
 
     CPPCORE_NONE_COPYING(TStackAllocator)
 
@@ -167,11 +168,11 @@ size_t TStackAllocator<T>::freeMem() const {
 
 template<class T>
 inline
-void TStackAllocator<T>::dumpAllocations( CString & allocs ) {
+void TStackAllocator<T>::dumpAllocations( std::string & allocs ) {
     allocs.clear();
-    char buffer[ 512 ];
-    sprintf( buffer, "Number allocations = %zu\n", m_numAllocs );
-    allocs.set( buffer );
+    allocs += "Number allocations = ";
+    allocs += std::to_string(m_numAllocs);
+    allocs += "\n";
 }
 
 } // Namespace CPPCore

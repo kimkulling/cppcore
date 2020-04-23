@@ -81,7 +81,7 @@ TEST_F( TStackAllocatorTest, dumpAllocationsTest ) {
     TStackAllocator<int> myAllocator( 1024 );
     static_cast< void >( myAllocator.alloc( 100 ) );
 
-    CString dumps, exp = "Number allocations = 1\n";
+    std::string dumps, exp = "Number allocations = 1\n";
     myAllocator.dumpAllocations( dumps );
     EXPECT_EQ( exp, dumps );
 }

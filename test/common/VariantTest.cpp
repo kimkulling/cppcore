@@ -183,23 +183,6 @@ TEST_F( VariantTest, accessFloat4Test ) {
     delete [] pData;
 }
     
-TEST_F( VariantTest, accessStringTest ) {
-    CString str( "test" );
-    Variant test( Variant::String, (void*) str.c_str(), str.size() );
-
-    const CString buffer( test.getString() );
-    EXPECT_TRUE( !buffer.isEmpty() );
-
-    bool equal( true );
-    for ( size_t i=0; i<buffer.size(); i++ ) {
-        if ( buffer[ i ] != str[ i ] ) {
-            equal = false;
-        }
-    }
-    EXPECT_TRUE( equal );
-    EXPECT_TRUE( buffer == str );
-}
-
 TEST_F( VariantTest, accessBooleanTest ) {
     bool value( true );
     Variant test( value );

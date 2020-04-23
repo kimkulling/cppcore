@@ -76,7 +76,7 @@ TEST_F(TPoolAllocatorTest, getAllocsTest) {
     TPoolAllocator<PoolItem> allocator;
     allocator.reserve(NumItems);
 
-    CString allocs;
+    std::string allocs;
     allocator.dumpAllocations(allocs);
     int res = strncmp("Number allocations = 0\n", allocs.c_str(), allocs.size());
     EXPECT_EQ( 0, res);

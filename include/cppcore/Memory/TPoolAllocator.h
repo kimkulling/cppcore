@@ -23,7 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #pragma once
 
 #include <cppcore/CPPCoreCommon.h>
-#include <cppcore/Common/CString.h>
+
+#include <string>
 
 namespace CPPCore {
 
@@ -32,12 +33,12 @@ namespace CPPCore {
 ///	@ingroup	CPPCore
 ///
 ///	@brief  This class implements a simple pool-based allocation scheme.
-/// Initially you have to define its size. Each allocation will be done from this initially created 
-/// pool. You have to release all pooled instances after the usage. 
-/// This allocation scheme is fast and does no call any new-calls during the lifetime of the 
+/// Initially you have to define its size. Each allocation will be done from this initially created
+/// pool. You have to release all pooled instances after the usage.
+/// This allocation scheme is fast and does no call any new-calls during the lifetime of the
 /// allocator.
 //-------------------------------------------------------------------------------------------------
-template<class T>
+template <class T>
 class TPoolAllocator {
 public:
     TPoolAllocator();
@@ -50,31 +51,25 @@ public:
     size_t capacity() const;
     size_t reservedMem() const;
     size_t freeMem() const;
-    void dumpAllocations(CString & allocs);
-    void resize(size_t growSize );
+    void dumpAllocations(std::string &allocs);
+    void resize(size_t growSize);
 
     CPPCORE_NONE_COPYING(TPoolAllocator)
 
 private:
     struct Pool {
-        size_t  m_poolsize;
-        T      *m_pool;
-        size_t  m_currentIdx;
-        Pool   *m_next;
+        size_t m_poolsize;
+        T *m_pool;
+        size_t m_currentIdx;
+        Pool *m_next;
 
-        Pool()
-        : m_poolsize(0u)
-        , m_pool(nullptr)
-        , m_currentIdx(0u)
-        , m_next(nullptr) {
+        Pool() :
+                m_poolsize(0u), m_pool(nullptr), m_currentIdx(0u), m_next(nullptr) {
             // empty
         }
 
-        Pool(size_t numItems, Pool *prev)
-        : m_poolsize(numItems)
-        , m_pool(nullptr)
-        , m_currentIdx(0u)
-        , m_next(prev) {
+        Pool(size_t numItems, Pool *prev) :
+                m_poolsize(numItems), m_pool(nullptr), m_currentIdx(0u), m_next(prev) {
             m_pool = new T[m_poolsize];
         }
 
@@ -94,43 +89,33 @@ private:
         return current;
     }
 
-    Pool   *m_first;
-    Pool   *m_current;
-    Pool   *m_freeList;
-    size_t  m_capacity;
+    Pool *m_first;
+    Pool *m_current;
+    Pool *m_freeList;
+    size_t m_capacity;
 };
 
-template<class T>
-inline
-TPoolAllocator<T>::TPoolAllocator()
-: m_first( nullptr )
-, m_current( nullptr )
-, m_freeList( nullptr )
-, m_capacity( 0L ) {
+template <class T>
+inline TPoolAllocator<T>::TPoolAllocator() :
+        m_first(nullptr), m_current(nullptr), m_freeList(nullptr), m_capacity(0L) {
     // empty
 }
 
-template<class T>
-inline
-TPoolAllocator<T>::TPoolAllocator(size_t numItems)
-: m_first( nullptr )
-, m_current( nullptr )
-, m_freeList( nullptr )
-, m_capacity(0L) {
+template <class T>
+inline TPoolAllocator<T>::TPoolAllocator(size_t numItems) :
+        m_first(nullptr), m_current(nullptr), m_freeList(nullptr), m_capacity(0L) {
     m_first = new Pool(numItems);
     m_capacity += numItems;
     m_current = m_first;
 }
 
-template<class T>
-inline
-TPoolAllocator<T>::~TPoolAllocator() {
+template <class T>
+inline TPoolAllocator<T>::~TPoolAllocator() {
     clear();
 }
 
-template<class T>
-inline
-T *TPoolAllocator<T>::alloc() {
+template <class T>
+inline T *TPoolAllocator<T>::alloc() {
     if (nullptr == m_current) {
         return nullptr;
     }
@@ -141,19 +126,18 @@ T *TPoolAllocator<T>::alloc() {
 
     T *ptr(&m_current->m_pool[m_current->m_currentIdx]);
     m_current->m_currentIdx++;
-    
+
     return ptr;
 }
 
-template<class T>
-inline
-void TPoolAllocator<T>::release() {
+template <class T>
+inline void TPoolAllocator<T>::release() {
     if (nullptr == m_current) {
         return;
     }
 
     Pool *current(m_first);
-    while(nullptr != current ) {
+    while (nullptr != current) {
         current->m_currentIdx = 0;
         current = current->m_next;
     }
@@ -161,9 +145,8 @@ void TPoolAllocator<T>::release() {
     m_current = m_first;
 }
 
-template<class T>
-inline
-void TPoolAllocator<T>::reserve(size_t size) {
+template <class T>
+inline void TPoolAllocator<T>::reserve(size_t size) {
     clear();
 
     m_first = new Pool(size, nullptr);
@@ -175,15 +158,14 @@ void TPoolAllocator<T>::reserve(size_t size) {
     m_capacity = size;
 }
 
-template<class T>
-inline
-void TPoolAllocator<T>::clear() {
+template <class T>
+inline void TPoolAllocator<T>::clear() {
     if (nullptr == m_current) {
         return;
     }
 
     Pool *next(m_first);
-    while ( nullptr != next) {
+    while (nullptr != next) {
         Pool *current = next;
         next = current->m_next;
         delete current;
@@ -192,21 +174,18 @@ void TPoolAllocator<T>::clear() {
     m_freeList = nullptr;
 }
 
-template<class T>
-inline
-size_t TPoolAllocator<T>::capacity() const {
+template <class T>
+inline size_t TPoolAllocator<T>::capacity() const {
     return m_capacity;
 }
 
-template<class T>
-inline
-size_t TPoolAllocator<T>::reservedMem() const {
+template <class T>
+inline size_t TPoolAllocator<T>::reservedMem() const {
     return m_capacity * sizeof(T);
 }
 
-template<class T>
-inline
-size_t TPoolAllocator<T>::freeMem() const {
+template <class T>
+inline size_t TPoolAllocator<T>::freeMem() const {
     if (nullptr == m_current) {
         return 0L;
     }
@@ -214,18 +193,16 @@ size_t TPoolAllocator<T>::freeMem() const {
     return (m_current->m_poolsize - m_current->m_currentIdx);
 }
 
-template<class T>
-inline
-void TPoolAllocator<T>::dumpAllocations(CString & allocs) {
+template <class T>
+inline void TPoolAllocator<T>::dumpAllocations(std::string &allocs) {
     allocs.clear();
-    char buffer[512];
-    ::sprintf(buffer, "Number allocations = %zu\n", m_current->m_currentIdx);
-    allocs.set(buffer);
+    allocs += "Number allocations = ";
+    allocs += std::to_string(m_current->m_currentIdx);
+    allocs += "\n";
 }
 
-template<class T>
-inline
-void TPoolAllocator<T>::resize(size_t growSize) {
+template <class T>
+inline void TPoolAllocator<T>::resize(size_t growSize) {
     if (nullptr != m_current) {
         if (growSize < m_current->m_poolsize) {
             return;

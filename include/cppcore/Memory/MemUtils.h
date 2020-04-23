@@ -27,7 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace CPPCore {
 
-#define ALIGN_MASK( value, mask) ( ( ( value ) + ( mask ) ) & ( (~0)&(~( mask) ) ) )
+#define ALIGN_MASK(value, mask) (((value) + (mask)) & ((~0) & (~(mask))))
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		THashMap
@@ -39,31 +39,29 @@ class MemUtils {
 public:
     /// @brief  Will clear the given buffer with zero.
     /// @param  buffer      [inout] The buffer to clear.
-    static void clearMemory( void *buffer, size_t size );
+    static void clearMemory(void *buffer, size_t size);
 
     static bool isAligned(const void *ptr, size_t align);
 
-    static void* alignPtr(void *ptr, size_t extra, size_t align);
+    static void *alignPtr(void *ptr, size_t extra, size_t align);
 
     MemUtils() = delete;
     ~MemUtils() = delete;
 };
 
-inline
-bool MemUtils::isAligned(const void *ptr, size_t align) {
+inline bool MemUtils::isAligned(const void *ptr, size_t align) {
     union {
-        const void* mPtr;
-        uintptr_t   mAddr;
+        const void *mPtr;
+        uintptr_t mAddr;
     } unaligned;
 
     unaligned.mPtr = ptr;
-    return 0 == (unaligned.mAddr & ( align - 1 ) );
+    return 0 == (unaligned.mAddr & (align - 1));
 }
 
-inline
-void *MemUtils::alignPtr(void * ptr, size_t extra, size_t align) {
+inline void *MemUtils::alignPtr(void *ptr, size_t extra, size_t align) {
     union {
-        void     *mPtr;
+        void *mPtr;
         uintptr_t mAddr;
     } unaligned;
 
