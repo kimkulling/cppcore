@@ -33,7 +33,6 @@ See [How to contribute](CONTRIBUTING.md)
 
 Common stuff:
 -------------
-- **CString**:          Simple string implementation without the big overhead of a std::string
 - **Variant**:          Implements a variant to deal with arbitrary data types.
 - **THash**:            A hash function to calculate hash values.
 
