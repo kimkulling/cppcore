@@ -30,8 +30,5 @@ matrix:
       compiler: gcc
       env: ANALYZE=ON
 
-before_script:
-  - cd build && cmake -G "Unix Makefiles" && cd ..
-
 script: 
   - . ./.travis.sh
