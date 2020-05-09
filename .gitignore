@@ -18,7 +18,6 @@ build/bin/Debug/cppcore.dll
 *.check_cache
 *.rule
 build/CMakeFiles/2.8.12.2/CompilerIdC/CMakeCCompilerId.c
-*.cmake
 *.bin
 build/CMakeFiles/TargetDirectories.txt
 build/CMakeFiles/generate.stamp.list
