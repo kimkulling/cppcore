@@ -91,7 +91,7 @@ inline TSharedPtr<T>::TSharedPtr(T *ptr, deleterFunc func) :
 
 template <class T>
 inline TSharedPtr<T>::TSharedPtr(const TSharedPtr<T> &rhs) :
-        m_ptrType( new PtrType(ptr, rhs.m_ptrType->m_delFunc) {
+        m_ptrType( rhs.m_ptrType ) {
     if (nullptr != m_ptrType) {
         m_ptrType->m_refs++;
     }
@@ -100,7 +100,6 @@ inline TSharedPtr<T>::TSharedPtr(const TSharedPtr<T> &rhs) :
 template <class T>
 inline TSharedPtr<T>::~TSharedPtr() {
     clear();
-    delete m_ptrType;
 }
 
 template <class T>
@@ -119,9 +118,9 @@ inline void TSharedPtr<T>::clear() {
 
     m_ptrType->m_refs--;
     if (0 == m_ptrType->m_refs) {
-        delete m_ptrType->m_ptr;
-        m_ptrType->m_ptr = nullptr;
+        delete m_ptrType;
     }
+    m_ptrType = nullptr;
 }
 
 template <class T>

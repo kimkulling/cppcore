@@ -49,8 +49,8 @@ TEST_F( TSharedPtrTest, copyPtr_success ) {
     EXPECT_EQ( 2U, refs1 );
 
     myPtr2.clear();
-    unsigned int refs2 = myPtr2.getRefs();
-    //EXPECT_TRUE( refs2 < refs1 );
+    unsigned int refs2 = myPtr1.getRefs();
+    EXPECT_EQ( refs2, refs1-1 );
 }
 
 TEST_F( TSharedPtrTest, resetPtr_success ) {
@@ -59,4 +59,3 @@ TEST_F( TSharedPtrTest, resetPtr_success ) {
 
     myPtr1.reset( new int );
 }
-
