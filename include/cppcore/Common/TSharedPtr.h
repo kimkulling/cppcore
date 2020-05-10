@@ -32,126 +32,115 @@ namespace CPPCore {
 ///
 ///	@brief  This class a shared pointer implementation.
 //-------------------------------------------------------------------------------------------------
-template<class T>
+template <class T>
 class TSharedPtr {
 public:
-    typedef void ( *deleterFunc ) ( T *ptr );
+    typedef void (*deleterFunc)(T *ptr);
 
     TSharedPtr();
-    explicit TSharedPtr( T *ptr, deleterFunc func = nullptr );
-    TSharedPtr( const TSharedPtr<T> &rhs );
+    explicit TSharedPtr(T *ptr, deleterFunc func = nullptr);
+    TSharedPtr(const TSharedPtr<T> &rhs);
     ~TSharedPtr();
-    void reset( T *ptr, deleterFunc func = nullptr );
+    void reset(T *ptr, deleterFunc func = nullptr);
     void clear();
     unsigned int getRefs() const;
-    T *operator ->() const;
-    T &operator *() const;
-    TSharedPtr<T> &operator = ( const TSharedPtr<T> &rhs );
-    bool operator == ( const TSharedPtr<T> &rhs ) const;
-    bool operator != ( const TSharedPtr<T> &rhs ) const;
+    T *operator->() const;
+    T &operator*() const;
+    TSharedPtr<T> &operator=(const TSharedPtr<T> &rhs);
+    bool operator==(const TSharedPtr<T> &rhs) const;
+    bool operator!=(const TSharedPtr<T> &rhs) const;
 
 private:
     struct PtrType {
         unsigned int m_refs;
-        T           *m_ptr;
-        deleterFunc  m_delFunc;
+        T *m_ptr;
+        deleterFunc m_delFunc;
 
-        PtrType( T *ptr, deleterFunc func )
-        : m_refs( 0 )
-        , m_ptr( ptr )
-        , m_delFunc( func ) {
-            if ( nullptr != m_ptr ) {
+        PtrType(T *ptr, deleterFunc func) :
+                m_refs(0), m_ptr(ptr), m_delFunc(func) {
+            if (nullptr != m_ptr) {
                 ++m_refs;
             }
         }
 
         ~PtrType() {
-            if ( nullptr == m_delFunc ) {
+            if (nullptr == m_delFunc) {
                 delete m_ptr;
             } else {
-                m_delFunc( m_ptr );
+                m_delFunc(m_ptr);
             }
         }
 
         PtrType() = delete;
-        PtrType( const PtrType & rhs ) = delete;
+        PtrType(const PtrType &rhs) = delete;
     };
     PtrType *m_ptrType;
 };
 
-template<class T>
-inline
-TSharedPtr<T>::TSharedPtr()
-: m_ptrType( nullptr ) {
+template <class T>
+inline TSharedPtr<T>::TSharedPtr() :
+        m_ptrType(nullptr) {
     // empty
 }
 
-template<class T>
-inline
-TSharedPtr<T>::TSharedPtr( T *ptr, deleterFunc func )
-: m_ptrType( nullptr ) {
-    m_ptrType = new PtrType( ptr, func );
+template <class T>
+inline TSharedPtr<T>::TSharedPtr(T *ptr, deleterFunc func) :
+        m_ptrType(nullptr) {
+    m_ptrType = new PtrType(ptr, func);
 }
 
-template<class T>
-inline
-TSharedPtr<T>::TSharedPtr( const TSharedPtr<T> &rhs )
-: m_ptrType( rhs.m_ptrType ) {
-    if ( nullptr != m_ptrType ) {
+template <class T>
+inline TSharedPtr<T>::TSharedPtr(const TSharedPtr<T> &rhs) :
+        m_ptrType( new PtrType(ptr, rhs.m_ptrType->m_delFunc) {
+    if (nullptr != m_ptrType) {
         m_ptrType->m_refs++;
     }
 }
 
-template<class T>
-inline
-TSharedPtr<T>::~TSharedPtr() {
+template <class T>
+inline TSharedPtr<T>::~TSharedPtr() {
     clear();
+    delete m_ptrType;
 }
 
-template<class T>
-inline
-void TSharedPtr<T>::reset( T *ptr, deleterFunc func ) {
-    if ( nullptr != m_ptrType ) {
+template <class T>
+inline void TSharedPtr<T>::reset(T *ptr, deleterFunc func) {
+    if (nullptr != m_ptrType) {
         clear();
     }
-    m_ptrType = new PtrType( ptr, func );
+    m_ptrType = new PtrType(ptr, func);
 }
 
-template<class T>
-inline
-void TSharedPtr<T>::clear() {
-    if ( nullptr == m_ptrType ) {
+template <class T>
+inline void TSharedPtr<T>::clear() {
+    if (nullptr == m_ptrType) {
         return;
     }
 
     m_ptrType->m_refs--;
-    if ( 0 == m_ptrType->m_refs ) {
+    if (0 == m_ptrType->m_refs) {
         delete m_ptrType->m_ptr;
         m_ptrType->m_ptr = nullptr;
     }
 }
 
-template<class T>
-inline
-unsigned int TSharedPtr<T>::getRefs() const {
+template <class T>
+inline unsigned int TSharedPtr<T>::getRefs() const {
     return m_ptrType->m_refs;
 }
 
-template<class T>
-inline
-T *TSharedPtr<T>::operator ->() const {
+template <class T>
+inline T *TSharedPtr<T>::operator->() const {
     return m_ptrType->m_ptr;
 }
 
-template<class T>
-inline
-T &TSharedPtr<T>::operator *() const {
+template <class T>
+inline T &TSharedPtr<T>::operator*() const {
     return *m_ptrType->m_ptr;
 }
 
-template<class T>
-inline
-TSharedPtr<T> &TSharedPtr<T>::operator = ( const TSharedPtr<T> &rhs ) {
+template <class T>
+inline TSharedPtr<T> &TSharedPtr<T>::operator=(const TSharedPtr<T> &rhs) {
     clear();
     m_ptrType = rhs.m_ptrType;
     m_ptrType->m_refs++;
@@ -159,19 +148,17 @@ TSharedPtr<T> &TSharedPtr<T>::operator = ( const TSharedPtr<T> &rhs ) {
     return *this;
 }
 
-template<class T>
-inline
-bool TSharedPtr<T>::operator == ( const TSharedPtr<T> &rhs ) const {
-    if ( rhs.m_ptrType == m_ptrType ) {
+template <class T>
+inline bool TSharedPtr<T>::operator==(const TSharedPtr<T> &rhs) const {
+    if (rhs.m_ptrType == m_ptrType) {
         return true;
     }
     return false;
 }
 
-template<class T>
-inline
-bool TSharedPtr<T>::operator != ( const TSharedPtr<T> &rhs ) const {
-    return !( *this == rhs );
+template <class T>
+inline bool TSharedPtr<T>::operator!=(const TSharedPtr<T> &rhs) const {
+    return !(*this == rhs);
 }
 
 } // Namespace CPPCore
