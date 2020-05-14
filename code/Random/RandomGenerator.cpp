@@ -53,8 +53,10 @@ static void mersenne_twister_vector_update(unsigned int* const p) {
 }
 
 unsigned int mersenne_twister() {
-    static unsigned int  vector[ N ];   /* Zustandsvektor */
-    static int           idx = N + 1;   /* Auslese-Index; idx>N: neuer Vektor muß berechnet werden, idx=N+1: Vektor muß überhaupt erst mal initialisiert werden */
+    // State-vector
+    static unsigned int  vector[ N ];   
+    // readout index
+    static int           idx = N + 1;
 
     if (static_cast<unsigned int>(idx) >= N) {
         if (static_cast<unsigned int>(idx) > N) {

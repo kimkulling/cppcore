@@ -24,6 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <cppcore/CPPCoreCommon.h>
 
+#include <memory>
+
 namespace CPPCore {
     
 //-------------------------------------------------------------------------------------------------
@@ -39,7 +41,7 @@ public:
         Standard,           ///< The default c+++ generator.
         MersenneTwister     ///< The MersenneTwister algorithm
     };
-
+    
     /// @brief  The class constructor.
     /// @param  type    [in] The requested generator.
     RandomGenerator( GeneratorType type = GeneratorType::Standard ) noexcept;
