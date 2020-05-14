@@ -119,6 +119,7 @@ ADD_LIBRARY( cppcore SHARED
     ${cppcore_random_src}
     ${cppcore_io_src}
     ${cppcore_src}
+    README.md
 )
 
 
