@@ -42,12 +42,12 @@ namespace CPPCore {
 #endif
 
 #ifdef CPPCORE_WINDOWS
-#   define TAG_DLL_EXPORT __declspec(dllexport)
-#   define TAG_DLL_IMPORT __declspec(dllimport )
+#   define CPPCORE_TAG_DLL_EXPORT __declspec(dllexport)
+#   define CPPCORE_TAG_DLL_IMPORT __declspec(dllimport )
 #   ifdef CPPCORE_BUILD
-#       define DLL_CPPCORE_EXPORT TAG_DLL_EXPORT
+#       define DLL_CPPCORE_EXPORT CPPCORE_TAG_DLL_EXPORT
 #   else
-#        define DLL_CPPCORE_EXPORT TAG_DLL_IMPORT
+#        define DLL_CPPCORE_EXPORT CPPCORE_TAG_DLL_IMPORT
 #   endif
     // All disabled warnings for windows
 #   pragma warning( disable : 4251 ) // <class> needs to have dll-interface to be used by clients of class <class>
