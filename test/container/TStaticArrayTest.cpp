@@ -60,7 +60,7 @@ TEST_F(TStaticArrayTest, access_items_Test) {
 TEST_F(TStaticArrayTest, clear_Test) {
     TStaticArray<int, 4> arr;
     for (size_t i = 0; i < 4; ++i) {
-        arr[i] = i;
+        arr[i] = (int) i;
     }
     arr.memset( 0 );
     for (size_t i = 0; i < 4; ++i) {
