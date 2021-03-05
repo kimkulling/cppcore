@@ -193,12 +193,16 @@ private:
 };
 
 inline Variant::Variant() :
-        m_Type(None), m_BufferSize(0), m_pData(nullptr) {
+        m_Type(None),
+        m_BufferSize(0),
+        m_pData(nullptr) {
     // empty
 }
 
 inline Variant::Variant(Type type, void *pData, size_t numItems) :
-        m_Type(None), m_BufferSize(0), m_pData(nullptr) {
+        m_Type(None),
+        m_BufferSize(0),
+        m_pData(nullptr) {
     if (isValid(type, numItems)) {
         size_t size = 0;
         m_Type = type;
@@ -214,13 +218,17 @@ inline Variant::Variant(Type type, void *pData, size_t numItems) :
 }
 
 inline Variant::Variant(bool value) :
-        m_Type(Boolean), m_BufferSize(0), m_pData(nullptr) {
+        m_Type(Boolean),
+        m_BufferSize(0),
+        m_pData(nullptr) {
     reserve(Boolean, 0);
     ::memcpy(m_pData, &value, m_BufferSize);
 }
 
 inline Variant::Variant(const Variant &other) :
-        m_Type(None), m_BufferSize(0), m_pData(NULL) {
+        m_Type(None),
+        m_BufferSize(0),
+        m_pData(nullptr) {
     m_Type = other.m_Type;
     if (String == m_Type) {
         setStdString(other.getString());
@@ -354,9 +362,14 @@ inline float *Variant::getFloat4x4() const {
 inline void Variant::setStdString(const std::string &value) {
     clear();
     m_Type = String;
-    m_pData = new char[value.size() + 1];
+    if (value.empty()) {
+        m_pData = nullptr;
+        m_BufferSize = 0;
+    }
+    m_BufferSize = sizeof(char) * (value.size() + 1);
+    m_pData = (char*) ::malloc(m_BufferSize);
     ::memcpy(m_pData, value.c_str(), sizeof(char) * value.size());
-    char *ptr = (char *)m_pData;
+    char *ptr = (char *) m_pData;
     ptr[value.size()] = '\0';
 }
 

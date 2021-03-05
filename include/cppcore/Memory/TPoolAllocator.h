@@ -64,12 +64,18 @@ private:
         Pool *m_next;
 
         Pool() :
-                m_poolsize(0u), m_pool(nullptr), m_currentIdx(0u), m_next(nullptr) {
+                m_poolsize(0u),
+                m_pool(nullptr),
+                m_currentIdx(0u),
+                m_next(nullptr) {
             // empty
         }
 
         Pool(size_t numItems, Pool *prev) :
-                m_poolsize(numItems), m_pool(nullptr), m_currentIdx(0u), m_next(prev) {
+                m_poolsize(numItems),
+                m_pool(nullptr),
+                m_currentIdx(0u),
+                m_next(prev) {
             m_pool = new T[m_poolsize];
         }
 
@@ -97,14 +103,20 @@ private:
 
 template <class T>
 inline TPoolAllocator<T>::TPoolAllocator() :
-        m_first(nullptr), m_current(nullptr), m_freeList(nullptr), m_capacity(0L) {
+        m_first(nullptr),
+        m_current(nullptr),
+        m_freeList(nullptr),
+        m_capacity(0L) {
     // empty
 }
 
 template <class T>
 inline TPoolAllocator<T>::TPoolAllocator(size_t numItems) :
-        m_first(nullptr), m_current(nullptr), m_freeList(nullptr), m_capacity(0L) {
-    m_first = new Pool(numItems);
+        m_first(nullptr),
+        m_current(nullptr),
+        m_freeList(nullptr),
+        m_capacity(0L) {
+    m_first = new Pool(numItems, nullptr);
     m_capacity += numItems;
     m_current = m_first;
 }

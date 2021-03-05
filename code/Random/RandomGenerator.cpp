@@ -36,7 +36,7 @@ static void mersenne_twister_vector_init( unsigned int *seedPoints, size_t len )
 
     const unsigned int mult = 1812433253ul;
     unsigned int       seed = 5489ul;
-    for (unsigned int i = 0; i < len; ++i) {
+    for (size_t i = 0; i < len; ++i) {
         seedPoints[ i ] = seed;
         seed = mult * (seed ^ (seed >> 30)) + (i + 1);
     }
@@ -45,16 +45,20 @@ static void mersenne_twister_vector_init( unsigned int *seedPoints, size_t len )
 static void mersenne_twister_vector_update(unsigned int* const p) {
     static const unsigned int A[ 2 ] = { 0, 0x9908B0DF };
     unsigned int i=0;
-    for (; i < N - M; i++)
+    for (; i < N - M; i++) {
         p[i] = p[i + (M)] ^ (((p[i] & 0x80000000) | (p[i + 1] & 0x7FFFFFFF)) >> 1) ^ A[p[i + 1] & 1];
-    for (; i < N - 1; i++)
+    }
+    for (; i < N - 1; i++) {
         p[i] = p[i + (M - N)] ^ (((p[i] & 0x80000000) | (p[i + 1] & 0x7FFFFFFF)) >> 1) ^ A[p[i + 1] & 1];
+    }
     p[N - 1] = p[M - 1] ^ (((p[N - 1] & 0x80000000) | (p[0] & 0x7FFFFFFF)) >> 1) ^ A[p[0] & 1];
 }
 
 unsigned int mersenne_twister() {
-    static unsigned int  vector[ N ];   /* Zustandsvektor */
-    static int           idx = N + 1;   /* Auslese-Index; idx>N: neuer Vektor muß berechnet werden, idx=N+1: Vektor muß überhaupt erst mal initialisiert werden */
+    // State-vector
+    static unsigned int  vector[ N ];   
+    // readout index
+    static int           idx = N + 1;
 
     if (static_cast<unsigned int>(idx) >= N) {
         if (static_cast<unsigned int>(idx) > N) {
@@ -74,9 +78,9 @@ unsigned int mersenne_twister() {
     return e;
 }
 
-RandomGenerator::RandomGenerator( GeneratorType type ) noexcept
-: m_type( type ) {
-    ::srand( static_cast< unsigned int >( time( NULL ) ) );
+RandomGenerator::RandomGenerator( GeneratorType type ) noexcept :
+        m_type( type ) {
+    ::srand( static_cast<unsigned int>(time(nullptr)));
 }
 
 RandomGenerator::~RandomGenerator() {

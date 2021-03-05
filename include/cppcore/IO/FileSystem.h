@@ -35,10 +35,8 @@ struct FSSpace {
     long free;
     long inUse;
 
-    FSSpace()
-    : capacity(0L)
-    , free(0L)
-    , inUse(0L) {
+    FSSpace() :
+            capacity(0L), free(0L), inUse(0L) {
         // empty
     }
 };
@@ -55,10 +53,8 @@ private:
     FSSpace *m_fsSpace;
 };
 
-inline
-FileSystem::FileSystem(const char *location)
-: m_drive( location )
-, m_fsSpace( nullptr ) {
+inline FileSystem::FileSystem(const char *location) :
+        m_drive( location ), m_fsSpace( nullptr ) {
     if (nullptr == location) {
         return;
     }
@@ -66,13 +62,11 @@ FileSystem::FileSystem(const char *location)
 
 }
 
-inline
-FileSystem::~FileSystem() {
+inline FileSystem::~FileSystem() {
     delete m_fsSpace;
 }
 
-inline
-void FileSystem::refresh() {
+inline void FileSystem::refresh() {
 #ifdef WIN32
     PULARGE_INTEGER freeByteAvailable=0, totalNumberOfBytes=0, totalNumberOfFreeBytes=0;
     BOOL result = ::GetDiskFreeSpaceEx(m_drive, freeByteAvailable, totalNumberOfBytes, totalNumberOfFreeBytes);
@@ -92,8 +86,7 @@ void FileSystem::refresh() {
 #endif 
 }
 
-inline
-FSSpace *FileSystem::getFreeDiskSpace() {
+inline FSSpace *FileSystem::getFreeDiskSpace() {
     refresh();
 
     return m_fsSpace;
