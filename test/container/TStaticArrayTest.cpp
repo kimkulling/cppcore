@@ -59,8 +59,10 @@ TEST_F(TStaticArrayTest, access_items_Test) {
 
 TEST_F(TStaticArrayTest, clear_Test) {
     TStaticArray<int, 4> arr;
+    int ii=0;
     for (size_t i = 0; i < 4; ++i) {
-        arr[i] = (int) i;
+        arr[i] = ii;
+        ii++;
     }
     arr.memset( 0 );
     for (size_t i = 0; i < 4; ++i) {
@@ -70,12 +72,16 @@ TEST_F(TStaticArrayTest, clear_Test) {
 
 TEST_F(TStaticArrayTest, access_string_Test) {
     TStaticArray <std::string, 4> arr;
-    arr[0] = std::string("bla");
-    arr[1] = std::string("bla");
-    arr[2] = std::string("bla");
-    arr[3] = std::string("huhu");
+    arr[0] = std::string("str_0");
+    arr[1] = std::string("str_1");
+    arr[2] = std::string("str_2");
+    arr[3] = std::string("str_3");
 
     EXPECT_EQ( 4u, arr.size());
+    EXPECT_EQ("str_0", arr[0]);
+    EXPECT_EQ("str_1", arr[1]);
+    EXPECT_EQ("str_2", arr[2]);
+    EXPECT_EQ("str_3", arr[3]);
 }
 
 TEST_F(TStaticArrayTest, string_Test) {
