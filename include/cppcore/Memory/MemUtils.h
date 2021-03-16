@@ -34,11 +34,6 @@ inline size_t align(size_t n) {
     return (n + sizeof(T) - 1) & ~(sizeof(T) - 1);
 }
 
-union {
-    const void *mPtr;
-    uintptr_t mAddr;
-} unaligned;
-
 //-------------------------------------------------------------------------------------------------
 ///	@class		THashMap
 ///	@ingroup	CPPCore
@@ -60,12 +55,20 @@ public:
 };
 
 inline bool MemUtils::isAligned(const void *ptr, size_t align) {
+    union {
+        const void *mPtr;
+        uintptr_t mAddr;
+    } unaligned;
 
     unaligned.mPtr = ptr;
     return 0 == (unaligned.mAddr & (align - 1));
 }
 
 inline const void *MemUtils::alignPtr(void *ptr, size_t extra, size_t align) {
+    union {
+        const void *mPtr;
+        uintptr_t mAddr;
+    } unaligned;
     unaligned.mPtr = ptr;
     uintptr_t un = unaligned.mAddr + extra; // space for header
     const uintptr_t mask = align - 1;
