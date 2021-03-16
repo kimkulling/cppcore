@@ -10,7 +10,7 @@ if( CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX )
     find_package(Threads)
 endif()
 
-option( BUILD_UNITTESTS 
+option( CPPCORE_BUILD_UNITTESTS 
     "Build unit tests."
      ON 
 )
@@ -123,7 +123,7 @@ ADD_LIBRARY( cppcore SHARED
 )
 
 
-IF( BUILD_UNITTESTS )
+IF( CPPCORE_BUILD_UNITTESTS )
     SET( cppcore_test_src  
         test/CPPCoreCommonTest.cpp 
     )
@@ -177,4 +177,4 @@ IF( BUILD_UNITTESTS )
         SET( platform_libs pthread )
     ENDIF( WIN32 )
     target_link_libraries( cppcore_unittest cppcore ${CMAKE_THREAD_LIBS_INIT} gtest_main ${platform_libs} )
-ENDIF( BUILD_UNITTESTS )
+ENDIF()
