@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2018 Kim Kulling
+Copyright (c) 2014-2021 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -23,9 +23,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #pragma once
 
 #ifdef WIN32
-#   include <Windows.h>
+#include <Windows.h>
 #else
-#   include <sys/statvfs.h>
+#include <sys/statvfs.h>
 #endif
 
 namespace CPPCore {
@@ -43,7 +43,7 @@ struct FSSpace {
 
 class FileSystem {
 public:
-    FileSystem( const char *location);
+    FileSystem(const char *location);
     ~FileSystem();
     void refresh();
     FSSpace *getFreeDiskSpace();
@@ -54,12 +54,12 @@ private:
 };
 
 inline FileSystem::FileSystem(const char *location) :
-        m_drive( location ), m_fsSpace( nullptr ) {
+        m_drive(location),
+        m_fsSpace(nullptr) {
     if (nullptr == location) {
         return;
     }
     m_fsSpace = new FSSpace;
-
 }
 
 inline FileSystem::~FileSystem() {
@@ -68,7 +68,7 @@ inline FileSystem::~FileSystem() {
 
 inline void FileSystem::refresh() {
 #ifdef WIN32
-    PULARGE_INTEGER freeByteAvailable=0, totalNumberOfBytes=0, totalNumberOfFreeBytes=0;
+    PULARGE_INTEGER freeByteAvailable = 0, totalNumberOfBytes = 0, totalNumberOfFreeBytes = 0;
     BOOL result = ::GetDiskFreeSpaceEx(m_drive, freeByteAvailable, totalNumberOfBytes, totalNumberOfFreeBytes);
     if (TRUE == result) {
         ::memcpy(&m_fsSpace->capacity, &totalNumberOfBytes->QuadPart, sizeof(PULARGE_INTEGER));
@@ -78,12 +78,12 @@ inline void FileSystem::refresh() {
     }
 #else
     struct statvfs stats;
-    statvfs(m_drive, &stats );
+    statvfs(m_drive, &stats);
     m_fsSpace->capacity = stats.f_bsize;
     m_fsSpace->free = stats.f_bsize * stats.f_bfree;
     m_fsSpace->inUse = m_fsSpace->capacity - m_fsSpace->free;
 
-#endif 
+#endif
 }
 
 inline FSSpace *FileSystem::getFreeDiskSpace() {

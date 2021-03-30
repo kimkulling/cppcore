@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2019 Kim Kulling
+Copyright (c) 2014-2021 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -41,19 +41,51 @@ namespace CPPCore {
 template <class T>
 class TPoolAllocator {
 public:
+    /// @brief  The default class constructor.
     TPoolAllocator();
+
+    /// @brief  The class constructor with the pool size.
+    /// @param  numItems    [in] The pool size.
     TPoolAllocator(size_t numItems);
+
+    /// @brief  The class destructor.
     ~TPoolAllocator();
+
+    /// @brief
     T *alloc();
+
+    /// @brief  Will release all allocated items.
     void release();
+
+    /// @brief  Will reserve the pool.
+    /// @apram  size    [in] The pool size to reserve.
     void reserve(size_t size);
+
+    /// @brief  Will clear the pool, memory will be deallocated.
+    /// @note   All instances which are currently is use will get invalid. PLease use with care.
     void clear();
+
+    /// @brief  Returns the capacity of items in the pool allocator.
+    /// @return The capacity.
     size_t capacity() const;
+
+    /// @brief  WIll return the reserved memory in bytes.
+    /// @return The reserved memory in bytes.
     size_t reservedMem() const;
+
+    /// @brief  Will return the free memory in the pool in bytes.
+    /// @return The free memory in bytes.
     size_t freeMem() const;
+
+    /// @brief  Will dump a statistic overview into the given string.
+    /// @param  allocs  [inout] The string to hold the allocation statistic.
     void dumpAllocations(std::string &allocs);
+
+    /// @brief  Will perform a resize for the pool.
+    /// @param  growSize    [in] The soze to grow.
     void resize(size_t growSize);
 
+    /// No copying allowed
     CPPCORE_NONE_COPYING(TPoolAllocator)
 
 private:
@@ -88,7 +120,7 @@ private:
     };
 
     Pool *getFreePool() {
-        Pool *current(m_freeList);
+        Pool *current = m_freeList;
         if (nullptr != m_freeList) {
             m_freeList = m_freeList->m_next;
         }
@@ -136,7 +168,7 @@ inline T *TPoolAllocator<T>::alloc() {
         resize(m_current->m_poolsize);
     }
 
-    T *ptr(&m_current->m_pool[m_current->m_currentIdx]);
+    T *ptr = &m_current->m_pool[m_current->m_currentIdx];
     m_current->m_currentIdx++;
 
     return ptr;
@@ -148,7 +180,7 @@ inline void TPoolAllocator<T>::release() {
         return;
     }
 
-    Pool *current(m_first);
+    Pool *current = m_first;
     while (nullptr != current) {
         current->m_currentIdx = 0;
         current = current->m_next;
@@ -176,7 +208,7 @@ inline void TPoolAllocator<T>::clear() {
         return;
     }
 
-    Pool *next(m_first);
+    Pool *next = m_first;
     while (nullptr != next) {
         Pool *current = next;
         next = current->m_next;
