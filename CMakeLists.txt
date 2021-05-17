@@ -78,6 +78,7 @@ SET ( cppcore_common_src
     include/cppcore/Common/TStringBase.h
     include/cppcore/Common/TSharedPtr.h
     include/cppcore/Common/Variant.h
+    include/cppcore/Common/TBitField.h
 )
 
 SET( cppcore_random_src
@@ -96,6 +97,7 @@ SET ( cppcore_container_src
  
  SET ( cppcore_memory_src
     include/cppcore/Memory/MemUtils.h
+    include/cppcore/Memory/TDefaultAllocator.h
     include/cppcore/Memory/TStackAllocator.h
     include/cppcore/Memory/TPoolAllocator.h
     code/Memory/MemUtils.cpp
@@ -131,6 +133,7 @@ IF( CPPCORE_BUILD_UNITTESTS )
     SET( cppcore_common_test_src
         test/common/HashTest.cpp
         test/common/VariantTest.cpp
+        test/common/TBitFieldTest.cpp
         test/common/TSharedPtrTest.cpp
     )
 
