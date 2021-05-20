@@ -23,6 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------
 */
 #include <cppcore/Common/TBitField.h>
+#include <cstdint>
 
 #include "gtest/gtest.h"
 
@@ -35,8 +36,8 @@ class TBitFieldTest : public testing::Test {
 TEST_F(TBitFieldTest, CreateTest) {
     bool ok = true;
     try {
-        TBitField<unsigned int> bitfield;
-        TBitField<unsigned int> bitfield1(0);    
+        TBitField<uint32_t> bitfield;
+        TBitField<uint32_t> bitfield1(0);    
     } catch (...) {
         ok = false;
     }
@@ -44,7 +45,7 @@ TEST_F(TBitFieldTest, CreateTest) {
 }
 
 TEST_F(TBitFieldTest, GetSetTest) {
-    TBitField<unsigned long> bitfield(0);
+    TBitField<uint32_t> bitfield(0);
     EXPECT_FALSE(bitfield.getBit(1));
     bitfield.setBit(1);
     EXPECT_TRUE(bitfield.getBit(1));
@@ -60,4 +61,17 @@ TEST_F(TBitFieldTest, GetSetTest) {
     for (int i = 0; i < 10; ++i) {
         EXPECT_FALSE(bitfield.getBit(i));
     }
+}
+
+TEST_F(TBitFieldTest, maxBitsTest) {
+    TBitField<uint32_t> bitfield1(0);
+    size_t numBits = 0;
+    numBits = bitfield1.maxBits();
+    EXPECT_EQ(32u, numBits);
+    TBitField<uint64_t> bitfield2(0);
+    numBits = bitfield2.maxBits();
+    EXPECT_EQ(64u, numBits);
+    TBitField<uint8_t> bitfield3(0);
+    numBits = bitfield3.maxBits();
+    EXPECT_EQ(8u, numBits);
 }

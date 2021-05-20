@@ -23,16 +23,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #pragma once
 
-namespace std {
-    class string;
-}
+#include <string>
 
 namespace CPPCore {
 
+//-------------------------------------------------------------------------------------------------
+///	@class		TDefaultAllocator
+///	@ingroup	CPPCore
+///
+///	@brief  This class implements the default allocator used by all container classes of the cppcore 
+/// library.
+//-------------------------------------------------------------------------------------------------
 template <class T>
 class TDefaultAllocator {
 public:
+    /// @brief  The default class constructor.
     TDefaultAllocator();
+
+    /// @brief  The class destructor.
     ~TDefaultAllocator();
 
     T *alloc(size_t size);
@@ -40,7 +48,7 @@ public:
     /// @brief  Will release the last item from the stack. A basic check will be performed to
     ///         ensure that it is the correct item.
     /// @param  ptr     [in] The pointer to validate.
-    bool release(T *ptr);
+    void release(T *ptr);
 
     /// @brief
     void reserve(size_t size);
@@ -70,19 +78,21 @@ public:
 
 template <class T>
 inline TDefaultAllocator<T>::TDefaultAllocator() {
+    // empty
 }
 
 template <class T>
 inline TDefaultAllocator<T>::~TDefaultAllocator() {
+    // empty
 }
 
 template <class T>
 inline T *TDefaultAllocator<T>::alloc(size_t size) {
-    return ::malloc(sizeof(T) * size);
+    return static_cast<T*>(::malloc(sizeof(T) * size));
 }
 
 template <class T>
-inline bool TDefaultAllocator<T>::release(T *ptr) {
+inline void TDefaultAllocator<T>::release(T *ptr) {
     ::free(ptr);
 }
 

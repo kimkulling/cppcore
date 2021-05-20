@@ -23,6 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #pragma once
 
 #include <cppcore/CPPCoreCommon.h>
+#include <cppcore/Memory/TDefaultAllocator.h>
 
 #include <cassert>
 
@@ -36,7 +37,7 @@ namespace CPPCore {
 /// You can use it to add new items, remove them and iterate through them. The data items are
 /// stores in an array.
 //-------------------------------------------------------------------------------------------------
-template <class T>
+template <class T, class TAlloc=TDefaultAllocator<T> >
 class TArray {
 public:
     ///	The iterator type.
@@ -64,7 +65,7 @@ public:
 
     ///	@brief	The copy constructor.
     ///	@param	other	    [in] The instance to copy from.
-    TArray(const TArray<T> &other);
+    TArray(const TArray<T, TAlloc> &other);
 
     ///	@brief	The class destructor.
     ~TArray();
@@ -163,24 +164,26 @@ public:
     T &operator[](array_size_type idx) const;
 
     ///	@brief	The assignment operator.
-    TArray<T> &operator=(const TArray<T> &rOther);
+    TArray<T, TAlloc> &operator=(const TArray<T, TAlloc> &rOther);
 
     ///	@brief	The compare operator.
-    bool operator==(const TArray<T> &rOther) const;
+    bool operator==(const TArray<T, TAlloc> &rOther) const;
 
 protected:
     ///	Returns the growing value.
     size_t getGrowing(size_t size);
 
 private:
+    TAlloc mAllocator;
     SortedMode m_Sorted;
     size_t m_Size;
     size_t m_Capacity;
     T *m_pData;
 };
 
-template <class T>
-inline TArray<T>::TArray() :
+template <class T, class TAlloc>
+inline TArray<T, TAlloc>::TArray() :
+        mAllocator(),
         m_Sorted(Unsorted),
         m_Size(0),
         m_Capacity(0),
@@ -188,8 +191,8 @@ inline TArray<T>::TArray() :
     // empty
 }
 
-template <class T>
-inline TArray<T>::TArray(size_t size) :
+template <class T, class TAlloc>
+inline TArray<T, TAlloc>::TArray(size_t size) :
         m_Sorted(Unsorted),
         m_Size(0),
         m_Capacity(0),
@@ -199,8 +202,8 @@ inline TArray<T>::TArray(size_t size) :
     resize(size);
 }
 
-template <class T>
-inline TArray<T>::TArray(const TArray<T> &rhs) :
+template <class T, class TAlloc>
+inline TArray<T, TAlloc>::TArray(const TArray<T, TAlloc> &rhs) :
         m_Sorted(rhs.m_Sorted),
         m_Size(0),
         m_Capacity(0),
@@ -211,13 +214,13 @@ inline TArray<T>::TArray(const TArray<T> &rhs) :
     }
 }
 
-template <class T>
-inline TArray<T>::~TArray() {
+template <class T, class TAlloc>
+inline TArray<T, TAlloc>::~TArray() {
     clear();
 }
 
-template <class T>
-inline void TArray<T>::add(const T &value) {
+template <class T, class TAlloc>
+inline void TArray<T, TAlloc>::add(const T &value) {
     if (m_Size + 1 > m_Capacity) {
         size_t newcapa = getGrowing(m_Size + 1);
         reserve(m_Capacity + newcapa);
@@ -226,8 +229,8 @@ inline void TArray<T>::add(const T &value) {
     ++m_Size;
 }
 
-template <class T>
-inline void TArray<T>::add(const T *newValues, size_t numItems) {
+template <class T, class TAlloc>
+inline void TArray<T, TAlloc>::add(const T *newValues, size_t numItems) {
     if (0 == numItems) {
         return;
     }
@@ -242,8 +245,8 @@ inline void TArray<T>::add(const T *newValues, size_t numItems) {
     }
 }
 
-template <class T>
-inline void TArray<T>::remove(size_t index) {
+template <class T, class TAlloc>
+inline void TArray<T, TAlloc>::remove(size_t index) {
     assert(index < m_Size);
 
     if (index == m_Size - 1) {
@@ -256,8 +259,8 @@ inline void TArray<T>::remove(size_t index) {
     }
 }
 
-template <class T>
-inline void TArray<T>::remove(Iterator it) {
+template <class T, class TAlloc>
+inline void TArray<T, TAlloc>::remove(Iterator it) {
     assert(it < end());
 
     // Look out for the index
@@ -277,42 +280,42 @@ inline void TArray<T>::remove(Iterator it) {
     }
 }
 
-template <class T>
-inline void TArray<T>::removeBack() {
+template <class T, class TAlloc>
+inline void TArray<T, TAlloc>::removeBack() {
     assert(!isEmpty());
 
     remove(size() - 1);
 }
 
-template <class T>
-inline void TArray<T>::destroy(size_t index) {
+template <class T, class TAlloc>
+inline void TArray<T, TAlloc>::destroy(size_t index) {
     T *pElem = &(m_pData[index]);
     pElem->~T();
 }
 
-template <class T>
-inline T &TArray<T>::front() {
+template <class T, class TAlloc>
+inline T &TArray<T, TAlloc>::front() {
     assert(m_Size > 0);
 
     return m_pData[0];
 }
 
-template <class T>
-inline T &TArray<T>::back() {
+template <class T, class TAlloc>
+inline T &TArray<T, TAlloc>::back() {
     assert(m_Size > 0);
 
     return (m_pData[m_Size - 1]);
 }
 
-template <class T>
-inline const T &TArray<T>::back() const {
+template <class T, class TAlloc>
+inline const T &TArray<T, TAlloc>::back() const {
     assert(m_Size > 0);
 
     return (m_pData[m_Size - 1]);
 }
 
-template <class T>
-inline void TArray<T>::move(size_t fromIdx, size_t toIdx) {
+template <class T, class TAlloc>
+inline void TArray<T, TAlloc>::move(size_t fromIdx, size_t toIdx) {
     if (fromIdx == toIdx) {
         return;
     }
@@ -347,8 +350,8 @@ inline void TArray<T>::move(size_t fromIdx, size_t toIdx) {
     m_Size = toIdx + numElements;
 }
 
-template <class T>
-inline void TArray<T>::reserve(size_t capacity) {
+template <class T, class TAlloc>
+inline void TArray<T, TAlloc>::reserve(size_t capacity) {
     if (capacity <= m_Capacity) {
         return;
     }
@@ -362,11 +365,13 @@ inline void TArray<T>::reserve(size_t capacity) {
     }
 
     if (m_pData) {
-        delete[] m_pData;
+        mAllocator.release(m_pData);
+        //delete[] m_pData;
         m_pData = nullptr;
     }
 
-    m_pData = new T[capacity];
+    m_pData = mAllocator.alloc(capacity * sizeof(T));
+    //m_pData = new T[capacity];
     m_Capacity = capacity;
 
     if (m_Size > 0) {
@@ -377,39 +382,44 @@ inline void TArray<T>::reserve(size_t capacity) {
     }
 }
 
-template <class T>
-inline void TArray<T>::resize(size_t size) {
+template <class T, class TAlloc>
+inline void TArray<T, TAlloc>::resize(size_t size) {
     size_t oldSize = m_Size;
     T *pTmp = nullptr;
 
     // Store older items
     if (m_Size > 0 && m_Capacity < size) {
-        pTmp = new T[m_Size];
+        pTmp = mAllocator.alloc(m_Size * sizeof(T));
+        //pTmp = new T[m_Size];
         for (size_t i = 0; i < m_Size; ++i) {
             pTmp[i] = m_pData[i];
         }
 
-        delete[] m_pData;
+        mAllocator.release(m_pData);
+            //delete[] m_pData;
         m_pData = nullptr;
         m_Capacity = 0;
     }
 
     // Realloc memory
     if (size > m_Capacity) {
-        m_pData = new T[size];
+        m_pData = mAllocator.alloc(size * sizeof(T));
+        //        m_pData = new T[size];
         if (pTmp) {
             for (size_t i = 0; i < oldSize; ++i) {
                 m_pData[i] = pTmp[i];
             }
-            delete[] pTmp;
+            mAllocator.release(pTmp);
+
+//            delete[] pTmp;
         }
         m_Capacity = size;
     }
     m_Size = size;
 }
 
-template <class T>
-inline void TArray<T>::resize(size_t size, T val) {
+template <class T, class TAlloc>
+inline void TArray<T, TAlloc>::resize(size_t size, T val) {
     resize(size);
     if (0 != size) {
         for (size_t i = 0; i < size; i++) {
@@ -418,25 +428,24 @@ inline void TArray<T>::resize(size_t size, T val) {
     }
 }
 
-template <class T>
-inline size_t TArray<T>::size() const {
+template <class T, class TAlloc>
+inline size_t TArray<T, TAlloc>::size() const {
     return m_Size;
 }
 
-template <class T>
-inline size_t TArray<T>::capacity() const {
+template <class T, class TAlloc>
+inline size_t TArray<T, TAlloc>::capacity() const {
     return m_Capacity;
 }
 
-template <class T>
-inline bool TArray<T>::isEmpty() const {
+template <class T, class TAlloc>
+inline bool TArray<T, TAlloc>::isEmpty() const {
     return (0 == m_Size);
 }
 
-template <class T>
-inline
-        typename TArray<T>::Iterator
-        TArray<T>::find(const T &rItem) {
+template <class T, class TAlloc>
+inline typename TArray<T, TAlloc>::Iterator
+    TArray<T, TAlloc>::find(const T &rItem) {
     if (m_Sorted == Unsorted) {
         for (Iterator it = begin(); it != end(); ++it) {
             if (rItem == *it) {
@@ -448,18 +457,18 @@ inline
     return end();
 }
 
-template <class T>
-inline void TArray<T>::clear() {
-    delete[] m_pData;
+template <class T, class TAlloc>
+inline void TArray<T, TAlloc>::clear() {
+    mAllocator.release(m_pData);
+
+//    delete[] m_pData;
     m_pData = nullptr;
     m_Size = 0;
     m_Capacity = 0;
 }
 
-template <class T>
-inline
-        typename TArray<T>::Iterator
-        TArray<T>::begin() {
+template <class T, class TAlloc>
+inline typename TArray<T, TAlloc>::Iterator TArray<T, TAlloc>::begin() {
     if (0 == size()) {
         return end();
     }
@@ -467,31 +476,29 @@ inline
     return &m_pData[0];
 }
 
-template <class T>
-inline
-        typename TArray<T>::Iterator
-        TArray<T>::end() {
+template <class T, class TAlloc>
+inline typename TArray<T, TAlloc>::Iterator TArray<T, TAlloc>::end() {
     T *tmp = m_pData;
     tmp += m_Size;
 
     return tmp;
 }
 
-template <class T>
-inline T TArray<T>::data() const {
+template <class T, class TAlloc>
+inline T TArray<T, TAlloc>::data() const {
     return m_pData;
 }
 
-template <class T>
-inline T &TArray<T>::operator[](size_t idx) const {
+template <class T, class TAlloc>
+inline T &TArray<T, TAlloc>::operator[](size_t idx) const {
     assert(idx < m_Size);
     assert(nullptr != m_pData);
 
     return m_pData[idx];
 }
 
-template <class T>
-inline TArray<T> &TArray<T>::operator=(const TArray<T> &rOther) {
+template <class T, class TAlloc>
+inline TArray<T, TAlloc> &TArray<T, TAlloc>::operator=(const TArray<T, TAlloc> &rOther) {
     if (rOther == *this) {
         return *this;
     }
@@ -510,8 +517,8 @@ inline TArray<T> &TArray<T>::operator=(const TArray<T> &rOther) {
     return *this;
 }
 
-template <class T>
-inline bool TArray<T>::operator==(const TArray<T> &rhs) const {
+template <class T, class TAlloc>
+inline bool TArray<T, TAlloc>::operator == (const TArray<T, TAlloc> &rhs) const {
     if (rhs.m_Size != m_Size) {
         return false;
     }
@@ -525,8 +532,8 @@ inline bool TArray<T>::operator==(const TArray<T> &rhs) const {
     return true;
 }
 
-template <class T>
-inline size_t TArray<T>::getGrowing(size_t size) {
+template <class T, class TAlloc>
+inline size_t TArray<T, TAlloc>::getGrowing(size_t size) {
     if (!size) {
         return 0;
     }

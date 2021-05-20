@@ -23,6 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #pragma once
 
 #include <cppcore/CPPCoreCommon.h>
+#include <cassert>
 
 namespace CPPCore {
 
@@ -39,11 +40,12 @@ public:
     TBitField(T init);
     ~TBitField();
     T GetMask() const;
-    bool getBit(int pos) const;
-    void setBit(int pos, bool on);
-    void setBit(int pos);
-    void clearBit(int pos);
+    bool getBit(size_t pos) const;
+    void setBit(size_t pos, bool on);
+    void setBit(size_t pos);
+    void clearBit(size_t pos);
     void clear();
+    size_t maxBits() const;
 
 private:
     T mBitMask;
@@ -73,12 +75,14 @@ inline T TBitField<T>::GetMask() const {
 }
 
 template <class T>
-inline bool TBitField<T>::getBit(int pos) const {
+inline bool TBitField<T>::getBit(size_t pos) const {
+    assert(pos < maxBits());
     return (mBitMask & (1 << pos)) != 0; // 1
 }
 
 template <class T>
-inline void TBitField<T>::setBit(int pos, bool on) {
+inline void TBitField<T>::setBit(size_t pos, bool on) {
+    assert(pos < maxBits());
     if (on) {
         setBit(pos);
     } else {
@@ -87,18 +91,26 @@ inline void TBitField<T>::setBit(int pos, bool on) {
 }
 
 template <class T>
-inline void TBitField<T>::setBit(int pos) {
+inline void TBitField<T>::setBit(size_t pos) {
+    assert(pos < maxBits());
     mBitMask = mBitMask | 1 << pos; // 2
 }
 
 template <class T>
-inline void TBitField<T>::clearBit(int pos) {
+inline void TBitField<T>::clearBit(size_t pos) {
+    assert(pos < maxBits());
     mBitMask = mBitMask & ~(1 << pos); // 3
 }
 
 template <class T>
 inline void TBitField<T>::clear() {
     mBitMask = 0;
+}
+
+template <class T>
+inline size_t TBitField<T>::maxBits() const {
+    constexpr size_t numBits = sizeof(T) * 8;
+    return numBits;
 }
 
 } // namespace CPPCore
