@@ -28,6 +28,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <cassert>
 
 namespace CPPCore {
+namespace Details {
+
+inline static size_t getGrowing(size_t size) {
+    if (0 == size) {
+        return 0;
+    }
+
+    if (size < 2048) {
+        return size * 2;
+    }
+
+    return 4096;
+}
+
+}
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		TArray
@@ -169,10 +184,6 @@ public:
     ///	@brief	The compare operator.
     bool operator==(const TArray<T, TAlloc> &rOther) const;
 
-protected:
-    ///	Returns the growing value.
-    size_t getGrowing(size_t size);
-
 private:
     TAlloc mAllocator;
     SortedMode m_Sorted;
@@ -197,7 +208,7 @@ inline TArray<T, TAlloc>::TArray(size_t size) :
         m_Size(0),
         m_Capacity(0),
         m_pData(nullptr) {
-    const size_t capa = getGrowing(size);
+    const size_t capa = Details::getGrowing(size);
     reserve(capa);
     resize(size);
 }
@@ -222,7 +233,7 @@ inline TArray<T, TAlloc>::~TArray() {
 template <class T, class TAlloc>
 inline void TArray<T, TAlloc>::add(const T &value) {
     if (m_Size + 1 > m_Capacity) {
-        size_t newcapa = getGrowing(m_Size + 1);
+        size_t newcapa = Details::getGrowing(m_Size + 1);
         reserve(m_Capacity + newcapa);
     }
     m_pData[m_Size] = value;
@@ -323,7 +334,7 @@ inline void TArray<T, TAlloc>::move(size_t fromIdx, size_t toIdx) {
     const size_t numElements = m_Size - fromIdx;
     const size_t newSize = toIdx + numElements;
     while (m_Capacity < newSize) {
-        resize(m_Capacity + getGrowing(newSize - m_Capacity));
+        resize(m_Capacity + Details::getGrowing(newSize - m_Capacity));
     }
 
     size_t index(0);
@@ -530,19 +541,6 @@ inline bool TArray<T, TAlloc>::operator == (const TArray<T, TAlloc> &rhs) const 
     }
 
     return true;
-}
-
-template <class T, class TAlloc>
-inline size_t TArray<T, TAlloc>::getGrowing(size_t size) {
-    if (!size) {
-        return 0;
-    }
-
-    if (size < 2048) {
-        return size * 2;
-    }
-
-    return 4096;
 }
 
 } // Namespace CPPCore

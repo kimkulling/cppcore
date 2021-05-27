@@ -93,6 +93,10 @@ public:
     ///	@return The value, will unset when no key-value pair was found.
     U &operator[](const T &key) const;
 
+    /// Avoid copying.
+    THashMap<T, U>(const THashMap<T, U> &) = delete;
+    THashMap<T, U> &operator=(const THashMap<T, U> &) = delete;
+
 private:
     struct Node {
         T m_key;
@@ -114,8 +118,8 @@ private:
 template <class T, class U>
 inline THashMap<T, U>::THashMap(size_t initSize) :
         m_buffer(nullptr),
-        m_numItems(0),
-        m_buffersize(0) {
+        m_numItems(0u),
+        m_buffersize(0u) {
     init(initSize);
 }
 
@@ -136,7 +140,7 @@ inline size_t THashMap<T, U>::capacity() const {
 
 template <class T, class U>
 inline bool THashMap<T, U>::isEmpty() const {
-    return (0 == m_numItems);
+    return (0u == m_numItems);
 }
 
 template <class T, class U>
@@ -150,8 +154,8 @@ inline void THashMap<T, U>::init(size_t init) {
 
 template <class T, class U>
 inline void THashMap<T, U>::clear() {
-    for (size_t i = 0; i < m_buffersize; i++) {
-        if (m_buffer[i]) {
+    for (size_t i = 0; i < m_buffersize; ++i) {
+        if (nullptr != m_buffer[i]) {
             m_buffer[i]->releaseList();
         }
     }
@@ -163,7 +167,7 @@ inline void THashMap<T, U>::clear() {
 
 template <class T, class U>
 inline void THashMap<T, U>::insert(const T &key, const U &value) {
-    const unsigned int hash(Hash::toHash(key, (unsigned int)m_buffersize));
+    const unsigned int hash = Hash::toHash(key, (unsigned int)m_buffersize);
     if (nullptr == m_buffer[hash]) {
         Node *node = new Node;
         node->m_key = key;
@@ -172,33 +176,30 @@ inline void THashMap<T, U>::insert(const T &key, const U &value) {
     } else {
         m_buffer[hash]->append(key, value);
     }
-    m_numItems++;
+    ++m_numItems;
 }
 
 template <class T, class U>
 inline bool THashMap<T, U>::remove(const T &key) {
-    const unsigned int hash(Hash::toHash(key, (unsigned int)m_buffersize));
+    const unsigned int hash = Hash::toHash(key, (unsigned int)m_buffersize);
     if (nullptr == m_buffer[hash]) {
         return false;
     }
 
-    bool found(false);
-    Node *current(m_buffer[hash]);
+    bool found = false;
+    Node *current = m_buffer[hash];
     if (current->m_key == key) {
-        Node *next(current->m_next);
-        if (nullptr != next) {
-            m_buffer[hash] = next;
-        } else {
-            m_buffer[hash] = nullptr;
-        }
+        Node *next = current->m_next;
+        m_buffer[hash] = next;
         delete current;
         --m_numItems;
         found = true;
-    } else {
-        found = current->remove(key);
-        if (found) {
-            --m_numItems;
-        }
+        return true;
+    }
+
+    found = current->remove(key);
+    if (found) {
+        --m_numItems;
     }
 
     return found;
@@ -211,8 +212,8 @@ inline bool THashMap<T, U>::hasKey(const T &key) const {
         return false;
     }
     const unsigned int hash(Hash::toHash(key, (unsigned int)m_buffersize));
-    const Node *node(m_buffer[hash]);
-    if (!node) {
+    const Node *node = m_buffer[hash];
+    if (nullptr == node) {
         return false;
     }
 
@@ -220,9 +221,9 @@ inline bool THashMap<T, U>::hasKey(const T &key) const {
         return true;
     }
 
-    if (node->m_next) {
-        Node *next(node->m_next);
-        while (next) {
+    if (nullptr != node->m_next) {
+        Node *next = node->m_next;
+        while (nullptr != next) {
             if (next->m_key == key) {
                 return true;
             }
@@ -235,17 +236,17 @@ inline bool THashMap<T, U>::hasKey(const T &key) const {
 
 template <class T, class U>
 inline bool THashMap<T, U>::getValue(const T &key, U &value) const {
-    const size_t pos(Hash::toHash(key, (unsigned int)m_buffersize));
+    const size_t pos = Hash::toHash(key, (unsigned int)m_buffersize);
     if (m_buffer[pos]->m_key == key) {
         value = m_buffer[pos]->m_value;
         return true;
     }
 
-    Node *node(m_buffer[pos]);
-    Node *next(node->m_next);
+    Node *node = m_buffer[pos];
+    Node *next = node->m_next;
     while (next->m_key != key) {
         next = next->m_next;
-        if (!next) {
+        if (nullptr == next) {
             return false;
         }
     }
@@ -257,26 +258,27 @@ inline bool THashMap<T, U>::getValue(const T &key, U &value) const {
 template <class T, class U>
 inline U &THashMap<T, U>::operator[](const T &key) const {
     static U dummy;
-    const unsigned int pos(Hash::toHash(key, m_buffersize));
+    const unsigned int pos = Hash::toHash(key, m_buffersize);
     if (m_buffer[pos]->m_key == key) {
         return m_buffer[pos]->m_value;
-    } else {
-        Node next(m_buffer[pos]->m_next);
-        while (next->m_key != key) {
-            next = next->m_next;
-            if (!next) {
-                return dummy;
-            }
+    } 
+
+    Node next = m_buffer[pos]->m_next;
+    while (next->m_key != key) {
+        next = next->m_next;
+        if (nullptr == next) {
+            return dummy;
         }
-        return next->m_value;
     }
 
-    return dummy;
+    return next->m_value;
 }
 
 template <class T, class U>
 inline THashMap<T, U>::Node::Node() :
-        m_key(UnsetNode), m_value(), m_next(nullptr) {
+        m_key(UnsetNode), 
+        m_value(), 
+        m_next(nullptr) {
     // empty
 }
 
@@ -293,8 +295,8 @@ inline void THashMap<T, U>::Node::append(T key, const U &value) {
         return;
     }
 
-    Node *current(m_next);
-    if (current) {
+    Node *current = m_next;
+    if (nullptr != current) {
         // already collisions, traverse
         while (current->m_next) {
             current = current->m_next;
@@ -313,15 +315,15 @@ inline void THashMap<T, U>::Node::append(T key, const U &value) {
 
 template <class T, class U>
 inline bool THashMap<T, U>::Node::remove(T key) {
-    if (!m_next) {
+    if (nullptr == m_next) {
         return false;
     }
 
-    bool found(false);
-    Node *current(m_next), *prev(nullptr);
-    while (current) {
+    bool found = false;
+    Node *current = m_next, *prev = nullptr;
+    while (nullptr != current) {
         if (current->m_key == key) {
-            if (prev) {
+            if (nullptr != prev) {
                 prev->m_next = current->m_next;
                 delete current;
             }
@@ -337,12 +339,12 @@ inline bool THashMap<T, U>::Node::remove(T key) {
 
 template <class T, class U>
 inline void THashMap<T, U>::Node::releaseList() {
-    if (!m_next) {
+    if (nullptr == m_next) {
         return;
     }
 
-    Node *current(m_next);
-    while (current) {
+    Node *current = m_next;
+    while (nullptr != current) {
         Node *tmp = current;
         current = current->m_next;
         delete tmp;

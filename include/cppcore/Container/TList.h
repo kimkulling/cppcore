@@ -160,7 +160,6 @@ private:
     size_t m_size;
 };
 
-//-------------------------------------------------------------------------------------------------
 template <class T>
 inline TList<T>::TList() noexcept :
         m_pFist(nullptr),
@@ -169,7 +168,6 @@ inline TList<T>::TList() noexcept :
     // empty
 }
 
-//-------------------------------------------------------------------------------------------------
 template <class T>
 inline TList<T>::TList(const TList<T> &rhs) :
         m_pFist(nullptr),
@@ -178,13 +176,11 @@ inline TList<T>::TList(const TList<T> &rhs) :
     copyFrom(rhs);
 }
 
-//-------------------------------------------------------------------------------------------------
 template <class T>
 inline TList<T>::~TList() {
     clear();
 }
 
-//-------------------------------------------------------------------------------------------------
 template <class T>
 inline void TList<T>::copyFrom(const TList<T> &rhs) {
     clear();
@@ -193,7 +189,7 @@ inline void TList<T>::copyFrom(const TList<T> &rhs) {
         return;
     }
 
-    Node *pPrevNode(nullptr);
+    Node *pPrevNode = nullptr;
     for (Iterator it = rhs.begin(); it != rhs.end(); ++it) {
         m_pLast = new Node(pCurrent->m_Item);
         if (!m_pFist) {
@@ -211,7 +207,6 @@ inline void TList<T>::copyFrom(const TList<T> &rhs) {
     m_size = rhs.m_size;
 }
 
-//-------------------------------------------------------------------------------------------------
 template <class T>
 inline typename TList<T>::Iterator TList<T>::addFront(const T &item) {
     Node *pNode = new Node(item);
@@ -228,7 +223,6 @@ inline typename TList<T>::Iterator TList<T>::addFront(const T &item) {
     return Iterator(pNode);
 }
 
-//-------------------------------------------------------------------------------------------------
 template <class T>
 inline typename TList<T>::Iterator TList<T>::addBack(const T &item) {
     Node *pNode = new Node(item);
@@ -245,7 +239,6 @@ inline typename TList<T>::Iterator TList<T>::addBack(const T &item) {
     return Iterator(pNode);
 }
 
-//-------------------------------------------------------------------------------------------------
 template <class T>
 inline void TList<T>::removeFront() {
     Node *pTmp = m_pFist->getNext();
