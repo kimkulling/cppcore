@@ -42,7 +42,7 @@ inline static size_t getGrowing(size_t size) {
     return 4096;
 }
 
-}
+} // namespace Details
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		TArray
@@ -370,7 +370,6 @@ inline void TArray<T, TAlloc>::reserve(size_t capacity) {
     T *pTmp = nullptr;
     if (m_Size > 0) {
         pTmp = mAllocator.alloc(m_Size);
-        pTmp = new T[m_Size];
         for (size_t i = 0; i < m_Size; ++i) {
             pTmp[i] = m_pData[i];
         }
@@ -400,13 +399,11 @@ inline void TArray<T, TAlloc>::resize(size_t size) {
     // Store older items
     if (m_Size > 0 && m_Capacity < size) {
         pTmp = mAllocator.alloc(m_Size * sizeof(T));
-        //pTmp = new T[m_Size];
         for (size_t i = 0; i < m_Size; ++i) {
             pTmp[i] = m_pData[i];
         }
 
         mAllocator.release(m_pData);
-            //delete[] m_pData;
         m_pData = nullptr;
         m_Capacity = 0;
     }
@@ -420,8 +417,6 @@ inline void TArray<T, TAlloc>::resize(size_t size) {
                 m_pData[i] = pTmp[i];
             }
             mAllocator.release(pTmp);
-
-//            delete[] pTmp;
         }
         m_Capacity = size;
     }
@@ -470,8 +465,6 @@ inline typename TArray<T, TAlloc>::Iterator
 template <class T, class TAlloc>
 inline void TArray<T, TAlloc>::clear() {
     mAllocator.release(m_pData);
-
-//    delete[] m_pData;
     m_pData = nullptr;
     m_Size = 0;
     m_Capacity = 0;
