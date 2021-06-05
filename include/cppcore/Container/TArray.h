@@ -52,7 +52,7 @@ inline static size_t getGrowing(size_t size) {
 /// You can use it to add new items, remove them and iterate through them. The data items are
 /// stores in an array.
 //-------------------------------------------------------------------------------------------------
-template <class T, class TAlloc=TDefaultAllocator<T> >
+template <class T, class TAlloc = TDefaultAllocator<T> >
 class TArray {
 public:
     ///	The iterator type.
@@ -369,6 +369,7 @@ inline void TArray<T, TAlloc>::reserve(size_t capacity) {
 
     T *pTmp = nullptr;
     if (m_Size > 0) {
+        pTmp = mAllocator.alloc(m_Size);
         pTmp = new T[m_Size];
         for (size_t i = 0; i < m_Size; ++i) {
             pTmp[i] = m_pData[i];
@@ -377,12 +378,10 @@ inline void TArray<T, TAlloc>::reserve(size_t capacity) {
 
     if (m_pData) {
         mAllocator.release(m_pData);
-        //delete[] m_pData;
         m_pData = nullptr;
     }
 
-    m_pData = mAllocator.alloc(capacity * sizeof(T));
-    //m_pData = new T[capacity];
+    m_pData = mAllocator.alloc(capacity);
     m_Capacity = capacity;
 
     if (m_Size > 0) {

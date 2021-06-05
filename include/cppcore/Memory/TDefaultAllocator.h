@@ -88,12 +88,12 @@ inline TDefaultAllocator<T>::~TDefaultAllocator() {
 
 template <class T>
 inline T *TDefaultAllocator<T>::alloc(size_t size) {
-    return static_cast<T*>(::malloc(sizeof(T) * size));
+    return new T[size];
 }
 
 template <class T>
 inline void TDefaultAllocator<T>::release(T *ptr) {
-    ::free(ptr);
+    delete [] ptr;
 }
 
 template <class T>
