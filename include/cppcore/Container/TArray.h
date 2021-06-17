@@ -233,7 +233,7 @@ inline TArray<T, TAlloc>::~TArray() {
 template <class T, class TAlloc>
 inline void TArray<T, TAlloc>::add(const T &value) {
     if (m_Size + 1 > m_Capacity) {
-        size_t newcapa = Details::getGrowing(m_Size + 1);
+        const size_t newcapa = Details::getGrowing(m_Size + 1);
         reserve(m_Capacity + newcapa);
     }
     m_pData[m_Size] = value;
@@ -387,7 +387,7 @@ inline void TArray<T, TAlloc>::reserve(size_t capacity) {
         for (size_t i = 0; i < m_Size; ++i) {
             m_pData[i] = pTmp[i];
         }
-        delete[] pTmp;
+        mAllocator.release(pTmp);
     }
 }
 
@@ -411,7 +411,6 @@ inline void TArray<T, TAlloc>::resize(size_t size) {
     // Realloc memory
     if (size > m_Capacity) {
         m_pData = mAllocator.alloc(size * sizeof(T));
-        //        m_pData = new T[size];
         if (pTmp) {
             for (size_t i = 0; i < oldSize; ++i) {
                 m_pData[i] = pTmp[i];
