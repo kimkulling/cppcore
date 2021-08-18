@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to osre_doc's documentation!
+Welcome to CPPCore's documentation!
 ====================================
 
 .. toctree::
@@ -11,7 +11,7 @@ Welcome to osre_doc's documentation!
    :caption: Contents:
 
    Introduction
-   first_steps
+   Container
 
 
 Indices and tables
