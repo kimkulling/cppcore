@@ -79,6 +79,7 @@ SET ( cppcore_common_src
     include/cppcore/Common/TSharedPtr.h
     include/cppcore/Common/Variant.h
     include/cppcore/Common/TBitField.h
+    include/cppcore/Common/TOptional.h
 )
 
 SET( cppcore_random_src
@@ -134,6 +135,7 @@ IF( CPPCORE_BUILD_UNITTESTS )
         test/common/HashTest.cpp
         test/common/VariantTest.cpp
         test/common/TBitFieldTest.cpp
+        test/common/TOptionalTest.cpp
         test/common/TSharedPtrTest.cpp
     )
 

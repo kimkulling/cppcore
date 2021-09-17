@@ -31,6 +31,9 @@ Common stuff
 ------------
  * **Variant**:          Implements a variant to deal with arbitrary data types.
  * **THash**:            A hash function to calculate hash values.
+ * **TOptional**:        Implements an optional value.
+ * **TBitField**:        Implements a simple bitfield.
+ * **Variant**:          Implements a variant type.
 
 Containers
 ----------
