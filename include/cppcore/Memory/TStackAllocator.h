@@ -67,6 +67,9 @@ public:
     /// @brief  Will clear the whole memory, all used data will be marked as invalid.
     void clear();
 
+    /// @brief  Will reset the allocated memory, all used data will be marked as invalid.
+    void reset();
+    
     /// @brief  Returns the number of allocated instances on the stack
     /// @return The number of allocated instance.
     size_t capacity() const;
@@ -180,6 +183,11 @@ inline void TStackAllocator<T>::clear() {
     delete[] m_data;
     m_data = nullptr;
     m_capacity = 0;
+    m_top = 0;
+}
+    
+template <class T>
+inline void TStackAllocator<T>::reset() {
     m_top = 0;
 }
 
