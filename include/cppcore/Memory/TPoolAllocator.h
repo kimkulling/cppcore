@@ -85,6 +85,9 @@ public:
     /// @param  growSize    [in] The soze to grow.
     void resize(size_t growSize);
 
+    /// @brief  Will reset the allocator.
+    void reset();
+    
     /// No copying allowed
     CPPCORE_NONE_COPYING(TPoolAllocator)
 
@@ -266,6 +269,11 @@ inline void TPoolAllocator<T>::resize(size_t growSize) {
         m_current->m_next = pool;
         m_current = m_current->m_next;
     }
+}
+
+template<class T>
+void TPoolAllocator<T>::reset() {
+    m_current = m_first;
 }
 
 } // Namespace CPPCore
