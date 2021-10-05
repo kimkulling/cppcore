@@ -97,8 +97,8 @@ void inline TOptional<T>::set(T value) {
 }
 
 template<class T>
-inline T &TOptional<T>::operator = ( const T &value) {
-    mValue = t;
+inline T &TOptional<T>::operator = (const T &value) {
+    mValue = value;
     if(!mInited) {
         mInited = true;
     }
