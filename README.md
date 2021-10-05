@@ -61,7 +61,8 @@ Random
 
 Used in...
 ----------
-* OSRE ( aka Open-Source-Render-Experience ): https://github.com/kimkulling/osre
+* OSRE (aka Open-Source-Render-Experience): 
+* Openddl-Parser: [The OpenDDL-Parser Repo](https://github.com/kimkulling/openddl-parser)
 
 How to contribute
 -----------------
