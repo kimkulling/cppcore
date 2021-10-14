@@ -36,15 +36,43 @@ namespace CPPCore {
 template <class T>
 class TBitField {
 public:
+    /// @brief  The default class constructor.
     TBitField();
+    
+    /// @brief  The class constructor  with the initial value.
+    /// @param[in] init The init value.
     TBitField(T init);
+    
+    /// @brief  The class destructor.
     ~TBitField();
+    
+    /// @brief  Returns the current bit-mask.
+    /// @return The bitmask.
     T GetMask() const;
+    
+    /// @brief  Will return the bit at the given position.
+    /// @param[in] pos  The bit position for readout.
+    /// @return true for bit is set, false for not.
     bool getBit(size_t pos) const;
+    
+    /// @brief  Will set the bit at the given position to the given state.
+    /// @param[in] pos  The bit position for write.
+    /// @param[in] on   The bit state to set.
     void setBit(size_t pos, bool on);
+
+    /// @brief  Will set the bit at the given position to true.
+    /// @param[in] pos  The bit position for write.
     void setBit(size_t pos);
+    
+    /// @brief  Will clear the bit at the given postion to false.
+    /// @param[in] pos  The bit position for write.
     void clearBit(size_t pos);
+
+    /// @brief  Will clear all bits, they will set to false.
     void clear();
+    
+    /// @brief  Returns the upper limit for bit positions.
+    /// @return The upper position limit.
     size_t maxBits() const;
 
 private:
@@ -63,7 +91,6 @@ inline TBitField<T>::TBitField(T init) :
     // empty
 }
 
-
 template <class T>
 inline TBitField<T>::~TBitField() {
     clear();
@@ -77,7 +104,7 @@ inline T TBitField<T>::GetMask() const {
 template <class T>
 inline bool TBitField<T>::getBit(size_t pos) const {
     assert(pos < maxBits());
-    return (mBitMask & (1 << pos)) != 0; // 1
+    return (mBitMask & (1 << pos)) != 0;
 }
 
 template <class T>
@@ -93,13 +120,13 @@ inline void TBitField<T>::setBit(size_t pos, bool on) {
 template <class T>
 inline void TBitField<T>::setBit(size_t pos) {
     assert(pos < maxBits());
-    mBitMask = mBitMask | 1 << pos; // 2
+    mBitMask = mBitMask | 1 << pos;
 }
 
 template <class T>
 inline void TBitField<T>::clearBit(size_t pos) {
     assert(pos < maxBits());
-    mBitMask = mBitMask & ~(1 << pos); // 3
+    mBitMask = mBitMask & ~(1 << pos);
 }
 
 template <class T>
