@@ -30,7 +30,7 @@ namespace CPPCore {
 /// @class      TDefaultAllocator
 /// @ingroup    CPPCore
 ///
-///	@brief  This class implements the default allocator used by all container classes of the cppcore 
+/// @brief  This class implements the default allocator used by all container classes of the cppcore 
 /// library.
 //-------------------------------------------------------------------------------------------------
 template <class T>
