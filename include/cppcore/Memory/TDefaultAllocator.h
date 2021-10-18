@@ -27,8 +27,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace CPPCore {
 
 //-------------------------------------------------------------------------------------------------
-///	@class		TDefaultAllocator
-///	@ingroup	CPPCore
+/// @class      TDefaultAllocator
+/// @ingroup    CPPCore
 ///
 ///	@brief  This class implements the default allocator used by all container classes of the cppcore 
 /// library.
