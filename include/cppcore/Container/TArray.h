@@ -64,7 +64,7 @@ public:
 
     ///	@enum	SortedMode
     ///	@brief	This enum describes the sorting mode of the array.
-    enum SortedMode {
+    enum class SortMode {
         Unsorted, ///< No sorting performed.
         Ascending, ///< The array is sorted ascending.
         Descending ///< The array is sorted descending.
@@ -186,7 +186,7 @@ public:
 
 private:
     TAlloc mAllocator;
-    SortedMode m_Sorted;
+    SortMode m_Sorted;
     size_t m_Size;
     size_t m_Capacity;
     T *m_pData;
@@ -195,7 +195,7 @@ private:
 template <class T, class TAlloc>
 inline TArray<T, TAlloc>::TArray() :
         mAllocator(),
-        m_Sorted(Unsorted),
+        m_Sorted(SortMode::Unsorted),
         m_Size(0),
         m_Capacity(0),
         m_pData(nullptr) {
@@ -204,7 +204,7 @@ inline TArray<T, TAlloc>::TArray() :
 
 template <class T, class TAlloc>
 inline TArray<T, TAlloc>::TArray(size_t size) :
-        m_Sorted(Unsorted),
+        m_Sorted(SortMode::Unsorted),
         m_Size(0),
         m_Capacity(0),
         m_pData(nullptr) {
@@ -450,7 +450,7 @@ inline bool TArray<T, TAlloc>::isEmpty() const {
 template <class T, class TAlloc>
 inline typename TArray<T, TAlloc>::Iterator
     TArray<T, TAlloc>::find(const T &rItem) {
-    if (m_Sorted == Unsorted) {
+    if (m_Sorted == SortMode::Unsorted) {
         for (Iterator it = begin(); it != end(); ++it) {
             if (rItem == *it) {
                 return it;
