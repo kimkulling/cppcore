@@ -20,7 +20,6 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
-
 #pragma once
 
 #include <string>
@@ -28,10 +27,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace CPPCore {
 
 //-------------------------------------------------------------------------------------------------
-///	@class		TDefaultAllocator
-///	@ingroup	CPPCore
+/// @class      TDefaultAllocator
+/// @ingroup    CPPCore
 ///
-///	@brief  This class implements the default allocator used by all container classes of the cppcore 
+/// @brief  This class implements the default allocator used by all container classes of the cppcore 
 /// library.
 //-------------------------------------------------------------------------------------------------
 template <class T>
@@ -43,6 +42,9 @@ public:
     /// @brief  The class destructor.
     ~TDefaultAllocator();
 
+    /// @brief  Will allocate the number of insances.
+    /// @param[in] size   Size of instances to allocate.
+    /// @return Pointer showing to the new instance or nullptr if not possible.
     T *alloc(size_t size);
 
     /// @brief  Will release the last item from the stack. A basic check will be performed to
@@ -50,7 +52,8 @@ public:
     /// @param  ptr     [in] The pointer to validate.
     void release(T *ptr);
 
-    /// @brief
+    /// @brief Will prereserve the number of instances.
+    /// @param[in] size  NUmber, not used here.
     void reserve(size_t size);
 
     /// @brief  Will clear the whole memory, all used data will be marked as invalid.

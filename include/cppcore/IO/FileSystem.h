@@ -30,11 +30,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace CPPCore {
 
+/// @brief  The file-system space info.
 struct FSSpace {
-    long capacity;
-    long free;
-    long inUse;
+    long capacity;  ///< The capacity in total.
+    long free;      ///< The free capacity
+    long inUse;     ///< The used capacity
 
+    /// @brief  The default class constructor.
     FSSpace() :
             capacity(0L), free(0L), inUse(0L) {
         // empty
@@ -43,9 +45,18 @@ struct FSSpace {
 
 class FileSystem {
 public:
+    /// @brief  The class constructor with the location.
+    /// @param[in] location     The root location.
     FileSystem(const char *location);
+    
+    /// @brief  The class destructor.
     ~FileSystem();
+    
+    /// @brief  Will perform a refresh.
     void refresh();
+    
+    /// @brief  Will return the free disk info.
+    /// @return the File-system space.
     FSSpace *getFreeDiskSpace();
 
 private:
