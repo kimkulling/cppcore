@@ -86,6 +86,10 @@ public:
     ///	@return	TYpe enum of the current dynamic type of the instance.
     Type getType() const;
 
+    size_t getSize() const;
+
+     void *getPtr() const;
+
     /// @brief  Will set the payload to the given value.
     /// @param  value   [in] The new given payload.
     void setByte(unsigned char value);
@@ -246,6 +250,14 @@ inline Variant::Type Variant::getType() const {
     return m_Type;
 }
 
+inline size_t Variant::getSize() const {
+    return m_BufferSize;
+}
+
+inline void *Variant::getPtr() const {
+    return m_pData;
+}
+
 inline void Variant::setByte(unsigned char value) {
     clear();
     reserve(Byte, 0);
@@ -368,6 +380,11 @@ inline void Variant::setStdString(const std::string &value) {
     }
     m_BufferSize = sizeof(char) * (value.size() + 1);
     m_pData = (char*) ::malloc(m_BufferSize);
+    if (m_pData == nullptr) {
+        clear();
+        return;
+    }
+
     ::memcpy(m_pData, value.c_str(), sizeof(char) * value.size());
     char *ptr = (char *) m_pData;
     ptr[value.size()] = '\0';
