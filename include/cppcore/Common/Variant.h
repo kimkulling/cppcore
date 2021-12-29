@@ -86,9 +86,13 @@ public:
     ///	@return	TYpe enum of the current dynamic type of the instance.
     Type getType() const;
 
+    /// @brief  Will return the size in bytes of the stored type.
+    /// @return The size in bytes.
     size_t getSize() const;
 
-     void *getPtr() const;
+    ///	@brief  Will return a raw pointer showing to the data.
+    /// @return The pointer.
+    void *getPtr() const;
 
     /// @brief  Will set the payload to the given value.
     /// @param  value   [in] The new given payload.
@@ -181,6 +185,11 @@ public:
 
     ///	@brief	Clears the variant data, type will set back to None.
     void clear();
+
+    /// @brief  Static helper method to generate a new variant storing a std::string.
+    /// @param  value   The std::string data.
+    /// @return Thew new created variant as a pointer.
+    static Variant *createFromString(const std::string &value);
 
     ///	@brief	Operator implementations.
     bool operator==(const Variant &rOther) const;
@@ -416,6 +425,13 @@ inline void Variant::clear() {
     ::free(m_pData);
     m_pData = nullptr;
     m_Type = None;
+}
+
+inline Variant *Variant::createFromString( const std::string &value ) {
+    Variant *v = new Variant();
+    v->setStdString(value);
+
+    return v;
 }
 
 inline bool Variant::operator==(const Variant &rOther) const {

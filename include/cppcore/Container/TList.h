@@ -24,8 +24,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <cppcore/CPPCoreCommon.h>
 
-#include <cassert>
-
 namespace CPPCore {
 
 //-------------------------------------------------------------------------------------------------
