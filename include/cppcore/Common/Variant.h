@@ -180,7 +180,12 @@ public:
     ///	@return	A pointer showing to the data buffer of the string.
     const char *getString() const;
 
+    /// @brief Will set a new bool value.
+    /// @param value The new bool value.
     void setBool(bool value);
+
+    /// @brief  Will return the bool value.
+    /// @return The bool value.
     bool getBool() const;
 
     ///	@brief	Clears the variant data, type will set back to None.
@@ -196,7 +201,15 @@ public:
     Variant &operator=(const Variant &rOther);
 
 protected:
+    /// @brief  Performs a validation.
+    /// @param type         The type to validate for
+    /// @param numItems     The number of items to validate.
+    /// @return true, if data is valid.
     bool isValid(Type type, size_t numItems) const;
+    
+    /// @brief Will reserve a buffer for the requested types.
+    /// @param type     The requested type.
+    /// @param size     The number of items.
     void reserve(Type type, size_t size);
 
 private:
