@@ -37,6 +37,13 @@ namespace CPPCore {
 /// pool. You have to release all pooled instances after the usage.
 /// This allocation scheme is fast and does no call any new-calls during the lifetime of the
 /// allocator.
+/// @code
+/// struct foo { int payload[10]; };
+/// TPoolAllocator<foo> allocator(10000);
+/// foo *instance = allocator.alloc();
+/// ...
+/// allocator.release(instance);
+/// @endcode
 //-------------------------------------------------------------------------------------------------
 template <class T>
 class TPoolAllocator {
