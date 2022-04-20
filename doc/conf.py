@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'cppcoree_doc'
-copyright = '2021, Kim Kulling'
+copyright = '2022, Kim Kulling'
 author = 'Kim Kulling'
 
 
