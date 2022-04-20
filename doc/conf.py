@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'cppcoree_doc'
+project = 'cppcore_doc'
 copyright = '2022, Kim Kulling'
 author = 'Kim Kulling'
 
