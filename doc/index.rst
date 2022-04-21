@@ -7,8 +7,9 @@ Welcome to CPPCore's documentation!
 ====================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents
+   :maxdepth: 1
+   :caption: Main
+   :name: sec-main
 
    Introduction
    Container
