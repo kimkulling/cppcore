@@ -21,6 +21,7 @@ project = 'cppcore_doc'
 copyright = '2022, Kim Kulling'
 author = 'Kim Kulling'
 
+master_doc = 'index'
 
 # -- General configuration ---------------------------------------------------
 
