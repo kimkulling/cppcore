@@ -13,6 +13,7 @@ Welcome to CPPCore's documentation!
 
    Introduction
    Container
+   Memory
 
 
 Indices and tables
