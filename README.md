@@ -24,6 +24,7 @@ If you are using Linux, you can build it with the make-command:
 > make -j3
 
 [![Build Status](https://travis-ci.org/kimkulling/cppcore.png)](https://travis-ci.org/kimkulling/cppcore)
+[![Documentation Status](https://readthedocs.org/projects/cppcore/badge/?version=latest)](https://cppcore.readthedocs.io/en/latest/?badge=latest)
 
 The library is pretty small and contains at this moment:
 
