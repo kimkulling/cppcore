@@ -7,7 +7,6 @@ tests, so doing a proof of my failures are easy :-).
 
 Documentation
 -------------
-[Documentation - work in progress](https://cppcore.readthedocs.io/en/latest/)
 
 How to build it:
 ----------------
