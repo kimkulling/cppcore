@@ -44,7 +44,7 @@ public:
     TBitField(T init);
     
     /// @brief  The class destructor.
-    ~TBitField();
+    ~TBitField() = default;
     
     /// @brief  Returns the current bit-mask.
     /// @return The bitmask.
@@ -89,11 +89,6 @@ template <class T>
 inline TBitField<T>::TBitField(T init) :
         mBitMask(init) {
     // empty
-}
-
-template <class T>
-inline TBitField<T>::~TBitField() {
-    clear();
 }
 
 template <class T>
