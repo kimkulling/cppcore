@@ -11,10 +11,10 @@ To work with the library you will need:
 - G++ or Clang
 
 Get the library from github. When you have downloaded the source navigate into the source folder and follow these steps:
-'''
+```
 cmake CMakeLists 
 cmake --build .
-'''
+```
 
 ## Features
 [Containers](./Container.md.md)  
