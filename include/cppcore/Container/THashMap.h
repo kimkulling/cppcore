@@ -31,15 +31,23 @@ namespace CPPCore {
 ///	@class		THashMap
 ///	@ingroup	CPPCore
 ///
-///	@brief
+///	@brief  This class implements a hash map. You can access your data like:
+/// @code
+/// using TestHashMap = THashMap<int, String>:
+/// TestHashMap hm;
+/// hm.insert(1, "test");
+/// hm.hasKey(1); // will return true;
+/// hm.remove(1);
+/// hm.hasKey(1); // will return false;
+/// @endcode
 //-------------------------------------------------------------------------------------------------
 template <class T, class U, class TAlloc = TDefaultAllocator<T>>
 class THashMap {
 public:
     ///	@brief  The initial hash size.
-    static const size_t InitSize = 1024;
+    static constexpr size_t InitSize = 1024;
     ///	@brief  Marker for unset node keys.
-    static const unsigned int UnsetNode = 999999999;
+    static constexpr unsigned int UnsetNode = 999999999;
 
 public:
     ///	@brief  The class constructor.
