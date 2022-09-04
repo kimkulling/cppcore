@@ -7,7 +7,6 @@ tests, so doing a proof of my failures are easy :-).
 
 Documentation
 -------------
-[Documentation - work in progress](https://cppcore.readthedocs.io/en/latest/)
 
 How to build it:
 ----------------
@@ -23,8 +22,8 @@ If you are using Visual Studio on windows a solution file will be generated.
 If you are using Linux, you can build it with the make-command:
 > make -j3
 
-[![Build Status](https://travis-ci.org/kimkulling/cppcore.png)](https://travis-ci.org/kimkulling/cppcore)
-[![Documentation Status](https://readthedocs.org/projects/cppcore/badge/?version=latest)](https://cppcore.readthedocs.io/en/latest/?badge=latest)
+[![Build status](https://github.com/kimkulling/cppcore/actions/workflows/cmake.yml/badge.svg)](https://github.com/kimkulling/cppcore/actions/workflows/cmake.yml)
+
 
 The library is pretty small and contains at this moment:
 
