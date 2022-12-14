@@ -30,7 +30,7 @@ The library is pretty small and contains at this moment:
 * **TArray**:           A simple dynamic template-based array list, similar to std::vector. [Examples can be found here](https://github.com/kimkulling/cppcore/blob/master/test/container/TArrayTest.cpp)
 * **TList**:            A double template-based linked list. [Examples can be found here](https://github.com/kimkulling/cppcore/blob/master/test/container/TListTest.cpp) 
 * **TQueue**:           A simple template-based FIFO queue.
-* **THashMap**:         A key-value template-based hash map for easy lookup tables
+* **THashMap**:         A key-value template-based hash map for easy lookup tables.
 [Containers](./Container.md)  
 
 ## Memory
