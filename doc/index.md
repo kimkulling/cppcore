@@ -31,12 +31,16 @@ The library is pretty small and contains at this moment:
 * **TList**:            A double template-based linked list. [Examples can be found here](https://github.com/kimkulling/cppcore/blob/master/test/container/TListTest.cpp) 
 * **TQueue**:           A simple template-based FIFO queue.
 * **THashMap**:         A key-value template-based hash map for easy lookup tables.
-[Containers](./Container.md)  
+
+[Detailed Doc: Containers](./Container.md)  
+
 
 ## Memory
 * **TStackAllocator**:  A stack-based allocator, first allocation must be released at last ( FiFo-schema ).
 * **TPoolAllocator**:   A pool-based allocator. Not much overhead and really fast. At the moment it is not supported to release single objects.
-[Memory classes](./Memory.md)  
+
+[Detailed Doc:Memory classes](./Memory.md)  
+
 
 ## Filesystem
 * **FileSystem**:      Common file-system abstractions for platform independent access and info.
