@@ -4,6 +4,20 @@
 The TArray template class implements a simple dynamic array. You can let the array 
 grow and shring during runtime.
 
+```cpp
+#include <Container/TStaticArray.h>
+
+using IntArray = CPPCore::TStaticArray<int, 2>;
+
+int main() {
+    IntArray intArray;
+    intArray[0] = 1;
+    intArray[2] = 1;
+    
+    return 0;
+}
+```
+
 ## CPPCore::TStaticArray
 The TStaticArray template class a static array with bound checks during runtime. 
 The dimension of the array will be set during compile time.
