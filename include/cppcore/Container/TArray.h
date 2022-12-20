@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <cppcore/CPPCoreCommon.h>
 #include <cppcore/Memory/TDefaultAllocator.h>
 
-namespace CPPCore {
+namespace cppcore {
 namespace Details {
 
 inline static size_t getGrowing(size_t size) {
@@ -532,4 +532,4 @@ inline bool TArray<T, TAlloc>::operator == (const TArray<T, TAlloc> &rhs) const 
     return true;
 }
 
-} // Namespace CPPCore
+} // Namespace cppcore

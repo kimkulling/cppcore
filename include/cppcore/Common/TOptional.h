@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <cppcore/CPPCoreCommon.h>
 
-namespace CPPCore {
+namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		TOptional
@@ -101,4 +101,4 @@ inline T &TOptional<T>::operator = (const T &value) {
     return *this;
 }
 
-}
+} // namespace cppcore

@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <cppcore/Container/TList.h>
 #include <cppcore/Memory/TDefaultAllocator.h>
 
-namespace CPPCore {
+namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		TQueue
@@ -150,4 +150,4 @@ inline bool TQueue<T, TAlloc>::operator == ( const TQueue<T, TAlloc> &rhs ) cons
     return m_QueueData == rhs.m_QueueData;
 }
 
-} // Namespace CPPCore
+} // Namespace cppcore

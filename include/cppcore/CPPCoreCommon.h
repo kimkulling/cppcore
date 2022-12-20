@@ -29,7 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <stdio.h>
 #include <stdarg.h>
 
-namespace CPPCore {
+namespace cppcore {
 
 #if defined( _WIN32 ) || defined( _WIN64 )
 #   define CPPCORE_WINDOWS
@@ -103,4 +103,4 @@ public: \
 //-------------------------------------------------------------------------------------------------
 #define CPPCORE_ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
 
-} // Namespace CPPCore
+} // Namespace cppcore

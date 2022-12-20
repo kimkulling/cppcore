@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <string.h>
 #include <cassert>
 
-namespace CPPCore {
+namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		TArray
@@ -153,4 +153,4 @@ inline TStaticArray<T, len> &TStaticArray<T, len>::operator=(const TStaticArray<
     return *this;
 }
 
-} // namespace CPPCore
+} // namespace cppcore

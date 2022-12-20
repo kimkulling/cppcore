@@ -30,7 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <sstream>
 #include <iostream>
 
-using namespace CPPCore;
+using namespace cppcore;
 
 // Some test-data
 static const size_t ArraySize = 4;

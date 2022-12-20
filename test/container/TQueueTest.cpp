@@ -26,7 +26,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "gtest/gtest.h"
 
-using namespace CPPCore;
+using namespace cppcore;
 
 class TQueueTest : public testing::Test {
     // empty

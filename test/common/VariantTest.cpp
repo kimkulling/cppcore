@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <cppcore/Common/Variant.h>
 
-using namespace CPPCore;
+using namespace cppcore;
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		::VariantTest

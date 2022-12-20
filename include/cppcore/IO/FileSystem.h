@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <sys/statvfs.h>
 #endif
 
-namespace CPPCore {
+namespace cppcore {
 
 /// @brief  The file-system space info.
 struct FSSpace {
@@ -99,4 +99,4 @@ inline FSSpace *FileSystem::getFreeDiskSpace() {
     return &m_fsSpace;
 }
 
-} // Namespace CPPCore
+} // Namespace cppcore

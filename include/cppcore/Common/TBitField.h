@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <cppcore/CPPCoreCommon.h>
 #include <cassert>
 
-namespace CPPCore {
+namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		TBitField
@@ -135,4 +135,4 @@ inline size_t TBitField<T>::maxBits() const {
     return numBits;
 }
 
-} // namespace CPPCore
+} // namespace cppcore

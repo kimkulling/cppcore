@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <cppcore/Common/Hash.h>
 #include <cppcore/Memory/TDefaultAllocator.h>
 
-namespace CPPCore {
+namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		THashMap
@@ -360,4 +360,4 @@ inline void THashMap<T, U, TAlloc>::Node::releaseList() {
     }
 }
 
-} // Namespace CPPCore
+} // Namespace cppcore
