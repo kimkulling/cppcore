@@ -38,7 +38,7 @@ static void mersenne_twister_vector_init( unsigned int *seedPoints, size_t len )
     unsigned int       seed = 5489ul;
     for (size_t i = 0; i < len; ++i) {
         seedPoints[ i ] = seed;
-        seed = mult * (seed ^ (seed >> 30)) + (i + 1);
+        seed = mult * (seed ^ (seed >> 30)) + (static_cast<unsigned int>(i) + 1);
     }
 }
 
