@@ -23,7 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <gtest/gtest.h>
 #include <cppcore/Common/TOptional.h>
 
-using namespace ::CPPCore;
+using namespace ::cppcore;
 
 class TOptionalTest : public ::testing::Test {
     // empty

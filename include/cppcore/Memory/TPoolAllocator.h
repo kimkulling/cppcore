@@ -26,7 +26,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <string>
 
-namespace CPPCore {
+namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		TPoolAllocator
@@ -283,4 +283,4 @@ void TPoolAllocator<T>::reset() {
     m_current = m_first;
 }
 
-} // Namespace CPPCore
+} // Namespace cppcore

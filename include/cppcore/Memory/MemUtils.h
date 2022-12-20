@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <string.h>
 #include <cinttypes>
 
-namespace CPPCore {
+namespace cppcore {
 
 #define ALIGN_MASK(value, mask) (((value) + (mask)) & ((~0) & (~(mask))))
 
@@ -78,4 +78,4 @@ inline const void *MemUtils::alignPtr(void *ptr, size_t extra, size_t align) {
     return unaligned.mPtr;
 }
 
-} // Namespace CPPCore
+} // Namespace cppcore

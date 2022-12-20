@@ -26,7 +26,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <cppcore/CPPCoreCommon.h>
 #include <malloc.h>
 
-namespace CPPCore {
+namespace cppcore {
 
 template <class T>
 struct Allocator {
@@ -189,4 +189,3 @@ template <class TCharType>
 inline TCharType *TStringView<TCharType>::data() const {
 }
 
-} // Namespace CPPCore

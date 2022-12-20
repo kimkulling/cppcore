@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <cppcore/CPPCoreCommon.h>
 
-namespace CPPCore {
+namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		Hash
@@ -122,4 +122,4 @@ inline unsigned int Hash::hashValue() const {
     return m_hash;
 }
 
-} // Namespace CPPCore
+} // Namespace cppcore
