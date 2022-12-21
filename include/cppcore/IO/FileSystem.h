@@ -89,7 +89,7 @@ inline void FileSystem::refresh() {
     statvfs(m_drive, &stats);
     m_fsSpace.capacity = stats.f_bsize;
     m_fsSpace.free = stats.f_bsize * stats.f_bfree;
-    m_fsSpace.inUse = m_fsSpace->capacity - m_fsSpace->free;
+    m_fsSpace.inUse = m_fsSpace.capacity - m_fsSpace.free;
 #endif
 }
 
