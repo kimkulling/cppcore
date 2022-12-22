@@ -23,7 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <cppcore/Random/RandomGenerator.h>
 #include <gtest/gtest.h>
 
-using namespace CPPCore;
+using namespace cppcore;
 
 class RandomGeneratorTest : public testing::Test {
     // empty

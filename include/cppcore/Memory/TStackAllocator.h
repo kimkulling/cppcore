@@ -26,7 +26,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <string>
 
-namespace CPPCore {
+namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		TStackAllocator
@@ -214,4 +214,4 @@ inline void TStackAllocator<T>::dumpAllocations(std::string &allocs) {
     allocs += "\n";
 }
 
-} // Namespace CPPCore
+} // Namespace cppcorecppcore

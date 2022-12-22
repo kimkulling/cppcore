@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2021 Kim Kulling
+Copyright (c) 2014-2022 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <cppcore/CPPCoreCommon.h>
 
-namespace CPPCore {
+namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		TOptional
@@ -40,7 +40,7 @@ public:
     TOptional(T defaultValue);
 
     /// @brief  The class destructor.
-    ~TOptional();
+    ~TOptional() = default;
 
     /// @brief  Will return false, if the value was not set,
     /// @return The init state.
@@ -66,11 +66,6 @@ template<class T>
 inline TOptional<T>::TOptional(T defaultValue) :
         mValue(defaultValue),
         mInited(false) {
-    // empty
-}
-
-template<class T>
-inline TOptional<T>::~TOptional() {
     // empty
 }
 
@@ -106,4 +101,4 @@ inline T &TOptional<T>::operator = (const T &value) {
     return *this;
 }
 
-}
+} // namespace cppcore

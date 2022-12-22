@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <cassert>
 #include <string>
 
-namespace CPPCore {
+namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		Variant
@@ -530,4 +530,4 @@ inline void Variant::reserve(Type type, size_t size) {
     m_Type = type;
 }
 
-} // Namespace CPPCore
+} // Namespace cppcore

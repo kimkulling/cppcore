@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2021 Kim Kulling
+Copyright (c) 2014-2022 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <cppcore/CPPCoreCommon.h>
 #include <cppcore/Memory/TDefaultAllocator.h>
 
-namespace CPPCore {
+namespace cppcore {
 namespace Details {
 
 inline static size_t getGrowing(size_t size) {
@@ -532,4 +532,4 @@ inline bool TArray<T, TAlloc>::operator == (const TArray<T, TAlloc> &rhs) const 
     return true;
 }
 
-} // Namespace CPPCore
+} // Namespace cppcore

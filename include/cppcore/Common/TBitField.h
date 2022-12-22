@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <cppcore/CPPCoreCommon.h>
 #include <cassert>
 
-namespace CPPCore {
+namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		TBitField
@@ -44,7 +44,7 @@ public:
     TBitField(T init);
     
     /// @brief  The class destructor.
-    ~TBitField();
+    ~TBitField() = default;
     
     /// @brief  Returns the current bit-mask.
     /// @return The bitmask.
@@ -92,11 +92,6 @@ inline TBitField<T>::TBitField(T init) :
 }
 
 template <class T>
-inline TBitField<T>::~TBitField() {
-    clear();
-}
-
-template <class T>
 inline T TBitField<T>::GetMask() const {
     return mBitMask;
 }
@@ -140,4 +135,4 @@ inline size_t TBitField<T>::maxBits() const {
     return numBits;
 }
 
-} // namespace CPPCore
+} // namespace cppcore

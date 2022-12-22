@@ -23,8 +23,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #pragma once
 
 #include <cppcore/Container/TList.h>
+#include <cppcore/Memory/TDefaultAllocator.h>
 
-namespace CPPCore {
+namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		TQueue
@@ -32,7 +33,7 @@ namespace CPPCore {
 ///
 ///	@brief	This template class implements a simple queue ( works FIFO ).
 //-------------------------------------------------------------------------------------------------
-template<class T>
+template<class T, class TAlloc = TDefaultAllocator<T>>
 class TQueue {
 public:
     ///	@brief	The default class constructor.
@@ -40,7 +41,7 @@ public:
 
     ///	@brief	The class copy constructor.
     ///	@param	rhs 	[in] The instance to copy from.
-    TQueue( const TQueue<T> &rhs );
+    TQueue( const TQueue<T, TAlloc> &rhs );
 
     ///	@brief	The destructor.
     ~TQueue();
@@ -71,44 +72,39 @@ public:
     void clear();
 
     ///	@brief	The assignment operator.
-    TQueue<T> &operator = ( const TQueue<T> &rhs );
+    TQueue<T, TAlloc> &operator = ( const TQueue<T, TAlloc> &rhs );
 
     ///	@brief	The compare operator.
-    bool operator == ( const TQueue<T> &rhs ) const;
+    bool operator == ( const TQueue<T, TAlloc> &rhs ) const;
 
 private:
     TList<T> m_QueueData;
 };
 
-template<class T>
-inline
-TQueue<T>::TQueue() noexcept
-: m_QueueData() {
+template<class T, class TAlloc>
+inline TQueue<T, TAlloc>::TQueue() noexcept :
+        m_QueueData() {
     // empty
 }
 
-template<class T>
-inline
-TQueue<T>::TQueue( const TQueue<T> &rhs ) 
-: m_QueueData( rhs.m_QueueData ) {
+template<class T, class TAlloc>
+inline TQueue<T, TAlloc>::TQueue( const TQueue<T, TAlloc> &rhs )  :
+        m_QueueData( rhs.m_QueueData ) {
     // empty
 }
 
-template<class T>
-inline
-TQueue<T>::~TQueue() {
+template<class T, class TAlloc>
+inline TQueue<T, TAlloc>::~TQueue() {
     clear();
 }
 
-template<class T>
-inline
-void TQueue<T>::enqueue( const T &item ) {
+template<class T, class TAlloc>
+inline void TQueue<T, TAlloc>::enqueue( const T &item ) {
     m_QueueData.addBack( item );
 }
 
-template<class T>
-inline
-bool TQueue<T>::dequeue( T &item ) {
+template<class T, class TAlloc>
+inline bool TQueue<T, TAlloc>::dequeue( T &item ) {
     item = m_QueueData.front();
     m_QueueData.removeFront();
     if ( isEmpty() ) {
@@ -118,33 +114,28 @@ bool TQueue<T>::dequeue( T &item ) {
     }
 }
 
-template<class T>
-inline
-T TQueue<T>::front() {
+template<class T, class TAlloc>
+inline T TQueue<T, TAlloc>::front() {
     return m_QueueData.front();
 }
 
-template<class T>
-inline
-bool TQueue<T>::isEmpty() const {
+template<class T, class TAlloc>
+inline bool TQueue<T, TAlloc>::isEmpty() const {
     return m_QueueData.isEmpty();
 }
 
-template<class T>
-inline
-size_t TQueue<T>::size( ) {
+template<class T, class TAlloc>
+inline size_t TQueue<T, TAlloc>::size( ) {
     return m_QueueData.size();
 }
 
-template<class T>
-inline
-void TQueue<T>::clear() {
+template<class T, class TAlloc>
+inline void TQueue<T, TAlloc>::clear() {
     m_QueueData.clear();
 }
 
-template<class T>
-inline
-TQueue<T> &TQueue<T>::operator = ( const TQueue<T> &rhs ) {
+template<class T, class TAlloc>
+inline TQueue<T, TAlloc> &TQueue<T, TAlloc>::operator = ( const TQueue<T, TAlloc> &rhs ) {
     if ( *this == rhs ) {
         return *this;
     }
@@ -154,10 +145,9 @@ TQueue<T> &TQueue<T>::operator = ( const TQueue<T> &rhs ) {
     return *this;
 }
 
-template<class T>
-inline
-bool TQueue<T>::operator == ( const TQueue<T> &rhs ) const {
+template<class T, class TAlloc>
+inline bool TQueue<T, TAlloc>::operator == ( const TQueue<T, TAlloc> &rhs ) const {
     return m_QueueData == rhs.m_QueueData;
 }
 
-} // Namespace CPPCore
+} // Namespace cppcore

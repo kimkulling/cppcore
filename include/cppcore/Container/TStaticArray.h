@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <string.h>
 #include <cassert>
 
-namespace CPPCore {
+namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		TArray
@@ -50,7 +50,7 @@ public:
     TStaticArray(const TStaticArray<T, len> &rhs);
 
     /// @brief  The class destructor.
-    ~TStaticArray();
+    ~TStaticArray() = default;
 
     /// @brief  Returns the number of items in the array.
     /// @retun  The size of the array.
@@ -96,11 +96,6 @@ inline TStaticArray<T, len>::TStaticArray(const TStaticArray<T, len> &rhs) :
     for (size_t i = 0; i < m_len; ++i) {
         m_array[i] = rhs.m_array[i];
     }
-}
-
-template <class T, size_t len>
-inline TStaticArray<T, len>::~TStaticArray() {
-    // empty
 }
 
 template <class T, size_t len>
@@ -158,4 +153,4 @@ inline TStaticArray<T, len> &TStaticArray<T, len>::operator=(const TStaticArray<
     return *this;
 }
 
-} // namespace CPPCore
+} // namespace cppcore

@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <string>
 
-namespace CPPCore {
+namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
 /// @class      TDefaultAllocator
@@ -129,4 +129,4 @@ inline void TDefaultAllocator<T>::dumpAllocations(std::string &allocs) {
     // empty
 }
 
-} // Namespace CPPCore
+} // Namespace cppcore

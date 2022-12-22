@@ -22,10 +22,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
 #include <cppcore/Memory/MemUtils.h>
 
-namespace CPPCore {
+namespace cppcore {
     
 void MemUtils::clearMemory( void *buffer, size_t size ) {
     ::memset( buffer, 0, size );
 }
 
-} // Namespace CPPCore 
+} // Namespace cppcore 

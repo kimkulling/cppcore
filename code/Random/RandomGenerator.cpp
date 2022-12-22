@@ -26,7 +26,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <time.h>
 #include <cassert>
 
-namespace CPPCore {
+namespace cppcore {
 
 static const unsigned int N = 624;
 static const unsigned int M = 397;
@@ -98,4 +98,4 @@ int RandomGenerator::get( int lower, int upper ) {
     return ret;
 }
 
-} // Namespace CPPCore
+} // Namespace cppcore

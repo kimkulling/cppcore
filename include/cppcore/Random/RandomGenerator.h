@@ -26,7 +26,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <memory>
 
-namespace CPPCore {
+namespace cppcore {
     
 //-------------------------------------------------------------------------------------------------
 ///	@class		RandomGenerator
@@ -63,4 +63,4 @@ private:
     GeneratorType m_type;
 };
 
-} // Namespace CPPCore
+} // Namespace cppcore
