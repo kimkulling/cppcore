@@ -103,6 +103,10 @@ public:
     ///	@brief	The last item will be removed.
     void removeBack();
 
+    /// @brief Will set all items to the value.
+    /// @param value    The value to set.
+    void set(const T &value);
+
     ///	@brief	The item at the given index will be destroyed, the destructor will be called manually.
     ///	@param	index	    [in] The index of the item.
     void destroy(array_size_type index);
@@ -294,6 +298,17 @@ inline void TArray<T, TAlloc>::removeBack() {
     assert(!isEmpty());
 
     remove(size() - 1);
+}
+
+template <class T, class TAlloc>
+inline void TArray<T, TAlloc>::set( const T &value ) {
+    if (isEmpty()) {
+        return;
+    }
+
+    for (size_t i = 0; i < size(); ++i) {
+        m_pData[i] = value;
+    }
 }
 
 template <class T, class TAlloc>
