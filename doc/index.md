@@ -23,7 +23,6 @@ The library is pretty small and contains at this moment:
 * **THash**:            A hash function to calculate hash values.
 * **TOptional**:        Implements an optional value.
 * **TBitField**:        Implements a simple bitfield.
-* **Variant**:          Implements a variant type.
 
 ## Containers
 * **TStaticArray**:     A static template-based array.
