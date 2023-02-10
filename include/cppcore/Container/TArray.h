@@ -198,8 +198,8 @@ template <class T, class TAlloc>
 inline TArray<T, TAlloc>::TArray() :
         mAllocator(),
         m_Sorted(SortMode::Unsorted),
-        m_Size(0),
-        m_Capacity(0),
+        m_Size(0u),
+        m_Capacity(0u),
         m_pData(nullptr) {
     // empty
 }
@@ -207,8 +207,8 @@ inline TArray<T, TAlloc>::TArray() :
 template <class T, class TAlloc>
 inline TArray<T, TAlloc>::TArray(size_t size) :
         m_Sorted(SortMode::Unsorted),
-        m_Size(0),
-        m_Capacity(0),
+        m_Size(0u),
+        m_Capacity(0u),
         m_pData(nullptr) {
     const size_t capa = Details::getGrowing(size);
     reserve(capa);
@@ -218,11 +218,11 @@ inline TArray<T, TAlloc>::TArray(size_t size) :
 template <class T, class TAlloc>
 inline TArray<T, TAlloc>::TArray(const TArray<T, TAlloc> &rhs) :
         m_Sorted(rhs.m_Sorted),
-        m_Size(0),
-        m_Capacity(0),
+        m_Size(0u),
+        m_Capacity(0u),
         m_pData(nullptr) {
     resize(rhs.m_Size);
-    for (size_t i = 0; i < m_Size; ++i) {
+    for (size_t i = 0u; i < m_Size; ++i) {
         m_pData[i] = rhs.m_pData[i];
     }
 }
@@ -522,7 +522,7 @@ inline TArray<T, TAlloc> &TArray<T, TAlloc>::operator=(const TArray<T, TAlloc> &
     if (!other.isEmpty()) {
         assert(nullptr != other.m_pData);
         if (m_pData) {
-            for (size_t i = 0u; i < rOther.size(); ++i) {
+            for (size_t i = 0u; i < other.size(); ++i) {
                 m_pData[i] = other.m_pData[i];
             }
             m_Size = other.m_Size;
