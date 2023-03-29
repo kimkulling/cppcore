@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2022 Kim Kulling
+Copyright (c) 2014-2023 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -73,31 +73,31 @@ public:
     TArray();
 
     ///	@brief	The class constructor with an initial size.
-    ///	@param	size	[in] The initial size.
+    ///	@param[in] size     The initial size.
     explicit TArray(array_size_type size);
 
     ///	@brief	The copy constructor.
-    ///	@param	other	    [in] The instance to copy from.
-    TArray(const TArray<T, TAlloc> &other);
+    ///	@param[in] rhs      The instance to copy from.
+    TArray(const TArray<T, TAlloc> &rhs);
 
     ///	@brief	The class destructor.
     ~TArray();
 
     ///	@brief	A new item will be added to the array.
-    ///	@param	newValue    [in] The value to add.
+    ///	@param[in] newValue The value to add.
     void add(const T &newValue);
 
     ///	@brief	An array of new items will be added to the array.
-    ///	@param	newValues   [in] The array of new values to add.
-    ///	@param	numItems    [in] The number of items in the array.
+    ///	@param[in] newValues   The array of new values to add.
+    ///	@param[in] numItems    The number of items in the array.
     void add(const T *newValues, array_size_type numItems);
 
     ///	@brief	Removes an item at the given index.
-    ///	@param	index	    [in] The index of the item to remove.
+    ///	@param[in] index	   The index of the item to remove.
     void remove(array_size_type index);
 
     ///	@brief	Removes the item describes by a given iterator.
-    ///	@param	it	        [in] The iterator describing the position.
+    ///	@param[in] it	       The iterator describing the position.
     void remove(Iterator it);
 
     ///	@brief	The last item will be removed.
@@ -108,7 +108,7 @@ public:
     void set(const T &value);
 
     ///	@brief	The item at the given index will be destroyed, the destructor will be called manually.
-    ///	@param	index	    [in] The index of the item.
+    ///	@param[in] index	   The index of the item.
     void destroy(array_size_type index);
 
     ///	@brief	Returns the first item.
@@ -124,22 +124,22 @@ public:
     const T &back() const;
 
     ///	@brief	Moves the items from the start- to the end-index.
-    ///	@param	startIdx	[in] The start index.
-    ///	@param	endIdx		[in] The last index.
+    ///	@param[in] startIdx	   The start index.
+    ///	@param[in] endIdx	   The last index.
     void move(array_size_type startIdx, array_size_type endIdx);
 
     ///	@brief	Ensures, that the capacity of the array is big enough for the given size.
-    ///	@param	capacity	[in] The new capacity.
+    ///	@param[in] capacity	   The new capacity.
     ///	@remark	The size will not be modified.
     void reserve(array_size_type capacity);
 
     ///	@brief	Resize the array, new items will be created.
-    ///	@param	size	    [in] The new size for the array.
+    ///	@param[in] size	       The new size for the array.
     void resize(array_size_type size);
 
     ///	@brief	Resize the array, new items will be created.
-    ///	@param	size	    [in] The new size for the array.
-    /// @param  val         [in9 The value for initialization.
+    ///	@param[in] size	       The new size for the array.
+    /// @param[in] val         The value for initialization.
     void resize(array_size_type size, T val);
 
     ///	@brief	The current size of the array will be returned.
@@ -155,7 +155,7 @@ public:
     bool isEmpty() const;
 
     ///	@brief	Search for a given item in the array.
-    ///	@param	item	    [in] The item to look for.
+    ///	@param[in] item	       The item to look for.
     ///	@return	An iterator showing to the position will be returned.
     Iterator find(const T &item);
 
@@ -181,7 +181,7 @@ public:
     T &operator[](array_size_type idx) const;
 
     ///	@brief	The assignment operator.
-    TArray<T, TAlloc> &operator=(const TArray<T, TAlloc> &rOther);
+    TArray<T, TAlloc> &operator=(const TArray<T, TAlloc> &rhs);
 
     ///	@brief	The compare operator.
     bool operator==(const TArray<T, TAlloc> &rOther) const;
