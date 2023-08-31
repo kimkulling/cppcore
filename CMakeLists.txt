@@ -10,6 +10,7 @@ if( CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX )
     find_package(Threads)
 endif()
 
+set(CMAKE_CXX_STANDARD 14)
 option( CPPCORE_BUILD_UNITTESTS 
     "Build unit tests."
      ON 
@@ -167,7 +168,7 @@ IF( CPPCORE_BUILD_UNITTESTS )
     # Prevent overriding the parent project's compiler/linker
     # settings on Windows
     SET(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-    ADD_SUBDIRECTORY( contrib/googletest-1.10.x/googletest )
+    ADD_SUBDIRECTORY( contrib/googletest-1.10.x/ )
     ADD_EXECUTABLE( cppcore_unittest
         ${cppcore_test_src}
         ${cppcore_common_test_src}
