@@ -22,8 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
 #pragma once
 
-#include <string.h>
-#include <cinttypes>
+#include <cppcore/CPPCoreCommon.h>
 
 namespace cppcore {
 
@@ -40,7 +39,7 @@ inline size_t align(size_t n) {
 ///
 ///	@brief  Utility class for common memory operations.
 //-------------------------------------------------------------------------------------------------
-class MemUtils {
+class DLL_CPPCORE_EXPORT MemUtils {
 public:
     /// @brief  Will clear the given buffer with zero.
     /// @param  buffer      [inout] The buffer to clear.

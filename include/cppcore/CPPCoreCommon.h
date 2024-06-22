@@ -24,6 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <cstddef>
 #include <cassert>
+#include <cinttypes>
 #include <string.h>
 #include <stddef.h>
 #include <stdio.h>
