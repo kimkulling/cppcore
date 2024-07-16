@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
 #pragma once
 
-#include <cppcore//CPPCoreCommon.h>
+#include <cppcore/CPPCoreCommon.h>
 #include <string.h>
 #include <cinttypes>
 
@@ -78,6 +78,9 @@ inline bool MemUtils::isAligned(const void *ptr, size_t align) {
 }
 
 inline const void *MemUtils::alignPtr(void *ptr, size_t extra, size_t align) {
+     if (align == 0) {
+        return nullptr;
+    }
     union {
         const void *mPtr;
         uintptr_t mAddr;
