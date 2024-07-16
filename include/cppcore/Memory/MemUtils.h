@@ -22,6 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
 #pragma once
 
+#include <cppcore//CPPCoreCommon.h>
 #include <string.h>
 #include <cinttypes>
 
@@ -40,18 +41,30 @@ inline size_t align(size_t n) {
 ///
 ///	@brief  Utility class for common memory operations.
 //-------------------------------------------------------------------------------------------------
-class MemUtils {
+class DLL_CPPCORE_EXPORT MemUtils {
 public:
     /// @brief  Will clear the given buffer with zero.
-    /// @param  buffer      [inout] The buffer to clear.
+    /// @param[inout] buffer    The buffer to clear.
     static void clearMemory(void *buffer, size_t size);
 
+    ///	@brief Will return true, if the pointer fits into the alignment.
+    ///	@param[in] ptr          The pointer to check.
+    /// @param[in] align        The alignment to check for.
+    /// @return true if aligned, false if not.
     static bool isAligned(const void *ptr, size_t align);
 
+    ///	@brief  Will align the given pointer.
+    /// @param[in] ptr          The pointer to align.
+    /// @param[in] extra        Space for headers / meta information.
+    /// @param[in] align        The alignment to check for.
+    /// @return The aligned pointer.
     static const void *alignPtr(void *ptr, size_t extra, size_t align);
 
-    MemUtils() = delete;
-    ~MemUtils() = delete;
+    ///	@brief The default class constructor.
+    MemUtils() = default;
+
+    /// @brief The class destructor.
+    ~MemUtils() = default;
 };
 
 inline bool MemUtils::isAligned(const void *ptr, size_t align) {
