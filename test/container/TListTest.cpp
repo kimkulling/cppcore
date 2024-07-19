@@ -33,10 +33,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using namespace cppcore;
 
 //-------------------------------------------------------------------------------------------------
-///	@class		TListTest
-///	@ingroup	UnitTest
+/// @class     TListTest
+/// @ingroup   UnitTest
 ///
-///	@brief	The array tests.
+/// @brief     The array tests.
 //-------------------------------------------------------------------------------------------------
 class TListTest : public testing::Test {
 protected:
@@ -45,8 +45,8 @@ protected:
         dataList.clear();
         for( size_t i = 0; i<numEntries; ++i ) {
             float value = i*1.0f;
-	        dataList.addBack( value );
-	        values.push_back( value );
+            dataList.addBack( value );
+            values.push_back( value );
         }
     }
 };
@@ -91,65 +91,65 @@ TEST_F( TListTest, copyTest ) {
 }
 
 TEST_F( TListTest, accessTest ) {
-	const size_t numEntries = 10;
+    static constexpr size_t numEntries = 10;
     TList<float> listTest;
     std::vector<float> values;
-	createList( numEntries, listTest, values );
+    createList( numEntries, listTest, values );
 
-	EXPECT_EQ( numEntries, listTest.size() );
-	EXPECT_TRUE( !listTest.isEmpty() ); 
+    EXPECT_EQ( numEntries, listTest.size() );
+    EXPECT_TRUE( !listTest.isEmpty() ); 
 
-	size_t dataIdx = 0;
+    size_t dataIdx = 0;
     for( TList<float>::Iterator it = listTest.begin( ); it != listTest.end( ); ++it ) {
         float listVal = *it;
         float orig = values[ dataIdx ];
-		EXPECT_EQ( listVal, orig );
-		++dataIdx;
-	}
+        EXPECT_EQ( listVal, orig );
+        ++dataIdx;
+    }
 }
 
 TEST_F( TListTest, clearTest ) {
-	static const size_t numEntries = 10;
+    static constexpr size_t numEntries = 10;
     TList<float> listTest;
     std::vector<float> values;
-	createList( numEntries, listTest, values );
+    createList( numEntries, listTest, values );
 
-	listTest.clear();
-	EXPECT_EQ( listTest.size(), 0u );
-	EXPECT_TRUE( listTest.isEmpty() );
+    listTest.clear();
+    EXPECT_EQ( listTest.size(), 0u );
+    EXPECT_TRUE( listTest.isEmpty() );
 }
 
 TEST_F( TListTest, removeTest )	{
-	static const size_t numEntries = 10;
+    static constexpr size_t numEntries = 10;
     TList<float> listTest;
     std::vector<float> values;
 
-	createList( numEntries, listTest, values );
+    createList( numEntries, listTest, values );
 		
-	for ( size_t i=0; i<numEntries; ++i ) {
+    for ( size_t i=0; i<numEntries; ++i ) {
         const float value = listTest.front( );
-		EXPECT_EQ( value, values[ i ] );
-		listTest.removeFront();
-	}
+        EXPECT_EQ( value, values[ i ] );
+        listTest.removeFront();
+    }
 }
 
 TEST_F( TListTest, isEmptyTest ) {
     TList<float> listTest;
-	EXPECT_TRUE( listTest.isEmpty() );
-	listTest.addBack( 1.0f );
-	listTest.addBack( 2.0f );
-	listTest.removeFront();
-	listTest.removeFront();
-	EXPECT_TRUE( listTest.isEmpty() );
+    EXPECT_TRUE( listTest.isEmpty() );
+    listTest.addBack( 1.0f );
+    listTest.addBack( 2.0f );
+    listTest.removeFront();
+    listTest.removeFront();
+    EXPECT_TRUE( listTest.isEmpty() );
 }
 	
 TEST_F( TListTest, bug_IterateEmptyListTest ) {
     TList<float> listTest;
-	bool ok = true;
-	try {
+    bool ok = true;
+    try {
         for( TList<float>::Iterator it = listTest.begin( ); it != listTest.end( ); ++it );
-	} catch ( ... )	{
-		ok = false;
-	}
-	EXPECT_TRUE( ok );
+    } catch ( ... )	{
+        ok = false;
+    }
+    EXPECT_TRUE( ok );
 }
