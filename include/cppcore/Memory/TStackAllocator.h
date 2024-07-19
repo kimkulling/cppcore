@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2021 Kim Kulling
+Copyright (c) 2014-2024 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -69,7 +69,7 @@ public:
 
     /// @brief  Will reset the allocated memory, all used data will be marked as invalid.
     void reset();
-    
+
     /// @brief  Returns the number of allocated instances on the stack
     /// @return The number of allocated instance.
     size_t capacity() const;

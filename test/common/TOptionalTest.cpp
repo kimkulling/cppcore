@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2022 Kim Kulling
+Copyright (c) 2014-2024 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -25,16 +25,22 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using namespace ::cppcore;
 
-class TOptionalTest : public ::testing::Test {
-    // empty
-};
+class TOptionalTest : public ::testing::Test {};
 
 TEST_F(TOptionalTest, createInstance_success) {
-    const int Val = 1;
-    TOptional<int> test(Val);
+    constexpr int ValInt = 1;
+    TOptional<int> test_int(ValInt);
 
-    EXPECT_FALSE(test.isInited());
-    test.set(1);
-    EXPECT_TRUE(test.isInited());
-    EXPECT_EQ(test.value(), Val);
+    EXPECT_FALSE(test_int.isInited());
+    test_int.set(1);
+    EXPECT_TRUE(test_int.isInited());
+    EXPECT_EQ(test_int.value(), ValInt);
+
+    constexpr float ValFloat = 1.0f;
+    TOptional<float> test_float(ValFloat);
+
+    EXPECT_FALSE(test_float.isInited());
+    test_float.set(1);
+    EXPECT_TRUE(test_float.isInited());
+    EXPECT_EQ(test_float.value(), ValFloat);
 }

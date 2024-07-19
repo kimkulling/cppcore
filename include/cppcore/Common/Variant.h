@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2021 Kim Kulling
+Copyright (c) 2014-2024 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -34,8 +34,9 @@ namespace cppcore {
 ///	@class		Variant
 ///	@ingroup	CPPCore
 ///
-///	@brief	This class can be used to store integer or float data with a dynamical binding. It
-///	stores the type information at the runtime instead of checking this to compile-time. So it is
+///	@brief	This class can be used to store integer or float data with a dynamical binding.
+///
+/// It stores the type information at the runtime instead of checking this to compile-time. So it is
 ///	possible to pass integer or float arguments dynamically to arbitrary customers without changing
 ///	the calling signature of the used interface.
 ///	If you are trying to get a float value even if the instance stores currently an integer value
@@ -47,18 +48,18 @@ public:
     ///	@enum	Type
     ///	@brief	This enum describes the variable type of the variant instance.
     enum Type {
-        None, ///< Initialization value.
-        Byte, ///< 1 Byte type.
-        Int, ///< Integer value.
-        Int3, ///< Integer vector, 3 components.
-        Int4, ///< Integer vector, 4 components.
-        Float, ///< Float value.
-        Float3, ///< Float vector, 3 components.
-        Float4, ///< Float vector, 4 components.
-        Float4x4, ///< Float matrix, 4 x 4 components.
-        String, ///< String value.
-        Boolean, ///< Boolean type.
-        MaxType ///< Upper limit.
+        None  = -1,     ///< Initialization value.
+        Byte,           ///< 1 Byte type.
+        Int,            ///< Integer value.
+        Int3,           ///< Integer vector, 3 components.
+        Int4,           ///< Integer vector, 4 components.
+        Float,          ///< Float value.
+        Float3,         ///< Float vector, 3 components.
+        Float4,         ///< Float vector, 4 components.
+        Float4x4,       ///< Float matrix, 4 x 4 components.
+        String,         ///< String value.
+        Boolean,        ///< Boolean type.
+        MaxType         ///< Upper limit.
     };
 
     ///	@brief	The class default constructor.
@@ -206,7 +207,7 @@ protected:
     /// @param numItems     The number of items to validate.
     /// @return true, if data is valid.
     bool isValid(Type type, size_t numItems) const;
-    
+
     /// @brief Will reserve a buffer for the requested types.
     /// @param type     The requested type.
     /// @param size     The number of items.

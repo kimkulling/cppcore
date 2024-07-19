@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2022 Kim Kulling
+Copyright (c) 2014-2024 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -45,7 +45,7 @@ public:
     /// @brief  Will return false, if the value was not set,
     /// @return The init state.
     bool isInited() const;
-    
+
     /// @brief  Will return the value or the default value if no init was performed before.
     /// @return The value or the default value.
     T value();
@@ -56,6 +56,9 @@ public:
 
     /// Default operators.
     T &operator = ( const T &value);
+
+    /// The copy constructor.
+    bool operator == (const TOptional<T> &rhs) const;
 
 private:
     T mValue;
@@ -99,6 +102,18 @@ inline T &TOptional<T>::operator = (const T &value) {
     }
 
     return *this;
+}
+
+template<class T>
+inline bool TOptional<T>::operator == (const TOptional &rhs) const {
+    if (mInited == rhs.isInited) {
+        if (!mInited) {
+            return true;
+        }
+
+        return mValue == rhs.mValue;
+    }
+    return false;
 }
 
 } // namespace cppcore
