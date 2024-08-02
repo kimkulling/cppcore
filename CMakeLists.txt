@@ -29,10 +29,9 @@ add_definitions( -D_VARIADIC_MAX=10 )
 add_definitions( -D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING=1)
 
 INCLUDE_DIRECTORIES( BEFORE
-    ${CMAKE_HOME_DIRECTORY}/..
-    ${CMAKE_HOME_DIRECTORY}/include/
-    ${CMAKE_HOME_DIRECTORY}/contrib/googletest-1.10.0/gtest/include
-    ${CMAKE_HOME_DIRECTORY}/contrib/googletest-1.10.0/gtest
+    include/
+    contrib/googletest-1.10.0/gtest/include
+    contrib/googletest-1.10.0/gtest
 )
 
 link_directories(
