@@ -101,7 +101,6 @@ inline THash<T>::THash(T value, T base) :
 
 template <class T>
 inline T THash<T>::toHash(const char *buffer, T base) {
-    static_assert(std::is_integral<T>::value, "THash requires T to be an integral type.");
     T hash = 0;
     if (nullptr == buffer) {
         return hash;
