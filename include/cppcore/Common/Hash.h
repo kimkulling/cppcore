@@ -115,7 +115,7 @@ inline T THash<T>::toHash(const char *buffer, T base) {
 
     return hash;
 }
-0
+
 template <class T>
 inline T THash<T>::toHash(T value, T base) {
     const T hash = value % base;
