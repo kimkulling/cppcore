@@ -72,7 +72,7 @@ public:
     T hashValue() const;
 
 private:
-    unsigned int m_hash;
+    T m_hash;
 };
 
 template <class T>
