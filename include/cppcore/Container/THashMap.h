@@ -44,6 +44,8 @@ namespace cppcore {
 template <class T, class U, class TAlloc = TDefaultAllocator<T>>
 class THashMap {
 public:
+    using Hash = THash<T>;
+
     ///	@brief  The initial hash size.
     static constexpr size_t InitSize = 1024;
     ///	@brief  Marker for unset node keys.
@@ -176,7 +178,7 @@ inline void THashMap<T, U, TAlloc>::clear() {
 
 template <class T, class U, class TAlloc>
 inline void THashMap<T, U, TAlloc>::insert(const T &key, const U &value) {
-    const unsigned int hash = Hash::toHash(key, (unsigned int)m_buffersize);
+    const T hash = Hash::toHash(key, (unsigned int)m_buffersize);
     if (nullptr == m_buffer[hash]) {
         Node *node = new Node;
         node->m_key = key;
@@ -190,7 +192,7 @@ inline void THashMap<T, U, TAlloc>::insert(const T &key, const U &value) {
 
 template <class T, class U, class TAlloc>
 inline bool THashMap<T, U, TAlloc>::remove(const T &key) {
-    const unsigned int hash = Hash::toHash(key, (unsigned int)m_buffersize);
+    const T hash = Hash::toHash(key, (unsigned int)m_buffersize);
     if (nullptr == m_buffer[hash]) {
         return false;
     }
@@ -220,7 +222,7 @@ inline bool THashMap<T, U, TAlloc>::hasKey(const T &key) const {
     if (0 == m_buffersize) {
         return false;
     }
-    const unsigned int hash(Hash::toHash(key, (unsigned int)m_buffersize));
+    const T hash = THash<T>::toHash(key, (unsigned int)m_buffersize);
     const Node *node = m_buffer[hash];
     if (nullptr == node) {
         return false;
@@ -245,7 +247,7 @@ inline bool THashMap<T, U, TAlloc>::hasKey(const T &key) const {
 
 template <class T, class U, class TAlloc>
 inline bool THashMap<T, U, TAlloc>::getValue(const T &key, U &value) const {
-    const size_t pos = Hash::toHash(key, (unsigned int)m_buffersize);
+    const size_t pos = Hash::toHash(key, (unsigned int) m_buffersize);
     if (m_buffer[pos]->m_key == key) {
         value = m_buffer[pos]->m_value;
         return true;
