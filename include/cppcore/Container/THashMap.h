@@ -178,7 +178,7 @@ inline void THashMap<T, U, TAlloc>::clear() {
 
 template <class T, class U, class TAlloc>
 inline void THashMap<T, U, TAlloc>::insert(const T &key, const U &value) {
-    const T hash = Hash::toHash(key, (unsigned int)m_buffersize);
+    const T hash = Hash::toHash(key, static_cast<T>(m_buffersize));
     if (nullptr == m_buffer[hash]) {
         Node *node = new Node;
         node->m_key = key;
