@@ -185,7 +185,7 @@ inline void TStackAllocator<T>::clear() {
     m_capacity = 0;
     m_top = 0;
 }
-    
+
 template <class T>
 inline void TStackAllocator<T>::reset() {
     m_top = 0;

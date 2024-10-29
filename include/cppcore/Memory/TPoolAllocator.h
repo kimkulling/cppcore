@@ -94,7 +94,7 @@ public:
 
     /// @brief  Will reset the allocator.
     void reset();
-    
+
     /// No copying allowed
     CPPCORE_NONE_COPYING(TPoolAllocator)
 

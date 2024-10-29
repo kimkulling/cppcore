@@ -129,4 +129,4 @@ inline void TDefaultAllocator<T>::dumpAllocations(std::string &allocs) {
     // empty
 }
 
-} // Namespace cppcore
+} // namespace cppcore

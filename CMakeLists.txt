@@ -150,6 +150,7 @@ IF( CPPCORE_BUILD_UNITTESTS )
     SET( cppcore_memory_test_src
         test/memory/TStackAllocatorTest.cpp
         test/memory/TPoolAllocatorTest.cpp
+        test/memory/TScratchAllocatorTest.cpp
     )
 
     SET( cppcore_random_test_src
@@ -163,7 +164,7 @@ IF( CPPCORE_BUILD_UNITTESTS )
     SOURCE_GROUP( code\\container FILES ${cppcore_container_test_src} )
     SOURCE_GROUP( code\\memory    FILES ${cppcore_memory_test_src} ) 
     SOURCE_GROUP( code\\random    FILES ${cppcore_random_test_src} )
-    
+
     # Prevent overriding the parent project's compiler/linker
     # settings on Windows
     SET(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
