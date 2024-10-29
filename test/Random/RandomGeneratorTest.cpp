@@ -25,9 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using namespace cppcore;
 
-class RandomGeneratorTest : public testing::Test {
-    // empty
-};
+class RandomGeneratorTest : public testing::Test {};
 
 TEST_F( RandomGeneratorTest, getTest ) {
     RandomGenerator generator;

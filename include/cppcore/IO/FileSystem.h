@@ -49,13 +49,13 @@ public:
     /// @brief  The class constructor with the location.
     /// @param[in] location     The root location.
     FileSystem(const char *location);
-    
+
     /// @brief  The class destructor.
     ~FileSystem() = default;
-    
+
     /// @brief  Will perform a refresh.
     void refresh();
-    
+
     /// @brief  Will return the free disk info.
     /// @return the File-system space.
     FSSpace *getFreeDiskSpace();
