@@ -124,15 +124,6 @@ inline T *TScratchAllocator<T>::alloc(size_t numItems) {
     mIndex += numItems;
     return ptr;
 }
-    
-    if ((mIndex + numItems) > mSize) {
-        return nullptr;
-    }
-
-    T *ptr = &mBlock[mIndex];
-    mIndex += numItems;
-    return ptr;
-}
 
 template<class T>
 void TScratchAllocator<T>::reserve(size_t size) {
