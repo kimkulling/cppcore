@@ -38,7 +38,7 @@ You need to manage singe bits and you want to avoid dealing with the OR-, AND- a
 
 void main() {
     TBitField<uint32_t> bitfield(0);
-    
+
     // The first bit is set
     bitfield.setBit(1);
     if (bitfield.getBit(1)) std::cout "First bit is set" << std:endl;
@@ -53,12 +53,12 @@ void main() {
 ### Usecases
 ### Examples
 
-## TSharedPtr 
+## TSharedPtr
 ### Introduction
 ### Usecases
 ### Examples
 
-## Variant 
+## Variant
 ### Introduction
 ### Usecases
 ### Examples
