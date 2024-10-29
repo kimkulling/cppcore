@@ -283,4 +283,4 @@ void TPoolAllocator<T>::reset() {
     m_current = m_first;
 }
 
-} // Namespace cppcore
+} // namespace cppcore
