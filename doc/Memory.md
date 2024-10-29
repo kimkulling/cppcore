@@ -19,7 +19,7 @@ after finishing your work.
 
 ### Examples
 ```cpp
-#include <Memroy/TScrachtAllocator.h>
+#include <Memory/TScratchAllocator.h>
 
 using namespace ::cppcore;
 
