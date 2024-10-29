@@ -14,8 +14,11 @@ The scratch allocator preallocates a memory block which can be used in your prog
 This will be done when clearing the allocator. All allocations will be invalidated.
 
 ### Usecases
-You need to save any kind of algorithms. For this you need to work with dynamic allocations, which will be thrown away
-after finishing your work.
+Common use cases include:
+- Temporary allocations in algorithms (e.g., path finding, sorting)
+- Frame-based memory management in games
+- Scratch space for parsing and serialization
+- Short-lived computational tasks with multiple dynamic allocations
 
 ### Examples
 ```cpp
