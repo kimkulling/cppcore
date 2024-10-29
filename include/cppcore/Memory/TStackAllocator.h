@@ -52,7 +52,7 @@ public:
     /// @brief  The class destructor.
     ~TStackAllocator();
 
-    /// Will alloc the number of items from the stack.
+    /// Will allocate the number of items from the stack.
     /// @param  size    [in] The requested size of items.
     T *alloc(size_t size);
 
@@ -184,11 +184,13 @@ inline void TStackAllocator<T>::clear() {
     m_data = nullptr;
     m_capacity = 0;
     m_top = 0;
+    m_numAllocs = 0;
 }
 
 template <class T>
 inline void TStackAllocator<T>::reset() {
     m_top = 0;
+    m_numAllocs = 0;
 }
 
 template <class T>
