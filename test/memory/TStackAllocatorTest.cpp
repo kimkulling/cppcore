@@ -26,9 +26,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using namespace cppcore;
 
-class TStackAllocatorTest : public testing::Test {
-protected:
-};
+class TStackAllocatorTest : public testing::Test {};
 
 TEST_F( TStackAllocatorTest, CreateTest ) {
     bool ok( true );

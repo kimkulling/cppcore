@@ -94,7 +94,7 @@ public:
 
     /// @brief  Will reset the allocator.
     void reset();
-    
+
     /// No copying allowed
     CPPCORE_NONE_COPYING(TPoolAllocator)
 
@@ -283,4 +283,4 @@ void TPoolAllocator<T>::reset() {
     m_current = m_first;
 }
 
-} // Namespace cppcore
+} // namespace cppcore
