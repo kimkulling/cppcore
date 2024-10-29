@@ -23,6 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #pragma once
 
 #include <cppcore/CPPCoreCommon.h>
+#include <limits>
 
 namespace cppcore {
 
@@ -102,6 +103,28 @@ inline TScratchAllocator<T>::~TScratchAllocator() {
 
 template<class T>
 inline T *TScratchAllocator<T>::alloc(size_t numItems) {
+    if (numItems == 0) {
+        return nullptr;
+    }
+
+    // Check for overflow
+    if (numItems > std::numeric_limits<size_t>::max() / sizeof(T)) {
+        return nullptr;
+    }
+
+     if ((mIndex + numItems) > mSize) {
+         return nullptr;
+     }
+ 
+    // Ensure alignment
+    size_t alignment = alignof(T);
+    mIndex = (mIndex + alignment - 1) & ~(alignment - 1);
+
+    T *ptr = &mBlock[mIndex];
+    mIndex += numItems;
+    return ptr;
+}
+    
     if ((mIndex + numItems) > mSize) {
         return nullptr;
     }
