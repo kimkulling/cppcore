@@ -42,6 +42,15 @@ class TScratchAllocator {
 public:
     /// @brief  The default class constructor.
     TScratchAllocator();
+    
+    /// @brief The move constructor
+    /// @param other Will be moved to
+    TScratchAllocator(TScratchAllocator&& other) noexcept;
+
+    /// @brief The move operator
+    /// @param other Will be moved to
+    /// @return instance to moved to.
+    TScratchAllocator& operator = (TScratchAllocator&& other) noexcept
 
     /// @brief  The class constructor with the pool size.
     /// @param[in]  numItems    The buffer size.
@@ -146,15 +155,38 @@ inline size_t TScratchAllocator<T>::capacity() const {
 }
 
 template<class T>
-size_t TScratchAllocator<T>::reservedMem() const {
+inline size_t TScratchAllocator<T>::reservedMem() const {
     return mIndex;
 }
 
 template<class T>
-size_t TScratchAllocator<T>::freeMem() const {
+inline size_t TScratchAllocator<T>::freeMem() const {
     return (mSize - mIndex);
 }
 
+template<class T>
+inline TScratchAllocator(TScratchAllocator&& other) noexcept :
+    mBlock(other.mBlock),
+    mSize(other.mSize),
+    mIndex(other.mIndex) {
+    other.mBlock = nullptr;
+    other.mSize = 0;
+    other.mIndex = 0;
+}
+
+template<class T>
+inline TScratchAllocator& operator=(TScratchAllocator&& other) noexcept {
+    if (this != &other) {
+        clear();
+        mBlock = other.mBlock;
+        mSize = other.mSize;
+        mIndex = other.mIndex;
+        other.mBlock = nullptr;
+        other.mSize = 0;
+        other.mIndex = 0;
+    }
+    return *this;
+}
 using ScratchAllocator = TScratchAllocator<char>;
 
 } // namespace cppcore
