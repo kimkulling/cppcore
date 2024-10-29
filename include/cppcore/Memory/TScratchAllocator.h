@@ -44,7 +44,7 @@ public:
 
     /// @brief  The class constructor with the pool size.
     /// @param[in]  numItems    The buffer size.
-    TScratchAllocator(size_t numItems);
+    explicit TScratchAllocator(size_t numItems);
 
     /// @brief  The class destructor.
     ~TScratchAllocator();
@@ -91,7 +91,7 @@ inline TScratchAllocator<T>::TScratchAllocator() :
 
 template<class T>
 inline TScratchAllocator<T>::TScratchAllocator(size_t numItems) :
-        mBlock(nullptr), mSize(0u), mIndex(0u) {
+        mBlock(nullptr), mSize(numItems), mIndex(0u) {
     reserve(numItems);
 }
 
@@ -121,7 +121,7 @@ void TScratchAllocator<T>::reserve(size_t size) {
 
 template<class T>
 inline void TScratchAllocator<T>::clear() {
-    delete mBlock;
+    delete [] mBlock;
     mBlock = nullptr;
     mSize = 0u;
 }
