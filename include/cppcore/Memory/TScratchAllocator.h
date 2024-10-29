@@ -80,20 +80,20 @@ public:
     CPPCORE_NONE_COPYING(TScratchAllocator)
 
 private:
-    T *mBlock;
+    T *mBlock = nullptr;
     size_t mSize;
     size_t mIndex;
 };
 
 template<class T>
 inline TScratchAllocator<T>::TScratchAllocator() :
-        mBlock(nullptr), mSize(0u), mIndex(0u) {
+        mSize(0u), mIndex(0u) {
     // empty
 }
 
 template<class T>
 inline TScratchAllocator<T>::TScratchAllocator(size_t numItems) :
-        mBlock(nullptr), mSize(numItems), mIndex(0u) {
+        mSize(numItems), mIndex(0u) {
     reserve(numItems);
 }
 
