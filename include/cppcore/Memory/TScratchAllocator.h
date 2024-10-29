@@ -51,7 +51,7 @@ public:
     /// @brief The move operator
     /// @param other Will be moved to
     /// @return instance to moved to.
-    TScratchAllocator& operator = (TScratchAllocator&& other) noexcept
+    TScratchAllocator& operator = (TScratchAllocator&& other) noexcept;
 
     /// @brief  The class constructor with the pool size.
     /// @param[in]  numItems    The buffer size.
