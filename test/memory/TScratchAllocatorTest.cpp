@@ -28,7 +28,7 @@ using namespace cppcore;
 
 class TScratchAllocatorTest : public testing::Test {
 public:
-    static constexpr size_t BufferSize = 1024u;
+    const size_t BufferSize = 1024u;
 };
 
 TEST_F(TScratchAllocatorTest, CreateTest) {
@@ -64,3 +64,4 @@ TEST_F(TScratchAllocatorTest, ClearTest) {
     EXPECT_EQ(myAllocator.capacity(), 0u);
     EXPECT_EQ(myAllocator.freeMem(), 0u);
 }
+
