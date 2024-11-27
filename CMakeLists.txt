@@ -30,8 +30,8 @@ add_definitions( -D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING=1)
 
 INCLUDE_DIRECTORIES( BEFORE
     include/
-    contrib/googletest-1.10.0/gtest/include
-    contrib/googletest-1.10.0/gtest
+    contrib/googletest-1.15.2/googletest/include
+    contrib/googletest-1.15.2/googletest
 )
 
 link_directories(
@@ -157,7 +157,7 @@ IF( CPPCORE_BUILD_UNITTESTS )
         test/Random/RandomGeneratorTest.cpp
     )
 	
-    SET ( GTEST_PATH ../contrib/googletest-1.10.0 )
+    SET ( GTEST_PATH ../contrib/googletest-1.15.2 )
 
     SOURCE_GROUP( code            FILES ${cppcore_test_src} )
     SOURCE_GROUP( code\\common    FILES ${cppcore_common_test_src} )
@@ -168,7 +168,7 @@ IF( CPPCORE_BUILD_UNITTESTS )
     # Prevent overriding the parent project's compiler/linker
     # settings on Windows
     SET(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-    ADD_SUBDIRECTORY( contrib/googletest-1.10.x/ )
+    ADD_SUBDIRECTORY( contrib/googletest-1.15.2/ )
     ADD_EXECUTABLE( cppcore_unittest
         ${cppcore_test_src}
         ${cppcore_common_test_src}
