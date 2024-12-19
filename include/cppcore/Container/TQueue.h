@@ -28,10 +28,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
-///	@class		TQueue
-///	@ingroup	CPPCore
+/// @class    TQueue
+/// @ingroup  CPPCore
 ///
-///	@brief	This template class implements a simple queue ( works FIFO ).
+/// @brief   This template class implements a simple queue ( works FIFO ).
 //-------------------------------------------------------------------------------------------------
 template<class T, class TAlloc = TDefaultAllocator<T>>
 class TQueue {
@@ -41,7 +41,7 @@ public:
 
     ///	@brief	The class copy constructor.
     ///	@param	rhs 	[in] The instance to copy from.
-    TQueue( const TQueue<T, TAlloc> &rhs );
+    TQueue(const TQueue<T, TAlloc> &rhs );
 
     ///	@brief	The destructor.
     ~TQueue();
@@ -109,9 +109,9 @@ inline bool TQueue<T, TAlloc>::dequeue( T &item ) {
     m_QueueData.removeFront();
     if ( isEmpty() ) {
         return false;
-    } else {
-        return true;
-    }
+    } 
+    
+    return true;
 }
 
 template<class T, class TAlloc>
