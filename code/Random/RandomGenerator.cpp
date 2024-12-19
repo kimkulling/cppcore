@@ -83,10 +83,6 @@ RandomGenerator::RandomGenerator( GeneratorType type ) noexcept :
     ::srand( static_cast<unsigned int>(time(nullptr)));
 }
 
-RandomGenerator::~RandomGenerator() {
-    // empty
-}
-
 int RandomGenerator::get( int lower, int upper ) {
     int ret( 0 );
     if ( GeneratorType::Standard == m_type ) {
