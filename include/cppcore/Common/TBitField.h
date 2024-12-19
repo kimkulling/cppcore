@@ -31,7 +31,7 @@ namespace cppcore {
 ///	@class		TBitField
 ///	@ingroup	CPPCore
 ///
-///	@brief  
+///	@brief  Container to handle specific bitfields.
 //-------------------------------------------------------------------------------------------------
 template <class T>
 class TBitField {

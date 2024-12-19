@@ -47,7 +47,7 @@ public:
     RandomGenerator( GeneratorType type = GeneratorType::Standard ) noexcept;
 
     /// @brief  The class destructor.
-    ~RandomGenerator();
+    ~RandomGenerator() = default;
 
     /// @brief  Gets a new random number.
     /// @param  lower   [in] The lower bound.
