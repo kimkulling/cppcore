@@ -28,24 +28,25 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
-///	@class		TArray
-///	@ingroup	CPPCore
+/// @class    TArray
+/// @ingroup  CPPCore
 ///
-///	@brief	This template class implements a simple array with dynamic boundaries.
+/// @brief This template class implements a simple array with dynamic boundaries.
+///
 /// You can use it to add new items, remove them and iterate through them. The data items are
 /// stores in an array.
 //-------------------------------------------------------------------------------------------------
 template <class T, size_t len>
 class TStaticArray {
 public:
-    /// @brief  The default class constructor.
+    /// @brief The default class constructor.
     TStaticArray();
 
     /// @brief  The class constructor with the initial value.
-    /// @param  initValue   [in] The initial value.
-    TStaticArray(T initValue);
+    /// @param[in] initValue    The initial value.
+    explicit TStaticArray(T initValue);
 
-    /// @brief  The copy constructor.
+    /// @brief The copy constructor.
     /// @param  rhs [in] The array to copy from.
     TStaticArray(const TStaticArray<T, len> &rhs);
 
@@ -53,16 +54,16 @@ public:
     ~TStaticArray() = default;
 
     /// @brief  Returns the number of items in the array.
-    /// @retun  The size of the array.
+    /// @return  The size of the array.
     size_t size() const;
 
     /// @brief  Will set the item at the given index.
-    /// @param  index   [in] The requested index.
-    /// @param  value   [in] The new value.
+    /// @param[in] index  The requested index.
+    /// @param[in] value  The new value.
     void set(size_t index, T value);
 
     /// @brief  Will set all values to the same value.
-    /// @param  value.  [in] The value to set.
+    /// @param[in] value   The value to set.
     void memset(T value);
 
     /// @brief  The index op.
