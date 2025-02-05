@@ -28,10 +28,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
-///	@class		THashMap
-///	@ingroup	CPPCore
+///	@class   THashMap
+///	@ingroup CPPCore
 ///
-///	@brief  This class implements a hash map. You can access your data like:
+///	@brief  This class implements a hash map. 
+///
+/// You can work with the hashmap in the following way:
+///
 /// @code
 /// using TestHashMap = THashMap<int, String>:
 /// TestHashMap hm;
@@ -44,6 +47,7 @@ namespace cppcore {
 template <class T, class U, class TAlloc = TDefaultAllocator<T>>
 class THashMap {
 public:
+    /// The alias
     using Hash = THash<T>;
 
     ///	@brief  The initial hash size.
@@ -54,7 +58,7 @@ public:
 public:
     ///	@brief  The class constructor.
     /// @param  init    [in] The initial size for the hash.
-    THashMap(size_t init = InitSize);
+    explicit THashMap(size_t init = InitSize);
 
     /// @brief  The class destructor.
     ~THashMap();
@@ -71,36 +75,36 @@ public:
     ///	@return true for empty, false for not empty.
     bool isEmpty() const;
 
-    ///	@brief  Will init the hash-map.
-    /// @param  init    [in] The initial size for the hash.
+    ///	@brief  Will init the hash-map with the given size.
+    /// @param[in] init  The initial size for the hash.
     void init(size_t init);
 
-    /// @brief  The hash-map will be cleared.
+    /// @brief The hash-map will be cleared.
     void clear();
 
-    ///	@brief  A new key value pair will be entered.
-    ///	@param  key     [in] The key.
-    ///	@param  value   [in] The value to store.
+    ///	@brief A new key value pair will be entered.
+    ///	@param[in] key    The key.
+    ///	@param[in] value  The value to store.
     void insert(const T &key, const U &value);
 
     ///	@brief  Will remove a given key-value pair form the hash-map.
-    ///	@param  key     [in] The key to look for.
+    ///	@param[in] key  The key to look for.
     ///	@return true, if key-value pair was found and removed.
     bool remove(const T &key);
 
     ///	@brief  Looks for a given key and returns true, if a key-value pair is stored in the list.
-    ///	@param  key     [in] The key to look for.
+    ///	@param[in] key   The key to look for.
     ///	@return true, if key-value pair was found.
     bool hasKey(const T &key) const;
 
     ///	@brief  Returns the assigned value for the given key.
-    ///	@param  key     [in] The key to look for.
-    ///	@param  value   [in] The value, unset when no key-value pair was found.
+    ///	@param[in] key     The key to look for.
+    ///	@param[in] value   The value, unset when no key-value pair was found.
     ///	@return true, if key-value pair was found, false if not.
     bool getValue(const T &key, U &value) const;
 
     ///	@brief  Returns the assigned value for the given key.
-    ///	@param  key     [in] The key to look for.
+    ///	@param[in] key   The key to look for.
     ///	@return The value, will unset when no key-value pair was found.
     U &operator[](const T &key) const;
 

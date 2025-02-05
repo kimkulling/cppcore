@@ -4,7 +4,7 @@
 This class implement a generic hash function, used for mapping string onto a dedicated type.
 
 ### Usecases
-- USer wants to compare two string much faster, just calculate their hashes and do a comparison for them.
+- User wants to compare two string much faster, just calculate their hashes and do a comparison for them.
 
 ### Examples
 ```cpp

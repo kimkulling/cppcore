@@ -9,6 +9,7 @@ tests, so doing a proof of my failures are easy :-).
 
 # Build status
 [![Build status](https://github.com/kimkulling/cppcore/actions/workflows/cmake.yml/badge.svg)](https://github.com/kimkulling/cppcore/actions/workflows/cmake.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kimkulling_cppcore&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kimkulling_cppcore)
 
 ## Used in...
 * OSRE (aka Open-Source-Render-Experience): [The OSRE Repo](https://github.com/kimkulling/osre)

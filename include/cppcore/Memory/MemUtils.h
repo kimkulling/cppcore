@@ -30,6 +30,9 @@ namespace cppcore {
 
 #define ALIGN_MASK(value, mask) (((value) + (mask)) & ((~0) & (~(mask))))
 
+/// @brief Will calculate the alignment for the given size
+/// @param[in] size   he requested size.
+/// @return The aligned size.
 template<class T>
 inline size_t align(size_t n) {
     return (n + sizeof(T) - 1) & ~(sizeof(T) - 1);
@@ -47,13 +50,13 @@ public:
     /// @param[inout] buffer    The buffer to clear.
     static void clearMemory(void *buffer, size_t size);
 
-    ///	@brief Will return true, if the pointer fits into the alignment.
-    ///	@param[in] ptr          The pointer to check.
+    /// @brief Will return true, if the pointer fits into the alignment.
+    /// @param[in] ptr          The pointer to check.
     /// @param[in] align        The alignment to check for.
     /// @return true if aligned, false if not.
     static bool isAligned(const void *ptr, size_t align);
 
-    ///	@brief  Will align the given pointer.
+    /// @brief  Will align the given pointer.
     /// @param[in] ptr          The pointer to align.
     /// @param[in] extra        Space for headers / meta information.
     /// @param[in] align        The alignment to check for.
