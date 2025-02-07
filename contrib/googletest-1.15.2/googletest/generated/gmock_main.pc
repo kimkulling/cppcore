@@ -1,5 +1,5 @@
-libdir=/usr/local/lib
-includedir=/usr/local/include
+libdir=C:/Program Files (x86)/osre/lib
+includedir=C:/Program Files (x86)/osre/include
 
 Name: gmock_main
 Description: GoogleMock (with main() function)
@@ -7,4 +7,4 @@ Version: 1.15.2
 URL: https://github.com/google/googletest
 Requires: gmock = 1.15.2
 Libs: -L${libdir} -lgmock_main 
-Cflags: -I${includedir} -DGTEST_HAS_PTHREAD=1
+Cflags: -I${includedir} -DGTEST_HAS_PTHREAD=0
