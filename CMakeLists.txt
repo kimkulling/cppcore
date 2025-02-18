@@ -6,6 +6,8 @@ SET ( CPPCORE_VERSION_PATCH 0 )
 SET ( CPPCORE_VERSION ${CPPCORE_VERSION_MAJOR}.${CPPCORE_VERSION_MINOR}.${CPPCORE_VERSION_PATCH} )
 SET ( PROJECT_VERSION "${CPPCORE_VERSION}" )
 
+find_package(GTest)
+
 if( CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX )
     find_package(Threads)
 endif()
@@ -30,8 +32,6 @@ add_definitions( -D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING=1)
 
 INCLUDE_DIRECTORIES( BEFORE
     include/
-    contrib/googletest-1.15.2/googletest/include
-    contrib/googletest-1.15.2/googletest
 )
 
 link_directories(
@@ -76,7 +76,6 @@ SET ( cppcore_src
 SET ( cppcore_common_src
     include/cppcore/Common/Hash.h
     include/cppcore/Common/TStringBase.h
-    include/cppcore/Common/TSharedPtr.h
     include/cppcore/Common/Variant.h
     include/cppcore/Common/TBitField.h
     include/cppcore/Common/TOptional.h
@@ -136,7 +135,6 @@ IF( CPPCORE_BUILD_UNITTESTS )
         test/common/VariantTest.cpp
         test/common/TBitFieldTest.cpp
         test/common/TOptionalTest.cpp
-        test/common/TSharedPtrTest.cpp
     )
 
     SET( cppcore_container_test_src
@@ -158,8 +156,6 @@ IF( CPPCORE_BUILD_UNITTESTS )
         test/Random/RandomGeneratorTest.cpp
     )
 	
-    SET ( GTEST_PATH ../contrib/googletest-1.15.2 )
-
     SOURCE_GROUP( code            FILES ${cppcore_test_src} )
     SOURCE_GROUP( code\\common    FILES ${cppcore_common_test_src} )
     SOURCE_GROUP( code\\container FILES ${cppcore_container_test_src} )
@@ -169,7 +165,18 @@ IF( CPPCORE_BUILD_UNITTESTS )
     # Prevent overriding the parent project's compiler/linker
     # settings on Windows
     SET(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-    ADD_SUBDIRECTORY( contrib/googletest-1.15.2/ )
+    if (GTest_FOUND)
+        SET(test_libs GTest::gtest_main)
+    else()
+        SET(test_libs gtest_main)    
+        SET ( GTEST_PATH ../contrib/googletest-1.15.2 )
+        INCLUDE_DIRECTORIES(            
+            contrib/googletest-1.15.2/googletest/include
+            contrib/googletest-1.15.2/googletest
+        )
+        ADD_SUBDIRECTORY( contrib/googletest-1.15.2/ )
+    endif()
+
     ADD_EXECUTABLE( cppcore_unittest
         ${cppcore_test_src}
         ${cppcore_common_test_src}
@@ -183,5 +190,5 @@ IF( CPPCORE_BUILD_UNITTESTS )
     ELSE( WIN32 )
         SET( platform_libs pthread )
     ENDIF( WIN32 )
-    target_link_libraries( cppcore_unittest cppcore ${CMAKE_THREAD_LIBS_INIT} gtest_main ${platform_libs} )
+    target_link_libraries( cppcore_unittest cppcore ${CMAKE_THREAD_LIBS_INIT}  ${platform_libs} ${test_libs})
 ENDIF()
