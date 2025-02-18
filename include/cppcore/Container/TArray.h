@@ -28,6 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace cppcore {
 namespace Details {
 
+//-------------------------------------------------------------------------------------------------
 inline static size_t getGrowing(size_t size) {
     if (0u == size) {
         return 0u;
