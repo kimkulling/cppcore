@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2024 Kim Kulling
+Copyright (c) 2014-2025 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,11 +28,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace cppcore {
 
-static const unsigned int N = 624;
-static const unsigned int M = 397;
+static constexpr unsigned int N = 624;
+static constexpr unsigned int M = 397;
 
-static void mersenne_twister_vector_init( unsigned int *seedPoints, size_t len ) {
-    assert( nullptr != seedPoints );
+static bool mersenne_twister_vector_init( unsigned int *seedPoints, size_t len ) {
+    if (seedPoints == nullptr) {
+        return false;
+    }
 
     const unsigned int mult = 1812433253ul;
     unsigned int       seed = 5489ul;
@@ -40,9 +42,15 @@ static void mersenne_twister_vector_init( unsigned int *seedPoints, size_t len )
         seedPoints[ i ] = seed;
         seed = mult * (seed ^ (seed >> 30)) + (static_cast<unsigned int>(i) + 1);
     }
+
+    return true;
 }
 
-static void mersenne_twister_vector_update(unsigned int* const p) {
+static bool mersenne_twister_vector_update(unsigned int* const p) {
+    if (p == nullptr) {
+        return false;
+    }
+
     static const unsigned int A[ 2 ] = { 0, 0x9908B0DF };
     unsigned int i=0;
     for (; i < N - M; i++) {
@@ -52,6 +60,8 @@ static void mersenne_twister_vector_update(unsigned int* const p) {
         p[i] = p[i + (M - N)] ^ (((p[i] & 0x80000000) | (p[i + 1] & 0x7FFFFFFF)) >> 1) ^ A[p[i + 1] & 1];
     }
     p[N - 1] = p[M - 1] ^ (((p[N - 1] & 0x80000000) | (p[0] & 0x7FFFFFFF)) >> 1) ^ A[p[0] & 1];
+
+    return true;
 }
 
 unsigned int mersenne_twister() {
@@ -60,13 +70,15 @@ unsigned int mersenne_twister() {
     // readout index
     static int           idx = N + 1;
 
+    bool ok = true;
     if (static_cast<unsigned int>(idx) >= N) {
         if (static_cast<unsigned int>(idx) > N) {
-            mersenne_twister_vector_init(vector, N);
+            ok &= mersenne_twister_vector_init(vector, N);
         }
-        mersenne_twister_vector_update(vector);
+        ok &= mersenne_twister_vector_update(vector);
         idx = 0;
     }
+    assert(ok);
     unsigned int e = vector[ idx++ ];
     
     // Tempering
@@ -80,7 +92,7 @@ unsigned int mersenne_twister() {
 
 RandomGenerator::RandomGenerator( GeneratorType type ) noexcept :
         m_type( type ) {
-    ::srand( static_cast<unsigned int>(time(nullptr)));
+    ::srand(static_cast<unsigned int>(time(nullptr)));
 }
 
 int RandomGenerator::get( int lower, int upper ) {
