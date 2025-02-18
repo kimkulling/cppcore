@@ -278,7 +278,7 @@ inline U &THashMap<T, U, TAlloc>::operator[](const T &key) const {
         return mBuffer[pos]->mValue;
     } 
 
-    Node next = mBuffer[pos]->mNext;
+    Node *next = mBuffer[pos]->mNext;
     while (next->mKey != key) {
         next = next->mNext;
         if (nullptr == next) {
