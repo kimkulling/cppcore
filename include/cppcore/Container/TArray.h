@@ -167,7 +167,7 @@ public:
 
     /// @brief  Will return the data pointer.
     /// @return The data pointer.
-    T data() const;
+    T *data() const;
 
     ///	@brief	The	[] operator.
     T &operator[](array_size_type idx) const;
@@ -487,7 +487,7 @@ inline typename TArray<T, TAlloc>::Iterator TArray<T, TAlloc>::end() {
 }
 
 template <class T, class TAlloc>
-inline T TArray<T, TAlloc>::data() const {
+inline T *TArray<T, TAlloc>::data() const {
     return mData;
 }
 
