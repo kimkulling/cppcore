@@ -1,5 +1,5 @@
-libdir=C:/Program Files (x86)/osre/lib
-includedir=C:/Program Files (x86)/osre/include
+libdir=C:/Program Files (x86)/cppcore/lib
+includedir=C:/Program Files (x86)/cppcore/include
 
 Name: gtest_main
 Description: GoogleTest (with main() function)

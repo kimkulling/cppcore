@@ -146,6 +146,10 @@ IF( CPPCORE_BUILD_UNITTESTS )
         test/container/TStaticArrayTest.cpp
     )
 
+    SET( cppcore_io_test_source
+        test/io/FileSystemTest.cpp
+    )
+
     SET( cppcore_memory_test_src
         test/memory/TStackAllocatorTest.cpp
         test/memory/TPoolAllocatorTest.cpp
@@ -180,6 +184,7 @@ IF( CPPCORE_BUILD_UNITTESTS )
     ADD_EXECUTABLE( cppcore_unittest
         ${cppcore_test_src}
         ${cppcore_common_test_src}
+        ${cppcore_io_test_source}
         ${cppcore_memory_test_src}
         ${cppcore_random_test_src}
         ${cppcore_container_test_src}

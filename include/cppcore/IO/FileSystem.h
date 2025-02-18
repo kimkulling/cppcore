@@ -75,17 +75,16 @@ inline void FileSystem::refresh() {
         return;
     }
 #ifdef _WIN32
-    PULARGE_INTEGER freeByteAvailable = 0, totalNumberOfBytes = 0, totalNumberOfFreeBytes = 0;
-    BOOL result = ::GetDiskFreeSpaceEx(mDrive, freeByteAvailable, totalNumberOfBytes, totalNumberOfFreeBytes);
+    ULARGE_INTEGER freeByteAvailable, totalNumberOfBytes, totalNumberOfFreeBytes;
+    BOOL result = ::GetDiskFreeSpaceEx(mDrive, &freeByteAvailable, &totalNumberOfBytes, &totalNumberOfFreeBytes);
     if (TRUE == result) {
-        ::memcpy(&mFsSpace.capacity, &totalNumberOfBytes->QuadPart, sizeof(PULARGE_INTEGER));
-        ::memcpy(&mFsSpace.free, &freeByteAvailable->QuadPart, sizeof(PULARGE_INTEGER));
-        ULONGLONG res = totalNumberOfBytes->QuadPart - freeByteAvailable->QuadPart;
-        ::memcpy(&mFsSpace.inUse, &res, sizeof(PULARGE_INTEGER));
+        mFsSpace.capacity = totalNumberOfBytes.QuadPart / (1024 * 1024 * 1024);
+        mFsSpace.free = freeByteAvailable.QuadPart / (1024 * 1024 * 1024);
+        mFsSpace.inUse = mFsSpace.capacity - mFsSpace.free;
     }
 #else
     struct statvfs stats;
-    statvfs(m_drive, &stats);
+    statvfs(mDrive, &stats);
     mFsSpace.capacity = stats.f_bsize;
     mFsSpace.free = stats.f_bsize * stats.f_bfree;
     mFsSpace.inUse = mFsSpace.capacity - mFsSpace.free;
