@@ -73,9 +73,9 @@ unsigned int mersenne_twister() {
     bool ok = true;
     if (static_cast<unsigned int>(idx) >= N) {
         if (static_cast<unsigned int>(idx) > N) {
-            ok |= mersenne_twister_vector_init(vector, N);
+            ok &= mersenne_twister_vector_init(vector, N);
         }
-        ok |= mersenne_twister_vector_update(vector);
+        ok &= mersenne_twister_vector_update(vector);
         idx = 0;
     }
     assert(ok);
