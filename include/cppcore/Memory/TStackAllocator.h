@@ -93,29 +93,29 @@ private:
     using byte_t = unsigned char;
 
     struct Header {
-        size_t m_size;
+        size_t mSize;
     };
-    size_t m_capacity;
-    size_t m_top;
-    size_t m_numAllocs;
-    byte_t *m_data;
+    size_t mCapacity;
+    size_t mTop;
+    size_t mNumAllocs;
+    byte_t *mData;
 };
 
 template <class T>
 inline TStackAllocator<T>::TStackAllocator() :
-        m_capacity(0),
-        m_top(0),
-        m_numAllocs(0),
-        m_data(nullptr) {
+        mCapacity(0),
+        mTop(0),
+        mNumAllocs(0),
+        mData(nullptr) {
     // empty
 }
 
 template <class T>
 inline TStackAllocator<T>::TStackAllocator(size_t initSize) :
-        m_capacity(0),
-        m_top(0),
-        m_numAllocs(0),
-        m_data(nullptr) {
+        mCapacity(0),
+        mTop(0),
+        mNumAllocs(0),
+        mData(nullptr) {
     reserve(initSize);
 }
 
@@ -131,20 +131,20 @@ inline T *TStackAllocator<T>::alloc(size_t size) {
     }
 
     const size_t range(size * sizeof(T) + sizeof(Header));
-    const size_t limit(m_top + range);
-    if (limit > m_capacity) {
+    const size_t limit(mTop + range);
+    if (limit > mCapacity) {
         return nullptr;
     }
 
     // head
-    Header *header = (Header *)(&m_data[m_top]);
-    header->m_size = size * sizeof(T);
-    m_top += sizeof(Header);
+    Header *header = (Header *)(&mData[mTop]);
+    header->mSize = size * sizeof(T);
+    mTop += sizeof(Header);
 
     // data
-    T *ptr = (T *)(&m_data[m_top]);
-    m_top += header->m_size;
-    m_numAllocs++;
+    T *ptr = (T *)(&mData[mTop]);
+    mTop += header->mSize;
+    mNumAllocs++;
 
     return ptr;
 }
@@ -159,60 +159,60 @@ inline bool TStackAllocator<T>::release(T *ptr) {
     byte_t *tmp = (byte_t *)ptr;
     tmp = tmp - sizeof(Header);
     Header *head = (Header *)tmp;
-    const size_t allocSize = head->m_size;
+    const size_t allocSize = head->mSize;
 
     // data
-    m_top -= allocSize;
-    m_top -= sizeof(Header);
-    m_numAllocs--;
+    mTop -= allocSize;
+    mTop -= sizeof(Header);
+    mNumAllocs--;
 
     return true;
 }
 
 template <class T>
 inline void TStackAllocator<T>::reserve(size_t size) {
-    if (size > (m_capacity)) {
+    if (size > mCapacity) {
         clear();
-        m_capacity = size * sizeof(T);
-        m_data = new byte_t[m_capacity];
+        mCapacity = size * sizeof(T);
+        mData = new byte_t[mCapacity];
     }
 }
 
 template <class T>
 inline void TStackAllocator<T>::clear() {
-    delete[] m_data;
-    m_data = nullptr;
-    m_capacity = 0;
-    m_top = 0;
-    m_numAllocs = 0;
+    delete[] mData;
+    mData = nullptr;
+    mCapacity = 0;
+    mTop = 0;
+    mNumAllocs = 0;
 }
 
 template <class T>
 inline void TStackAllocator<T>::reset() {
-    m_top = 0;
-    m_numAllocs = 0;
+    mTop = 0;
+    mNumAllocs = 0;
 }
 
 template <class T>
 inline size_t TStackAllocator<T>::capacity() const {
-    return m_capacity;
+    return mCapacity;
 }
 
 template <class T>
 inline size_t TStackAllocator<T>::reservedMem() const {
-    return m_top;
+    return mTop;
 }
 
 template <class T>
 inline size_t TStackAllocator<T>::freeMem() const {
-    return (m_capacity - m_top);
+    return (mCapacity - mTop);
 }
 
 template <class T>
 inline void TStackAllocator<T>::dumpAllocations(std::string &allocs) {
     allocs.clear();
     allocs += "Number allocations = ";
-    allocs += std::to_string(m_numAllocs);
+    allocs += std::to_string(mNumAllocs);
     allocs += "\n";
 }
 

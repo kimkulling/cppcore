@@ -78,18 +78,18 @@ public:
     bool operator == ( const TQueue<T, TAlloc> &rhs ) const;
 
 private:
-    TList<T> m_QueueData;
+    TList<T> mQueueData;
 };
 
 template<class T, class TAlloc>
 inline TQueue<T, TAlloc>::TQueue() noexcept :
-        m_QueueData() {
+        mQueueData() {
     // empty
 }
 
 template<class T, class TAlloc>
 inline TQueue<T, TAlloc>::TQueue( const TQueue<T, TAlloc> &rhs )  :
-        m_QueueData( rhs.m_QueueData ) {
+        mQueueData( rhs.mQueueData ) {
     // empty
 }
 
@@ -100,13 +100,13 @@ inline TQueue<T, TAlloc>::~TQueue() {
 
 template<class T, class TAlloc>
 inline void TQueue<T, TAlloc>::enqueue( const T &item ) {
-    m_QueueData.addBack( item );
+    mQueueData.addBack( item );
 }
 
 template<class T, class TAlloc>
 inline bool TQueue<T, TAlloc>::dequeue( T &item ) {
-    item = m_QueueData.front();
-    m_QueueData.removeFront();
+    item = mQueueData.front();
+    mQueueData.removeFront();
     if ( isEmpty() ) {
         return false;
     } 
@@ -116,22 +116,22 @@ inline bool TQueue<T, TAlloc>::dequeue( T &item ) {
 
 template<class T, class TAlloc>
 inline T TQueue<T, TAlloc>::front() {
-    return m_QueueData.front();
+    return mQueueData.front();
 }
 
 template<class T, class TAlloc>
 inline bool TQueue<T, TAlloc>::isEmpty() const {
-    return m_QueueData.isEmpty();
+    return mQueueData.isEmpty();
 }
 
 template<class T, class TAlloc>
 inline size_t TQueue<T, TAlloc>::size( ) {
-    return m_QueueData.size();
+    return mQueueData.size();
 }
 
 template<class T, class TAlloc>
 inline void TQueue<T, TAlloc>::clear() {
-    m_QueueData.clear();
+    mQueueData.clear();
 }
 
 template<class T, class TAlloc>
@@ -140,14 +140,14 @@ inline TQueue<T, TAlloc> &TQueue<T, TAlloc>::operator = ( const TQueue<T, TAlloc
         return *this;
     }
 
-    m_QueueData = rhs.m_QueueData;
+    mQueueData = rhs.m_QueueData;
 
     return *this;
 }
 
 template<class T, class TAlloc>
 inline bool TQueue<T, TAlloc>::operator == ( const TQueue<T, TAlloc> &rhs ) const {
-    return m_QueueData == rhs.m_QueueData;
+    return mQueueData == rhs.mQueueData;
 }
 
 } // Namespace cppcore

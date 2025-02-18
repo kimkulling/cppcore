@@ -75,65 +75,65 @@ public:
     TStaticArray<T, len> &operator=(const TStaticArray<T, len> &rhs);
 
 private:
-    T m_array[len];
-    size_t m_len;
+    T mArray[len];
+    size_t mLen;
 };
 
 template <class T, size_t len>
 inline TStaticArray<T, len>::TStaticArray() :
-        m_len(len) {
+        mLen(len) {
     // empty
 }
 
 template <class T, size_t len>
 inline TStaticArray<T, len>::TStaticArray(T initValue) :
-        m_len(len) {
+        mLen(len) {
     memset(initValue);
 }
 
 template <class T, size_t len>
 inline TStaticArray<T, len>::TStaticArray(const TStaticArray<T, len> &rhs) :
-        m_len(rhs.m_len) {
-    for (size_t i = 0; i < m_len; ++i) {
-        m_array[i] = rhs.m_array[i];
+        mLen(rhs.mLen) {
+    for (size_t i = 0; i < mLen; ++i) {
+        mArray[i] = rhs.mArray[i];
     }
 }
 
 template <class T, size_t len>
 inline void TStaticArray<T, len>::set(size_t index, T value) {
-    assert(index < m_len);
+    assert(index < mLen);
 
-    m_array[index] = value;
+    mArray[index] = value;
 }
 
 template <class T, size_t len>
 inline void TStaticArray<T, len>::memset(T value) {
-    for (size_t i = 0; i < m_len; ++i) {
-        m_array[i] = value;
+    for (size_t i = 0; i < mLen; ++i) {
+        mArray[i] = value;
     }
 }
 
 template <class T, size_t len>
 inline size_t TStaticArray<T, len>::size() const {
-    return m_len;
+    return mLen;
 }
 
 template <class T, size_t len>
 inline T TStaticArray<T, len>::operator[](size_t index) const {
     assert(index < m_len);
 
-    return m_array[index];
+    return mArray[index];
 }
 
 template <class T, size_t len>
 inline T &TStaticArray<T, len>::operator[](size_t index) {
-    return m_array[index];
+    return mArray[index];
 }
 
 template <class T, size_t len>
 inline bool TStaticArray<T, len>::operator==(const TStaticArray<T, len> &rhs) const {
-    for (size_t i = 0; i < m_len; ++i) {
-        if (m_array[i] != rhs.m_array[i]) {
+    for (size_t i = 0; i < mLen; ++i) {
+        if (mArray[i] != rhs.mArray[i]) {
             return false;
         }
     }
@@ -148,7 +148,7 @@ inline TStaticArray<T, len> &TStaticArray<T, len>::operator=(const TStaticArray<
     }
 
     for (unsigned int i = 0; i < m_len; ++i) {
-        m_array[i] = rhs.m_array[i];
+        mArray[i] = rhs.mArray[i];
     }
 
     return *this;

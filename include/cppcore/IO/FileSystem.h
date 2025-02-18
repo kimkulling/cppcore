@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
 #pragma once
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <Windows.h>
 #else
 #include <sys/statvfs.h>
@@ -61,42 +61,42 @@ public:
     FSSpace *getFreeDiskSpace();
 
 private:
-    const char *m_drive;
-    FSSpace m_fsSpace;
+    const char *mDrive;
+    FSSpace mFsSpace;
 };
 
 inline FileSystem::FileSystem(const char *location) :
-        m_drive(location),
-        m_fsSpace() {
+        mDrive(location),
+        mFsSpace() {
     // empty
 }
 
 inline void FileSystem::refresh() {
-    if (m_drive == nullptr) {
+    if (mDrive == nullptr) {
         return;
     }
-#ifdef WIN32
+#ifdef _WIN32
     PULARGE_INTEGER freeByteAvailable = 0, totalNumberOfBytes = 0, totalNumberOfFreeBytes = 0;
     BOOL result = ::GetDiskFreeSpaceEx(m_drive, freeByteAvailable, totalNumberOfBytes, totalNumberOfFreeBytes);
     if (TRUE == result) {
-        ::memcpy(&m_fsSpace.capacity, &totalNumberOfBytes->QuadPart, sizeof(PULARGE_INTEGER));
-        ::memcpy(&m_fsSpace.free, &freeByteAvailable->QuadPart, sizeof(PULARGE_INTEGER));
+        ::memcpy(&mFsSpace.capacity, &totalNumberOfBytes->QuadPart, sizeof(PULARGE_INTEGER));
+        ::memcpy(&mFsSpace.free, &freeByteAvailable->QuadPart, sizeof(PULARGE_INTEGER));
         ULONGLONG res = totalNumberOfBytes->QuadPart - freeByteAvailable->QuadPart;
-        ::memcpy(&m_fsSpace.inUse, &res, sizeof(PULARGE_INTEGER));
+        ::memcpy(&mFsSpace.inUse, &res, sizeof(PULARGE_INTEGER));
     }
 #else
     struct statvfs stats;
     statvfs(m_drive, &stats);
-    m_fsSpace.capacity = stats.f_bsize;
-    m_fsSpace.free = stats.f_bsize * stats.f_bfree;
-    m_fsSpace.inUse = m_fsSpace.capacity - m_fsSpace.free;
+    mFsSpace.capacity = stats.f_bsize;
+    mFsSpace.free = stats.f_bsize * stats.f_bfree;
+    mFsSpace.inUse = m_fsSpace.capacity - m_fsSpace.free;
 #endif
 }
 
 inline FSSpace *FileSystem::getFreeDiskSpace() {
     refresh();
 
-    return &m_fsSpace;
+    return &mFsSpace;
 }
 
 } // Namespace cppcore

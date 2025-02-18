@@ -79,15 +79,15 @@ unsigned int mersenne_twister() {
 }
 
 RandomGenerator::RandomGenerator( GeneratorType type ) noexcept :
-        m_type( type ) {
+        mType( type ) {
     ::srand( static_cast<unsigned int>(time(nullptr)));
 }
 
 int RandomGenerator::get( int lower, int upper ) {
     int ret( 0 );
-    if ( GeneratorType::Standard == m_type ) {
+    if ( GeneratorType::Standard == mType ) {
         ret = ::rand() % upper + lower;
-    } else if (GeneratorType::MersenneTwister == m_type) {
+    } else if (GeneratorType::MersenneTwister == mType) {
         ret = mersenne_twister() % upper + lower;
     }
 

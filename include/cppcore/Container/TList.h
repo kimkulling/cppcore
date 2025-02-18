@@ -97,10 +97,10 @@ public:
     Iterator end() const;
 
     ///	@brief	Compare operator.
-    bool operator==(const TList<T, TAlloc> &rOther) const;
+    bool operator == (const TList<T, TAlloc> &rOther) const;
 
     ///	@brief	Assignment operator.
-    TList<T, TAlloc> &operator=(const TList<T, TAlloc> &rOther);
+    TList<T, TAlloc> &operator = (const TList<T, TAlloc> &rOther);
 
     //---------------------------------------------------------------------------------------------
     ///	@class	Iterator
@@ -136,15 +136,15 @@ public:
         T &operator*() const;
 
     private:
-        Node *m_pNode;
+        Node *mNode;
     };
 
 private:
     class Node {
     public:
-        T m_Item;
-        Node *m_pPrev;
-        Node *m_pNext;
+        T mItem;
+        Node *mPrev;
+        Node *mNext;
 
         Node(const T &rItem);
         void setNext(Node *pNode);
@@ -154,24 +154,24 @@ private:
         T &getItem() const;
     };
 
-    Node *m_pFist;
-    Node *m_pLast;
-    size_t m_size;
+    Node *mFist;
+    Node *mLast;
+    size_t mSize;
 };
 
 template <class T, class TAlloc>
 inline TList<T, TAlloc>::TList() noexcept :
-        m_pFist(nullptr),
-        m_pLast(nullptr),
-        m_size(0) {
+        mFist(nullptr),
+        mLast(nullptr),
+        mSize(0) {
     // empty
 }
 
 template <class T, class TAlloc>
 inline TList<T, TAlloc>::TList(const TList<T, TAlloc> &rhs) :
-        m_pFist(nullptr),
-        m_pLast(nullptr),
-        m_size(0) {
+        mFist(nullptr),
+        mLast(nullptr),
+        mSize(0) {
     copyFrom(rhs);
 }
 
@@ -183,104 +183,104 @@ inline TList<T, TAlloc>::~TList() {
 template <class T, class TAlloc>
 inline void TList<T, TAlloc>::copyFrom(const TList<T, TAlloc> &rhs) {
     clear();
-    Node *pCurrent = rhs.m_pFist;
-    if (nullptr == pCurrent) {
+    Node *current = rhs.mFist;
+    if (nullptr == current) {
         return;
     }
 
-    Node *pPrevNode = nullptr;
+    Node *prevNode = nullptr;
     for (Iterator it = rhs.begin(); it != rhs.end(); ++it) {
-        m_pLast = new Node(pCurrent->m_Item);
-        if (!m_pFist) {
-            m_pFist = m_pLast;
+        mLast = new Node(current->mItem);
+        if (!mFist) {
+            mFist = mLast;
         }
 
-        if (nullptr != pPrevNode) {
-            m_pLast->setPrev(pPrevNode);
-            pPrevNode->setNext(m_pLast);
+        if (nullptr != prevNode) {
+            mLast->setPrev(prevNode);
+            prevNode->setNext(mLast);
         }
-        pPrevNode = m_pLast;
-        pCurrent = pCurrent->getNext();
+        prevNode = mLast;
+        current = current->getNext();
     }
 
-    m_size = rhs.m_size;
+    mSize = rhs.mSize;
 }
 
 template <class T, class TAlloc>
 inline typename TList<T, TAlloc>::Iterator TList<T, TAlloc>::addFront(const T &item) {
-    Node *pNode = new Node(item);
-    if (nullptr == m_pFist) {
-        m_pFist = pNode;
-        m_pLast = pNode;
+    Node *node = new Node(item);
+    if (nullptr == mFist) {
+        mFist = node;
+        mLast = node;
     } else {
-        pNode->setNext(m_pFist);
-        m_pFist->setPrev(pNode);
-        m_pFist = pNode;
+        node->setNext(mFist);
+        mFist->setPrev(node);
+        mFist = node;
     }
-    ++m_size;
+    ++mSize;
 
-    return Iterator(pNode);
+    return Iterator(node);
 }
 
 template <class T, class TAlloc>
 inline typename TList<T, TAlloc>::Iterator TList<T, TAlloc>::addBack(const T &item) {
-    Node *pNode = new Node(item);
-    if (nullptr == m_pFist) {
-        m_pFist = pNode;
-        m_pLast = pNode;
+    Node *node = new Node(item);
+    if (nullptr == mFist) {
+        mFist = node;
+        mLast = node;
     } else {
-        pNode->setPrev(m_pLast);
-        m_pLast->setNext(pNode);
-        m_pLast = pNode;
+        node->setPrev(mLast);
+        mLast->setNext(node);
+        mLast = node;
     }
-    ++m_size;
+    ++mSize;
 
-    return Iterator(pNode);
+    return Iterator(node);
 }
 
 template <class T, class TAlloc>
 inline void TList<T, TAlloc>::removeFront() {
-    Node *pTmp = m_pFist->getNext();
-    if (pTmp) {
-        pTmp->setPrev(nullptr);
+    Node *tmp = mFist->getNext();
+    if (tmp) {
+        tmp->setPrev(nullptr);
     }
 
-    delete m_pFist;
-    m_pFist = pTmp;
-    --m_size;
+    delete mFist;
+    mFist = tmp;
+    --mSize;
 }
 
 template <class T, class TAlloc>
 inline void TList<T, TAlloc>::removeBack() {
-    Node *pLast = m_pLast->getPrev();
-    pLast->setNext(nullptr);
-    delete m_pLast;
-    m_pLast = pLast;
-    --m_size;
+    Node *last = mLast->getPrev();
+    last->setNext(nullptr);
+    delete mLast;
+    mLast = last;
+    --mSize;
 }
 
 template <class T, class TAlloc>
 inline T &TList<T, TAlloc>::front() const {
-    assert(nullptr != m_pFist);
+    assert(nullptr != mFist);
 
-    return (m_pFist->m_Item);
+    return (mFist->mItem);
 }
 
 template <class T, class TAlloc>
 inline T &TList<T, TAlloc>::back() const {
-    assert(nullptr != m_pLast);
+    assert(nullptr != mLast);
 
-    return (m_pLast->m_Item);
+    return (mLast->mItem);
 }
 
 template <class T, class TAlloc>
 inline size_t TList<T, TAlloc>::size() const {
-    return m_size;
+    return mSize;
 }
 
 template <class T, class TAlloc>
 inline bool TList<T, TAlloc>::isEmpty() const {
-    return (0 == m_size);
+    return (0u == mSize);
 }
 
 template <class T, class TAlloc>
@@ -289,16 +289,16 @@ inline void TList<T, TAlloc>::clear() {
         return;
     }
 
-    Node *pCurrent = m_pFist;
-    while (m_pFist->getNext()) {
-        pCurrent = m_pFist;
-        m_pFist = m_pFist->getNext();
-        delete pCurrent;
+    Node *current = mFist;
+    while (mFist->getNext()) {
+        current = mFist;
+        mFist = mFist->getNext();
+        delete current;
     }
-    delete m_pFist;
-    m_pFist = nullptr;
-    m_pLast = nullptr;
-    m_size = 0;
+    delete mFist;
+    mFist = nullptr;
+    mLast = nullptr;
+    mSize = 0;
 }
 
 template <class T, class TAlloc>
@@ -307,7 +307,7 @@ inline typename TList<T, TAlloc>::Iterator TList<T, TAlloc>::begin() const {
         return end();
     }
 
-    return Iterator(m_pFist);
+    return Iterator(mFist);
 }
 
 template <class T, class TAlloc>
@@ -317,7 +317,7 @@ inline typename TList<T, TAlloc>::Iterator TList<T, TAlloc>::end() const {
 
 template <class T, class TAlloc>
 inline bool TList<T, TAlloc>::operator == (const TList<T, TAlloc> &rhs) const {
-    if (m_size != rhs.m_size) {
+    if (mSize != rhs.mSize) {
         return false;
     }
 
@@ -347,46 +347,46 @@ inline TList<T, TAlloc> &TList<T, TAlloc>::operator=(const TList<T, TAlloc> &rhs
 
 template <class T, class TAlloc>
 inline TList<T, TAlloc>::Node::Node(const T &item) :
-        m_Item(item),
-        m_pPrev(nullptr),
-        m_pNext(nullptr) {
+        mItem(item),
+        mPrev(nullptr),
+        mNext(nullptr) {
     // empty
 }
 
 template <class T, class TAlloc>
 inline void TList<T, TAlloc>::Node::setNext(Node *pNode) {
-    m_pNext = pNode;
+    mNext = pNode;
 }
 
 template <class T, class TAlloc>
 inline typename TList<T, TAlloc>::Node *TList<T, TAlloc>::Node::getNext() const {
-    return m_pNext;
+    return mNext;
 }
 
 template <class T, class TAlloc>
-inline void TList<T, TAlloc>::Node::setPrev(Node *pNode) {
-    m_pPrev = pNode;
+inline void TList<T, TAlloc>::Node::setPrev(Node *node) {
+    mPrev = node;
 }
 
 template <class T, class TAlloc>
 inline typename TList<T, TAlloc>::Node *TList<T, TAlloc>::Node::getPrev() const {
-    return m_pPrev;
+    return mPrev;
 }
 
 template <class T, class TAlloc>
 inline T &TList<T, TAlloc>::Node::getItem() const {
-    return m_Item;
+    return mItem;
 }
 
 template <class T, class TAlloc>
 inline TList<T, TAlloc>::Iterator::Iterator() :
-        m_pNode(nullptr) {
+        mNode(nullptr) {
     // empty
 }
 
 template <class T, class TAlloc>
-inline TList<T, TAlloc>::Iterator::Iterator(Node *pNode) :
-        m_pNode(pNode) {
+inline TList<T, TAlloc>::Iterator::Iterator(Node *node) :
+        mNode(node) {
     // empty
 }
 
@@ -407,71 +407,71 @@ inline typename TList<T, TAlloc>::Iterator &TList<T, TAlloc>::Iterator::operator
         return *this;
     }
 
-    m_pNode = rhs.m_pNode;
+    mNode = rhs.mNode;
 
     return *this;
 }
 
 template <class T, class TAlloc>
 inline bool TList<T, TAlloc>::Iterator::operator==(const Iterator &rhs) const {
-    return (m_pNode == rhs.m_pNode);
+    return (mNode == rhs.mNode);
 }
 
 template <class T, class TAlloc>
 inline bool TList<T, TAlloc>::Iterator::operator!=(const Iterator &rhs) const {
-    return (m_pNode != rhs.m_pNode);
+    return (mNode != rhs.mNode);
 }
 
 template <class T, class TAlloc>
 inline const typename TList<T, TAlloc>::Iterator &TList<T, TAlloc>::Iterator::operator++(int) {
-    assert(nullptr != m_pNode);
+    assert(nullptr != mNode);
 
-    Iterator inst(m_pNode);
-    m_pNode = m_pNode->getNext();
+    Iterator inst(mNode);
+    mNode = mNode->getNext();
 
     return inst;
 }
 
 template <class T, class TAlloc>
 inline typename TList<T, TAlloc>::Iterator &TList<T, TAlloc>::Iterator::operator++() {
-    assert(nullptr != m_pNode);
+    assert(nullptr != mNode);
 
-    m_pNode = m_pNode->getNext();
+    mNode = mNode->getNext();
 
     return *this;
 }
 
 template <class T, class TAlloc>
 inline typename TList<T, TAlloc>::Iterator const &TList<T, TAlloc>::Iterator::operator--(int) {
-    assert(nullptr != m_pNode);
+    assert(nullptr != mNode);
     
-    Iterator inst(m_pNode);
-    m_pNode = m_pNode->getPrev();
+    Iterator inst(mNode);
+    mNode = mNode->getPrev();
 
     return inst;
 }
 
 template <class T, class TAlloc>
 inline typename TList<T, TAlloc>::Iterator &TList<T, TAlloc>::Iterator::operator--() {
-    assert(nullptr != m_pNode);
+    assert(nullptr != mNode);
 
-    m_pNode = m_pNode->getPrev();
+    mNode = mNode->getPrev();
 
     return *this;
 }
 
 template <class T, class TAlloc>
 inline T *TList<T, TAlloc>::Iterator::operator->() const {
-    assert(nullptr != m_pNode);
+    assert(nullptr != mNode);
 
-    return &(m_pNode->m_Item);
+    return &(mNode->mItem);
 }
 
 template <class T, class TAlloc>
 inline T &TList<T, TAlloc>::Iterator::operator*() const {
-    assert(nullptr != m_pNode);
+    assert(nullptr != mNode);
 
-    return m_pNode->m_Item;
+    return mNode->mItem;
 }
 
 } // Namespace cppcore

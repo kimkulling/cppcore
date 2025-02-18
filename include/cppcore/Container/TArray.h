@@ -309,7 +309,7 @@ inline void TArray<T, TAlloc>::destroy(size_t index) {
 
 template <class T, class TAlloc>
 inline T &TArray<T, TAlloc>::front() {
-    assert(m_Size > 0);
+    assert(mSize > 0);
 
     return mData[0];
 }
@@ -325,7 +325,7 @@ template <class T, class TAlloc>
 inline const T &TArray<T, TAlloc>::back() const {
     assert(mSize > 0);
 
-    return (mData[m_Size - 1]);
+    return (mData[mSize - 1]);
 }
 
 template <class T, class TAlloc>
@@ -512,7 +512,7 @@ inline TArray<T, TAlloc> &TArray<T, TAlloc>::operator=(const TArray<T, TAlloc> &
             for (size_t i = 0u; i < other.size(); ++i) {
                 mData[i] = other.mData[i];
             }
-            mSize = other.m_Size;
+            mSize = other.mSize;
         }
     }
 
@@ -521,7 +521,7 @@ inline TArray<T, TAlloc> &TArray<T, TAlloc>::operator=(const TArray<T, TAlloc> &
 
 template <class T, class TAlloc>
 inline bool TArray<T, TAlloc>::operator == (const TArray<T, TAlloc> &rhs) const {
-    if (rhs.mSize != m_Size) {
+    if (rhs.mSize != mSize) {
         return false;
     }
 

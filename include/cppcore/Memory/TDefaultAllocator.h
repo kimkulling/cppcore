@@ -37,10 +37,10 @@ template <class T>
 class TDefaultAllocator {
 public:
     /// @brief  The default class constructor.
-    TDefaultAllocator();
+    TDefaultAllocator() = default;
 
     /// @brief  The class destructor.
-    ~TDefaultAllocator();
+    ~TDefaultAllocator() = default;
 
     /// @brief  Will allocate the number of insances.
     /// @param[in] size   Size of instances to allocate.
@@ -78,16 +78,6 @@ public:
     // To copying allowed
     CPPCORE_NONE_COPYING(TDefaultAllocator)
 };
-
-template <class T>
-inline TDefaultAllocator<T>::TDefaultAllocator() {
-    // empty
-}
-
-template <class T>
-inline TDefaultAllocator<T>::~TDefaultAllocator() {
-    // empty
-}
 
 template <class T>
 inline T *TDefaultAllocator<T>::alloc(size_t size) {
