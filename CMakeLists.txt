@@ -141,6 +141,7 @@ IF( CPPCORE_BUILD_UNITTESTS )
 
     SET( cppcore_container_test_src
         test/container/TArrayTest.cpp
+        test/container/TAlgorithmTest.cpp
         test/container/THashMapTest.cpp
         test/container/TListTest.cpp
         test/container/TQueueTest.cpp
