@@ -22,10 +22,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
 #pragma once
 
-#ifdef WIN32
-#include <Windows.h>
+#ifdef _WIN32
+#   include <Windows.h>
 #else
-#include <sys/statvfs.h>
+#   include <sys/statvfs.h>
 #endif
 
 namespace cppcore {
@@ -75,7 +75,7 @@ inline void FileSystem::refresh() {
     if (m_drive == nullptr) {
         return;
     }
-#ifdef WIN32
+#ifdef _WIN32
     PULARGE_INTEGER freeByteAvailable = 0, totalNumberOfBytes = 0, totalNumberOfFreeBytes = 0;
     BOOL result = ::GetDiskFreeSpaceEx(m_drive, freeByteAvailable, totalNumberOfBytes, totalNumberOfFreeBytes);
     if (TRUE == result) {
