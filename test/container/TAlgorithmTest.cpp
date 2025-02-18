@@ -21,7 +21,4 @@ TEST_F(TAlgorithmTest, distanceTest) {
 
     dist = distance(theArray.begin()+1, theArray.end());
     EXPECT_EQ(dist, 2u);
-
-    dist = distance(theArray.end(), theArray.begin());
-    std::cout << "dist = " << dist << "\n";
 }

@@ -142,12 +142,12 @@ inline bool TStaticArray<T, len>::operator==(const TStaticArray<T, len> &rhs) co
 }
 
 template <class T, size_t len>
-inline TStaticArray<T, len> &TStaticArray<T, len>::operator=(const TStaticArray<T, len> &rhs) {
+inline TStaticArray<T, len> &TStaticArray<T, len>::operator = (const TStaticArray<T, len> &rhs) {
     if (*this == rhs) {
         return *this;
     }
 
-    for (unsigned int i = 0; i < m_len; ++i) {
+    for (unsigned int i = 0; i < mLen; ++i) {
         mArray[i] = rhs.mArray[i];
     }
 
