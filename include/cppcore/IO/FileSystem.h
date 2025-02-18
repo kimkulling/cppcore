@@ -23,9 +23,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #pragma once
 
 #ifdef _WIN32
-#include <Windows.h>
+#   include <Windows.h>
 #else
-#include <sys/statvfs.h>
+#   include <sys/statvfs.h>
 #endif
 
 namespace cppcore {
@@ -37,8 +37,7 @@ struct FSSpace {
     long inUse;     ///< The used capacity
 
     /// @brief  The default class constructor.
-    FSSpace() :
-            capacity(0L), free(0L), inUse(0L) {
+    FSSpace() : capacity(0L), free(0L), inUse(0L) {
         // empty
     }
 };
@@ -77,7 +76,7 @@ inline void FileSystem::refresh() {
     }
 #ifdef _WIN32
     PULARGE_INTEGER freeByteAvailable = 0, totalNumberOfBytes = 0, totalNumberOfFreeBytes = 0;
-    BOOL result = ::GetDiskFreeSpaceEx(m_drive, freeByteAvailable, totalNumberOfBytes, totalNumberOfFreeBytes);
+    BOOL result = ::GetDiskFreeSpaceEx(mDrive, freeByteAvailable, totalNumberOfBytes, totalNumberOfFreeBytes);
     if (TRUE == result) {
         ::memcpy(&mFsSpace.capacity, &totalNumberOfBytes->QuadPart, sizeof(PULARGE_INTEGER));
         ::memcpy(&mFsSpace.free, &freeByteAvailable->QuadPart, sizeof(PULARGE_INTEGER));
@@ -89,7 +88,7 @@ inline void FileSystem::refresh() {
     statvfs(m_drive, &stats);
     mFsSpace.capacity = stats.f_bsize;
     mFsSpace.free = stats.f_bsize * stats.f_bfree;
-    mFsSpace.inUse = m_fsSpace.capacity - m_fsSpace.free;
+    mFsSpace.inUse = mFsSpace.capacity - mFsSpace.free;
 #endif
 }
 
