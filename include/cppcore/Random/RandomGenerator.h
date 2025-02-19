@@ -60,7 +60,7 @@ public:
     RandomGenerator &operator = (const RandomGenerator &) = delete;
 
 private:
-    GeneratorType m_type;
+    GeneratorType mType;
 };
 
 } // Namespace cppcore

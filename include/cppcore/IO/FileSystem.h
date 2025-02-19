@@ -37,8 +37,7 @@ struct FSSpace {
     long inUse;     ///< The used capacity
 
     /// @brief  The default class constructor.
-    FSSpace() :
-            capacity(0L), free(0L), inUse(0L) {
+    FSSpace() : capacity(0L), free(0L), inUse(0L) {
         // empty
     }
 };
@@ -61,42 +60,41 @@ public:
     FSSpace *getFreeDiskSpace();
 
 private:
-    const char *m_drive;
-    FSSpace m_fsSpace;
+    const char *mDrive;
+    FSSpace mFsSpace;
 };
 
 inline FileSystem::FileSystem(const char *location) :
-        m_drive(location),
-        m_fsSpace() {
+        mDrive(location),
+        mFsSpace() {
     // empty
 }
 
 inline void FileSystem::refresh() {
-    if (m_drive == nullptr) {
+    if (mDrive == nullptr) {
         return;
     }
 #ifdef _WIN32
-    PULARGE_INTEGER freeByteAvailable = 0, totalNumberOfBytes = 0, totalNumberOfFreeBytes = 0;
-    BOOL result = ::GetDiskFreeSpaceEx(m_drive, freeByteAvailable, totalNumberOfBytes, totalNumberOfFreeBytes);
+    ULARGE_INTEGER freeByteAvailable, totalNumberOfBytes, totalNumberOfFreeBytes;
+    BOOL result = ::GetDiskFreeSpaceEx(mDrive, &freeByteAvailable, &totalNumberOfBytes, &totalNumberOfFreeBytes);
     if (TRUE == result) {
-        ::memcpy(&m_fsSpace.capacity, &totalNumberOfBytes->QuadPart, sizeof(PULARGE_INTEGER));
-        ::memcpy(&m_fsSpace.free, &freeByteAvailable->QuadPart, sizeof(PULARGE_INTEGER));
-        ULONGLONG res = totalNumberOfBytes->QuadPart - freeByteAvailable->QuadPart;
-        ::memcpy(&m_fsSpace.inUse, &res, sizeof(PULARGE_INTEGER));
+        mFsSpace.capacity = totalNumberOfBytes.QuadPart / (1024 * 1024 * 1024);
+        mFsSpace.free = freeByteAvailable.QuadPart / (1024 * 1024 * 1024);
+        mFsSpace.inUse = mFsSpace.capacity - mFsSpace.free;
     }
 #else
     struct statvfs stats;
-    statvfs(m_drive, &stats);
-    m_fsSpace.capacity = stats.f_bsize;
-    m_fsSpace.free = stats.f_bsize * stats.f_bfree;
-    m_fsSpace.inUse = m_fsSpace.capacity - m_fsSpace.free;
+    statvfs(mDrive, &stats);
+    mFsSpace.capacity = stats.f_bsize;
+    mFsSpace.free = stats.f_bsize * stats.f_bfree;
+    mFsSpace.inUse = mFsSpace.capacity - mFsSpace.free;
 #endif
 }
 
 inline FSSpace *FileSystem::getFreeDiskSpace() {
     refresh();
 
-    return &m_fsSpace;
+    return &mFsSpace;
 }
 
 } // Namespace cppcore

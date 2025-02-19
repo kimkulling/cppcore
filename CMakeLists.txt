@@ -110,7 +110,7 @@ SET ( cppcore_container_src
 SOURCE_GROUP( code            FILES ${cppcore_src} )
 SOURCE_GROUP( code\\common    FILES ${cppcore_common_src} )
 SOURCE_GROUP( code\\container FILES ${cppcore_container_src} )
-SOURCE_GROUP( code\\IO        FILES ${cppcore_io_src} )
+SOURCE_GROUP( code\\io        FILES ${cppcore_io_src} )
 SOURCE_GROUP( code\\memory    FILES ${cppcore_memory_src} )
 SOURCE_GROUP( code\\random    FILES ${cppcore_random_src} )
 
@@ -139,10 +139,15 @@ IF( CPPCORE_BUILD_UNITTESTS )
 
     SET( cppcore_container_test_src
         test/container/TArrayTest.cpp
+        test/container/TAlgorithmTest.cpp
         test/container/THashMapTest.cpp
         test/container/TListTest.cpp
         test/container/TQueueTest.cpp
         test/container/TStaticArrayTest.cpp
+    )
+
+    SET( cppcore_io_test_src
+        test/io/FileSystemTest.cpp
     )
 
     SET( cppcore_memory_test_src
@@ -152,14 +157,15 @@ IF( CPPCORE_BUILD_UNITTESTS )
     )
 
     SET( cppcore_random_test_src
-        test/Random/RandomGeneratorTest.cpp
+        test/random/RandomGeneratorTest.cpp
     )
 	
-    SOURCE_GROUP( code            FILES ${cppcore_test_src} )
-    SOURCE_GROUP( code\\common    FILES ${cppcore_common_test_src} )
-    SOURCE_GROUP( code\\container FILES ${cppcore_container_test_src} )
-    SOURCE_GROUP( code\\memory    FILES ${cppcore_memory_test_src} ) 
-    SOURCE_GROUP( code\\random    FILES ${cppcore_random_test_src} )
+    SOURCE_GROUP(code            FILES ${cppcore_test_src} )
+    SOURCE_GROUP(code\\common    FILES ${cppcore_common_test_src} )
+    SOURCE_GROUP(code\\io        FILES ${cppcore_io_test_src} )
+    SOURCE_GROUP(code\\container FILES ${cppcore_container_test_src} )
+    SOURCE_GROUP(code\\memory    FILES ${cppcore_memory_test_src} ) 
+    SOURCE_GROUP(code\\random    FILES ${cppcore_random_test_src} )
 
     # Prevent overriding the parent project's compiler/linker
     # settings on Windows
@@ -179,6 +185,7 @@ IF( CPPCORE_BUILD_UNITTESTS )
     ADD_EXECUTABLE( cppcore_unittest
         ${cppcore_test_src}
         ${cppcore_common_test_src}
+        ${cppcore_io_test_src}
         ${cppcore_memory_test_src}
         ${cppcore_random_test_src}
         ${cppcore_container_test_src}

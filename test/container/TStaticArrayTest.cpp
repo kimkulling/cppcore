@@ -94,3 +94,15 @@ TEST_F(TStaticArrayTest, string_Test) {
     }
 }
 
+TEST_F(TStaticArrayTest, copyTest) {
+    TStaticArray<int, 4> arr;
+    for (size_t i = 0; i < 4; ++i) {
+        arr[i] = 1;
+    }
+
+    TStaticArray<int, 4> copy_arr = arr;
+    for (size_t i = 0; i < 4; ++i) {
+        EXPECT_EQ(copy_arr[i], arr[i]);
+    }
+}
+

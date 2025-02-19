@@ -55,7 +55,6 @@ public:
     ///	@brief  Marker for unset node keys.
     static constexpr unsigned int UnsetNode = 999999999;
 
-public:
     ///	@brief  The class constructor.
     /// @param  init    [in] The initial size for the hash.
     explicit THashMap(size_t init = InitSize);
@@ -114,27 +113,24 @@ public:
 
 private:
     struct Node {
-        T m_key;
-        U m_value;
-        Node *m_next;
+        T mKey = UnsetNode;
+        U mValue;
+        Node *mNext;
 
         Node();
-        ~Node();
+        ~Node() = default;
         void append(T key, const U &value);
         bool remove(T key);
         void releaseList();
     };
 
-    Node **m_buffer;
-    size_t m_numItems;
-    size_t m_buffersize;
+    Node **mBuffer = nullptr;
+    size_t mNumItems = 0u;
+    size_t mBuffersize = 0u;
 };
 
 template <class T, class U, class TAlloc>
-inline THashMap<T, U, TAlloc>::THashMap(size_t initSize) :
-        m_buffer(nullptr),
-        m_numItems(0u),
-        m_buffersize(0u) {
+inline THashMap<T, U, TAlloc>::THashMap(size_t initSize) {
     init(initSize);
 }
 
@@ -145,76 +141,76 @@ inline THashMap<T, U, TAlloc>::~THashMap() {
 
 template <class T, class U, class TAlloc>
 inline size_t THashMap<T, U, TAlloc>::size() const {
-    return m_numItems;
+    return mNumItems;
 }
 
 template <class T, class U, class TAlloc>
 inline size_t THashMap<T, U, TAlloc>::capacity() const {
-    return m_buffersize;
+    return mBuffersize;
 }
 
 template <class T, class U, class TAlloc>
 inline bool THashMap<T, U, TAlloc>::isEmpty() const {
-    return (0u == m_numItems);
+    return (0u == mNumItems);
 }
 
 template <class T, class U, class TAlloc>
 inline void THashMap<T, U, TAlloc>::init(size_t init) {
-    m_buffer = new Node *[init];
+    mBuffer = new Node *[init];
     for (size_t i = 0; i < init; i++) {
-        m_buffer[i] = nullptr;
+        mBuffer[i] = nullptr;
     }
-    m_buffersize = init;
+    mBuffersize = init;
 }
 
 template <class T, class U, class TAlloc>
 inline void THashMap<T, U, TAlloc>::clear() {
-    for (size_t i = 0; i < m_buffersize; ++i) {
-        if (nullptr != m_buffer[i]) {
-            m_buffer[i]->releaseList();
+    for (size_t i = 0; i < mBuffersize; ++i) {
+        if (nullptr != mBuffer[i]) {
+            mBuffer[i]->releaseList();
         }
     }
-    delete[] m_buffer;
-    m_buffer = nullptr;
-    m_numItems = 0;
-    m_buffersize = 0;
+    delete[] mBuffer;
+    mBuffer = nullptr;
+    mNumItems = 0;
+    mBuffersize = 0;
 }
 
 template <class T, class U, class TAlloc>
 inline void THashMap<T, U, TAlloc>::insert(const T &key, const U &value) {
-    const T hash = Hash::toHash(key, static_cast<T>(m_buffersize));
-    if (nullptr == m_buffer[hash]) {
+    const T hash = Hash::toHash(key, static_cast<T>(mBuffersize));
+    if (nullptr == mBuffer[hash]) {
         Node *node = new Node;
-        node->m_key = key;
-        node->m_value = value;
-        m_buffer[hash] = node;
+        node->mKey = key;
+        node->mValue = value;
+        mBuffer[hash] = node;
     } else {
-        m_buffer[hash]->append(key, value);
+        mBuffer[hash]->append(key, value);
     }
-    ++m_numItems;
+    ++mNumItems;
 }
 
 template <class T, class U, class TAlloc>
 inline bool THashMap<T, U, TAlloc>::remove(const T &key) {
-    const T hash = Hash::toHash(key, (unsigned int)m_buffersize);
-    if (nullptr == m_buffer[hash]) {
+    const T hash = Hash::toHash(key, static_cast<unsigned int>(mBuffersize));
+    if (nullptr == mBuffer[hash]) {
         return false;
     }
 
     bool found = false;
-    Node *current = m_buffer[hash];
-    if (current->m_key == key) {
-        Node *next = current->m_next;
-        m_buffer[hash] = next;
+    Node *current = mBuffer[hash];
+    if (current->mKey == key) {
+        Node *next = current->mNext;
+        mBuffer[hash] = next;
         delete current;
-        --m_numItems;
+        --mNumItems;
         found = true;
         return true;
     }
 
     found = current->remove(key);
     if (found) {
-        --m_numItems;
+        --mNumItems;
     }
 
     return found;
@@ -223,26 +219,26 @@ inline bool THashMap<T, U, TAlloc>::remove(const T &key) {
 template <class T, class U, class TAlloc>
 inline bool THashMap<T, U, TAlloc>::hasKey(const T &key) const {
     // no buffer, so no items stored
-    if (0 == m_buffersize) {
+    if (0 == mBuffersize) {
         return false;
     }
-    const T hash = THash<T>::toHash(key, (unsigned int)m_buffersize);
-    const Node *node = m_buffer[hash];
+    const T hash = THash<T>::toHash(key, (unsigned int)mBuffersize);
+    const Node *node = mBuffer[hash];
     if (nullptr == node) {
         return false;
     }
 
-    if (node->m_key == key) {
+    if (node->mKey == key) {
         return true;
     }
 
-    if (nullptr != node->m_next) {
-        Node *next = node->m_next;
+    if (nullptr != node->mNext) {
+        Node *next = node->mNext;
         while (nullptr != next) {
-            if (next->m_key == key) {
+            if (next->mKey == key) {
                 return true;
             }
-            next = next->m_next;
+            next = next->mNext;
         }
     }
 
@@ -251,21 +247,21 @@ inline bool THashMap<T, U, TAlloc>::hasKey(const T &key) const {
 
 template <class T, class U, class TAlloc>
 inline bool THashMap<T, U, TAlloc>::getValue(const T &key, U &value) const {
-    const size_t pos = Hash::toHash(key, (unsigned int) m_buffersize);
-    if (m_buffer[pos]->m_key == key) {
-        value = m_buffer[pos]->m_value;
+    const size_t pos = Hash::toHash(key, (unsigned int) mBuffersize);
+    if (mBuffer[pos]->mKey == key) {
+        value = mBuffer[pos]->mValue;
         return true;
     }
 
-    Node *node = m_buffer[pos];
-    Node *next = node->m_next;
-    while (next->m_key != key) {
-        next = next->m_next;
+    Node *node = mBuffer[pos];
+    Node *next = node->mNext;
+    while (next->mKey != key) {
+        next = next->mNext;
         if (nullptr == next) {
             return false;
         }
     }
-    value = next->m_value;
+    value = next->mValue;
 
     return true;
 }
@@ -273,80 +269,74 @@ inline bool THashMap<T, U, TAlloc>::getValue(const T &key, U &value) const {
 template <class T, class U, class TAlloc>
 inline U &THashMap<T, U, TAlloc>::operator[](const T &key) const {
     static U dummy;
-    const unsigned int pos = Hash::toHash(key, m_buffersize);
-    if (m_buffer[pos]->m_key == key) {
-        return m_buffer[pos]->m_value;
+    const unsigned int pos = Hash::toHash(key, mBuffersize);
+    if (mBuffer[pos]->mKey == key) {
+        return mBuffer[pos]->mValue;
     } 
 
-    Node next = m_buffer[pos]->m_next;
-    while (next->m_key != key) {
-        next = next->m_next;
+    Node *next = mBuffer[pos]->mNext;
+    while (next->mKey != key) {
+        next = next->mNext;
         if (nullptr == next) {
             return dummy;
         }
     }
 
-    return next->m_value;
+    return next->mValue;
 }
 
 template <class T, class U, class TAlloc>
 inline THashMap<T, U, TAlloc>::Node::Node() :
-        m_key(UnsetNode), 
-        m_value(), 
-        m_next(nullptr) {
+        mValue(), 
+        mNext(nullptr) {
     // empty
 }
 
 template <class T, class U, class TAlloc>
-inline THashMap<T, U, TAlloc>::Node::~Node() {
-    m_next = nullptr;
-}
-
-template <class T, class U, class TAlloc>
 inline void THashMap<T, U, TAlloc>::Node::append(T key, const U &value) {
-    if (m_key == UnsetNode) {
-        m_key = key;
-        m_value = value;
+    if (mKey == UnsetNode) {
+        mKey = key;
+        mValue = value;
         return;
     }
 
-    Node *current = m_next;
+    Node *current = mNext;
     if (nullptr != current) {
         // already collisions, traverse
-        while (current->m_next) {
-            current = current->m_next;
+        while (current->mNext) {
+            current = current->mNext;
         }
-        current->m_next = new Node;
-        current->m_next->m_key = key;
-        current->m_next->m_value = value;
+        current->mNext = new Node;
+        current->mNext->mKey = key;
+        current->mNext->mValue = value;
     } else {
         // first collision
-        m_next = new Node;
-        current = m_next;
-        current->m_key = key;
-        current->m_value = value;
+        mNext = new Node;
+        current = mNext;
+        current->mKey = key;
+        current->mValue = value;
     }
 }
 
 template <class T, class U, class TAlloc>
 inline bool THashMap<T, U, TAlloc>::Node::remove(T key) {
-    if (nullptr == m_next) {
+    if (nullptr == mNext) {
         return false;
     }
 
     bool found = false;
-    Node *current = m_next, *prev = nullptr;
+    Node *current = mNext, *prev = nullptr;
     while (nullptr != current) {
-        if (current->m_key == key) {
+        if (current->mKey == key) {
             if (nullptr != prev) {
-                prev->m_next = current->m_next;
+                prev->mNext = current->mNext;
                 delete current;
             }
             found = true;
             break;
         }
         prev = current;
-        current = current->m_next;
+        current = current->mNext;
     }
 
     return found;
@@ -354,14 +344,14 @@ inline bool THashMap<T, U, TAlloc>::Node::remove(T key) {
 
 template <class T, class U, class TAlloc>
 inline void THashMap<T, U, TAlloc>::Node::releaseList() {
-    if (nullptr == m_next) {
+    if (nullptr == mNext) {
         return;
     }
 
-    Node *current = m_next;
+    Node *current = mNext;
     while (nullptr != current) {
         Node *tmp = current;
-        current = current->m_next;
+        current = current->mNext;
         delete tmp;
     }
 }

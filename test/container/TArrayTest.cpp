@@ -33,8 +33,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using namespace cppcore;
 
 // Some test-data
-static const size_t ArraySize = 4;
-static const float ArrayData[ ArraySize ] = {
+static constexpr size_t ArraySize = 4;
+static constexpr float ArrayData[ ArraySize ] = {
     0.0f,
     1.0f,
     2.0f,
@@ -168,7 +168,7 @@ TEST_F( TArrayTest, removeItTest) {
     TArray<float> arrayInstance;
     arrayInstance.add( 1.0f );
     EXPECT_EQ( 1u, arrayInstance.size() );
-    TArray<float>::Iterator it = arrayInstance.find( 1.0f );
+    TArray<float>::Iterator it = arrayInstance.linearSearch( 1.0f );
     EXPECT_NE( arrayInstance.end(), it );
 
     arrayInstance.remove( it );
@@ -278,7 +278,7 @@ TEST_F( TArrayTest, findTest )	{
 	arrayInstance.add( 3.0f );
 	EXPECT_EQ( 4u, arrayInstance.size() );
 
-    TArray<float>::Iterator it = arrayInstance.find( 1.0f );
+    TArray<float>::Iterator it = arrayInstance.linearSearch( 1.0f );
 	EXPECT_NE( it, arrayInstance.end() );
 	EXPECT_EQ( *it, 1.0f );
 }
