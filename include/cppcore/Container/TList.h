@@ -108,31 +108,31 @@ public:
     //---------------------------------------------------------------------------------------------
     class Iterator {
     public:
-        ///	The default class constructor.
+        /// The default class constructor.
         Iterator();
-        ///	Constructor with a node instance.
+        /// Constructor with a node instance.
         Iterator(Node *pNode);
-        ///	The copy constructor.
+        /// The copy constructor.
         Iterator(const Iterator &rOther);
-        ///	The destructor, non virtual.
-        ~Iterator();
-        ///	The assignment operator.
+        /// The destructor, non virtual.
+        ~Iterator() = default;
+        /// The assignment operator.
         Iterator &operator=(const Iterator &rOther);
-        ///	The compare operator.
+        /// The compare operator.
         bool operator==(const Iterator &rOther) const;
-        ///	The not equal operator.
+        /// The not equal operator.
         bool operator!=(const Iterator &rOther) const;
-        ///	The post increment operator.
+        /// The post increment operator.
         const Iterator &operator++(int);
-        ///	The pre-increment operator.
+        /// The pre-increment operator.
         Iterator &operator++();
-        ///	The post decrement operator.
+        /// The post decrement operator.
         const Iterator &operator--(int);
-        ///	The pre-decrement operator.
+        /// The pre-decrement operator.
         Iterator &operator--();
-        ///	The -> operator.
+        /// The -> operator.
         T *operator->() const;
-        ///	The dereference operator.
+        /// The dereference operator.
         T &operator*() const;
 
     private:
@@ -392,12 +392,7 @@ inline TList<T, TAlloc>::Iterator::Iterator(Node *node) :
 
 template <class T, class TAlloc>
 inline TList<T, TAlloc>::Iterator::Iterator(const Iterator &rhs) :
-        m_pNode(rhs.m_pNode) {
-    // empty
-}
-
-template <class T, class TAlloc>
-inline TList<T, TAlloc>::Iterator::~Iterator() {
+        mNode(rhs.m_pNode) {
     // empty
 }
 
