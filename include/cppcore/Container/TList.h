@@ -392,7 +392,7 @@ inline TList<T, TAlloc>::Iterator::Iterator(Node *node) :
 
 template <class T, class TAlloc>
 inline TList<T, TAlloc>::Iterator::Iterator(const Iterator &rhs) :
-        mNode(rhs.m_pNode) {
+        mNode(rhs.mNode) {
     // empty
 }
 
