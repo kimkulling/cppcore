@@ -55,7 +55,6 @@ public:
     ///	@brief  Marker for unset node keys.
     static constexpr unsigned int UnsetNode = 999999999;
 
-public:
     ///	@brief  The class constructor.
     /// @param  init    [in] The initial size for the hash.
     explicit THashMap(size_t init = InitSize);
@@ -114,27 +113,24 @@ public:
 
 private:
     struct Node {
-        T mKey;
+        T mKey = UnsetNode;
         U mValue;
         Node *mNext;
 
         Node();
-        ~Node();
+        ~Node() = default;
         void append(T key, const U &value);
         bool remove(T key);
         void releaseList();
     };
 
-    Node **mBuffer;
-    size_t mNumItems;
-    size_t mBuffersize;
+    Node **mBuffer = nullptr;
+    size_t mNumItems = 0u;
+    size_t mBuffersize = 0u;
 };
 
 template <class T, class U, class TAlloc>
-inline THashMap<T, U, TAlloc>::THashMap(size_t initSize) :
-        mBuffer(nullptr),
-        mNumItems(0u),
-        mBuffersize(0u) {
+inline THashMap<T, U, TAlloc>::THashMap(size_t initSize) {
     init(initSize);
 }
 
@@ -291,15 +287,9 @@ inline U &THashMap<T, U, TAlloc>::operator[](const T &key) const {
 
 template <class T, class U, class TAlloc>
 inline THashMap<T, U, TAlloc>::Node::Node() :
-        mKey(UnsetNode), 
         mValue(), 
         mNext(nullptr) {
     // empty
-}
-
-template <class T, class U, class TAlloc>
-inline THashMap<T, U, TAlloc>::Node::~Node() {
-    mNext = nullptr;
 }
 
 template <class T, class U, class TAlloc>

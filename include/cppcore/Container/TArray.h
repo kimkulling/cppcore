@@ -181,37 +181,25 @@ public:
 
 private:
     TAlloc mAllocator;
-    size_t mSize;
-    size_t mCapacity;
-    T *mData;
+    size_t mSize = 0u;
+    size_t mCapacity = 0u;
+    T *mData = nullptr;
 };
 
 template <class T, class TAlloc>
-inline TArray<T, TAlloc>::TArray() :
-        mAllocator(),
-        mSize(0u),
-        mCapacity(0u),
-        mData(nullptr) {
+inline TArray<T, TAlloc>::TArray() {
     // empty
 }
 
 template <class T, class TAlloc>
-inline TArray<T, TAlloc>::TArray(size_t size) :
-        mAllocator(),
-        mSize(0u),
-        mCapacity(0u),
-        mData(nullptr) {
+inline TArray<T, TAlloc>::TArray(size_t size) {
     const size_t capa = Details::getGrowing(size);
     reserve(capa);
     resize(size);
 }
 
 template <class T, class TAlloc>
-inline TArray<T, TAlloc>::TArray(const TArray<T, TAlloc> &rhs) :
-        mAllocator(),
-        mSize(0u),
-        mCapacity(0u),
-        mData(nullptr) {
+inline TArray<T, TAlloc>::TArray(const TArray<T, TAlloc> &rhs) {
     resize(rhs.mSize);
     for (size_t i = 0u; i < mSize; ++i) {
         mData[i] = rhs.mData[i];
