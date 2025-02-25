@@ -120,7 +120,7 @@ inline size_t TStaticArray<T, len>::size() const {
 
 template <class T, size_t len>
 inline T TStaticArray<T, len>::operator[](size_t index) const {
-    assert(index < m_len);
+    assert(index < mLen);
 
     return mArray[index];
 }
@@ -148,7 +148,7 @@ inline TStaticArray<T, len> &TStaticArray<T, len>::operator = (const TStaticArra
     }
 
     for (unsigned int i = 0; i < mLen; ++i) {
-        mArray[i] = rhs.mArray[i];
+       mArray[i] = rhs.mArray[i];
     }
 
     return *this;
