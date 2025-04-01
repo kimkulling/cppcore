@@ -37,7 +37,19 @@ protected:
 
 TEST_F(SortTest, isSortedTest ) {
     int32_t arr[] = {1,2,3,4,5};
-    bool sorted = isSorted(arr, 5, int_comp);
+    bool sorted = isSorted(arr, 5, sizeof(int32_t), compAscending<int32_t>);
     EXPECT_TRUE(sorted);
 }
 
+TEST_F(SortTest, isNotSortedTest) {
+    int32_t arr[] = { 1, 2, 3, 5, 4 };
+    bool sorted = isSorted(arr, 5, sizeof(int32_t), compAscending<int32_t>);
+    EXPECT_FALSE(sorted);
+}
+
+TEST_F(SortTest, quicksortTest) {
+    int32_t arr[] = { 1, 2, 3, 5, 4 };
+    quicksort(&arr[0], &arr[0], 5, sizeof(int32_t), compAscending<int32_t>);
+    bool sorted = isSorted(arr, 5, sizeof(int32_t), compAscending<int32_t>);
+    EXPECT_TRUE(sorted);
+}

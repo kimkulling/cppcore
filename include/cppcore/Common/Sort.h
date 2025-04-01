@@ -6,26 +6,29 @@ namespace cppcore {
 
     typedef int32_t (*ComparisonFn)(const void* _lhs, const void* _rhs);
 
-    int32_t int_comp(const void *lhs, const void *rhs)  {
-        int32_t _lhs=0, _rhs=0;
-        memcpy(&_lhs, lhs, sizeof(int32_t));
-        memcpy(&_rhs, rhs, sizeof(int32_t));
-        if (_lhs > _rhs) {
-            return 1;
-        } else if (lhs == rhs) {
-            return 0;
-        }
-        return -1;
-    }
-
     template<class T>
-    void swap(T *v1, T *v2) {
-        T tmp = *v1;
-        *v1 = *v2;
-        *v2 = *tmp;
+    int32_t compAscending(const void *lhs, const void *rhs)  {
+        const T _lhs = *static_cast<const T *>(lhs);
+        const T _rhs = *static_cast<const T *>(rhs);
+        return (_lhs > _rhs) - (_lhs < _rhs);
     }
 
-    inline void quicksort(void *pivot, void *_data, size_t num, ComparisonFn func=int_comp) {
+    inline void swap(uint8_t &lhs, uint8_t &rhs) {
+        uint8_t tmp = lhs;
+        lhs = rhs;
+        rhs = tmp;
+    }
+
+    inline void swap(void *v1, void *v2, size_t stride) {
+        uint8_t *lhs = (uint8_t*) v1;
+        uint8_t *rhs = (uint8_t*) v2;
+        const uint8_t *end = rhs + stride;
+        while (rhs != end) {
+            swap(*lhs++, *rhs++);
+        }
+    }
+
+    inline void quicksort(void *pivot, void *_data, size_t num, size_t stride, ComparisonFn func) {
         if (num < 2) {
             return;
         }
@@ -40,10 +43,10 @@ namespace cppcore {
         for (size_t i=1; i<num;) {
             int32_t result = func(&data[i], pivot);
             if (result > 0) {
-                swap(&data[l], &data[i]);
+                swap(&data[l*stride], &data[i*stride], stride);
                 ++l;
             } else if (result == 0) {
-                swap(&data[g], &data[i]);
+                swap(&data[g*stride], &data[i*stride], stride);
                 ++g;
                 ++i;
             } else  {
@@ -51,17 +54,17 @@ namespace cppcore {
             }
         }
         
-        quicksort(pivot, &data[0], l, func);
-        quicksort(pivot, &data[g], num-g, func);
+        quicksort(pivot, &data[0], l, stride, func);
+        quicksort(pivot, &data[g], num - g, stride, func);
     }
 
-    bool isSorted(void *data, size_t num, ComparisonFn func) {
+    bool isSorted(const void *data, size_t num, size_t stride, ComparisonFn func) {
         if (num  < 2) {
             return true;
         }
-
-        for (size_t i=0; i<num-1; ++i) {
-            const int32_t result = func(&data[i], &data[i+1]);
+        uint8_t *data_ = (uint8_t *)data;
+        for (size_t i=1; i<num; ++i) {
+            const int32_t result = func(&data_[(i-1)*stride], &data_[i * stride]);
             if (result == -1) {
                 return false;
             }
