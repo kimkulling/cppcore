@@ -58,7 +58,8 @@ public:
     /// @brief  The class destructor.
     ~TPoolAllocator();
 
-    /// @brief
+    /// @brief  WIll alloc one item from the pool.
+    /// @return The pointer to the allocated item.
     T *alloc();
 
     /// @brief  Will release all allocated items.
