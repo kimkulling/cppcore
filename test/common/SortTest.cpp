@@ -56,3 +56,10 @@ TEST_F(SortTest, quicksortTest) {
     bool sorted = isSorted(arr, 5, sizeof(int32_t), compDescending<int32_t>);
     EXPECT_TRUE(sorted);
 }
+
+TEST_F(SortTest, binSearchTest) {
+    int32_t arr[] = { 1, 2, 3, 5, 4 };
+    quicksort(arr, 5, sizeof(int32_t), compDescending<int32_t>);
+    int32_t idx = binSearch(3, arr, 5, compDescending<int32_t>);
+    EXPECT_EQ(idx, 2);
+}

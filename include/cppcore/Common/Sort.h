@@ -114,4 +114,24 @@ namespace cppcore {
         return true;
     }
 
+    inline int32_t binSearchImpl(void *key, void *data, size_t num, size_t stride, ComparisonFn func) {
+        size_t offset = 0;
+        uint8_t *_data = (uint8_t *)data;
+        for (size_t i = num; offset < i;) {
+            size_t idx = (offset + i) / 2;
+            int32_t result = func(key, &_data[i * stride]);
+            if (result < 0) {
+                i = idx;
+            } else if (result > 0) {
+                offset = idx + 1;
+            } else {
+                return idx;
+            }
+        }
+        return ~offset;
+    }
+
+    int32_t binSearch(int32_t key, int32_t* array, size_t num, ComparisonFn func) {
+        return binSearchImpl(&key, &array[0], num, sizeof(int32_t), func);
+    }
 } // namespace cppcore
