@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2024 Kim Kulling
+Copyright (c) 2014-2025 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,7 @@ using namespace cppcore;
 
 class TScratchAllocatorTest : public testing::Test {
 public:
-    const size_t BufferSize = 1024u;
+    static constexpr size_t BufferSize = 1024u;
 };
 
 TEST_F(TScratchAllocatorTest, CreateTest) {
@@ -64,4 +64,3 @@ TEST_F(TScratchAllocatorTest, ClearTest) {
     EXPECT_EQ(myAllocator.capacity(), 0u);
     EXPECT_EQ(myAllocator.freeMem(), 0u);
 }
-

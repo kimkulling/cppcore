@@ -1,3 +1,25 @@
+/*-----------------------------------------------------------------------------------------------
+The MIT License (MIT)
+
+Copyright (c) 2014-2025 Kim Kulling
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-----------------------------------------------------------------------------------------------*/
 #pragma once
 
 #include <cppcore/CPPCoreCommon.h>
@@ -7,10 +29,22 @@ namespace cppcore {
     typedef int32_t (*ComparisonFn)(const void* _lhs, const void* _rhs);
 
     template<class T>
-    int32_t compAscending(const void *lhs, const void *rhs)  {
+    inline int32_t compAscending(const void *lhs, const void *rhs)  {
         const T _lhs = *static_cast<const T *>(lhs);
         const T _rhs = *static_cast<const T *>(rhs);
         return (_lhs > _rhs) - (_lhs < _rhs);
+    }
+
+    template <typename Ty>
+    inline int32_t compDescending(const void *_lhs, const void *_rhs) {
+        return compAscending<Ty>(_rhs, _lhs);
+    }
+
+    template<class T>
+    inline void swap(T& v1, T& v2) {
+        T tmp = v1;
+        v1 = v2;
+        v2 = tmp;
     }
 
     inline void swap(uint8_t &lhs, uint8_t &rhs) {
@@ -28,7 +62,7 @@ namespace cppcore {
         }
     }
 
-    inline void quicksort(void *pivot, void *_data, size_t num, size_t stride, ComparisonFn func) {
+    inline void quicksortImpl(void *pivot, void *_data, size_t num, size_t stride, ComparisonFn func) {
         if (num < 2) {
             return;
         }
@@ -37,11 +71,13 @@ namespace cppcore {
             return;
         }
 
+        uint8_t *data = (uint8_t*) _data;
+        memcpy(pivot, &data[0], stride);
+
         size_t l = 0;
         size_t g = 1;
-        uint8_t *data = (uint8_t*) _data;
         for (size_t i=1; i<num;) {
-            int32_t result = func(&data[i], pivot);
+            int32_t result = func(&data[i*stride], pivot);
             if (result > 0) {
                 swap(&data[l*stride], &data[i*stride], stride);
                 ++l;
@@ -54,8 +90,13 @@ namespace cppcore {
             }
         }
         
-        quicksort(pivot, &data[0], l, stride, func);
-        quicksort(pivot, &data[g], num - g, stride, func);
+        quicksortImpl(pivot, &data[0], l, stride, func);
+        quicksortImpl(pivot, &data[g*stride], num - g, stride, func);
+    }
+
+    inline void quicksort(void *_data, size_t num, size_t stride, ComparisonFn func) {
+        uint8_t *pivot = (uint8_t*) CPPCORE_STACK_ALLOC(stride);
+        quicksortImpl(pivot, _data, num, stride, func);
     }
 
     bool isSorted(const void *data, size_t num, size_t stride, ComparisonFn func) {

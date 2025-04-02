@@ -2,7 +2,7 @@
 -------------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2024 Kim Kulling
+Copyright (c) 2014-2025 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,28 +28,31 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using namespace cppcore;
 
-class SortTest : public testing::Test {
-public:
-    
-protected:
-    // empty
-};
+class SortTest : public testing::Test {};
+
+TEST_F(SortTest, swapTest) {
+    int32_t i1 = 1;
+    int32_t i2 = 2;
+    swap(i1, i2);
+    EXPECT_EQ(i1, 2);
+    EXPECT_EQ(i2, 1);
+}
 
 TEST_F(SortTest, isSortedTest ) {
     int32_t arr[] = {1,2,3,4,5};
-    bool sorted = isSorted(arr, 5, sizeof(int32_t), compAscending<int32_t>);
+    bool sorted = isSorted(arr, 5, sizeof(int32_t), compDescending<int32_t>);
     EXPECT_TRUE(sorted);
 }
 
 TEST_F(SortTest, isNotSortedTest) {
     int32_t arr[] = { 1, 2, 3, 5, 4 };
-    bool sorted = isSorted(arr, 5, sizeof(int32_t), compAscending<int32_t>);
+    bool sorted = isSorted(arr, 5, sizeof(int32_t), compDescending<int32_t>);
     EXPECT_FALSE(sorted);
 }
 
 TEST_F(SortTest, quicksortTest) {
     int32_t arr[] = { 1, 2, 3, 5, 4 };
-    quicksort(&arr[0], &arr[0], 5, sizeof(int32_t), compAscending<int32_t>);
-    bool sorted = isSorted(arr, 5, sizeof(int32_t), compAscending<int32_t>);
+    quicksort(arr, 5, sizeof(int32_t), compDescending<int32_t>);
+    bool sorted = isSorted(arr, 5, sizeof(int32_t), compDescending<int32_t>);
     EXPECT_TRUE(sorted);
 }
