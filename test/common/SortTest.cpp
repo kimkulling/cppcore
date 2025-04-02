@@ -22,18 +22,44 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------
 */
-#include <cppcore/IO/FileSystem.h>
+#include <cppcore/Common/Sort.h>
+
+#include "gtest/gtest.h"
 
 using namespace cppcore;
 
-#include <gtest/gtest.h>
+class SortTest : public testing::Test {};
 
-using namespace cppcore;
+TEST_F(SortTest, swapTest) {
+    int32_t i1 = 1;
+    int32_t i2 = 2;
+    swap(i1, i2);
+    EXPECT_EQ(i1, 2);
+    EXPECT_EQ(i2, 1);
+}
 
-class FileSystemTest : public testing::Test {};
+TEST_F(SortTest, isSortedTest ) {
+    int32_t arr[] = {1,2,3,4,5};
+    bool sorted = isSorted(arr, 5, sizeof(int32_t), compDescending<int32_t>);
+    EXPECT_TRUE(sorted);
+}
 
-TEST_F(FileSystemTest, getFreeDiskSpaceTest) {
-    FileSystem fs("c:\\");
-    FSSpace *space = fs.getFreeDiskSpace();
-    EXPECT_NE(space, nullptr);
+TEST_F(SortTest, isNotSortedTest) {
+    int32_t arr[] = { 1, 2, 3, 5, 4 };
+    bool sorted = isSorted(arr, 5, sizeof(int32_t), compDescending<int32_t>);
+    EXPECT_FALSE(sorted);
+}
+
+TEST_F(SortTest, quicksortTest) {
+    int32_t arr[] = { 1, 2, 3, 5, 4 };
+    quicksort(arr, 5, sizeof(int32_t), compDescending<int32_t>);
+    bool sorted = isSorted(arr, 5, sizeof(int32_t), compDescending<int32_t>);
+    EXPECT_TRUE(sorted);
+}
+
+TEST_F(SortTest, binSearchTest) {
+    int32_t arr[] = { 1, 2, 3, 5, 4 };
+    quicksort(arr, 5, sizeof(int32_t), compDescending<int32_t>);
+    int32_t idx = binSearch(3, arr, 5, compDescending<int32_t>);
+    EXPECT_EQ(idx, 2);
 }

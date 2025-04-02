@@ -77,6 +77,7 @@ SET ( cppcore_common_src
     include/cppcore/Common/Hash.h
     include/cppcore/Common/TStringBase.h
     include/cppcore/Common/Variant.h
+    include/cppcore/Common/Sort.h
     include/cppcore/Common/TBitField.h
     include/cppcore/Common/TOptional.h
 )
@@ -133,6 +134,7 @@ IF( CPPCORE_BUILD_UNITTESTS )
     SET( cppcore_common_test_src
         test/common/HashTest.cpp
         test/common/VariantTest.cpp
+        test/common/SortTest.cpp
         test/common/TBitFieldTest.cpp
         test/common/TOptionalTest.cpp
     )

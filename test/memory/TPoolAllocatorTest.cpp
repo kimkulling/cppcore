@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2024 Kim Kulling
+Copyright (c) 2014-2025 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -34,8 +34,7 @@ protected:
 struct PoolItem {
     int id;
 
-    PoolItem()
-    : id(0) {
+    PoolItem() : id(0) {
         // empty
     }
 };
@@ -50,7 +49,7 @@ TEST_F(TPoolAllocatorTest, createTest) {
     EXPECT_TRUE( ok );
 }
 
-static const size_t NumItems = 500;
+static constexpr size_t NumItems = 500;
 
 TEST_F(TPoolAllocatorTest, alloc_access_Test) {
     TPoolAllocator<PoolItem> allocator;
