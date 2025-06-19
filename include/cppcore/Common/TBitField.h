@@ -37,7 +37,7 @@ template <class T>
 class TBitField {
 public:
     /// @brief  The default class constructor.
-    TBitField();
+    TBitField() = default;
     
     /// @brief  The class constructor  with the initial value.
     /// @param[in] init The init value.
@@ -48,12 +48,12 @@ public:
     
     /// @brief  Returns the current bit-mask.
     /// @return The bitmask.
-    T GetMask() const;
+    T getMask() const;
     
     /// @brief  Will return the bit at the given position.
     /// @param[in] pos  The bit position for readout.
     /// @return true for bit is set, false for not.
-    bool getBit(size_t pos) const;
+    bool constexpr getBit(size_t pos) const noexcept ;
     
     /// @brief  Will set the bit at the given position to the given state.
     /// @param[in] pos  The bit position for write.
@@ -76,28 +76,21 @@ public:
     size_t maxBits() const;
 
 private:
-    T mBitMask;
+    T mBitMask{0};
 };
 
 template <class T>
-inline TBitField<T>::TBitField() :
-        mBitMask(0) {
+inline TBitField<T>::TBitField(T init) : mBitMask(init) {
     // empty
 }
 
 template <class T>
-inline TBitField<T>::TBitField(T init) :
-        mBitMask(init) {
-    // empty
-}
-
-template <class T>
-inline T TBitField<T>::GetMask() const {
+inline T TBitField<T>::getMask() const {
     return mBitMask;
 }
 
 template <class T>
-inline bool TBitField<T>::getBit(size_t pos) const {
+inline bool constexpr TBitField<T>::getBit(size_t pos) const noexcept {
     assert(pos < maxBits());
     return (mBitMask & (1 << pos)) != 0;
 }
