@@ -23,29 +23,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #pragma once
 
 #include "string.h"
+#include <cppcore/Common/Hash.h>
 #include <cppcore/CPPCoreCommon.h>
-#include <malloc.h>
 
 namespace cppcore {
-
-template <class T>
-struct Allocator {
-    inline T *alloc(size_t size, size_t alignment) {
-        return (T*) _aligned_malloc(size, alignment);
-    }
-
-    inline void dealloc(T *ptr) {
-        _aligned_free(ptr);
-    }
-
-    inline static size_t countChars(const T *ptr) {
-        if (nullptr != ptr) {
-            return 0;
-        }
-
-        return (::strlen(ptr));
-    }
-};
 
 //-------------------------------------------------------------------------------------------------
 ///	@class		TStringBase
@@ -57,135 +38,122 @@ template <class T>
 class TStringBase {
 public:
     /// @brief  The default class constructor.
-    TStringBase() noexcept;
+    TStringBase() noexcept = default;
 
     /// @brief  The class constructor with a pointer showing to the data buffer.
     /// @param  pPtr        [in] The data buffer.
-    TStringBase(const T *pPtr);
+    TStringBase(const T *pPtr, size_t size);
 
     /// @brief  The class destructor.
     ~TStringBase();
 
-    void set(const T *ptr);
+    void set(const T *ptr, size_t size);
+    void clear();
+    void reset();
+    size_t size() const;
+    size_t capacity() const;
+    const T *c_str() const;
 
     /// @brief  Helper method to copy data into the string.
     /// @param  base        [inout] The string data to copy in.
     /// @param  pPtr        [in] The data source.
-    static void copyFrom(TStringBase<T> &base, const T *pPtr);
+    static void copyFrom(TStringBase<T> &base, const T *pPtr, size_t size);
      
     bool operator == (const TStringBase<T> &rhs) const;
     bool operator != (const TStringBase<T> &rhs) const;
 
-    T *m_pStringBuffer;
-    size_t m_size;
-    size_t m_capacity;
-    Allocator<T> mAllocator;
+private:
+    static constexpr size_t InitSize = 256;
+    T mBuffer[InitSize] = {'\0'};
+    T *mStringBuffer{nullptr};
+    size_t mSize{0};
+    size_t mCapacity{256};
+    HashId mHashId{0};
 };
 
 template <class T>
-inline TStringBase<T>::TStringBase() noexcept :
-        m_pStringBuffer(nullptr),
-        m_size(0),
-        m_capacity(0),
-        mAllocator() {
-    // empty
-}
-
-template <class T>
-inline TStringBase<T>::TStringBase(const T *pPtr) :
-        m_pStringBuffer(nullptr),
-        m_size(0),
-        m_capacity(0),
-        mAllocator() {
-    copyFrom(*this, pPtr);
+inline TStringBase<T>::TStringBase(const T *pPtr, size_t size) {
+    copyFrom(*this, pPtr, size);
+    mHashId = THash<HashId>::toHash(pPtr, mSize);
 }
 
 template <class T>
 inline TStringBase<T>::~TStringBase() {
-    if (m_pStringBuffer) {
-        mAllocator.dealloc(m_pStringBuffer);
-        m_pStringBuffer = nullptr;
+    clear();
+}
+
+template <class T>
+inline void TStringBase<T>::set(const T *ptr, size_t size) {
+    void reset();
+    if (nullptr != ptr) {
+        copyFrom(*this, ptr, size);
     }
 }
 
 template <class T>
-inline void TStringBase<T>::set(const T *ptr) {
-    mAllocator.dealloc(m_pStringBuffer);
-    if (nullptr != ptr) {
-        copyFrom(*this, ptr);
-    }
+inline void TStringBase<T>::reset() {
+    mSize = 0u;
 }
 
 template <class T>
-inline void TStringBase<T>::copyFrom(TStringBase<T> &base, const T *ptr) {
-    if (nullptr != ptr) {
-        base.m_size = Allocator<T>::countChars(ptr);
-        if (base.m_size) {
-            base.m_capacity = base.m_size + 1;
-            base.m_pStringBuffer = base.mAllocator.alloc(base.m_capacity, 16);
-#ifdef CPPCORE_WINDOWS
-            ::strncpy_s(base.m_pStringBuffer, base.m_capacity, ptr, base.m_size);
-#else
-            ::strncpy(base.m_pStringBuffer, ptr, base.m_size);
-#endif
-            base.m_pStringBuffer[base.m_size] = '\0';
+inline size_t TStringBase<T>::size() const {
+    return mSize;
+}
+
+template <class T>
+inline size_t TStringBase<T>::capacity() const {
+    return mCapacity;
+}
+
+template <class T>
+inline const T *TStringBase<T>::c_str() const {
+    if (mStringBuffer != nullptr) {
+        return mStringBuffer;
+    }
+
+    return mBuffer;
+}
+
+template <class T>
+inline void TStringBase<T>::clear() {
+    if (mStringBuffer != nullptr) {
+        delete [] mStringBuffer;
+        mStringBuffer = nullptr;
+        mCapacity = InitSize;
+    }
+    mSize = 0;
+}
+
+template <class T>
+inline void TStringBase<T>::copyFrom(TStringBase<T> &base, const T *ptr, size_t size) {
+    if (ptr != nullptr) {
+        T *targetPtr = base.mBuffer;
+        
+        if (size > 0) {
+            if (size > base.mCapacity) {
+                base.mStringBuffer = new T[size];
+                base.mCapacity = size;
+                targetPtr = base.mStringBuffer;
+            }
+            memcpy(targetPtr, ptr, size);
+            base.mSize = size;
         }
     }
 }
 
 template <class T>
-inline bool TStringBase<T>::operator==( const TStringBase<T> &rhs ) const {
-    if (rhs.m_size != m_size) {
+inline bool TStringBase<T>::operator == (const TStringBase<T> &rhs) const {
+    if (rhs.mSize != mSize) {
         return false;
     }
 
-    for (size_t i = 0; i < m_size; ++i) {
-        if (rhs.m_pStringBuffer[i] != m_pStringBuffer[i]) {
-            return false;
-        }
-    }
-
-    return true;
+    
+    return mHashId == rhs.mHashId;
 }
 
 template <class T>
-inline  bool TStringBase<T>::operator!=(const TStringBase<T> &rhs) const {
+inline  bool TStringBase<T>::operator != (const TStringBase<T> &rhs) const {
     return !(*this == rhs);
 }
 
-    template <class TCharType>
-class TStringView {
-public:
-    TStringView(TCharType *ptr);
-    ~TStringView();
-    size_t size() const;
-    TCharType *data() const;
-
-private:
-    TCharType *mPtr;
-    size_t mLen;
-};
-
-template <class TCharType>
-inline TStringView<TCharType>::TStringView(TCharType *ptr) :
-        mPtr(ptr),
-        mLen(0) {
-    if (nullptr != mPtr) {
-        mLen = strlen(ptr);
-    }
-}
-
-template <class TCharType>
-inline TStringView<TCharType>::~TStringView() {
-    // empty
-}
-
-template <class TCharType>
-inline size_t TStringView<TCharType>::size() const {
-    return mLen;
-}
-
-template <class TCharType>
-inline TCharType *TStringView<TCharType>::data() const {
-}
-
+} // namespace cppcore

@@ -23,7 +23,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #pragma once
 
 #include <cppcore/CPPCoreCommon.h>
-#include <string.h>
 #include <cinttypes>
 
 namespace cppcore {

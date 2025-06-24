@@ -103,4 +103,3 @@ TEST_F( TQueueTest, clearTest )	{
 	EXPECT_TRUE( f32Queue.isEmpty() );
 	EXPECT_EQ( 0u, f32Queue.size() );
 }
-

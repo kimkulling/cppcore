@@ -30,8 +30,8 @@ using namespace ::cppcore;
 
 class THashMapTest : public ::testing::Test {};
 
-TEST_F( THashMapTest, constructTest ) {
-    bool ok( true );
+TEST_F(THashMapTest, constructTest ) {
+    bool ok{ true };
     try {
         THashMap<unsigned int, unsigned int> myHashMap;
     } catch( ... ) {
@@ -39,23 +39,23 @@ TEST_F( THashMapTest, constructTest ) {
     }
 
     // Assert
-    EXPECT_TRUE( ok );
+    EXPECT_TRUE(ok);
 }
 
-TEST_F( THashMapTest, clearTest ) {
+TEST_F(THashMapTest, clearTest ) {
     THashMap<unsigned int, unsigned int> myHashMap( 1 );
-    myHashMap.insert( 1, 10 );
-    myHashMap.insert( 2, 10 );
-    myHashMap.insert( 3, 10 );
+    myHashMap.insert(1, 10);
+    myHashMap.insert(2, 10);
+    myHashMap.insert(3, 10);
 
     myHashMap.clear();
 
-    EXPECT_EQ( myHashMap.size(), 0u );
+    EXPECT_EQ(myHashMap.size(), 0u);
 }
 
 TEST_F( THashMapTest, insertTest ) {
     THashMap<unsigned int, unsigned int> myHashMap;
-    bool hasKey( true );
+    bool hasKey{true};
 
     size_t size = 0;
     size = myHashMap.size();

@@ -45,19 +45,19 @@ namespace cppcore {
 #endif
 
 #ifdef CPPCORE_WINDOWS
-#   define CPPCORE_TAG_DLL_EXPORT __declspec(dllexport)
-#   define CPPCORE_TAG_DLL_IMPORT __declspec(dllimport )
+#   define CPPCORE_TAG_DLL_EXPORT       __declspec(dllexport)
+#   define CPPCORE_TAG_DLL_IMPORT       __declspec(dllimport )
 #   ifdef CPPCORE_BUILD
-#       define DLL_CPPCORE_EXPORT CPPCORE_TAG_DLL_EXPORT
+#       define DLL_CPPCORE_EXPORT       CPPCORE_TAG_DLL_EXPORT
 #   else
-#        define DLL_CPPCORE_EXPORT CPPCORE_TAG_DLL_IMPORT
+#        define DLL_CPPCORE_EXPORT      CPPCORE_TAG_DLL_IMPORT
 #   endif
     // All disabled warnings for windows
 #   pragma warning( disable : 4251 ) // <class> needs to have dll-interface to be used by clients of class <class>
-#   define CPPCORE_STACK_ALLOC(size) ::alloca(size)
+#   define CPPCORE_STACK_ALLOC(size)    ::alloca(size)
 #else
-#   define DLL_CPPCORE_EXPORT __attribute__((visibility("default")))
-#   define CPPCORE_STACK_ALLOC(size) __builtin_alloca(size)
+#   define DLL_CPPCORE_EXPORT           __attribute__((visibility("default")))
+#   define CPPCORE_STACK_ALLOC(size)    __builtin_alloca(size)
 #endif
 
 //-------------------------------------------------------------------------------------------------
@@ -106,5 +106,7 @@ public: \
 /// @endcode
 //-------------------------------------------------------------------------------------------------
 #define CPPCORE_ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
+
+using HashId = uint64_t;
 
 } // Namespace cppcore
