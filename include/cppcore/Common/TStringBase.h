@@ -64,7 +64,7 @@ public:
 
 private:
     static constexpr size_t InitSize = 256;
-    T mBuffer[InitSize] = {'\0'};
+    T mBuffer[InitSize] = {};
     T *mStringBuffer{nullptr};
     size_t mSize{0};
     size_t mCapacity{256};
