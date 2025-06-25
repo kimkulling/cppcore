@@ -93,6 +93,7 @@ inline void TStringBase<T>::set(const T *ptr, size_t size) {
 template <class T>
 inline void TStringBase<T>::reset() {
     mSize = 0u;
+    mHashId = 0;
 }
 
 template <class T>
