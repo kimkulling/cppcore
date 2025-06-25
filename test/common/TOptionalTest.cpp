@@ -28,7 +28,7 @@ using namespace ::cppcore;
 class TOptionalTest : public ::testing::Test {};
 
 TEST_F(TOptionalTest, createInstance_success) {
-    constexpr int ValInt = 1;
+    constexpr int ValInt{1};
     TOptional<int> test_int(ValInt);
 
     EXPECT_FALSE(test_int.isInited());
@@ -36,7 +36,7 @@ TEST_F(TOptionalTest, createInstance_success) {
     EXPECT_TRUE(test_int.isInited());
     EXPECT_EQ(test_int.value(), ValInt);
 
-    constexpr float ValFloat = 1.0f;
+    constexpr float ValFloat{1.0f};
     TOptional<float> test_float(ValFloat);
 
     EXPECT_FALSE(test_float.isInited());

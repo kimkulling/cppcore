@@ -40,7 +40,7 @@ public:
     TStringView(const T *ptr, size_t len);
     ~TStringView() = default;
     size_t size() const;
-    T *data() const;
+    const T *data() const;
     bool isEmpty() const;
     const_iterator begin() const;
     const_iterator end() const;
@@ -63,7 +63,7 @@ inline size_t TStringView<T>::size() const {
 }
 
 template <class T>
-inline T *TStringView<T>::data() const {
+inline const T *TStringView<T>::data() const {
     return mPtr;
 }
 

@@ -84,7 +84,7 @@ inline TStringBase<T>::~TStringBase() {
 
 template <class T>
 inline void TStringBase<T>::set(const T *ptr, size_t size) {
-    void reset();
+    reset();
     if (nullptr != ptr) {
         copyFrom(*this, ptr, size);
     }

@@ -34,8 +34,8 @@ TEST_F(TStringViewTest, createTest) {
     using StringView = TStringView<char>;
 
     StringView sv("this is a test", 14l);
-    StringView::const_iterator start = sv.begin();
-    StringView::const_iterator end = sv.end();
+    auto start = sv.begin();
+    auto end = sv.end();
 
     size_t d = distance(start, end);
     EXPECT_EQ(d, 14);
@@ -46,7 +46,7 @@ TEST_F(TStringViewTest, iterateTest) {
     constexpr char tag[] = "this is a test";
     StringView sv(tag, 14l);
     size_t i{0};
-    for (StringView::const_iterator it = sv.begin(); it != sv.end(); ++it) {
+    for (auto it = sv.begin(); it != sv.end(); ++it) {
         EXPECT_EQ(tag[i++], *it);
     }
 }
