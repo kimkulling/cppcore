@@ -122,11 +122,12 @@ inline void TStringBase<T>::clear() {
         mStringBuffer = nullptr;
         mCapacity = InitSize;
     }
-    mSize = 0;
+    reset();
 }
 
 template <class T>
 inline void TStringBase<T>::copyFrom(TStringBase<T> &base, const T *ptr, size_t size) {
+    static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable");
     if (ptr != nullptr) {
         T *targetPtr = base.mBuffer;
         
