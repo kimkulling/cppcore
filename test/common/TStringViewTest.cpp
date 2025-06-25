@@ -33,7 +33,7 @@ class TStringViewTest : public ::testing::Test {};
 TEST_F(TStringViewTest, createTest) {
     using StringView = TStringView<char>;
 
-    StringView sv("this is a test", 14l);
+    StringView sv("this is a test", 14L);
     auto start = sv.begin();
     auto end = sv.end();
 
@@ -44,7 +44,7 @@ TEST_F(TStringViewTest, createTest) {
 TEST_F(TStringViewTest, iterateTest) {
     using StringView = TStringView<char>;
     constexpr char tag[] = "this is a test";
-    StringView sv(tag, 14l);
+    StringView sv(tag, 14L);
     size_t i{0};
     for (auto it = sv.begin(); it != sv.end(); ++it) {
         EXPECT_EQ(tag[i++], *it);
