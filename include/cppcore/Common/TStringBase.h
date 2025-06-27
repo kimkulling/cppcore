@@ -51,8 +51,10 @@ public:
     void clear();
     void reset();
     size_t size() const;
+    void resize(size_t size);
     size_t capacity() const;
     const T *c_str() const;
+    void append(const T *ptr, size_t size);
 
     /// @brief  Helper method to copy data into the string.
     /// @param  base        [inout] The string data to copy in.
@@ -102,6 +104,28 @@ inline size_t TStringBase<T>::size() const {
 }
 
 template <class T>
+inline void TStringBase<T>::resize(size_t size) {
+    if (size <= mCapacity) {
+        return;
+    }
+
+    if (mStringBuffer == nullptr) {
+        mStringBuffer = new T[size];
+        mCapacity = size;
+        if (mSize > 0) {
+            memcpy(mStringBuffer, mBuffer, size());
+        }
+    } else {
+        T *ptr = new T[size];
+        mCapacity = size;
+        if (mSize > 0) {
+            memcpy(ptr, mBuffer, size());
+        }
+        mStringBuffer = ptr
+    }
+}
+
+template <class T>
 inline size_t TStringBase<T>::capacity() const {
     return mCapacity;
 }
@@ -113,6 +137,18 @@ inline const T *TStringBase<T>::c_str() const {
     }
 
     return mBuffer;
+}
+
+template <class T>
+inline void TStringBase<T>::append(const T* ptr, size_t size) {
+    if (ptr == nullptr) {
+        return;
+    }
+
+    size_t newLen = mSize + size;
+    if (newLen > mCapacity) {
+        
+    }
 }
 
 template <class T>
