@@ -158,7 +158,7 @@ inline void TStringBase<T>::clear() {
         mStringBuffer = nullptr;
         mCapacity = InitSize;
     }
-    mSize = 0;
+    reset();
 }
 
 template <class T>
@@ -184,8 +184,12 @@ inline bool TStringBase<T>::operator == (const TStringBase<T> &rhs) const {
         return false;
     }
 
+    if (mHashId != rhs.mHashId) {
+        return false;
+    }
     
-    return mHashId == rhs.mHashId;
+    // Fallback to actual comparison in case of hash collision
+    return memcmp(c_str(), rhs.c_str(), mSize * sizeof(T)) == 0;
 }
 
 template <class T>
