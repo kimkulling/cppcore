@@ -30,30 +30,53 @@ namespace cppcore {
 ///	@class		TStringView
 ///	@ingroup	CPPCore
 ///
-/// @brief 
+/// @brief  
 //-------------------------------------------------------------------------------------------------
 template <class T>
 class TStringView {
 public:
     using const_iterator = const T*;
 
+    /// @brief The default constructor.
+    TStringView() = default;
+
+    /// @brief The constructor with the buffer.
+    /// @param ptr      Pointer to the buffer
+    /// @param len      The buffer size
     TStringView(const T *ptr, size_t len);
+    
+    /// @brief The class destructor.
     ~TStringView() = default;
+
+    /// @brief Will return the size of the view.
+    /// @return The size of the view
     size_t size() const;
-    const T *data() const;
+
+    /// @brief Will return the data with an offset, if given.
+    /// @param offset   The offset in the view.
+    /// @return Pointer to the data
+    const T *data(size_t offset = 0) const;
+
+    /// @brief Will return true, if there is no string to view.
+    /// @return true for empty
     bool isEmpty() const;
+
+    /// @brief Will return the first entry.
+    /// @return The first entry
     const_iterator begin() const;
+
+    /// @brief Will return the end entry.
+    /// @return The end entry
     const_iterator end() const;
 
 private:
-    const T *mPtr;
-    size_t mLen;
+    const T *mPtr = nullptr;
+    size_t mLen = 0;
 };
 
 template <class T>
 inline TStringView<T>::TStringView(const T *ptr, size_t len) :
-        mPtr(ptr),
-        mLen(len) {
+        mPtr(ptr), mLen(len) {
     // empty
 }
 
@@ -63,8 +86,11 @@ inline size_t TStringView<T>::size() const {
 }
 
 template <class T>
-inline const T *TStringView<T>::data() const {
-    return mPtr;
+inline const T *TStringView<T>::data(size_t offset) const {
+    if (offset > mLen) {
+        return nullptr;
+    }
+    return mPtr + offset;
 }
 
 template <class T>

@@ -33,8 +33,12 @@ class TStringBaseTest : public ::testing::Test {};
 TEST_F(TStringBaseTest, createTest) {
     TStringBase<char> string_1;
     string_1.set("test", 4);
+    
     TStringBase<char> string_2("test", 4);
     EXPECT_EQ(string_1, string_2);
+
+    TStringBase<char> string_3("test", 4);
+    EXPECT_EQ(string_3, string_2);
 }
 
 TEST_F(TStringBaseTest, setResetTest) {
@@ -46,4 +50,15 @@ TEST_F(TStringBaseTest, setResetTest) {
     EXPECT_EQ(0, strncmp(string_1.c_str(), "test", 4));
     string_1.reset();
     EXPECT_EQ(string_1.size(), 0);
+}
+
+TEST_F(TStringBaseTest, setClearTest) {
+    TStringBase<char> string_1("test", 4);
+    EXPECT_EQ(string_1.capacity(), 256);
+    EXPECT_EQ(string_1.size(), 4);
+    EXPECT_FALSE(string_1.isEmpty());
+
+    string_1.clear();
+    EXPECT_EQ(string_1.size(), 0);
+    EXPECT_TRUE(string_1.isEmpty());
 }

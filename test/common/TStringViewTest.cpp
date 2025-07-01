@@ -30,8 +30,9 @@ using namespace cppcore;
 
 class TStringViewTest : public ::testing::Test {};
 
+using StringView = TStringView<char>;
+
 TEST_F(TStringViewTest, createTest) {
-    using StringView = TStringView<char>;
 
     StringView sv("this is a test", 14L);
     auto start = sv.begin();
@@ -41,8 +42,21 @@ TEST_F(TStringViewTest, createTest) {
     EXPECT_EQ(d, 14);
 }
 
+TEST_F(TStringViewTest, dataTest) {
+    StringView sv("this is a test", 14L);
+    const char *ptr = sv.data(4);
+    EXPECT_NE(ptr, nullptr);
+
+    auto end = sv.end();
+
+    size_t d = distance(ptr, end);
+    EXPECT_EQ(d, 10);
+
+    const char *invalidPtr = sv.data(16);
+    EXPECT_EQ(invalidPtr, nullptr);
+}
+
 TEST_F(TStringViewTest, iterateTest) {
-    using StringView = TStringView<char>;
     constexpr char tag[] = "this is a test";
     StringView sv(tag, 14L);
     size_t i{0};

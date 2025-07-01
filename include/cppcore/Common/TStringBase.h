@@ -47,21 +47,42 @@ public:
     /// @brief  The class destructor.
     ~TStringBase();
 
+    /// @brief Will set a new string.
+    /// @param ptr      Pointer to the buffer.
+    /// @param size     Size of the buffer.
     void set(const T *ptr, size_t size);
+
+    /// @brief Will clear the string buffer.
     void clear();
+
+    /// @brief Will reset the string buffer, not internal storage will be released.
     void reset();
+
+    /// @brief Returns the size of the string buffer.
+    /// @return The size of the string buffer.
     size_t size() const;
-    void resize(size_t size);
+
+    /// @brief Will return true, if the string is empty.
+    /// @return true for empty.
+    bool isEmpty() const;
+
+    /// @brief Will return the whole capacity of the string.
+    /// @return The capacity of the string
     size_t capacity() const;
+
+    /// @brief  Will return the string pointer.
+    /// @return The string pointer. 
     const T *c_str() const;
-    void append(const T *ptr, size_t size);
 
     /// @brief  Helper method to copy data into the string.
     /// @param  base        [inout] The string data to copy in.
     /// @param  pPtr        [in] The data source.
     static void copyFrom(TStringBase<T> &base, const T *pPtr, size_t size);
      
+    /// @brief Compare operator.
     bool operator == (const TStringBase<T> &rhs) const;
+
+    /// @brief Not equal operator.
     bool operator != (const TStringBase<T> &rhs) const;
 
 private:
@@ -104,25 +125,8 @@ inline size_t TStringBase<T>::size() const {
 }
 
 template <class T>
-inline void TStringBase<T>::resize(size_t size) {
-    if (size <= mCapacity) {
-        return;
-    }
-
-    if (mStringBuffer == nullptr) {
-        mStringBuffer = new T[size];
-        mCapacity = size;
-        if (mSize > 0) {
-            memcpy(mStringBuffer, mBuffer, size());
-        }
-    } else {
-        T *ptr = new T[size];
-        mCapacity = size;
-        if (mSize > 0) {
-            memcpy(ptr, mBuffer, size());
-        }
-        mStringBuffer = ptr
-    }
+inline bool TStringBase<T>::isEmpty() const {
+    return mSize == 0;
 }
 
 template <class T>
@@ -137,18 +141,6 @@ inline const T *TStringBase<T>::c_str() const {
     }
 
     return mBuffer;
-}
-
-template <class T>
-inline void TStringBase<T>::append(const T* ptr, size_t size) {
-    if (ptr == nullptr) {
-        return;
-    }
-
-    size_t newLen = mSize + size;
-    if (newLen > mCapacity) {
-        
-    }
 }
 
 template <class T>
