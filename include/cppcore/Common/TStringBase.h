@@ -158,9 +158,11 @@ template <class T>
 inline void TStringBase<T>::copyFrom(TStringBase<T> &base, const T *ptr, size_t size) {
     if (ptr != nullptr) {
         T *targetPtr = base.mBuffer;
-        
         if (size > 0) {
             if (size > base.mCapacity) {
+                if (base.mStringBuffer != nullptr) {
+                    delete [] base.mStringBuffer;
+                }
                 base.mStringBuffer = new T[size];
                 base.mCapacity = size;
                 targetPtr = base.mStringBuffer;
