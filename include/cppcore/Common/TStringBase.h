@@ -41,8 +41,9 @@ public:
     TStringBase() noexcept = default;
 
     /// @brief  The class constructor with a pointer showing to the data buffer.
-    /// @param  pPtr        [in] The data buffer.
-    TStringBase(const T *pPtr, size_t size);
+    /// @param[in] ptr    The data buffer.
+    /// @param[in] size    The buffer size.
+    TStringBase(const T *ptr, size_t size);
 
     /// @brief  The class destructor.
     ~TStringBase();
@@ -95,9 +96,9 @@ private:
 };
 
 template <class T>
-inline TStringBase<T>::TStringBase(const T *pPtr, size_t size) {
-    copyFrom(*this, pPtr, size);
-    mHashId = THash<HashId>::toHash(pPtr, mSize);
+inline TStringBase<T>::TStringBase(const T *ptr, size_t size) {
+    copyFrom(*this, ptr, size);
+    mHashId = THash<HashId>::toHash(c_str(), size());
 }
 
 template <class T>
@@ -126,7 +127,7 @@ inline size_t TStringBase<T>::size() const {
 
 template <class T>
 inline bool TStringBase<T>::isEmpty() const {
-    return mSize == 0;
+    return (mSize == 0);
 }
 
 template <class T>
