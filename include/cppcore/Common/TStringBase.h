@@ -98,7 +98,7 @@ private:
 template <class T>
 inline TStringBase<T>::TStringBase(const T *ptr, size_t size) {
     copyFrom(*this, ptr, size);
-    mHashId = THash<HashId>::toHash(c_str(), size());
+    mHashId = THash<HashId>::toHash(c_str(), size);
 }
 
 template <class T>
