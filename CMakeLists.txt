@@ -1,10 +1,10 @@
 CMAKE_MINIMUM_REQUIRED( VERSION 3.10 )
 PROJECT( cppcore )
-SET ( CPPCORE_VERSION_MAJOR 0 )
-SET ( CPPCORE_VERSION_MINOR 1 )
-SET ( CPPCORE_VERSION_PATCH 0 )
-SET ( CPPCORE_VERSION ${CPPCORE_VERSION_MAJOR}.${CPPCORE_VERSION_MINOR}.${CPPCORE_VERSION_PATCH} )
-SET ( PROJECT_VERSION "${CPPCORE_VERSION}" )
+SET( CPPCORE_VERSION_MAJOR 0 )
+SET( CPPCORE_VERSION_MINOR 1 )
+SET( CPPCORE_VERSION_PATCH 0 )
+SET( CPPCORE_VERSION ${CPPCORE_VERSION_MAJOR}.${CPPCORE_VERSION_MINOR}.${CPPCORE_VERSION_PATCH} )
+SET( PROJECT_VERSION "${CPPCORE_VERSION}" )
 
 find_package(GTest)
 
@@ -17,11 +17,11 @@ option( CPPCORE_BUILD_UNITTESTS
     "Build unit tests."
      ON 
 )
-option( CPPCORE_ASAN
+option(CPPCORE_ASAN
     "Enable AddressSanitizer."
     OFF
 )
-option( CPPCORE_UBSAN
+option(CPPCORE_UBSAN
     "Enable Undefined Behavior sanitizer."
     OFF
 )
@@ -38,9 +38,9 @@ link_directories(
     ${CMAKE_HOME_DIRECTORY}/
 )
 
-SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/lib )
-SET( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/lib )
-SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/bin )
+SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/lib )
+SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/lib )
+SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/bin )
 
 if( WIN32 AND NOT CYGWIN )
   set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc" )  # Force to always compile with W4
@@ -56,38 +56,39 @@ elseif ( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" )
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -g -pedantic -std=c++11")
 endif()
 
-IF (ASSIMP_ASAN)
+IF(CPPCORE_ASAN)
   MESSAGE(STATUS "AddressSanitizer enabled")
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
   SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address")
 ENDIF()
 
-IF (ASSIMP_UBSAN)
+IF(CPPCORE_UBSAN)
   MESSAGE(STATUS "Undefined Behavior sanitizer enabled")
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined -fno-sanitize-recover=all")
-  SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=undefined -fno-sanitize-recover=all")
+  SET(CMAKE_CXX_FLAGS   "${CMAKE_CXX_FLAGS} -fsanitize=undefined -fno-sanitize-recover=all")
+  SET(CMAKE_C_FLAGS     "${CMAKE_C_FLAGS} -fsanitize=undefined -fno-sanitize-recover=all")
 ENDIF()
 
-SET ( cppcore_src
+SET(cppcore_src
     code/cppcore.cpp
     include/cppcore/CPPCoreCommon.h
 )
 
-SET ( cppcore_common_src
+SET(cppcore_common_src
     include/cppcore/Common/Hash.h
     include/cppcore/Common/TStringBase.h
+    include/cppcore/Common/TStringView.h
     include/cppcore/Common/Variant.h
     include/cppcore/Common/Sort.h
     include/cppcore/Common/TBitField.h
     include/cppcore/Common/TOptional.h
 )
 
-SET( cppcore_random_src
+SET(cppcore_random_src
     include/cppcore/Random/RandomGenerator.h
     code/Random/RandomGenerator.cpp
 )
 
-SET ( cppcore_container_src
+SET(cppcore_container_src
     include/cppcore/Container/THashMap.h
     include/cppcore/Container/TArray.h
     include/cppcore/Container/TStaticArray.h
@@ -96,7 +97,7 @@ SET ( cppcore_container_src
     include/cppcore/Container/TStaticArray.h
 )
  
- SET ( cppcore_memory_src
+ SET(cppcore_memory_src
     include/cppcore/Memory/MemUtils.h
     include/cppcore/Memory/TDefaultAllocator.h
     include/cppcore/Memory/TStackAllocator.h
@@ -137,6 +138,8 @@ IF( CPPCORE_BUILD_UNITTESTS )
         test/common/SortTest.cpp
         test/common/TBitFieldTest.cpp
         test/common/TOptionalTest.cpp
+        test/common/TStringViewTest.cpp
+        test/common/TStringBaseTest.cpp
     )
 
     SET( cppcore_container_test_src

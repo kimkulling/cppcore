@@ -21,26 +21,46 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
 #include <gtest/gtest.h>
-#include <cppcore/Common/TOptional.h>
 
-using namespace ::cppcore;
+#include <cstdint>
+#include <cppcore/Common/TStringView.h>
+#include <cppcore/Container/TAlgorithm.h>
 
-class TOptionalTest : public ::testing::Test {};
+using namespace cppcore;
 
-TEST_F(TOptionalTest, createInstance_success) {
-    constexpr int ValInt{1};
-    TOptional<int> test_int(ValInt);
+class TStringViewTest : public ::testing::Test {};
 
-    EXPECT_FALSE(test_int.isInited());
-    test_int.set(1);
-    EXPECT_TRUE(test_int.isInited());
-    EXPECT_EQ(test_int.value(), ValInt);
+using StringView = TStringView<char>;
 
-    constexpr float ValFloat{1.0f};
-    TOptional<float> test_float(ValFloat);
+TEST_F(TStringViewTest, createTest) {
 
-    EXPECT_FALSE(test_float.isInited());
-    test_float.set(1);
-    EXPECT_TRUE(test_float.isInited());
-    EXPECT_EQ(test_float.value(), ValFloat);
+    StringView sv("this is a test", 14L);
+    auto start = sv.begin();
+    auto end = sv.end();
+
+    size_t d = distance(start, end);
+    EXPECT_EQ(d, 14);
+}
+
+TEST_F(TStringViewTest, dataTest) {
+    StringView sv("this is a test", 14L);
+    const char *ptr = sv.data(4);
+    EXPECT_NE(ptr, nullptr);
+
+    auto end = sv.end();
+
+    size_t d = distance(ptr, end);
+    EXPECT_EQ(d, 10);
+
+    const char *invalidPtr = sv.data(16);
+    EXPECT_EQ(invalidPtr, nullptr);
+}
+
+TEST_F(TStringViewTest, iterateTest) {
+    constexpr char tag[] = "this is a test";
+    StringView sv(tag, 14L);
+    size_t i{0};
+    for (auto it = sv.begin(); it != sv.end(); ++it) {
+        EXPECT_EQ(tag[i++], *it);
+    }
 }

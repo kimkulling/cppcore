@@ -31,9 +31,6 @@ using namespace cppcore;
 class HashTest : public testing::Test {
 public:
     using UiHash = THash<unsigned int>;
-
-protected:
-    // empty
 };
 
 TEST_F( HashTest, CreateTest ) {

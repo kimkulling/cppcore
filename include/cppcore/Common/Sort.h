@@ -177,7 +177,7 @@ namespace cppcore {
     }
     
     /// @brief Implements a binary search algorithm.
-    /// @tparam T The type of the value
+    /// @tparam T       The type of the value
     /// @param key      The key to search for
     /// @param array    The data to search in
     /// @param num      The number of elements to search
