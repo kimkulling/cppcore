@@ -86,8 +86,12 @@ public:
     /// @brief Not equal operator.
     bool operator != (const TStringBase<T> &rhs) const;
 
+    TStringBase<T> &operator += (const TStringBase<T> &rhs);
+    TStringBase<T> &operator+=(char c);
+    T operator[](size_t index) const;
+
 private:
-    static constexpr size_t InitSize = 256;
+    static constexpr size_t InitSize = 512;
     T mBuffer[InitSize] = {};
     T *mStringBuffer{nullptr};
     size_t mSize{0};
@@ -156,21 +160,25 @@ inline void TStringBase<T>::clear() {
 
 template <class T>
 inline void TStringBase<T>::copyFrom(TStringBase<T> &base, const T *ptr, size_t size) {
-    if (ptr != nullptr) {
-        T *targetPtr = base.mBuffer;
-        if (size > 0) {
-            if (size > base.mCapacity) {
-                if (base.mStringBuffer != nullptr) {
-                    delete [] base.mStringBuffer;
-                }
-                base.mStringBuffer = new T[size];
-                base.mCapacity = size;
-                targetPtr = base.mStringBuffer;
-            }
-            memcpy(targetPtr, ptr, size * sizeof(T));
-            base.mSize = size;
-        }
+    if (ptr == nullptr) {
+        return;
     }
+
+    T *targetPtr = base.mBuffer;
+    if (size == 0) {
+        return;
+    }
+
+    if (size > base.mCapacity) {
+        if (base.mStringBuffer != nullptr) {
+            delete [] base.mStringBuffer;
+        }
+        base.mStringBuffer = new T[size];
+        base.mCapacity = size;
+        targetPtr = base.mStringBuffer;
+    }
+    memcpy(targetPtr, ptr, size * sizeof(T));
+    base.mSize = size;
 }
 
 template <class T>
@@ -188,8 +196,30 @@ inline bool TStringBase<T>::operator == (const TStringBase<T> &rhs) const {
 }
 
 template <class T>
-inline  bool TStringBase<T>::operator != (const TStringBase<T> &rhs) const {
+inline bool TStringBase<T>::operator != (const TStringBase<T> &rhs) const {
     return !(*this == rhs);
+}
+
+template <class T>
+inline TStringBase<T> &TStringBase<T>::operator += (const TStringBase<T> &rhs) {
+    if (rhs.isEmpty()) {
+        return *this;
+    }
+
+    copyFrom(*this, rhs.c_str(), rhs.size());
+
+    return *this;
+}
+
+template <class T>
+inline TStringBase<T>& TStringBase<T>::operator+=(char c) {
+    copyFrom(*this, &c, 1);
+    return *this;
+}
+
+template <class T>
+inline T TStringBase<T>::operator[](size_t index) const {
+    return mBuffer[index];
 }
 
 } // namespace cppcore
