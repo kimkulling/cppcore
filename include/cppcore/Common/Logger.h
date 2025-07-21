@@ -1,3 +1,25 @@
+/*-----------------------------------------------------------------------------------------------
+The MIT License (MIT)
+
+Copyright (c) 2014-2025 Kim Kulling
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-----------------------------------------------------------------------------------------------*/
 #pragma once
 
 #include <cppcore/CPPCoreCommon.h>
@@ -63,16 +85,20 @@ class Logger final {
 public:
     ///	@brief	Describes the verbode mode.
     enum class VerboseMode {
-        Normal,		///< Only warnings and errors will be logged.
-        Verbose,	///< Normal messages will be logged as well.
-        Debug,		///< All debug messages will be logged as well.
-        Trace       ///< Will enable the tracing.
+        Invalid = -1,   ///< Invalid marker
+        Normal, 		///< Only warnings and errors will be logged.
+        Verbose,    	///< Normal messages will be logged as well.
+        Debug,		    ///< All debug messages will be logged as well.
+        Trace,          ///< Will enable the tracing.
+        Count           ///< Number of enums
     };
 
     ///	@brief	Describes the mode for prints into the active log stream.
     enum class PrintMode {
+        Invalid = -1,       ///< Invalid marker
         WithDateTime,		///< A dateTime string will put be in front of the entry.
-        WhithoutDateTime	///< No DateTime will be there.
+        WhithoutDateTime,   ///< No DateTime will be there.
+        Count               ///< Number of enums
     };
 
 public:
@@ -183,7 +209,7 @@ void fatalPrint( const String &domain, const String &file, int line, const Strin
 /// @param  domain      The domain to log for.
 ///	@param	message		The message to log.
 //-------------------------------------------------------------------------------------------------
-#define log_trace(domain, msg) cppcore::tracePrint(domain, __FILE__, __LINE__, msg)
+#define log_trace(domain, msg) ::cppcore::tracePrint(domain, __FILE__, __LINE__, msg)
 
 //-------------------------------------------------------------------------------------------------
 ///	@fn		osre_debug
@@ -191,7 +217,7 @@ void fatalPrint( const String &domain, const String &file, int line, const Strin
 /// @param  domain      The domain to log for.
 ///	@param	message		The message to log.
 //-------------------------------------------------------------------------------------------------
-#define log_debug(domain, msg) cppcore::debugPrint( domain, __FILE__, __LINE__, msg)
+#define log_debug(domain, msg) ::cppcore::debugPrint(domain, __FILE__, __LINE__, msg)
 
 //-------------------------------------------------------------------------------------------------
 ///	@fn		osre_log
@@ -199,7 +225,7 @@ void fatalPrint( const String &domain, const String &file, int line, const Strin
 /// @param  domain      The domain to log for.
 ///	@param	message		The message to log.
 //-------------------------------------------------------------------------------------------------
-#define log_info(domain, msg)  cppcore::infoPrint(  domain,  __FILE__, __LINE__, msg)
+#define log_info(domain, msg) ::cppcore::infoPrint(domain, __FILE__, __LINE__, msg)
 
 //-------------------------------------------------------------------------------------------------
 ///	@fn		osre_warn
@@ -207,7 +233,7 @@ void fatalPrint( const String &domain, const String &file, int line, const Strin
 /// @param  domain      The domain to log for.
 ///	@param	message		The warning to writhe into the log.
 //-------------------------------------------------------------------------------------------------
-#define log_warn(domain, message)  cppcore::warnPrint(  domain, __FILE__, __LINE__, message)
+#define log_warn(domain, message) ::cppcore::warnPrint(domain, __FILE__, __LINE__, message)
 
 //-------------------------------------------------------------------------------------------------
 ///	@fn		osre_error
@@ -215,7 +241,7 @@ void fatalPrint( const String &domain, const String &file, int line, const Strin
 /// @param  domain      The domain to log for.
 ///	@param	message		The warning to writhe into the log.
 //-------------------------------------------------------------------------------------------------
-#define log_error(domain, message) cppcore::errorPrint( domain, __FILE__, __LINE__, message)
+#define log_error(domain, message) ::cppcore::errorPrint(domain, __FILE__, __LINE__, message)
 
 //-------------------------------------------------------------------------------------------------
 ///	@fn		osre_fatal
@@ -223,4 +249,4 @@ void fatalPrint( const String &domain, const String &file, int line, const Strin
 /// @param  domain      The domain to log for.
 ///	@param	message		The warning to writhe into the log.
 //-------------------------------------------------------------------------------------------------
-#define log_fatal( domain, message ) cppcore::fatalPrint( domain,__FILE__, __LINE__, message)
+#define log_fatal(domain, message) ::cppcore::fatalPrint(domain, __FILE__, __LINE__, message)
