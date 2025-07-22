@@ -52,7 +52,7 @@ public:
     virtual void activate();
 
     ///	@brief	The stream will be deactivated.
-    virtual void desactivate();
+    virtual void deactivate();
 
     ///	@brief	Returns true, if the stream is active.
     ///	@return	true, if the stream is active, else false will be returned.
