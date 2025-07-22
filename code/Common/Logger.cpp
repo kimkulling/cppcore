@@ -72,7 +72,7 @@ void AbstractLogStream::activate() {
     mIsActive = true;
 }
 
-void AbstractLogStream::desactivate() {
+void AbstractLogStream::deactivate() {
     mIsActive = false;
 }
 
@@ -224,7 +224,7 @@ void Logger::registerLogStream(AbstractLogStream *pLogStream) {
 }
 
 void Logger::unregisterLogStream(AbstractLogStream *logStream) {
-    if (nullptr != logStream) {
+    if (nullptr == logStream) {
         return;
     }
 
