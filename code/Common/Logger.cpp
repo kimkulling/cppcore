@@ -241,10 +241,6 @@ Logger::Logger() :
         mVerboseMode(VerboseMode::Normal),
         mIntention(0) {
     mLogStreams.add(new StdLogStream);
-
-#ifdef OSRE_WINDOWS
-    mLogStreams.add(new Platform::Win32DbgLogStream);
-#endif // OSRE_WINDOWS
 }
 
 Logger::~Logger() {
