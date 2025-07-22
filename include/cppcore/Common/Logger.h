@@ -97,7 +97,7 @@ public:
     enum class PrintMode {
         Invalid = -1,       ///< Invalid marker
         WithDateTime,		///< A dateTime string will put be in front of the entry.
-        WhithoutDateTime,   ///< No DateTime will be there.
+        WithoutDateTime,    ///< No DateTime will be there.
         Count               ///< Number of enums
     };
 
