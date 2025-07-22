@@ -95,7 +95,7 @@ private:
     T mBuffer[InitSize] = {};
     T *mStringBuffer{nullptr};
     size_t mSize{0};
-    size_t mCapacity{256};
+    size_t mCapacity{InitSize};
     HashId mHashId{0};
 };
 
