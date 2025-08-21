@@ -14,6 +14,7 @@ tests, so doing a proof of my failures are easy :-).
 ## Used in...
 * OSRE (aka Open-Source-Render-Experience): [The OSRE Repo](https://github.com/kimkulling/osre)
 * Openddl-Parser: [The OpenDDL-Parser Repo](https://github.com/kimkulling/openddl-parser)
+* SegFault (Vulkan 3D-Engine): [segFault 3D-Engine](https://github.com/kimkulling/Segfault)
 
 ## How to contribute
 See [How to contribute](CONTRIBUTING.md)
