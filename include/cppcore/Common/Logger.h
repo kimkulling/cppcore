@@ -39,7 +39,7 @@ using String = TStringBase<char>;
 ///	or a log window in a GUI application. Implement the write message and attach a valid instance 
 ///	to the logger itself to use your own implementation.
 //-------------------------------------------------------------------------------------------------
-class AbstractLogStream {
+class DLL_CPPCORE_EXPORT AbstractLogStream {
 public:
     ///	@brief	The default class destructor, virtual.
     virtual ~AbstractLogStream() = default;
@@ -81,7 +81,7 @@ private:
 ///	supported modes are normal ( no debug and info messages ), verbose ( all messages will be
 ///	logged ) and debug ( the debug messages will be logged as well, be careful with this option ).
 //-------------------------------------------------------------------------------------------------
-class Logger final {
+class DLL_CPPCORE_EXPORT Logger final {
 public:
     ///	@brief	Describes the verbode mode.
     enum class VerboseMode {
@@ -189,8 +189,8 @@ private:
 
     using LogStreamArray = cppcore::TArray<AbstractLogStream*>;
     LogStreamArray mLogStreams;
-    VerboseMode mVerboseMode;
-    uint32_t mIntention;
+    VerboseMode mVerboseMode{VerboseMode::Normal};
+    uint32_t mIntention{0};
 };
 
 // Logger helper function prototypes

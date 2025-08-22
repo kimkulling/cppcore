@@ -21,6 +21,7 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
 #include <cppcore/Common/Logger.h>
+
 #include <cassert>
 #include <iomanip>
 #include <iostream>
@@ -28,9 +29,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <string>
 
 namespace cppcore {
-
-static constexpr char Line[] =
-        "====================================================================================================";
 
 static void appendDomain(const String &domain, String &logMsg) {
     if (!domain.isEmpty()) {
@@ -153,10 +151,8 @@ void Logger::print(const String &msg, PrintMode mode) {
         return;
     }
 
-    if (msg.size() > 8) {
-        if (msg[6] == '<' && msg[7] == '=') {
-            mIntention -= 2;
-        }
+    if (msg.size() > 8 && msg[6] == '<' && msg[7] == '=') {
+        mIntention -= 2;
     }
 
     String logMsg;
@@ -236,10 +232,7 @@ void Logger::unregisterLogStream(AbstractLogStream *logStream) {
     }
 }
 
-Logger::Logger() :
-        mLogStreams(), 
-        mVerboseMode(VerboseMode::Normal),
-        mIntention(0) {
+Logger::Logger() {
     mLogStreams.add(new StdLogStream);
 }
 
@@ -250,7 +243,7 @@ Logger::~Logger() {
 }
 
 String Logger::getDateTime() {
-    static const uint32_t Space = 2;
+    //static const uint32_t Space = 2;
     /* DateTime currentDateTime = DateTime::getCurrentUTCTime();
     std::stringstream stream;
     stream.fill('0');
