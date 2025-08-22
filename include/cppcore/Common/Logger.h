@@ -86,9 +86,9 @@ public:
     ///	@brief	Describes the verbode mode.
     enum class VerboseMode {
         Invalid = -1,   ///< Invalid marker
-        Normal, 		///< Only warnings and errors will be logged.
+        Normal,         ///< Only warnings and errors will be logged.
         Verbose,    	///< Normal messages will be logged as well.
-        Debug,		    ///< All debug messages will be logged as well.
+        Debug,		///< All debug messages will be logged as well.
         Trace,          ///< Will enable the tracing.
         Count           ///< Number of enums
     };
@@ -96,7 +96,7 @@ public:
     ///	@brief	Describes the mode for prints into the active log stream.
     enum class PrintMode {
         Invalid = -1,       ///< Invalid marker
-        WithDateTime,		///< A dateTime string will put be in front of the entry.
+        WithDateTime,       ///< A dateTime string will put be in front of the entry.
         WithoutDateTime,    ///< No DateTime will be there.
         Count               ///< Number of enums
     };
@@ -140,7 +140,7 @@ public:
     ///	@brief	Logs a print message.
     ///	@param[in] message  The message to log.
     /// @param[in] mode     Logging mode
-    void print( const String &message, PrintMode mode = PrintMode::WhithoutDateTime );
+    void print(const String &message, PrintMode mode = PrintMode::WithoutDateTime);
 
     ///	@brief	Logs a warn message.
     /// @param[in] domain  The domain.
@@ -204,49 +204,50 @@ void fatalPrint( const String &domain, const String &file, int line, const Strin
 } // namespace cppcore
 
 //-------------------------------------------------------------------------------------------------
-///	@fn		osre_trace
-///	@brief	This helper macro will write the trace message into the logger.
-/// @param  domain      The domain to log for.
-///	@param	message		The message to log.
+/// @fn    osre_trace
+/// @brief This helper macro will write the trace message into the logger.
+/// @param domain    The domain to log for.
+/// @param message   The message to log.
 //-------------------------------------------------------------------------------------------------
 #define log_trace(domain, msg) ::cppcore::tracePrint(domain, __FILE__, __LINE__, msg)
 
 //-------------------------------------------------------------------------------------------------
-///	@fn		osre_debug
-///	@brief	This helper macro will write the debug message into the logger.
-/// @param  domain      The domain to log for.
-///	@param	message		The message to log.
+/// @fn    osre_debug
+/// @brief This helper macro will write the debug message into the logger.
+/// @param domain      The domain to log for.
+/// @param message     The message to log.
 //-------------------------------------------------------------------------------------------------
 #define log_debug(domain, msg) ::cppcore::debugPrint(domain, __FILE__, __LINE__, msg)
 
 //-------------------------------------------------------------------------------------------------
-///	@fn		osre_log
-///	@brief	This helper macro will write the info message into the logger.
-/// @param  domain      The domain to log for.
-///	@param	message		The message to log.
+/// @fn    osre_log
+/// @brief This helper macro will write the info message into the logger.
+/// @param domain    The domain to log for.
+/// @param message   The message to log.
 //-------------------------------------------------------------------------------------------------
 #define log_info(domain, msg) ::cppcore::infoPrint(domain, __FILE__, __LINE__, msg)
 
 //-------------------------------------------------------------------------------------------------
-///	@fn		osre_warn
-///	@brief	This helper macro will write a warning into the logger.
-/// @param  domain      The domain to log for.
-///	@param	message		The warning to writhe into the log.
+/// @fn    osre_warn
+/// @brief This helper macro will write a warning into the logger.
+/// @param domain   The domain to log for.
+/// @param message  The warning to writhe into the log.
 //-------------------------------------------------------------------------------------------------
 #define log_warn(domain, message) ::cppcore::warnPrint(domain, __FILE__, __LINE__, message)
 
 //-------------------------------------------------------------------------------------------------
-///	@fn		osre_error
-///	@brief	This helper macro will write a error into the logger.
-/// @param  domain      The domain to log for.
-///	@param	message		The warning to writhe into the log.
+/// @fn    osre_error
+/// @brief This helper macro will write a error into the logger.
+/// @param domain      The domain to log for.
+/// @param message     The warning to writhe into the log.
 //-------------------------------------------------------------------------------------------------
 #define log_error(domain, message) ::cppcore::errorPrint(domain, __FILE__, __LINE__, message)
 
 //-------------------------------------------------------------------------------------------------
-///	@fn		osre_fatal
-///	@brief	This helper macro will write a fatal error into the logger.
-/// @param  domain      The domain to log for.
-///	@param	message		The warning to writhe into the log.
+/// @fn    osre_fatal
+/// @brief This helper macro will write a fatal error into the logger.
+/// @param domain     The domain to log for.
+/// @param message    The warning to writhe into the log.
 //-------------------------------------------------------------------------------------------------
 #define log_fatal(domain, message) ::cppcore::fatalPrint(domain, __FILE__, __LINE__, message)
+
