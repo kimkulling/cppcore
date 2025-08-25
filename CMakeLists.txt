@@ -75,6 +75,8 @@ SET(cppcore_src
 
 SET(cppcore_common_src
     include/cppcore/Common/Hash.h
+    include/cppcore/Common/Logger.h
+    code/Common/Logger.cpp
     include/cppcore/Common/TStringBase.h
     include/cppcore/Common/TStringView.h
     include/cppcore/Common/Variant.h
