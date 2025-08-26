@@ -92,7 +92,7 @@ public:
 
 private:
     static constexpr size_t InitSize = 512;
-    T mBuffer[InitSize] = {};
+    T mBuffer[InitSize] = {'\0'};
     T *mStringBuffer{nullptr};
     size_t mSize{0};
     size_t mCapacity{InitSize};
@@ -173,11 +173,12 @@ inline void TStringBase<T>::copyFrom(TStringBase<T> &base, const T *ptr, size_t 
         if (base.mStringBuffer != nullptr) {
             delete [] base.mStringBuffer;
         }
-        base.mStringBuffer = new T[size];
-        base.mCapacity = size;
+        base.mStringBuffer = new T[size + 1];
+        base.mCapacity = size + 1;
         targetPtr = base.mStringBuffer;
     }
     memcpy(targetPtr, ptr, size * sizeof(T));
+    targetPtr[size] = '\0';
     base.mSize = size;
 }
 
