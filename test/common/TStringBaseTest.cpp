@@ -44,7 +44,7 @@ TEST_F(TStringBaseTest, createTest) {
 TEST_F(TStringBaseTest, setResetTest) {
     TStringBase<char> string_1;
     EXPECT_EQ(string_1.size(), 0);
-    EXPECT_EQ(string_1.capacity(), 256);
+    EXPECT_EQ(string_1.capacity(), 512);
     string_1.set("test", 4);
     EXPECT_EQ(string_1.size(), 4);
     EXPECT_EQ(0, strncmp(string_1.c_str(), "test", 4));
@@ -54,7 +54,7 @@ TEST_F(TStringBaseTest, setResetTest) {
 
 TEST_F(TStringBaseTest, setClearTest) {
     TStringBase<char> string_1("test", 4);
-    EXPECT_EQ(string_1.capacity(), 256);
+    EXPECT_EQ(string_1.capacity(), 512);
     EXPECT_EQ(string_1.size(), 4);
     EXPECT_FALSE(string_1.isEmpty());
 
