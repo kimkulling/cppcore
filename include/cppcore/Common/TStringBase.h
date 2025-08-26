@@ -178,7 +178,7 @@ inline void TStringBase<T>::copyFrom(TStringBase<T> &base, const T *ptr, size_t 
         targetPtr = base.mStringBuffer;
     }
     memcpy(targetPtr, ptr, size * sizeof(T));
-    targetPtr[size + 1] = '\0';
+    targetPtr[size] = '\0';
     base.mSize = size;
 }
 
