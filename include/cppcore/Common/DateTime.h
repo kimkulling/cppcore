@@ -45,8 +45,11 @@ struct DateTime {
     DateTime() {
         time_t timestamp = ::time(nullptr);
         tm dt{}; 
-        dt = *::localtime(&timestamp);
-        year = dt.tm_year + 1900;
+#if defined(_WIN32)
+        ::localtime_s(&dt, &timestamp);
++#else
+        ::localtime_r(&timestamp, &dt);
++#endif        year = dt.tm_year + 1900;
         month = dt.tm_mon;
         day = dt.tm_mday;
         hour = dt.tm_hour;
