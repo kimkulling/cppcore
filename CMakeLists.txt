@@ -74,9 +74,10 @@ SET(cppcore_src
 )
 
 SET(cppcore_common_src
+    code/Common/Logger.cpp
+    include/cppcore/Common/DateTime.h
     include/cppcore/Common/Hash.h
     include/cppcore/Common/Logger.h
-    code/Common/Logger.cpp
     include/cppcore/Common/TStringBase.h
     include/cppcore/Common/TStringView.h
     include/cppcore/Common/Variant.h
@@ -135,7 +136,9 @@ IF( CPPCORE_BUILD_UNITTESTS )
     )
 
     SET( cppcore_common_test_src
+        test/common/DateTimeTest.cpp
         test/common/HashTest.cpp
+        test/common/LoggerTest.cpp
         test/common/VariantTest.cpp
         test/common/SortTest.cpp
         test/common/TBitFieldTest.cpp

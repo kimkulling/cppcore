@@ -101,10 +101,13 @@ public:
         Count               ///< Number of enums
     };
 
-public:
     ///	@brief	Creates the unique logger instance and returns a pointer showing to it.
     ///	@return	The singleton pointer of the logger.
     static Logger *create();
+
+    /// @brief Will set a user-defined logger instance.
+    /// @param[in] logger   The new logger instance.
+    static void set(Logger *logger);
 
     ///	@brief	returns the singleton instance pointer of the logger.
     ///	@return	The singleton pointer of the logger.
@@ -250,4 +253,3 @@ void fatalPrint( const String &domain, const String &file, int line, const Strin
 /// @param message    The warning to writhe into the log.
 //-------------------------------------------------------------------------------------------------
 #define log_fatal(domain, message) ::cppcore::fatalPrint(domain, __FILE__, __LINE__, message)
-
