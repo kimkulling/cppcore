@@ -90,6 +90,9 @@ Logger *Logger::create() {
 }
 
 void Logger::set(Logger *logger) {
+    if (logger == sLogger) {
+        return;
+    }
     kill();
     sLogger = logger;
 }
