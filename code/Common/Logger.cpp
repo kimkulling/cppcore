@@ -263,8 +263,8 @@ String Logger::getDateTime() {
            << std::setw(Space) << currentDateTime.month << "."
            << std::setw(Space * 2) << currentDateTime.day << " "
            << std::setw(Space) << currentDateTime.hour << ":"
-           << std::setw(Space) << currentDateTime.min << ":"
-           << std::setw(Space) << currentDateTime.sec;
+           << std::setw(Space) << currentDateTime.minute << ":"
+           << std::setw(Space) << currentDateTime.second;
     const std::string tmp(stream.str());
     String dateTime(tmp.c_str(), tmp.size());
     return dateTime;
