@@ -6,5 +6,5 @@ using namespace cppcore;
 class LoggerTest : public testing::Test {};
 
 TEST_F(LoggerTest, CreateTest) {
-    
+    // will come    
 }
