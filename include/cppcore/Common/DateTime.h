@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
-///	@class		THash
+///	@class		DateTime
 ///	@ingroup	CPPCore
 ///
 ///	@brief  This class is used to get the current date and time.
