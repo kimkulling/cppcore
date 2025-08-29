@@ -38,8 +38,8 @@ struct DateTime {
     uint32_t month{};   ///< The current month
     uint32_t day{};     ///< The current day
     uint32_t hour{};    ///< The current hour
-    uint32_t min{};     ///< The current minute
-    uint32_t sec{};     ///< The current second
+    uint32_t minute{};  ///< The current minute
+    uint32_t second{};  ///< The current second
 
     /// @brief The class constructor.
     DateTime() {
@@ -50,12 +50,13 @@ struct DateTime {
 +#else
         ::localtime_r(&timestamp, &dt);
 +#endif        year = dt.tm_year + 1900;
-        month = dt.tm_mon;
-        day = dt.tm_mday;
-        hour = dt.tm_hour;
-        min = dt.tm_min;
-        sec = dt.tm_sec;
+        month   = dt.tm_mon;
+        day     = dt.tm_mday;
+        hour    = dt.tm_hour;
+        minute  = dt.tm_min;
+        second  = dt.tm_sec;
     }
 };
 
 } // namespace cppcore 
+
