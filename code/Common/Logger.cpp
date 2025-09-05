@@ -21,6 +21,7 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
 #include <cppcore/Common/Logger.h>
+#include <cppcore/Common/DateTime.h>
 
 #include <cassert>
 #include <iomanip>
@@ -88,6 +89,14 @@ Logger *Logger::create() {
     return sLogger;
 }
 
+void Logger::set(Logger *logger) {
+    if (logger == sLogger) {
+        return;
+    }
+    kill();
+    sLogger = logger;
+}
+
 Logger *Logger::getInstance() {
     if (nullptr == sLogger) {
         static_cast<void>(create());
@@ -97,7 +106,7 @@ Logger *Logger::getInstance() {
 }
 
 void Logger::kill() {
-    if (sLogger) {
+    if (sLogger != nullptr) {
         delete sLogger;
         sLogger = nullptr;
     }
@@ -134,7 +143,10 @@ void Logger::debug(const String &domain, const String &msg) {
 }
 
 void Logger::info(const String &domain, const String &msg) {
-    if (getVerboseMode() == VerboseMode::Normal || getVerboseMode() == VerboseMode::Verbose || getVerboseMode() == VerboseMode::Debug || getVerboseMode() == VerboseMode::Trace) {
+    if (getVerboseMode() == VerboseMode::Normal ||
+            getVerboseMode() == VerboseMode::Verbose || 
+            getVerboseMode() == VerboseMode::Debug || 
+            getVerboseMode() == VerboseMode::Trace) {
         String logMsg;
 
         logMsg += String("Info: ", 6);
@@ -243,19 +255,19 @@ Logger::~Logger() {
 }
 
 String Logger::getDateTime() {
-    //static const uint32_t Space = 2;
-    /* DateTime currentDateTime = DateTime::getCurrentUTCTime();
+    static const uint32_t Space = 2;
+    DateTime currentDateTime;
     std::stringstream stream;
     stream.fill('0');
-    stream << std::setw(Space) << currentDateTime.getCurrentDay() << "."
-           << std::setw(Space) << currentDateTime.getCurrentMonth() << "."
-           << std::setw(Space * 2) << currentDateTime.getCurrentYear() << " "
-           << std::setw(Space) << currentDateTime.getCurrentHour() << ":"
-           << std::setw(Space) << currentDateTime.getCurrentMinute() << ":"
-           << std::setw(Space) << currentDateTime.getCurrentSeconds();
-           */
-    String todo("none", 4);
-    return todo;
+    stream << std::setw(Space) << currentDateTime.year << "."
+           << std::setw(Space) << currentDateTime.month << "."
+           << std::setw(Space * 2) << currentDateTime.day << " "
+           << std::setw(Space) << currentDateTime.hour << ":"
+           << std::setw(Space) << currentDateTime.minute << ":"
+           << std::setw(Space) << currentDateTime.second;
+    const std::string tmp(stream.str());
+    String dateTime(tmp.c_str(), tmp.size());
+    return dateTime;
 }
 
 void Logger::StdLogStream::write(const String &msg) {
