@@ -63,7 +63,7 @@ public:
 
 public:
     ///	@brief	The default class constructor.
-    TArray();
+    TArray() = default;
 
     ///	@brief	The class constructor with an initial size.
     ///	@param[in] size     The initial size.
@@ -185,11 +185,6 @@ private:
     size_t mCapacity = 0u;
     T *mData = nullptr;
 };
-
-template <class T, class TAlloc>
-inline TArray<T, TAlloc>::TArray() {
-    // empty
-}
 
 template <class T, class TAlloc>
 inline TArray<T, TAlloc>::TArray(size_t size) {
