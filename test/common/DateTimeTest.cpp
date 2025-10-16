@@ -33,9 +33,9 @@ TEST_F(DateTimeTest, CreateTest) {
     tm now{};
 #if defined(_WIN32)
     ::localtime_s(&now, &ts);
-+#else
+#else
     ::localtime_r(&ts, &now);
-+#endif
+#endif
     EXPECT_EQ(dt.year, static_cast<uint32_t>(now.tm_year + 1900));
     EXPECT_GE(dt.month, 1u);
     EXPECT_LE(dt.month, 12u);
