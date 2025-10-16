@@ -41,7 +41,7 @@ public:
     
     /// @brief  The class constructor  with the initial value.
     /// @param[in] init The init value.
-    TBitField(T init);
+    explicit TBitField(T init);
     
     /// @brief  The class destructor.
     ~TBitField() = default;

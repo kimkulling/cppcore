@@ -37,7 +37,7 @@ class TOptional {
 public:
     /// @brief  The class constructor.
     /// @param[in]  defaultValue    Init value if no set was performed.
-    TOptional(T defaultValue);
+    explicit TOptional(T defaultValue);
 
     /// @brief  The class destructor.
     ~TOptional() = default;
