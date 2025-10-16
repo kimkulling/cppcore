@@ -47,9 +47,10 @@ struct DateTime {
         tm dt{}; 
 #if defined(_WIN32)
         ::localtime_s(&dt, &timestamp);
-+#else
+#else
         ::localtime_r(&timestamp, &dt);
-+#endif        year = dt.tm_year + 1900;
+#endif        
+        year = dt.tm_year + 1900;
         month   = dt.tm_mon;
         day     = dt.tm_mday;
         hour    = dt.tm_hour;
@@ -59,4 +60,3 @@ struct DateTime {
 };
 
 } // namespace cppcore 
-

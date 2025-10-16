@@ -26,10 +26,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using namespace cppcore;
 
-class TScratchAllocatorTest : public testing::Test {
-public:
-    static constexpr size_t BufferSize = 1024u;
-};
+class TScratchAllocatorTest : public testing::Test {};
+
+static constexpr size_t BufferSize = 1024u;
 
 TEST_F(TScratchAllocatorTest, CreateTest) {
     bool ok( true );
