@@ -131,7 +131,7 @@ inline size_t TStringBase<T>::size() const {
 
 template <class T>
 inline bool TStringBase<T>::isEmpty() const {
-    return (mSize == 0);
+    return mSize == 0;
 }
 
 template <class T>
@@ -219,6 +219,9 @@ inline TStringBase<T>& TStringBase<T>::operator+=(char c) {
 
 template <class T>
 inline T TStringBase<T>::operator[](size_t index) const {
+    if (index >= mSize) {
+        return 0;
+    }
     return mBuffer[index];
 }
 
