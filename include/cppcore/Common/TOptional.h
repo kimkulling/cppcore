@@ -35,6 +35,9 @@ namespace cppcore {
 template<class T>
 class TOptional {
 public:
+    /// @brief The default class constructor is deleted.
+    TOptional() = delete;
+
     /// @brief  The class constructor.
     /// @param[in]  defaultValue    Init value if no set was performed.
     explicit TOptional(T defaultValue);
@@ -113,6 +116,7 @@ inline bool TOptional<T>::operator == (const TOptional &rhs) const {
 
         return mValue == rhs.mValue;
     }
+
     return false;
 }
 

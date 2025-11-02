@@ -35,7 +35,7 @@ namespace cppcore {
 template<class T>
 class THash {
 public:
-    /// @brief  The default class constructor.
+        /// @brief  The default class constructor.
     THash();
 
     /// @brief  The class constructor with a given hash value.
@@ -72,30 +72,30 @@ public:
     T hashValue() const;
 
 private:
-    T m_hash;
+    T mHash;
 };
 
 template <class T>
 inline THash<T>::THash() :
-        m_hash(0) {
+        mHash(0) {
     // empty
 }
 
 template <class T>
 inline THash<T>::THash(T hash) :
-        m_hash(hash) {
+        mHash(hash) {
     // empty
 }
 
 template <class T>
 inline THash<T>::THash(const char *buffer, T base) :
-        m_hash(THash::toHash(buffer, base)) {
+        mHash(THash::toHash(buffer, base)) {
     // empty
 }
 
 template <class T>
 inline THash<T>::THash(T value, T base) :
-        m_hash(THash::toHash(value, base)) {
+        mHash(THash::toHash(value, base)) {
     // empty
 }
 
@@ -123,7 +123,7 @@ inline T THash<T>::toHash(T value, T base) {
 
 template <class T>
 inline T THash<T>::hashValue() const {
-    return m_hash;
+    return mHash;
 }
 
 } // Namespace cppcore
