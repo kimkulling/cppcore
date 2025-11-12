@@ -30,40 +30,41 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <string>
 
 namespace cppcore {
-
-static void appendDomain(const String &domain, String &logMsg) {
-    if (!domain.isEmpty()) {
-        logMsg += '(';
-        logMsg += domain;
-        logMsg += ')';
+namespace {
+    void appendDomain(const String &domain, String &logMsg) {
+        if (!domain.isEmpty()) {
+            logMsg += '(';
+            logMsg += domain;
+            logMsg += ')';
+        }
     }
-}
-
-static ::std::string stripFilename(const ::std::string &filename) {
-    if (filename.empty()) {
-        return filename;
+    
+    ::std::string stripFilename(const ::std::string &filename) {
+        if (filename.empty()) {
+            return filename;
+        }
+    
+        ::std::string::size_type pos = filename.find_last_of("/");
+        if (pos == ::std::string::npos) {
+            return filename;
+        }
+        const ::std::string strippedName = filename.substr(pos + 1, filename.size() - pos - 1);
+    
+        return strippedName;
     }
-
-    ::std::string::size_type pos = filename.find_last_of("/");
-    if (pos == ::std::string::npos) {
-        return filename;
-    }
-    const ::std::string strippedName = filename.substr(pos + 1, filename.size() - pos - 1);
-
-    return strippedName;
-}
-
-static void addTraceInfo(const String &file, int line, String &msg) {
-    if (Logger::getInstance()->getVerboseMode() == Logger::VerboseMode::Trace) {
-        msg += String(" (", 2);
-        std::string stripped = stripFilename(file.c_str());
-        msg += String(stripped.c_str(), stripped.size());
-        msg += String(", ", 2);
-        std::stringstream ss;
-        ss << line;
-        std::string lineno = ss.str();
-        msg += String(lineno.c_str(), lineno.size());
-        msg += ')';
+    
+    void addTraceInfo(const String &file, int line, String &msg) {
+        if (Logger::getInstance()->getVerboseMode() == Logger::VerboseMode::Trace) {
+            msg += String(" (", 2);
+            std::string stripped = stripFilename(file.c_str());
+            msg += String(stripped.c_str(), stripped.size());
+            msg += String(", ", 2);
+            std::stringstream ss;
+            ss << line;
+            std::string lineno = ss.str();
+            msg += String(lineno.c_str(), lineno.size());
+            msg += ')';
+        }
     }
 }
 
@@ -82,7 +83,7 @@ bool AbstractLogStream::isActive() const {
 Logger *Logger::sLogger = nullptr;
 
 Logger *Logger::create() {
-    if (nullptr == sLogger) {
+    if (sLogger == nullptr) {
         sLogger = new Logger;
     }
 
@@ -98,7 +99,7 @@ void Logger::set(Logger *logger) {
 }
 
 Logger *Logger::getInstance() {
-    if (nullptr == sLogger) {
+    if (sLogger == nullptr) {
         static_cast<void>(create());
     }
 
@@ -189,8 +190,7 @@ void Logger::print(const String &msg, PrintMode mode) {
         }
     }
 
-    if (msg.size() > 8) {
-        if (msg[6] == '=' && msg[7] == '>') {
+    if (msg.size() > 8 && msg[6] == '=' && msg[7] == '>') {
             mIntention += 2;
         }
     }
@@ -231,7 +231,7 @@ void Logger::registerLogStream(AbstractLogStream *pLogStream) {
     mLogStreams.add(pLogStream);
 }
 
-void Logger::unregisterLogStream(AbstractLogStream *logStream) {
+void Logger::unregisterLogStream(const AbstractLogStream *logStream) {
     if (nullptr == logStream) {
         return;
     }
@@ -254,8 +254,8 @@ Logger::~Logger() {
     }
 }
 
-String Logger::getDateTime() {
-    static const uint32_t Space = 2;
+String Logger::getDateTime() const {
+    static constexpr uint32_t Space = 2;
     DateTime currentDateTime;
     std::stringstream stream;
     stream.fill('0');
