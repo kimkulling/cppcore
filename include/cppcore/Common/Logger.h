@@ -169,7 +169,7 @@ public:
 private:
     Logger();
     ~Logger();
-    String getDateTime();
+    String getDateTime() const;
 
 private:
     //  @brief  The Standard log stream.
