@@ -75,9 +75,9 @@ namespace cppcore {
     /// @param lhs  The first value
     /// @param rhs  The second value
     inline void swap(void *v1, void *v2, size_t stride) {
-        uint8_t *lhs = (uint8_t*) v1;
-        uint8_t *rhs = (uint8_t*) v2;
-        const uint8_t *end = rhs + stride;
+        auto *lhs = (uint8_t*) v1;
+        auto *rhs = (uint8_t*) v2;
+        const auto *end = rhs + stride;
         while (rhs != end) {
             swap(*lhs++, *rhs++);
         }
@@ -98,7 +98,7 @@ namespace cppcore {
             return;
         }
 
-        uint8_t *data = (uint8_t*) _data;
+        auto *data = (uint8_t*) _data;
         memcpy(pivot, &data[0], stride);
 
         size_t l = 0;
@@ -127,7 +127,7 @@ namespace cppcore {
     /// @param stride   The stride of the data, i.e. the size of each element
     /// @param func     The comparison function
     inline void quicksort(void *_data, size_t num, size_t stride, ComparisonFn func) {
-        uint8_t *pivot = (uint8_t*) CPPCORE_STACK_ALLOC(stride);
+        auto *pivot = (uint8_t*) CPPCORE_STACK_ALLOC(stride);
         quicksortImpl(pivot, _data, num, stride, func);
     }
 
@@ -141,7 +141,7 @@ namespace cppcore {
         if (num  < 2) {
             return true;
         }
-        uint8_t *data_ = (uint8_t *)data;
+        auto *data_ = (uint8_t *)data;
         for (size_t i=1; i<num; ++i) {
             const int32_t result = func(&data_[(i-1)*stride], &data_[i * stride]);
             if (result == -1) {
@@ -160,7 +160,7 @@ namespace cppcore {
     /// @param func     The comparison function
     /// @return The index of the key if found, otherwise ~index
     inline int32_t binSearchImpl(const void *key, const void *data, size_t num, size_t stride, ComparisonFn func) {
-        size_t offset = 0;
+        size_t offset = 0l;
         const uint8_t *_data = (uint8_t *)data;
         for (size_t i = num; offset < i;) {
             size_t idx = (offset + i) / 2;
