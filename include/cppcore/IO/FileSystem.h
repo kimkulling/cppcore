@@ -47,7 +47,7 @@ class FileSystem {
 public:
     /// @brief  The class constructor with the location.
     /// @param[in] location     The root location.
-    FileSystem(const char *location);
+    explicit FileSystem(const char *location);
 
     /// @brief  The class destructor.
     ~FileSystem() = default;
