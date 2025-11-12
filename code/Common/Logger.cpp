@@ -189,8 +189,7 @@ void Logger::print(const String &msg, PrintMode mode) {
         }
     }
 
-    if (msg.size() > 8) {
-        if (msg[6] == '=' && msg[7] == '>') {
+    if (msg.size() > 8 && msg[6] == '=' && msg[7] == '>') {
             mIntention += 2;
         }
     }
@@ -231,7 +230,7 @@ void Logger::registerLogStream(AbstractLogStream *pLogStream) {
     mLogStreams.add(pLogStream);
 }
 
-void Logger::unregisterLogStream(AbstractLogStream *logStream) {
+void Logger::unregisterLogStream(const AbstractLogStream *logStream) {
     if (nullptr == logStream) {
         return;
     }
