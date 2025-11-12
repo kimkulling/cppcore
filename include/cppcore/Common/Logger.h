@@ -72,13 +72,11 @@ private:
 
 //-------------------------------------------------------------------------------------------------
 ///
-///	@brief	This class implements a simple logger. 
-///
+///	@brief	This class implements a simple logger.
 ///	The logger is implemented as a singleton. You can attach several log streams to it, which can
-///	be used to log the messages to several output channels like a window or a log file or something 
-///	else.
-///	The granularity of the logged messages can be controlled by the severity of the logger. The 
-///	supported modes are normal ( no debug and info messages ), verbose ( all messages will be
+///	be used to log the messages to several output channels like a window or a log file or something
+///	else. The granularity of the logged messages can be controlled by the severity of the logger. 
+/// The supported modes are normal ( no debug and info messages ), verbose ( all messages will be
 ///	logged ) and debug ( the debug messages will be logged as well, be careful with this option ).
 //-------------------------------------------------------------------------------------------------
 class DLL_CPPCORE_EXPORT Logger final {
@@ -87,8 +85,8 @@ public:
     enum class VerboseMode {
         Invalid = -1,   ///< Invalid marker
         Normal,         ///< Only warnings and errors will be logged.
-        Verbose,    	///< Normal messages will be logged as well.
-        Debug,		///< All debug messages will be logged as well.
+        Verbose,        ///< Normal messages will be logged as well.
+        Debug,          ///< All debug messages will be logged as well.
         Trace,          ///< Will enable the tracing.
         Count           ///< Number of enums
     };
@@ -166,7 +164,7 @@ public:
 
     ///	@brief	Unregisters a registered log stream.
     ///	@param[in] pLogStream    A pointer showing to the log stream.
-    void unregisterLogStream(AbstractLogStream *pLogStream);
+    void unregisterLogStream(const AbstractLogStream *pLogStream);
 
 private:
     Logger();
