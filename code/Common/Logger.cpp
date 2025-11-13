@@ -191,8 +191,7 @@ void Logger::print(const String &msg, PrintMode mode) {
     }
 
     if (msg.size() > 8 && msg[6] == '=' && msg[7] == '>') {
-            mIntention += 2;
-        }
+        mIntention += 2;
     }
 }
 
@@ -317,3 +316,4 @@ void fatalPrint(const String &domain, const String &file, int line, const String
 }
 
 } // namespace cppcore
+
