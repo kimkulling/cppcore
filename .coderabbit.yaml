@@ -1,0 +1,149 @@
+version: 1
+language: cpp
+
+rules:
+  # ========== Naming ==========
+  - id: file_naming
+    pattern: '^[a-z][a-z0-9_]+(\.h|\.hpp|\.cc|\.cpp|\.cxx)?$'
+    message: "Dateinamen müssen klein und mit Unterstrichen sein (z. B. `my_class.cc`)."
+    severity: warning
+
+  - id: type_naming
+    pattern: '^[A-Z][a-zA-Z0-9]+$'
+    message: "Typen (Klassen, Structs, Typedefs) müssen PascalCase sein (z. B. `MyClass`)."
+    severity: warning
+
+  - id: variable_naming
+    pattern: '^[a-z][a-zA-Z0-9]+$'
+    message: "Variablen und Funktionen müssen camelCase sein (z. B. `myVariable`)."
+    severity: warning
+
+  - id: constant_naming
+    pattern: '^[kA-Z][A-Z0-9_]+$'
+    message: "Konstanten müssen mit `k` beginnen und PascalCase sein (z. B. `kMyConstant`)."
+    severity: warning
+
+  - id: macro_naming
+    pattern: '^[A-Z][A-Z0-9_]+_$'
+    message: "Macros müssen in SCREAMING_CASE enden mit `_` (z. B. `MY_MACRO_`)."
+    severity: warning
+
+  # ========== Formatierung ==========
+  - id: indentation
+    pattern: '^ {2}'
+    message: "Verwende 2 Leerzeichen für Einrückung, keine Tabs."
+    severity: warning
+
+  - id: brace_style
+    pattern: '\{\s*\n'
+    message: "Öffnende Klammern `{` gehören auf die gleiche Zeile (z. B. `class Foo {`)."
+    severity: warning
+
+  - id: line_length
+    max_length: 80
+    message: "Zeilen dürfen nicht länger als 80 Zeichen sein."
+    severity: warning
+
+  - id: function_declaration
+    pattern: '\w+\s+\w+\([^)]*\)\s*\n\s*\{'
+    message: "Funktionsrückgabetyp und -name müssen in einer Zeile stehen. Öffnende Klammer auf gleicher Zeile."
+    severity: warning
+
+  # ========== Header ==========
+  - id: header_guard
+    pattern: '#ifndef [A-Z_]+_H_|#define [A-Z_]+_H_|#endif'
+    message: "Header-Guards müssen im Format `PROJECT_PATH_FILE_H_` sein."
+    severity: warning
+
+  - id: include_order
+    message: |
+      Includes müssen in dieser Reihenfolge sein:
+      1. C-System-Header (z. B. `<sys/types.h>`)
+      2. C++-Standard-Header (z. B. `<vector>`)
+      3. Projekt-Header (z. B. `"my_project/my_file.h"`)
+      4. Leerzeile zwischen den Gruppen.
+    severity: warning
+
+  # ========== Modern C++ ==========
+  - id: no_raw_pointers
+    pattern: '\bnew\s+\w+|delete\s+\w+'
+    message: "Vermeide `new`/`delete`. Verwende `std::unique_ptr` oder `std::shared_ptr`."
+    severity: warning
+
+  - id: use_auto
+    pattern: '\w+\s+\w+\s*=\s*new\s+\w+'
+    message: "Verwende `auto` für lokale Variablen, wenn der Typ offensichtlich ist."
+    severity: warning
+
+  - id: const_correctness
+    pattern: '\w+\s+\*[^=]+='
+    message: "Verwende `const` für Pointer/Referenzen, wenn möglich."
+    severity: warning
+
+  - id: override_specifier
+    pattern: 'virtual\s+\w+\s*\([^)]*\)\s*(?!override)'
+    message: "Verwende `override` oder `final` für virtuelle Methoden."
+    severity: warning
+
+  # ========== Sicherheit ==========
+  - id: no_magic_numbers
+    pattern: '[0-9]+'
+    message: "Vermeide 'Magic Numbers'. Verwende benannte Konstanten."
+    severity: warning
+
+  - id: no_c_style_casts
+    pattern: '\((\w+)\)[^;]+;'
+    message: "Vermeide C-Style-Casts. Verwende `static_cast`, `dynamic_cast`, etc."
+    severity: warning
+
+  - id: bounds_checking
+    pattern: '\[\s*[a-zA-Z0-9]+\s*\]'
+    message: "Stelle sicher, dass Array-Zugriffe bounds-geprüft sind oder `at()` verwendet wird."
+    severity: warning
+
+  # ========== Google-spezifisch ==========
+  - id: google_ownership
+    pattern: 'std::shared_ptr<'
+    message: "Vermeide `std::shared_ptr` wo möglich. Bevorzuge `std::unique_ptr`."
+    severity: warning
+
+  - id: google_abseil
+    pattern: 'std::string'
+    message: "Verwende `absl::string_view` statt `const std::string&` für Read-Only-Strings."
+    severity: warning
+
+  - id: google_re2
+    pattern: 'std::regex'
+    message: "Verwende `RE2` statt `std::regex` (Google-Standard)."
+    severity: warning
+
+  # ========== Tests ==========
+  - id: test_class_naming
+    pattern: 'Test[A-Z][a-zA-Z0-9]+'
+    message: "Test-Klassen müssen mit `Test` beginnen (z. B. `TestMyClass`)."
+    severity: warning
+
+  - id: test_method_naming
+    pattern: 'Test[A-Z][a-zA-Z0-9]+::[A-Z][a-zA-Z0-9]+'
+    message: "Test-Methoden müssen camelCase sein und mit dem getesteten Szenario beginnen (z. B. `TestMyClass::HandlesError`)."
+    severity: warning
+
+  # ========== Verboten ==========
+  - id: no_global_variables
+    pattern: '^\w+\s+\w+\s*;'
+    message: "Vermeide globale Variablen. Verwende Singleton oder Dependency Injection."
+    severity: error
+
+  - id: no_exceptions
+    pattern: 'throw\s+|try\s+\{'
+    message: "Vermeide Exceptions (Google-Standard). Verwende Error-Codes oder `absl::Status`."
+    severity: error
+
+# Ausnahmen für Third-Party-Code
+exceptions:
+  - path: 'third_party/'
+    rules: []
+  - path: 'tests/'
+    rules:
+      - id: no_global_variables
+        severity: warning
