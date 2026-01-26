@@ -124,9 +124,9 @@ private:
         void releaseList();
     };
 
-    Node **mBuffer = nullptr;
-    size_t mNumItems = 0u;
-    size_t mBuffersize = 0u;
+    Node **mBuffer{nullptr};
+    size_t mNumItems{0u};
+    size_t mBuffersize{0u};
 };
 
 template <class T, class U, class TAlloc>

@@ -181,9 +181,9 @@ public:
 
 private:
     TAlloc mAllocator;
-    size_t mSize = 0u;
-    size_t mCapacity = 0u;
-    T *mData = nullptr;
+    size_t mSize{0u};
+    size_t mCapacity{0u};
+    T *mData{nullptr};
 };
 
 template <class T, class TAlloc>

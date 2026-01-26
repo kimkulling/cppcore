@@ -70,8 +70,8 @@ public:
     const_iterator end() const;
 
 private:
-    const T *mPtr = nullptr;
-    size_t mLen = 0;
+    const T *mPtr{nullptr};
+    size_t mLen{0l};
 };
 
 template <class T>

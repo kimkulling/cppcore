@@ -84,6 +84,7 @@ SET(cppcore_common_src
     include/cppcore/Common/Sort.h
     include/cppcore/Common/TBitField.h
     include/cppcore/Common/TOptional.h
+    include/cppcore/Common/TSpan.h
 )
 
 SET(cppcore_random_src
@@ -144,6 +145,7 @@ IF( CPPCORE_BUILD_UNITTESTS )
         test/common/TBitFieldTest.cpp
         test/common/TOptionalTest.cpp
         test/common/TStringViewTest.cpp
+        test/common/TSpanTest.cpp
         test/common/TStringBaseTest.cpp
     )
 

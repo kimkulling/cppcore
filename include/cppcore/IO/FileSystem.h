@@ -32,14 +32,9 @@ namespace cppcore {
 
 /// @brief  The file-system space info.
 struct FSSpace {
-    long capacity;  ///< The capacity in total.
-    long free;      ///< The free capacity
-    long inUse;     ///< The used capacity
-
-    /// @brief  The default class constructor.
-    FSSpace() : capacity(0L), free(0L), inUse(0L) {
-        // empty
-    }
+    long capacity{0L};  ///< The capacity in total.
+    long free{0L};      ///< The free capacity
+    long inUse{0L};     ///< The used capacity
 };
 
 /// @brief  This class provides some common OS-specific file operations.
@@ -61,12 +56,10 @@ public:
 
 private:
     const char *mDrive;
-    FSSpace mFsSpace;
+    FSSpace mFsSpace{};
 };
 
-inline FileSystem::FileSystem(const char *location) :
-        mDrive(location),
-        mFsSpace() {
+inline FileSystem::FileSystem(const char *location) : mDrive(location) {
     // empty
 }
 

@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2025 Kim Kulling
+Copyright (c) 2014-2026 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -20,21 +20,17 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------------------*/
-#include <cppcore/Common/DateTime.h>
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
+#include <cppcore/Common/TSpan.h>
 
-using namespace cppcore;
+using namespace ::cppcore;
 
-class DateTimeTest : public testing::Test {};
+class TSpanTest : public ::testing::Test {};
 
-TEST_F(DateTimeTest, CreateTest) {
-    DateTime dt;
-    const time_t ts = ::time(nullptr);
-    tm now{};
-#if defined(_WIN32)
-    ::localtime_s(&now, &ts);
-#else
-    ::localtime_r(&ts, &now);
-#endif
-    EXPECT_EQ(dt.year, static_cast<uint32_t>(now.tm_year + 1900));
+TEST_F(TSpanTest, createInstance_success) {
+    constexpr int arr[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    TSpan<int> mySpan(arr, 10);
+    ASSERT_FALSE(mySpan.empty());
+    ASSERT_EQ(mySpan.size(), 10);
+    ASSERT_EQ(mySpan[0], arr[0]);
 }

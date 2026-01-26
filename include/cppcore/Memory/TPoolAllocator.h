@@ -49,7 +49,7 @@ template <class T>
 class TPoolAllocator {
 public:
     /// @brief  The default class constructor.
-    TPoolAllocator();
+    TPoolAllocator() = default;
 
     /// @brief  The class constructor with the pool size.
     /// @param  numItems    [in] The pool size.
@@ -101,23 +101,15 @@ public:
 
 private:
     struct Pool {
-        size_t mPoolsize;
-        T *mPool;
-        size_t mCurrentIdx;
-        Pool *mNext;
+        size_t mPoolsize{0u};
+        T *mPool{nullptr};
+        size_t mCurrentIdx{0u};
+        Pool *mNext{nullptr};
 
-        Pool() :
-                mPoolsize(0u),
-                mPool(nullptr),
-                mCurrentIdx(0u),
-                mNext(nullptr) {
-            // empty
-        }
-
+        Pool() = default;
+        
         Pool(size_t numItems, Pool *prev) :
                 mPoolsize(numItems),
-                mPool(nullptr),
-                mCurrentIdx(0u),
                 mNext(prev) {
             mPool = new T[mPoolsize];
         }
@@ -137,27 +129,14 @@ private:
         return current;
     }
 
-    Pool *mFirst;
-    Pool *mCurrent;
-    Pool *mFreeList;
-    size_t mCapacity;
+    Pool *mFirst{nullptr};
+    Pool *mCurrent{nullptr};
+    Pool *mFreeList{nullptr};
+    size_t mCapacity{0L};
 };
 
 template <class T>
-inline TPoolAllocator<T>::TPoolAllocator() :
-        mFirst(nullptr),
-        mCurrent(nullptr),
-        mFreeList(nullptr),
-        mCapacity(0L) {
-    // empty
-}
-
-template <class T>
-inline TPoolAllocator<T>::TPoolAllocator(size_t numItems) :
-        mFirst(nullptr),
-        mCurrent(nullptr),
-        mFreeList(nullptr),
-        mCapacity(0L) {
+inline TPoolAllocator<T>::TPoolAllocator(size_t numItems) {
     mFirst = new Pool(numItems, nullptr);
     mCapacity += numItems;
     mCurrent = mFirst;

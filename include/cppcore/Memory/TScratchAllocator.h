@@ -42,7 +42,7 @@ template<class T>
 class TScratchAllocator {
 public:
     /// @brief  The default class constructor.
-    TScratchAllocator();
+    TScratchAllocator() = default;
     
     /// @brief  The class constructor with the pool size.
     /// @param[in]  numItems    The buffer size.
@@ -80,20 +80,13 @@ public:
     CPPCORE_NONE_COPYING(TScratchAllocator)
 
 private:
-    T *mBlock = nullptr;
-    size_t mSize;
-    size_t mIndex;
+    T *mBlock{nullptr};
+    size_t mSize{0u};
+    size_t mIndex{0u};
 };
 
 template<class T>
-inline TScratchAllocator<T>::TScratchAllocator() :
-        mSize(0u), mIndex(0u) {
-    // empty
-}
-
-template<class T>
-inline TScratchAllocator<T>::TScratchAllocator(size_t numItems) :
-        mSize(numItems), mIndex(0u) {
+inline TScratchAllocator<T>::TScratchAllocator(size_t numItems) : mSize(numItems) {
     reserve(numItems);
 }
 

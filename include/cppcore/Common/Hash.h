@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2025 Kim Kulling
+Copyright (c) 2014-2026 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -35,8 +35,8 @@ namespace cppcore {
 template<class T>
 class THash {
 public:
-        /// @brief  The default class constructor.
-    THash();
+    /// @brief  The default class constructor.
+    THash() = default;
 
     /// @brief  The class constructor with a given hash value.
     /// @param  hash    [in] An integer value to compute the hash from.
@@ -72,30 +72,21 @@ public:
     T hashValue() const;
 
 private:
-    T mHash;
+    T mHash{0};
 };
 
 template <class T>
-inline THash<T>::THash() :
-        mHash(0) {
+inline THash<T>::THash(T hash) : mHash(hash) {
     // empty
 }
 
 template <class T>
-inline THash<T>::THash(T hash) :
-        mHash(hash) {
+inline THash<T>::THash(const char *buffer, T base) : mHash(THash::toHash(buffer, base)) {
     // empty
 }
 
 template <class T>
-inline THash<T>::THash(const char *buffer, T base) :
-        mHash(THash::toHash(buffer, base)) {
-    // empty
-}
-
-template <class T>
-inline THash<T>::THash(T value, T base) :
-        mHash(THash::toHash(value, base)) {
+inline THash<T>::THash(T value, T base) : mHash(THash::toHash(value, base)) {
     // empty
 }
 

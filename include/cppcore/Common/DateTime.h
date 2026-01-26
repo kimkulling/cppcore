@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2025 Kim Kulling
+Copyright (c) 2014-2026 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -34,12 +34,12 @@ namespace cppcore {
 ///	@brief  This class is used to get the current date and time.
 //-------------------------------------------------------------------------------------------------
 struct DateTime {
-    uint32_t year{};    ///< The current year
-    uint32_t month{};   ///< The current month
-    uint32_t day{};     ///< The current day
-    uint32_t hour{};    ///< The current hour
-    uint32_t minute{};  ///< The current minute
-    uint32_t second{};  ///< The current second
+    uint32_t year{0};   ///< The current year
+    uint32_t month{0};  ///< The current month
+    uint32_t day{0};    ///< The current day
+    uint32_t hour{0};   ///< The current hour
+    uint32_t minute{0}; ///< The current minute
+    uint32_t second{0}; ///< The current second
 
     /// @brief The class constructor.
     DateTime() {
@@ -51,7 +51,7 @@ struct DateTime {
         ::localtime_r(&timestamp, &dt);
 #endif        
         year = dt.tm_year + 1900;
-        month   = dt.tm_mon;
+        month   = dt.tm_mon+1;
         day     = dt.tm_mday;
         hour    = dt.tm_hour;
         minute  = dt.tm_min;

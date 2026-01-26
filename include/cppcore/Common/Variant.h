@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2025 Kim Kulling
+Copyright (c) 2014-2026 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -63,7 +63,7 @@ public:
     };
 
     ///	@brief	The class default constructor.
-    Variant();
+    Variant() = default;
 
     ///	@brief	The class constructor with type information and data. A data buffer will be used to pass
     ///			the data. The size of the buffer will be check on runtime as well.
@@ -214,22 +214,12 @@ protected:
     void reserve(Type type, size_t size);
 
 private:
-    Type mType;
-    size_t mBufferSize;
-    void *mData;
+    Type mType{Invalid};
+    size_t mBufferSize{0};
+    void *mData{nullptr};
 };
 
-inline Variant::Variant() :
-        mType(Invalid),
-        mBufferSize(0),
-        mData(nullptr) {
-    // empty
-}
-
-inline Variant::Variant(Type type, void *pData, size_t numItems) :
-        mType(Invalid),
-        mBufferSize(0),
-        mData(nullptr) {
+inline Variant::Variant(Type type, void *pData, size_t numItems) {
     if (isValid(type, numItems)) {
         size_t size = 0;
         mType = type;
@@ -244,10 +234,7 @@ inline Variant::Variant(Type type, void *pData, size_t numItems) :
     }
 }
 
-inline Variant::Variant(bool value) :
-        mType(Boolean),
-        mBufferSize(0),
-        mData(nullptr) {
+inline Variant::Variant(bool value) : mType(Boolean) {
     reserve(Boolean, 0);
     ::memcpy(mData, &value, mBufferSize);
 }

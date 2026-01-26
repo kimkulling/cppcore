@@ -43,11 +43,11 @@ template <class T>
 class TStackAllocator {
 public:
     /// @brief  The default class constructor.
-    TStackAllocator();
+    TStackAllocator() = default;
 
     /// @brief  The class constructor with the initial size for the stack.
     /// @param  initSize    [in] The initial size.
-    TStackAllocator(size_t initSize);
+    explicit TStackAllocator(size_t initSize);
 
     /// @brief  The class destructor.
     ~TStackAllocator();
@@ -93,29 +93,16 @@ private:
     using byte_t = unsigned char;
 
     struct Header {
-        size_t mSize;
+        size_t mSize{0u};
     };
-    size_t mCapacity;
-    size_t mTop;
-    size_t mNumAllocs;
-    byte_t *mData;
+    size_t mCapacity{0u};
+    size_t mTop{0u};
+    size_t mNumAllocs{0u};
+    byte_t *mData{nullptr};
 };
 
 template <class T>
-inline TStackAllocator<T>::TStackAllocator() :
-        mCapacity(0),
-        mTop(0),
-        mNumAllocs(0),
-        mData(nullptr) {
-    // empty
-}
-
-template <class T>
-inline TStackAllocator<T>::TStackAllocator(size_t initSize) :
-        mCapacity(0),
-        mTop(0),
-        mNumAllocs(0),
-        mData(nullptr) {
+inline TStackAllocator<T>::TStackAllocator(size_t initSize) {
     reserve(initSize);
 }
 
@@ -126,12 +113,12 @@ inline TStackAllocator<T>::~TStackAllocator() {
 
 template <class T>
 inline T *TStackAllocator<T>::alloc(size_t size) {
-    if (0 == size) {
+    if (size == 0) {
         return nullptr;
     }
 
-    const size_t range(size * sizeof(T) + sizeof(Header));
-    const size_t limit(mTop + range);
+    const size_t range = size * sizeof(T) + sizeof(Header);
+    const size_t limit = mTop + range;
     if (limit > mCapacity) {
         return nullptr;
     }
@@ -144,7 +131,7 @@ inline T *TStackAllocator<T>::alloc(size_t size) {
     // data
     T *ptr = (T *)(&mData[mTop]);
     mTop += header->mSize;
-    mNumAllocs++;
+    ++mNumAllocs;
 
     return ptr;
 }
