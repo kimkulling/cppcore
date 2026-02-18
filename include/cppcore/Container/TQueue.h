@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2025 Kim Kulling
+Copyright (c) 2014-2026 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -37,7 +37,7 @@ template<class T, class TAlloc = TDefaultAllocator<T>>
 class TQueue {
 public:
     ///	@brief	The default class constructor.
-    TQueue() noexcept;
+    TQueue() noexcept = default;
 
     ///	@brief	The class copy constructor.
     ///	@param	rhs 	[in] The instance to copy from.
@@ -78,18 +78,12 @@ public:
     bool operator == ( const TQueue<T, TAlloc> &rhs ) const;
 
 private:
-    TList<T> mQueueData;
+    TList<T> mQueueData{};
 };
 
 template<class T, class TAlloc>
-inline TQueue<T, TAlloc>::TQueue() noexcept :
-        mQueueData() {
-    // empty
-}
-
-template<class T, class TAlloc>
 inline TQueue<T, TAlloc>::TQueue( const TQueue<T, TAlloc> &rhs )  :
-        mQueueData( rhs.mQueueData ) {
+        mQueueData(rhs.mQueueData) {
     // empty
 }
 
@@ -140,7 +134,7 @@ inline TQueue<T, TAlloc> &TQueue<T, TAlloc>::operator = ( const TQueue<T, TAlloc
         return *this;
     }
 
-    mQueueData = rhs.m_QueueData;
+    mQueueData = rhs.mQueueData;
 
     return *this;
 }

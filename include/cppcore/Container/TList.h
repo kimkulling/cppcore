@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2025 Kim Kulling
+Copyright (c) 2014-2026 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -42,7 +42,7 @@ public:
     class Iterator;
 
     ///	@brief	The class default constructor.
-    TList() noexcept;
+    TList() noexcept = default;
 
     ///	@brief	The class copy constructor.
     ///	@param	rhs	Instance to copy from.
@@ -57,10 +57,12 @@ public:
 
     ///	@brief	Adds a new item at the front of the list.
     ///	@param	item	Instance to add
+    ///	@return The new iterator.
     Iterator addFront(const T &item);
 
     ///	@brief	Adds a new item at the back of the list.
     ///	@param	item	Instance to add
+    ///	@return The new iterator.
     Iterator addBack(const T &item);
 
     ///	@brief	The first item will be removed.
@@ -136,15 +138,15 @@ public:
         T &operator*() const;
 
     private:
-        Node *mNode;
+        Node *mNode{nullptr};
     };
 
 private:
     class Node {
     public:
-        T mItem;
-        Node *mPrev;
-        Node *mNext;
+        T mItem{};
+        Node *mPrev{nullptr};
+        Node *mNext{nullptr};
 
         Node(const T &rItem);
         void setNext(Node *pNode);
@@ -154,18 +156,10 @@ private:
         T &getItem() const;
     };
 
-    Node *mFist;
-    Node *mLast;
-    size_t mSize;
+    Node *mFist{nullptr};
+    Node *mLast{nullptr};
+    size_t mSize{0};
 };
-
-template <class T, class TAlloc>
-inline TList<T, TAlloc>::TList() noexcept :
-        mFist(nullptr),
-        mLast(nullptr),
-        mSize(0) {
-    // empty
-}
 
 template <class T, class TAlloc>
 inline TList<T, TAlloc>::TList(const TList<T, TAlloc> &rhs) :

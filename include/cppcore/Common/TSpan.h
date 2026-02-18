@@ -37,6 +37,9 @@ namespace cppcore {
 template<class T>
 class TSpan {
 public:
+    /// @brief The iterator type.
+    using Iterator = const T*;
+
     /// @brief The default class constructor.
     TSpan() = default;
 
@@ -50,7 +53,7 @@ public:
 
     /// @brief Will return the data pointer showing to the first entry.
     /// @return The array pointer or nullptr, if no array was set.
-    T* data() const;
+    const T* data() const;
 
     /// @brief Will return the number of items in the view.
     /// @return The number of items.
@@ -59,6 +62,10 @@ public:
     /// @brief Will return true, if the span view is empty.
     /// @return true, 
     bool empty() const;
+
+    Iterator begin();
+    Iterator end();
+
     T operator[] (size_t index);
     const T operator[](size_t index) const;
 
@@ -73,7 +80,7 @@ inline TSpan<T>::TSpan(const T *ptr, size_t size) : mData(ptr), mSize(size) {
 }
 
 template<class T>
-inline T *TSpan<T>::data() const {
+inline const T *TSpan<T>::data() const {
     return mData; 
 }
 
@@ -85,6 +92,16 @@ inline size_t TSpan<T>::size() const {
 template<class T>
 inline bool TSpan<T>::empty() const { 
     return mSize == 0; 
+}
+
+template<class T>
+inline typename TSpan<T>::Iterator TSpan<T>::begin() {
+    return &mData[0];
+}
+
+template<class T>
+inline typename TSpan<T>::Iterator TSpan<T>::end() {
+    return mData + mSize;
 }
 
 template<class T>

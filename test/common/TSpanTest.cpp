@@ -34,3 +34,26 @@ TEST_F(TSpanTest, createInstance_success) {
     ASSERT_EQ(mySpan.size(), 10);
     ASSERT_EQ(mySpan[0], arr[0]);
 }
+
+TEST_F(TSpanTest, accessDataTest) {
+    constexpr int arr[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    TSpan<int> mySpan(arr, 10);
+    ASSERT_EQ(mySpan.size(), 10);
+    ASSERT_EQ(mySpan[10], std::numeric_limits<int>::max());
+}
+
+TEST_F(TSpanTest, iteratorTest) {
+    constexpr int arr[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    TSpan<int> mySpan(arr, 10);
+    ASSERT_EQ(mySpan.size(), 10);
+    auto itBegin = mySpan.begin();
+    auto itEnd = mySpan.end();
+    ASSERT_NE(itBegin, itEnd);
+    ASSERT_EQ(itBegin, mySpan.data());
+
+    size_t index{0};
+    for (auto it = mySpan.begin(); it != mySpan.end(); ++it) {
+        ASSERT_EQ(arr[index], *it);
+        index++;
+    }
+}

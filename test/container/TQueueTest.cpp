@@ -91,6 +91,14 @@ TEST_F( TQueueTest, sizeTest ) {
     EXPECT_EQ( f32Queue.size(), 2u );
 }
 
+TEST_F( TQueueTest, copyTest ) {
+    TQueue<float> f32Queue;
+	f32Queue.enqueue( 0.0f );
+
+    TQueue<float> f32Queue2 = f32Queue;
+    ASSERT_EQ(f32Queue, f32Queue2);
+}
+
 TEST_F( TQueueTest, clearTest )	{
     TQueue<float> f32Queue;
 
