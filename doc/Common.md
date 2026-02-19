@@ -53,12 +53,28 @@ void main() {
 ### Usecases
 ### Examples
 
-## TSharedPtr
+## TSpan
 ### Introduction
+### Usecases
+### Examples
+
+## TStringBase
+### Introduction
+### Usecases
+### Examples
+
+## TStringView
+### Introduction
+You have to deal with string readouts without having write access to them.
+
 ### Usecases
 ### Examples
 
 ## Variant
 ### Introduction
+A class to store pod-types in a much easier way if you need more dynamic in the data handling.
+
 ### Usecases
+You need to get data coming from a configuration, which types a dynamic. 
+
 ### Examples
