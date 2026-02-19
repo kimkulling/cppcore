@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2025 Kim Kulling
+Copyright (c) 2014-2026 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -47,6 +47,10 @@ public:
     /// @brief  The class destructor.
     ~FileSystem() = default;
 
+    /// @brief  The copy constructor is not allowed.
+    FileSystem(const FileSystem &) = delete;
+    FileSystem &operator=(const FileSystem &) = delete; 
+
     /// @brief  Will perform a refresh.
     void refresh();
 
@@ -55,8 +59,8 @@ public:
     FSSpace *getFreeDiskSpace();
 
 private:
-    const char *mDrive;
-    FSSpace mFsSpace{};
+    const char *mDrive{nullptr};    ///< The drive location.
+    FSSpace mFsSpace{};             ///< The file-system space info.    
 };
 
 inline FileSystem::FileSystem(const char *location) : mDrive(location) {
@@ -69,14 +73,14 @@ inline void FileSystem::refresh() {
     }
 #ifdef _WIN32
     ULARGE_INTEGER freeByteAvailable, totalNumberOfBytes, totalNumberOfFreeBytes;
-    BOOL result = ::GetDiskFreeSpaceEx(mDrive, &freeByteAvailable, &totalNumberOfBytes, &totalNumberOfFreeBytes);
+    BOOL result = ::GetDiskFreeSpaceEx(reinterpret_cast<LPCSTR>(mDrive), &freeByteAvailable, &totalNumberOfBytes, &totalNumberOfFreeBytes);
     if (TRUE == result) {
         mFsSpace.capacity = totalNumberOfBytes.QuadPart / (1024 * 1024 * 1024);
         mFsSpace.free = freeByteAvailable.QuadPart / (1024 * 1024 * 1024);
         mFsSpace.inUse = mFsSpace.capacity - mFsSpace.free;
     }
 #else
-    struct statvfs stats;
+    struct statvfs stats{};
     statvfs(mDrive, &stats);
     mFsSpace.capacity = stats.f_bsize;
     mFsSpace.free = stats.f_bsize * stats.f_bfree;

@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2025 Kim Kulling
+Copyright (c) 2014-2026 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -76,24 +76,21 @@ public:
 
 private:
     T mArray[len];
-    size_t mLen;
+    size_t mLen{0l};
 };
 
 template <class T, size_t len>
-inline TStaticArray<T, len>::TStaticArray() :
-        mLen(len) {
+inline TStaticArray<T, len>::TStaticArray() : mLen(len) {
     // empty
 }
 
 template <class T, size_t len>
-inline TStaticArray<T, len>::TStaticArray(T initValue) :
-        mLen(len) {
+inline TStaticArray<T, len>::TStaticArray(T initValue) : mLen(len) {
     memset(initValue);
 }
 
 template <class T, size_t len>
-inline TStaticArray<T, len>::TStaticArray(const TStaticArray<T, len> &rhs) :
-        mLen(rhs.mLen) {
+inline TStaticArray<T, len>::TStaticArray(const TStaticArray<T, len> &rhs) : mLen(rhs.mLen) {
     for (size_t i = 0; i < mLen; ++i) {
         mArray[i] = rhs.mArray[i];
     }

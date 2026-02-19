@@ -51,8 +51,8 @@ class TArrayTest : public testing::Test {
 protected:
     void createArray( const float *pOrig, size_t numItems, TArray<float> &arrayInstance ) {
         for ( size_t i=0; i<numItems; ++i ) {
-	    arrayInstance.add( pOrig[ i ] );
-	}
+	        arrayInstance.add( pOrig[ i ] );
+	    }
     }
 };
 

@@ -63,10 +63,22 @@ public:
     /// @return true, 
     bool empty() const;
 
+    /// @brief Will return the begin iterator.
+    /// @return The begin iterator.
     Iterator begin();
-    Iterator end();
 
-    T operator[] (size_t index);
+    /// @brief Will return the end iterator.
+    /// @return The end iterator.
+    Iterator end(); 
+
+    /// @brief Will return the item at the given index. If the index is out of range, the maximum value of T will be returned.
+    /// @param index The item index.
+    /// @return The item at the given index or the maximum value of T, if the index is out of range.
+    T operator[] (size_t index);    
+
+    /// @brief Will return the item at the given index. If the index is out of range, the maximum value of T will be returned.
+    /// @param index The item index.
+    /// @return The item at the given index or the maximum value of T, if the index is out of range.
     const T operator[](size_t index) const;
 
 private:

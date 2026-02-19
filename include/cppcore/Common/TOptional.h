@@ -64,13 +64,12 @@ public:
     bool operator == (const TOptional<T> &rhs) const;
 
 private:
-    T mValue;
+    T mValue{};
     bool mInited{false};
 };
 
 template<class T>
-inline TOptional<T>::TOptional(T defaultValue) :
-        mValue(defaultValue) {
+inline TOptional<T>::TOptional(T defaultValue) : mValue(defaultValue) {
     // empty
 }
 

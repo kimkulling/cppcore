@@ -28,13 +28,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace cppcore {
 
+/// @brief  The default log tag, used for all log messages if no other tag is specified.
 #define DECL_LOG_MODULE(name) static constexpr char Tag[] = #name;
 
 using String = TStringBase<char>;
 
 //-------------------------------------------------------------------------------------------------
+///	@class		AbstractLogStream
+///	@ingroup	CPPCore
 ///
 ///	@brief	This pure abstract interface class declares the protocol for log-stream implementation.
+///
 ///	You can use log streams to pipes logs to you preferred output device like a simple text-file 
 ///	or a log window in a GUI application. Implement the write message and attach a valid instance 
 ///	to the logger itself to use your own implementation.
@@ -67,10 +71,12 @@ protected:
     AbstractLogStream() = default;
 
 private:
-    bool mIsActive = true;
+    bool mIsActive{true};
 };
 
 //-------------------------------------------------------------------------------------------------
+/// @class   Logger
+/// @ingroup CPPCore
 ///
 ///	@brief	This class implements a simple logger.
 ///	The logger is implemented as a singleton. You can attach several log streams to it, which can
@@ -205,7 +211,7 @@ void fatalPrint( const String &domain, const String &file, int line, const Strin
 } // namespace cppcore
 
 //-------------------------------------------------------------------------------------------------
-/// @fn    osre_trace
+/// @fn    log_trace
 /// @brief This helper macro will write the trace message into the logger.
 /// @param domain    The domain to log for.
 /// @param message   The message to log.
@@ -213,7 +219,7 @@ void fatalPrint( const String &domain, const String &file, int line, const Strin
 #define log_trace(domain, msg) ::cppcore::tracePrint(domain, __FILE__, __LINE__, msg)
 
 //-------------------------------------------------------------------------------------------------
-/// @fn    osre_debug
+/// @fn    log_debug
 /// @brief This helper macro will write the debug message into the logger.
 /// @param domain      The domain to log for.
 /// @param message     The message to log.
@@ -221,7 +227,7 @@ void fatalPrint( const String &domain, const String &file, int line, const Strin
 #define log_debug(domain, msg) ::cppcore::debugPrint(domain, __FILE__, __LINE__, msg)
 
 //-------------------------------------------------------------------------------------------------
-/// @fn    osre_log
+/// @fn    log_log
 /// @brief This helper macro will write the info message into the logger.
 /// @param domain    The domain to log for.
 /// @param message   The message to log.
@@ -229,7 +235,7 @@ void fatalPrint( const String &domain, const String &file, int line, const Strin
 #define log_info(domain, msg) ::cppcore::infoPrint(domain, __FILE__, __LINE__, msg)
 
 //-------------------------------------------------------------------------------------------------
-/// @fn    osre_warn
+/// @fn    log_warn
 /// @brief This helper macro will write a warning into the logger.
 /// @param domain   The domain to log for.
 /// @param message  The warning to writhe into the log.
@@ -237,7 +243,7 @@ void fatalPrint( const String &domain, const String &file, int line, const Strin
 #define log_warn(domain, message) ::cppcore::warnPrint(domain, __FILE__, __LINE__, message)
 
 //-------------------------------------------------------------------------------------------------
-/// @fn    osre_error
+/// @fn    log_error
 /// @brief This helper macro will write a error into the logger.
 /// @param domain      The domain to log for.
 /// @param message     The warning to writhe into the log.
@@ -245,7 +251,7 @@ void fatalPrint( const String &domain, const String &file, int line, const Strin
 #define log_error(domain, message) ::cppcore::errorPrint(domain, __FILE__, __LINE__, message)
 
 //-------------------------------------------------------------------------------------------------
-/// @fn    osre_fatal
+/// @fn    log_fatal
 /// @brief This helper macro will write a fatal error into the logger.
 /// @param domain     The domain to log for.
 /// @param message    The warning to writhe into the log.

@@ -28,10 +28,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace cppcore {
 
 //-------------------------------------------------------------------------------------------------
-///	@class		DateTime
-///	@ingroup	CPPCore
+/// @class      DateTime
+/// @ingroup	CPPCore
 ///
-///	@brief  This class is used to get the current date and time.
+/// @brief This class is used to get the current date and time.
 //-------------------------------------------------------------------------------------------------
 struct DateTime {
     uint32_t year{0};   ///< The current year
