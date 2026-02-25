@@ -1,8 +1,14 @@
 # The CppCore-Library
-My collection of common tools for c++, which I have written the last couple of years 
-for myself or libraries I worked on.
-Feel free to use them or to show me, what I did wrong. I am also deploying my unit
-tests, so doing a proof of my failures are easy :-).
+This repository contains my collection of cmmon tools to work with c++. I have written the last couple of years 
+for myself, projects or libraries I worked on.
+Feel free to use them or to show me, what I did wrong. I am also deploying my unit tests, so doing a proof of my failures are easy :-).
+
+# What you will find
+- Common tools to work with logs, date and times, hashing, strings, optionals and variantes
+- Containers optimized to speed like static arrays, dynamic arrays, lists, queues and hash maps
+- Allocators, like pool allocators, scratch allocators and stack allocators
+- Base file system operations
+- Better random number generators
 
 # Documentation
 [The documentation](doc/index.md)
