@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2025 Kim Kulling
+Copyright (c) 2014-2026 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,6 +31,7 @@ namespace cppcore {
 //-------------------------------------------------------------------------------------------------
 ///	@class		TStackAllocator
 ///	@ingroup	CPPCore
+/// @tparam     Type for the allocation
 ///
 ///	@brief  This class implements a simple stack-based allocation scheme.
 /// Initially you have to define its size. Each allocation will be done from this initially created
