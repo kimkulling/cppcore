@@ -109,8 +109,9 @@ SET(cppcore_container_src
     code/Memory/MemUtils.cpp
  )
 
- SET( cppcore_io_src 
+ SET( cppcore_io_src
     include/cppcore/IO/FileSystem.h
+    include/cppcore/IO/TAsyncLoader.h
  )
 
 SOURCE_GROUP( code            FILES ${cppcore_src} )
@@ -160,6 +161,7 @@ IF( CPPCORE_BUILD_UNITTESTS )
 
     SET( cppcore_io_test_src
         test/io/FileSystemTest.cpp
+        test/io/TAsyncLoaderTest.cpp
     )
 
     SET( cppcore_memory_test_src
