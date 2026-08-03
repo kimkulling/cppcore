@@ -105,15 +105,23 @@ inline std::future<T> TAsyncLoader<T>::load(LoadFunc loadFunc) {
         ++mNumPending;
     }
 
-    return std::async(std::launch::async, [this, loadFunc]() -> T {
-        // Make sure the pending counter is decremented, even if the load throws.
-        struct Finalizer {
-            TAsyncLoader *mLoader;
-            ~Finalizer() { mLoader->finish(); }
-        } finalizer{this};
+    try {
+        std::future<T> f = std::async(std::launch::async, [this, loadFunc]() -> T {
+            // Make sure the pending counter is decremented, even if the load throws.
+            struct Finalizer {
+                TAsyncLoader *mLoader;
+                ~Finalizer() { mLoader->finish(); }
+            } finalizer{this};
 
-        return loadFunc();
-    });
+            return loadFunc();
+        });
+        return f;
+    } catch (...) {
+        std::lock_guard<std::mutex> lock(mMutex);
+        --mNumPending;
+    }
+    
+    return std::future<T>();
 }
 
 template<class T>
