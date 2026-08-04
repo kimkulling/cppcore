@@ -109,7 +109,12 @@ inline std::future<T> TAsyncLoader<T>::load(LoadFunc loadFunc) {
         std::future<T> f = std::async(std::launch::async, [this, loadFunc]() -> T {
             // Make sure the pending counter is decremented, even if the load throws.
             struct Finalizer {
-                TAsyncLoader *mLoader;
+                Finalizer(const Finalizer&) = delete;    
+                Finalizer(const Finalizer&&) = delete;
+                Finalizer &operator = (const Finalizer&) = delete;
+                
+                Finalizer() = default;
+                TAsyncLoader *mLoader{nullptr};
                 ~Finalizer() { mLoader->finish(); }
             } finalizer{this};
 
