@@ -121,7 +121,7 @@ inline std::future<T> TAsyncLoader<T>::load(LoadFunc loadFunc) {
             return loadFunc();
         });
         return f;
-    } catch (...) {
+    } catch (std::runtime_error &) {
         std::lock_guard<std::mutex> lock(mMutex);
         --mNumPending;
     }
