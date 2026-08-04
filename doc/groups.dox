@@ -1,0 +1,7 @@
+/**
+ * @defgroup CPPCore cppcore
+ * @brief The cppcore library — portable containers, memory allocators, and utilities.
+ *
+ * All public types and functions of the library are collected under this module.
+ * See the individual submodules and classes for details.
+ */
