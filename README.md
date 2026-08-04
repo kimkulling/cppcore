@@ -11,7 +11,7 @@ Feel free to use them or to show me, what I did wrong. I am also deploying my un
 - Better random number generators
 
 # Documentation
-[The documentation](doc/index.md)
+[The documentation](https://kimkulling.github.io/cppcore/)
 
 # Build status
 [![Build status](https://github.com/kimkulling/cppcore/actions/workflows/cmake.yml/badge.svg)](https://github.com/kimkulling/cppcore/actions/workflows/cmake.yml)
