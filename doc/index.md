@@ -10,7 +10,12 @@ To work with the library you will need:
 - Visual Studio 2019 or higher
 - G++ or Clang
 
-Get the library from github. When you have downloaded the source navigate into the source folder and follow these steps:
+Get the library from github:
+```
+git clone https://github.com/kimkulling/cppcore.git
+```
+
+When you have downloaded/ checked out the source navigate into its root folder and follow these steps:
 ```
 cmake CMakeLists 
 cmake --build .
