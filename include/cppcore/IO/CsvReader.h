@@ -32,8 +32,9 @@ namespace cppcore {
 //-------------------------------------------------------------------------------------------------
 ///	@class		CsvReader
 ///	@ingroup	CPPCore
-
-/// @brief  This class provides some common OS-specific file operations.
+///
+/// @brief  This class implements a robust CSV reader that handles quoted fields and commas within
+///         quotes.
 //-------------------------------------------------------------------------------------------------
 class CsvReader {
 public:
