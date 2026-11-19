@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014-2025 Kim Kulling
+Copyright (c) 2014-2026 Kim Kulling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -25,7 +25,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using namespace ::cppcore;
 
-class TOptionalTest : public ::testing::Test {};
+class TOptionalTest final : public ::testing::Test {
+    // empty
+};
 
 TEST_F(TOptionalTest, createInstance_success) {
     constexpr int ValInt{1};
