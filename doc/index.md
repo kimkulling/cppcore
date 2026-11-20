@@ -51,6 +51,10 @@ The library is pretty small and contains at this moment:
 
 ## Filesystem
 * **FileSystem**:      Common file-system abstractions for platform independent access and info.
+* **CsvReader**:       Reader for comma-separated files.
+
+[Detailed Doc:IO classes](./IO.md)  
+
 
 ## Random-Number generators
 * **RandomGenerator**: A wrapper class to get random numbers. Currently supported are 
