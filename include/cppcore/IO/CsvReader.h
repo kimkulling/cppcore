@@ -38,6 +38,11 @@ namespace cppcore {
 //-------------------------------------------------------------------------------------------------
 class CsvReader {
 public:
+    /// @brief Default constructor.
+    CsvReader() = default;
+
+    /// @brief Default destructor
+    ~CsvReader() = default;
 
     /// @brief  Read CSV file robustly, handling quoted fields and commas within quotes.
     /// @param[in] filepath The path to the CSV file to be read.
@@ -69,4 +74,5 @@ public:
     }
 };
 
-}
+} // namespace cppcore
+
