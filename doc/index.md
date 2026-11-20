@@ -23,7 +23,7 @@ cmake --build .
 # Feature list
 The library is pretty small and contains at this moment:
 
-## Common stuff
+## Common classes
 * **Variant**:          Implements a variant to deal with arbitrary data types.
 * **THash**:            A hash function to calculate hash values.
 * **TOptional**:        Implements an optional value.
@@ -32,7 +32,7 @@ The library is pretty small and contains at this moment:
 [Detailed Doc: Containers](./Common.md)  
 
 
-## Containers
+## Container classes
 * **TStaticArray**:     A static template-based array.
 * **TArray**:           A simple dynamic template-based array list, similar to std::vector. [Examples can be found here](https://github.com/kimkulling/cppcore/blob/master/test/container/TArrayTest.cpp)
 * **TList**:            A double template-based linked list. [Examples can be found here](https://github.com/kimkulling/cppcore/blob/master/test/container/TListTest.cpp) 
@@ -42,14 +42,14 @@ The library is pretty small and contains at this moment:
 [Detailed Doc: Containers](./Container.md)  
 
 
-## Memory
+## Memory classes
 * **TStackAllocator**:  A stack-based allocator, first allocation must be released at last ( FiFo-schema ).
 * **TPoolAllocator**:   A pool-based allocator. Not much overhead and really fast. At the moment it is not supported to release single objects.
 
 [Detailed Doc:Memory classes](./Memory.md)  
 
 
-## Filesystem
+## IO classes
 * **FileSystem**:      Common file-system abstractions for platform independent access and info.
 * **CsvReader**:       Reader for comma-separated files.
 
