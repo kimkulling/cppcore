@@ -73,7 +73,7 @@ public:
     
     /// @brief  Returns the upper limit for bit positions.
     /// @return The upper position limit.
-    size_t maxBits() const;
+    static size_t maxBits();
 
 private:
     T mBitMask{0};
@@ -123,7 +123,7 @@ inline void TBitField<T>::clear() {
 }
 
 template <class T>
-inline size_t TBitField<T>::maxBits() const {
+size_t TBitField<T>::maxBits() {
     constexpr size_t numBits = sizeof(T) * 8;
     return numBits;
 }

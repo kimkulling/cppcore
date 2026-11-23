@@ -1,9 +1,13 @@
 #pragma once
 
+#include <cppcore/Container/TList.h>
+#include <cassert>
+
 namespace cppcore {
 namespace concurrent {
 
     enum class AsyncStatus {
+        Invalid = -1,
         Pending,
         Running,
         Completed,
@@ -14,32 +18,6 @@ namespace concurrent {
         void *data;
     };
 
-    class Executor {
-    public:
-        Executor();
-        ~Executor();
-        Executor(const Executor&) = delete;
-        Executor& operator=(const Executor&) = delete;
-
-        void run();
-        
-        bool isRunning() const;
-
-        /**
-         * @brief Submits a task for asynchronous execution.
-         * 
-         * @param task The task to be executed.
-         */
-        template<typename Task>
-        void submit(Task&& task);
-
-        /**
-         * @brief Shuts down the executor, waiting for all tasks to complete.
-         */
-        void shutdown();
-
-    private:
-    };
 
     /**
      * @brief Asynchronous task representation.
@@ -80,6 +58,73 @@ namespace concurrent {
     private:
         
     };
-    
+
+class Executor {
+public:
+    Executor();
+    ~Executor();
+    Executor(const Executor&) = delete;
+    Executor& operator=(const Executor&) = delete;
+
+    void start();
+    void stop();
+    void update();
+    bool isRunning() const;
+
+    /**
+     * @brief Submits a task for asynchronous execution.
+     *
+     * @param task The task to be executed.
+     */
+    void submit(AsyncTask& task);
+
+    /**
+     * @brief Shuts down the executor, waiting for all tasks to complete.
+     */
+    void shutdown();
+
+private:
+    AsyncStatus mAsyncStatus{AsyncStatus::Invalid};
+    TList<AsyncTask*> mTasks;
+    bool mStopRequested{false};
+};
+
+inline Executor::Executor() {
+}
+
+inline Executor::~Executor() {
+    assert(!mStopRequested);
+}
+
+inline void Executor::start() {
+    if (mAsyncStatus != AsyncStatus::Invalid) {
+        return;
+    }
+
+    mAsyncStatus = AsyncStatus::Pending;
+    TList<AsyncTask*>::Iterator it = mTasks.begin();
+}
+
+inline void Executor::stop() {
+    if (mAsyncStatus != AsyncStatus::Pending)
+        return;
+    }
+
+    mStopRequested = true;
+}
+
+inline void Executor::update() {
+}
+
+inline bool Executor::isRunning() const {
+    return false;
+}
+
+inline void Executor::submit(AsyncTask&& task) {
+}
+
+inline void Executor::shutdown() {
+}
+
 } // namespace concurrent
 } // namespace cppcore

@@ -83,12 +83,12 @@ private:
 //-------------------------------------------------------------------------------------------------
 class DLL_CPPCORE_EXPORT Logger final {
 public:
-    ///	@brief	Describes the verbode mode.
+    ///	@brief	Describes the verbose mode.
     enum class VerboseMode {
         Invalid = -1,   ///< Invalid marker
         Normal,         ///< Only warnings and errors will be logged.
         Verbose,    	///< Normal messages will be logged as well.
-        Debug,		///< All debug messages will be logged as well.
+        Debug,		    ///< All debug messages will be logged as well.
         Trace,          ///< Will enable the tracing.
         Count           ///< Number of enums
     };
@@ -173,7 +173,6 @@ private:
     ~Logger();
     String getDateTime();
 
-private:
     //  @brief  The Standard log stream.
     class StdLogStream : public AbstractLogStream {
     public:
