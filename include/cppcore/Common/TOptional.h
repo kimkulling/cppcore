@@ -58,7 +58,7 @@ public:
     void set(T value);
 
     /// Default operators.
-    T &operator = ( const T &value);
+    T &operator = (const T &value);
 
     /// The copy constructor.
     bool operator == (const TOptional<T> &rhs) const;
@@ -106,7 +106,7 @@ inline T &TOptional<T>::operator = (const T &value) {
 }
 
 template<class T>
-inline bool TOptional<T>::operator == (const TOptional &rhs) const {
+inline bool TOptional<T>::operator == (const TOptional<T> &rhs) const {
     if (mInited == rhs.isInited) {
         if (!mInited) {
             return true;
