@@ -6,6 +6,9 @@ SET( CPPCORE_VERSION_PATCH 0 )
 SET( CPPCORE_VERSION ${CPPCORE_VERSION_MAJOR}.${CPPCORE_VERSION_MINOR}.${CPPCORE_VERSION_PATCH} )
 SET( PROJECT_VERSION "${CPPCORE_VERSION}" )
 
+# Enable CTest
+enable_testing()
+
 find_package(GTest)
 
 if( CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX )
@@ -211,4 +214,7 @@ IF( CPPCORE_BUILD_UNITTESTS )
         SET( platform_libs pthread )
     ENDIF( WIN32 )
     target_link_libraries( cppcore_unittest cppcore ${CMAKE_THREAD_LIBS_INIT}  ${platform_libs} ${test_libs})
+
+    # Register the test executable with CTest
+    add_test( NAME cppcore_unittest COMMAND cppcore_unittest )
 ENDIF()
