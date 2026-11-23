@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using namespace ::cppcore;
 
-class TOptionalTest final : public ::testing::Test {
+class TOptionalTest : public ::testing::Test {
     // empty
 };
 
