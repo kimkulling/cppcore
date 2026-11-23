@@ -107,7 +107,7 @@ inline T &TOptional<T>::operator = (const T &value) {
 
 template<class T>
 inline bool TOptional<T>::operator == (const TOptional<T> &rhs) const {
-    if (mInited == rhs.isInited) {
+    if (mInited == rhs.misInited) {
         if (!mInited) {
             return true;
         }
