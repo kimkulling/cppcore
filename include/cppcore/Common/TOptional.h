@@ -74,12 +74,12 @@ inline TOptional<T>::TOptional(T defaultValue) : mValue(defaultValue) {
 }
 
 template<class T>
-bool inline TOptional<T>::isInited() const {
+inline bool TOptional<T>::isInited() const {
     return mInited;
 }
 
 template<class T>
-T inline TOptional<T>::value() {
+inline T TOptional<T>::value() {
     if (mInited) {
         return mValue;
     }
@@ -88,7 +88,7 @@ T inline TOptional<T>::value() {
 }
 
 template<class T>
-void inline TOptional<T>::set(T value) {
+inline void TOptional<T>::set(T value) {
     assert(!mInited);
 
     mValue = value;
